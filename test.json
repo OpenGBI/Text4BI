@@ -1,0 +1,163 @@
+[
+    {
+        "subspace": [],
+        "dimensions": [
+            {
+                "fieldName": "date"
+            }
+        ],
+        "measures": [
+            {
+                "fieldName": "discount_price",
+                "method": "SUM"
+            }
+        ],
+        "patterns": [
+            {
+                "trend": "increasing",
+                "significance": 0.9999991372340014,
+                "regression": {
+                    "r2": 0.5,
+                    "points": [
+                        732.54,
+                        739.08,
+                        745.62,
+                        752.16,
+                        758.7,
+                        765.24,
+                        771.78,
+                        778.32,
+                        784.86,
+                        791.4,
+                        797.94,
+                        804.48,
+                        811.02,
+                        817.56,
+                        824.1,
+                        830.64,
+                        837.18,
+                        843.72,
+                        850.26,
+                        856.8,
+                        863.34,
+                        869.88,
+                        876.42,
+                        882.96,
+                        889.5,
+                        896.04,
+                        902.58,
+                        909.12,
+                        915.66,
+                        922.2
+                    ],
+                    "equation": [
+                        6.54,
+                        732.54
+                    ]
+                },
+                "type": "trend",
+                "dimension": "date",
+                "measure": "discount_price"
+            }
+        ],
+        "data": [
+            {
+                "date": "2019-08-01",
+                "discount_price": 727.12
+            },
+            
+        ],
+        "score": 0.9999993097872011,
+        "visualizationSpecs": [
+            {
+                "patternType": "trend",
+                "chartSpec": {
+                    "type": "view",
+                    "theme": "classic",
+                    "axis": {
+                        "x": {
+                            "labelAutoHide": true,
+                            "labelAutoRotate": false,
+                            "title": false
+                        },
+                        "y": {
+                            "title": false
+                        }
+                    },
+                    "interaction": {
+                        "tooltip": {
+                            "groupName": false
+                        }
+                    },
+                    "legend": false,
+                    "children": [
+                        {
+                            "data": [
+                                {
+                                    "date": "2019-08-01",
+                                    "discount_price": 727.12
+                                }
+                            ],
+                            "encode": {
+                                "x": "date",
+                                "y": "discount_price"
+                            },
+                            "type": "line",
+                            "style": {
+                                "lineWidth": 2
+                            }
+                        },
+                        {
+                            "style": {
+                                "lineDash": [
+                                    2,
+                                    2
+                                ],
+                                "stroke": "#E09322"
+                            },
+                            "labels": [
+                                {
+                                    "text": "y=6.54x+732.54",
+                                    "selector": "last",
+                                    "position": "right",
+                                    "style": {
+                                        "textBaseline": "bottom",
+                                        "textAlign": "end",
+                                        "dy": -24
+                                    }
+                                }
+                            ],
+                            "type": "line",
+                            "data": [
+                                {
+                                    "x": "2019-08-01",
+                                    "y": 732.54
+                                }
+                            ],
+                            "encode": {
+                                "x": "x",
+                                "y": "y"
+                            }
+                        }
+                    ],
+                    "scale": {
+                        "y": {
+                            "nice": true
+                        }
+                    }
+                },
+                "narrativeSpec": [
+                    {
+                        "type": "normal",
+                        "phrases": [
+                            {
+                                "type": "text",
+                                "value": "In "
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

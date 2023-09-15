@@ -28,13 +28,14 @@ code {
 
 #visulization {
   flex-basis: 80%;
-  height: 400px;
+  height: 650px;
+  overflow: auto;
   /* 其他样式（例如背景颜色、边框等）可以按需添加 */
 }
 
 #design {
   flex-basis: 20%;
-  height: 400px;
+  height: 650px;
   /* 其他样式（例如背景颜色、边框等）可以按需添加 */
 }
 .view {

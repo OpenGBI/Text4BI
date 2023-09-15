@@ -1,12 +1,24 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, ReactNode } from "react";
 
 import ReactDOM from "react-dom";
 import { Spin } from "antd";
-import { getInsights } from "@antv/ava";
+import { getInsights, InsightsResult } from "@antv/ava";
 import { InsightCard } from "@antv/ava-react";
 import { JSONView, TableView, StepBar } from "antv-site-demo-rc";
+type DataItem = {
+  date: string;
+  discount_price: number;
+}
+type InsightResult = {
+  insights?: Array<{ [key: string]: any }>;
+};
+type StepType = {
+  title: string;
+  desc: string;
+  content: ReactNode;
+};
 
-const AutoInsightVis = () => {
+const AutoInsightVis: React.FC = () => {
   const data = useMemo(() => [
     {
       date: "2019-08-01",
@@ -129,10 +141,29 @@ const AutoInsightVis = () => {
       discount_price: 811.11,
     },
   ],[]);
-  const [result, setResult] = useState({});
+  type DataItem = {
+    date: string;
+    discount_price: number;
+  };
+  
+  // type InsightResult = {
+  //   insights?: Array<{ [key: string]: any }>;
+  // };
+  
+  type StepType = {
+    title: string;
+    desc: string;
+    content: ReactNode;};
+  
+
+
+
+  
+  
+  const [result, setResult] = useState<InsightResult>({});
   //   函数式组件中新建state的方法，setResult是对应更新result的函数
   console.log("resultresultresultresultresultresultresultresultresult")
-  console.log(result);
+  console.log("resultresultresultresultresultresultresultresultresult", result);
   const [insightLoading, setInsightLoading] = useState(true);
   console.log(insightLoading);
   const [currentStep, setCurrentStep] = useState(0);
@@ -140,12 +171,13 @@ const AutoInsightVis = () => {
   console.log(result);
   const getMyInsights = async () => {
     if (data) {
-      const insightResult = getInsights(data, {
+      const insightResult:InsightsResult = getInsights(data, {
         limit: 60,
         dimensions: [{ fieldName: "date" }],
         measures: [{ fieldName: "discount_price", method: "SUM" }],
         visualization: true,
       });
+      console.log("insightResult",insightResult)
       setResult(insightResult);
       setInsightLoading(false);
     }
@@ -165,15 +197,17 @@ const AutoInsightVis = () => {
   const insightsContent = (
     <JSONView json={result} rjvConfigs={{ collapsed: 2 }} />
   );
-
+  console.log("result.insights",result.insights)
   const plotContent = (
-    // <div key="plot" style={{ flex: 5, height: "100%" }}>
-    //   {result.insights &&
-    //     result.insights.map((insight, index) => {
-    //       return <InsightCard insightInfo={insight} key={index} />;
-    //     })}
-    // </div>
-    <div></div>
+    <div key="plot" style={{ flex: 5, height: "100%" }}>
+      {result.insights &&
+        result.insights.map((insight, index) => {
+          console.log("insight",insight)
+          return <InsightCard insightInfo={insight as any} key={index} />;
+          // 有as any问题
+        })}
+    </div>
+    // <div></div>
   );
 
   const steps = [

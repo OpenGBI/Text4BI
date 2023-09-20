@@ -30,20 +30,16 @@ code {
   flex-basis: 80%;
   height: 650px;
   overflow: auto;
-  /* 其他样式（例如背景颜色、边框等）可以按需添加 */
 }
 
 #design {
   flex-basis: 20%;
   height: 650px;
-  /* 其他样式（例如背景颜色、边框等）可以按需添加 */
 }
 .view {
   margin: 5px;
   border: 1px solid #ccc !important;
-  /* padding:5px 5px 5px 2px; */
   border-radius: 6px;
-  /* box-shadow: 2.5px 2.5px 10px rgb(180, 180, 180); */
   overflow: hidden;
   height: 50%;
 }

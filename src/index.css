@@ -48,3 +48,14 @@ h2 {
   background: #f1f1f1;
   margin: 0;
 }
+.tooltip {
+  position: absolute;
+  padding: 4px 8px;
+  background-color: #eee8e8;
+  color: #090808;
+  border-radius: 4px;
+  opacity: 0.7;
+  pointer-events: none; /* Ensure it doesn't interfere with other mouse events */
+  transition: opacity 0.2s;
+  display: none; /* Initially hidden */
+}

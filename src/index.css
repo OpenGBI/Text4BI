@@ -59,3 +59,10 @@ h2 {
   transition: opacity 0.2s;
   display: none; /* Initially hidden */
 }
+.InsightCard {
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 4px;
+  display: inline-block;  /* 使卡片与其他文本/元素并排显示 */
+  margin: 5px;
+}

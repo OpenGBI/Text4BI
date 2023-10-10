@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AutoInsightVis from './AutoInsightVis';
 import ControlBar from './ControlBar';
+import InsightCards from "./components/InsightCards";
 import './index.css'
 import VisualText from './components/VisualText';
 ReactDOM.render(
@@ -15,7 +16,8 @@ ReactDOM.render(
               <div id = "visualization" className="view">
                 <h2>Text Vis</h2>
               {/* <AutoInsightVis></AutoInsightVis> */}
-              <VisualText></VisualText>
+              {/* <VisualText></VisualText> */}
+              <InsightCards></InsightCards>
               </div>
             <div id = "design" className="view">
               <h2>Design</h2>

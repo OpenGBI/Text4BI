@@ -2,35 +2,35 @@ import React from 'react';
 import { Column } from '@antv/g2plot';
 
 interface BarChartProps {
-  data: number[];
+	data: number[];
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data }) => {
-  const containerRef = React.useRef(null);
+	const containerRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!containerRef.current) return;
+	React.useEffect(() => {
+		if (!containerRef.current) return;
 
-    const plotData = data.map((value, index) => ({
-      category: index + 1,
-      value
-    }));
+		const plotData = data.map((value, index) => ({
+			category: index + 1,
+			value,
+		}));
 
-    const columnPlot = new Column(containerRef.current, {
-      data: plotData,
-      xField: 'category',
-      yField: 'value',
-      autoFit: true,
-    });
+		const columnPlot = new Column(containerRef.current, {
+			data: plotData,
+			xField: 'category',
+			yField: 'value',
+			autoFit: true,
+		});
 
-    columnPlot.render();
+		columnPlot.render();
 
-    return () => {
-      columnPlot.destroy();
-    }
-  }, [data]);
+		return () => {
+			columnPlot.destroy();
+		};
+	}, [data]);
 
-  return <div ref={containerRef} style={{ height: 400, width: 600 }} />;
-}
+	return <div ref={containerRef} style={{ height: 400, width: 600 }} />;
+};
 
 export default BarChart;

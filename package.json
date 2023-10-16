@@ -5,7 +5,10 @@
   "dependencies": {
     "@antv/ava": "^3.0.6",
     "@antv/ava-react": "^3.1.6",
+<<<<<<< HEAD
     "@antv/g2": "^5.1.4",
+=======
+>>>>>>> cfbc02f314e6d3f8d31d7819ca4913ebee1825d6
     "@antv/s2": "^1.49.2",
     "@antv/s2-react": "^1.42.1",
     "@commitlint/cli": "^17.6.7",
@@ -21,11 +24,16 @@
     "@types/redux": "^3.6.0",
     "antd": "^4.24.14",
     "antv-site-demo-rc": "^1.1.0",
+<<<<<<< HEAD
     "d3": "^7.8.5",
     "husky": "^8.0.3",
     "react": "^17.0.2",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
+=======
+    "husky": "^8.0.3",
+    "react": "^17.0.2",
+>>>>>>> cfbc02f314e6d3f8d31d7819ca4913ebee1825d6
     "react-dom": "^17.0.2",
     "react-json-view": "^1.21.3",
     "react-redux": "^8.1.2",
@@ -38,8 +46,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+<<<<<<< HEAD
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx"
+=======
+    "eject": "react-scripts eject"
+>>>>>>> cfbc02f314e6d3f8d31d7819ca4913ebee1825d6
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +71,7 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "repository": "https://github.com/OpenGBI/Text4BI.git",
   "devDependencies": {
     "@types/d3": "^7.4.0",
@@ -68,4 +81,7 @@
     "eslint": "^8.51.0",
     "typescript": "^5.2.2"
   }
+=======
+  "repository": "https://github.com/OpenGBI/Text4BI.git"
+>>>>>>> cfbc02f314e6d3f8d31d7819ca4913ebee1825d6
 }

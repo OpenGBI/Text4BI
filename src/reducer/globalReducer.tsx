@@ -1,5 +1,4 @@
 import { GlobalSettingStateType } from '../types';
-// import { ChangeGlobalSettingAction, GlobalSettingActionType } from '../actions/GlobalSettingAction';
 import { ChangeGlobalSettingAction } from '../actions/GlobalSettingAction';
 const iniGlobalSettingState: GlobalSettingStateType = {
 	color: 'Blue',
@@ -12,57 +11,7 @@ const iniGlobalSettingState: GlobalSettingStateType = {
 	sparkLinePosition: 'up',
 	aspectRatio: 'tiny',
 };
-// export const GlobalSettingReducer = (state = iniGlobalSettingState, action: GlobalSettingActionType) => {
-// 	switch (action.type) {
-// 		case 'CHANGE_COLOR':
-// 			return {
-// 				...state,
-// 				color: action.payload,
-// 			};
-// 		case 'CHANGE_BOLDNESS':
-// 			return {
-// 				...state,
-// 				boldness: action.payload,
-// 			};
-// 		case 'CHANGE_UNDERLINE':
-// 			return {
-// 				...state,
-// 				underline: action.payload,
-// 			};
-// 		case 'CHANGE_FONTSIZE':
-// 			return {
-// 				...state,
-// 				fontsize: action.payload,
-// 			};
-// 		case 'CHANGE_BG_COLOR':
-// 			return {
-// 				...state,
-// 				backgroundColor: action.payload,
-// 			};
-// 		case 'CHANGE_BULLET_POINT':
-// 			return {
-// 				...state,
-// 				bulletPoint: action.payload,
-// 			};
-// 		case 'CHANGE_LINE_HEIGHT':
-// 			return {
-// 				...state,
-// 				lineHeight: action.payload,
-// 			};
-// 		case 'CHANGE_SPARK_LINE_POSITION':
-// 			return {
-// 				...state,
-// 				sparkLinePosition: action.payload,
-// 			};
-// 		case 'CHANGE_ASPECT_RATIO':
-// 			return {
-// 				...state,
-// 				aspectRatio: action.payload,
-// 			};
-// 		default:
-// 			return state;
-// 	}
-// };
+
 export const GlobalSettingReducer = (state = iniGlobalSettingState, action: ChangeGlobalSettingAction) => {
 	if (action.type === 'CHANGE_GLOBAL_SETTING') return action.payload;
 	else return state;

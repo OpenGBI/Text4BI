@@ -34,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +55,17 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "repository": "https://github.com/OpenGBI/Text4BI.git"
+=======
+  "repository": "https://github.com/OpenGBI/Text4BI.git",
+  "devDependencies": {
+    "@types/d3": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.51.0",
+    "typescript": "^5.2.2"
+  }
+>>>>>>> 205642f (refactor: use eslint to refactor code, rafactor redux)
 }

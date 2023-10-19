@@ -44,7 +44,9 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "react/function-component-definition": "off",
+    "consistent-return": "off"
   },
   "settings": {
     "import/resolver": {

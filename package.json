@@ -5,6 +5,7 @@
   "dependencies": {
     "@antv/ava": "^3.0.6",
     "@antv/ava-react": "^3.1.6",
+    "@antv/g2plot": "^2.4.31",
     "@antv/s2": "^1.49.2",
     "@antv/s2-react": "^1.42.1",
     "@commitlint/cli": "^17.8.0",

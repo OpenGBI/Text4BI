@@ -34,7 +34,7 @@
     "default-param-last": "off",
     "no-unused-vars": "off",
     "object-curly-newline": "off",
-    "typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

@@ -21,6 +21,7 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "import/prefer-default-export": "off",
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
     "jsx-quotes": [2, "prefer-single"],
@@ -30,6 +31,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "react/jsx-one-expression-per-line": "off",
     "semi": [2, "never"],
+    "default-param-last": "off",
+    "no-unused-vars": "off",
     "object-curly-newline": "off",
     "import/extensions": [
       "error",

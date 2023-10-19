@@ -1,25 +1,25 @@
 import React from 'react'
-import logo from './logo.svg'
+import { Provider } from 'react-redux'
 import './App.css'
+import { store } from './store'
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div id='APP'>
+        <div id='control_bar' className='view'>
+          <h2>Control</h2>
+        </div>
+        <div id='bottom'>
+          <div id='design' className='view'>
+            <h2>Design</h2>
+          </div>
+          <div id='visualization' className='view'>
+            <h2>Text Vis</h2>
+          </div>
+        </div>
+      </div>
+    </Provider>
   )
 }
 

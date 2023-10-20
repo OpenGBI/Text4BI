@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import './App.css'
 import { store } from './store'
+import ControlBar from './ControlBar'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <div id='APP'>
         <div id='control_bar' className='view'>
           <h2>Control</h2>
+          <ControlBar />
         </div>
         <div id='bottom'>
           <div id='design' className='view'>

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import './App.css'
 import { store } from './store'
 import ControlBar from './ControlBar'
+import InsightCards from './components/InsightCards'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </div>
           <div id='visualization' className='view'>
             <h2>Text Vis</h2>
+            <InsightCards />
           </div>
         </div>
       </div>

@@ -21,6 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "react/jsx-curly-newline": "off",
+    "implicit-arrow-linebreak": "off",
     "import/prefer-default-export": "off",
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",

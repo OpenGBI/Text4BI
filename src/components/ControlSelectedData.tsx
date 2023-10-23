@@ -1,30 +1,11 @@
-import React, { useRef, useEffect, CSSProperties, useState } from 'react'
-import { Layout } from 'antd'
-import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useSelector } from 'react-redux'
-import { InsightCard } from './InsightCard'
+import React, { useState, useEffect } from 'react'
+import { Select, Space } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { systemStateType, Card } from '../types'
 import { AppState } from '../store'
+import { ChangeSystemSetting } from '../actions/systemAction'
 
-const { Header, Footer, Sider, Content } = Layout
-type Phrase = {
-  type: string
-  value: string
-  metadata?: any
-}
-type Card = {
-  key: string
-  type: string
-  BigChartData: number[]
-  phrases: Phrase[]
-}
-interface InsightCardProps {
-  type: string
-  BigChartData: number[]
-  phrases: Phrase[]
-  id: string
-}
-const CardsDataset: Card[] = [
+const iniData: Card[] = [
   {
     key: 'Card1',
     type: 'LineChart',
@@ -216,52 +197,54 @@ const CardsDataset: Card[] = [
     ],
   },
 ]
-const InsightCards: React.FC = () => {
-  const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
-    (state: AppState) => state.system,
-  )
-  // console.log('datasetttttttttttttt', dataset)
-  const CardNum: number = dataset.length
-  const CardsId: string[] = dataset.map((card) => card.key)
-  // cards是卡片id的列表，是[Card1,Card2]
-  const [cards, setCards] = useState(CardsId)
 
-  const swapCards = (dragIndex: string, hoverIndex: string) => {
-    const dragCard = cards.find((card) => card === dragIndex)!
-    const hoverCard = cards.find((card) => card === hoverIndex)!
-    const newCards = cards.map((card) => {
-      if (card === dragCard) return hoverCard
-      if (card === hoverCard) return dragCard
-      return card
-    })
-    setCards(newCards)
+const ControlSelectedData: React.FC = () => {
+  const [selectedDataset, setSelectedDataset] = useState<Card[]>(iniData)
+  const dispatch = useDispatch()
+  const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
+
+  const handleChangeDataset = (value: string) => {
+    console.log(`../../public/datas/${value}.json`)
+    fetch(`http://localhost:3000/datas/${value}.json`)
+      .then((response) => response.json())
+      .then((jsonData) => setSelectedDataset(jsonData))
+    // console.log('selectedDataset', selectedDataset)
+    // const selectedCardsId: string[] = selectedDataset.map((card) => card.key)
+
+    // dispatch(
+    //   ChangeSystemSetting({
+    //     ...systemSetting,
+    //     dataset: selectedDataset,
+    //     selectedCards: selectedCardsId,
+    //   }),
+    // )
   }
-  const Cards = cards
-    .map((cardId) => {
-      const card = dataset.find((d) => d.key === cardId)
-      return {
-        ...card,
-        id: cardId,
-      }
-    })
-    .filter((card) => selectedCards.includes(card.id))
+  useEffect(() => {
+    console.log('selectedDataset', selectedDataset)
+    const allCardsId: string[] = selectedDataset.map((card) => card.key)
 
+    dispatch(
+      ChangeSystemSetting({
+        ...systemSetting,
+        dataset: selectedDataset,
+        selectedCards: allCardsId,
+        allCards: allCardsId,
+      }),
+    )
+  }, [selectedDataset]) // 仅当selectedDataset发生变化时运行此effect
   return (
-    <div id='ShowInsightCards'>
-      <DndProvider backend={HTML5Backend}>
-        {Cards.map((curDataset) => {
-          if (!curDataset.type) {
-            throw new Error(`No data found for the date: ${curDataset.type}`)
-          }
-          return (
-            <Content key={curDataset.key}>
-              <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
-            </Content>
-          )
-        })}
-      </DndProvider>
-    </div>
+    <Space wrap>
+      <Select
+        defaultValue='Data1'
+        style={{ width: 120 }}
+        onChange={handleChangeDataset}
+        options={[
+          { value: 'Data1', label: 'Data1' },
+          { value: 'Data2', label: 'Data2' },
+        ]}
+      />
+    </Space>
   )
 }
 
-export default InsightCards
+export default ControlSelectedData

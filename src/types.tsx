@@ -2,12 +2,23 @@ export type storeType = {
   color: string
   font: string
 }
-
+type Phrase = {
+  type: string
+  value: string
+  metadata?: any
+}
+export type Card = {
+  key: string
+  type: string
+  BigChartData: number[]
+  phrases: Phrase[]
+}
 export type systemStateType = {
-  dataset: string
+  dataset: Card[]
   showBigGraph: boolean
   showSparkLine: boolean
   selectedCards: string[]
+  allCards: string[]
 }
 export type GlobalSettingStateType = {
   color: string

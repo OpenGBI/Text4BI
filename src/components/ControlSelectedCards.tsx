@@ -8,8 +8,19 @@ import { ChangeSystemSetting } from '../actions/systemAction'
 
 const ControlSelectedCards: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedCards, setSelectedCards] = useState([''])
+  const [curSelectedCards, setSelectedCards] = useState([
+    'Card1',
+    'Card2',
+    'Card3',
+    'Card4',
+    'Card5',
+  ])
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
+
+  const { dataset, showBigGraph, showSparkLine, selectedCards, allCards } = useSelector(
+    (state: AppState) => state.system,
+  )
+
   const handleChangeCards = (newSelectedCards: CheckboxValueType[]) => {
     const stringSelectedCards = newSelectedCards.map((item) => String(item))
     setSelectedCards(stringSelectedCards)
@@ -22,23 +33,17 @@ const ControlSelectedCards: React.FC = () => {
   }
 
   return (
-    <Checkbox.Group style={{ width: '100%' }} onChange={handleChangeCards}>
+    <Checkbox.Group
+      style={{ width: '100%' }}
+      defaultValue={['Card1', 'Card2', 'Card3', 'Card4', 'Card5']}
+      onChange={handleChangeCards}
+    >
       <Row>
-        <Col span={8}>
-          <Checkbox value='Card1'>Card1</Checkbox>
-        </Col>
-        <Col span={8}>
-          <Checkbox value='Card2'>Card2</Checkbox>
-        </Col>
-        <Col span={8}>
-          <Checkbox value='Card3'>Card3</Checkbox>
-        </Col>
-        <Col span={8}>
-          <Checkbox value='Card4'>Card4</Checkbox>
-        </Col>
-        <Col span={8}>
-          <Checkbox value='Card5'>Card5</Checkbox>
-        </Col>
+        {allCards.map((card) => (
+          <Col key={card} span={8}>
+            <Checkbox value={card}>{card}</Checkbox>
+          </Col>
+        ))}
       </Row>
     </Checkbox.Group>
   )

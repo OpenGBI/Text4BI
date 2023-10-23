@@ -106,9 +106,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
-    (state: AppState) => state.system,
-  )
 
   const {
     color,
@@ -122,10 +119,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     aspectRatio,
   } = useSelector((state: AppState) => state.globalSetting)
 
-  console.log('selectedCards', selectedCards)
-  console.log('fontsize', fontsize)
-  console.log('showBigGraph & showSparkLine', [showBigGraph, showSparkLine])
-  console.log('boldness', [boldness, underline, bulletPoint])
   if (!type || !BigChartData || !phrases || !id || !onDrop) {
     throw new Error(`No data found for the date: ${type}`)
   }

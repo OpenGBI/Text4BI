@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { Tooltip } from 'antd'
-// import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
-// import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useSelector } from 'react-redux'
 import { RiseOutlined } from '@ant-design/icons'
 import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
@@ -122,50 +122,52 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     aspectRatio,
   } = useSelector((state: AppState) => state.globalSetting)
 
-  console.log('color', selectedCards)
+  console.log('selectedCards', selectedCards)
   console.log('fontsize', fontsize)
+  console.log('showBigGraph & showSparkLine', [showBigGraph, showSparkLine])
+  console.log('boldness', [boldness, underline, bulletPoint])
   if (!type || !BigChartData || !phrases || !id || !onDrop) {
     throw new Error(`No data found for the date: ${type}`)
   }
 
-  // const [, drop] = useDrop({
-  //   accept: CARD_DRAG_TYPE,
-  //   hover: (item: any, monitor: DropTargetMonitor) => {
-  //     const clientY = monitor.getClientOffset()?.y
-  //     if (!ref.current) return
-  //     if (item.id === id) return
+  const [, drop] = useDrop({
+    accept: CARD_DRAG_TYPE,
+    hover: (item: any, monitor: DropTargetMonitor) => {
+      const clientY = monitor.getClientOffset()?.y
+      if (!ref.current) return
+      if (item.id === id) return
 
-  //     // 以下是新增的滚动逻辑
-  //     const rect = ref.current.getBoundingClientRect()
-  //     const scrollSpeed = 5
-  //     const scrollThreshold = 20
-  //     if (!clientY) {
-  //       throw new Error(`No data found for the date: ${clientY}`)
-  //     }
-  //     if (clientY < rect.top + scrollThreshold) {
-  //       ref.current.scrollTop -= scrollSpeed
-  //     } else if (clientY > rect.bottom - scrollThreshold) {
-  //       ref.current.scrollTop += scrollSpeed
-  //     }
+      // 以下是新增的滚动逻辑
+      const rect = ref.current.getBoundingClientRect()
+      const scrollSpeed = 5
+      const scrollThreshold = 20
+      if (!clientY) {
+        throw new Error(`No data found for the date: ${clientY}`)
+      }
+      if (clientY < rect.top + scrollThreshold) {
+        ref.current.scrollTop -= scrollSpeed
+      } else if (clientY > rect.bottom - scrollThreshold) {
+        ref.current.scrollTop += scrollSpeed
+      }
 
-  //     onDrop(item.id, id)
-  //     item.id = id
-  //   },
-  // })
+      onDrop(item.id, id)
+      item.id = id
+    },
+  })
 
-  // const [{ isDragging }, drag, preview] = useDrag({
-  //   type: CARD_DRAG_TYPE,
-  //   item: { id },
-  //   collect: (monitor: any) => ({
-  //     isDragging: !!monitor.isDragging(),
-  //   }),
-  // })
+  const [{ isDragging }, drag, preview] = useDrag({
+    type: CARD_DRAG_TYPE,
+    item: { id },
+    collect: (monitor: any) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
 
   // 将drag注册到卡片的上边栏。
-  // drag(ref)
+  drag(ref)
 
-  // drag(drop(ref));
-  // // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
+  drag(drop(ref))
+  // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   return (
     <div className='insight_card'>
       <div ref={ref} style={{ backgroundColor: 'lightgray', cursor: 'move' }}>

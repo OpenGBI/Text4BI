@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, CSSProperties, useState } from 'react'
 import { Layout } from 'antd'
-// import { DndProvider, useDrag, useDrop } from 'react-dnd'
-// import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider, useDrag, useDrop } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { InsightCard } from './InsightCard'
 
 const { Header, Footer, Sider, Content } = Layout
@@ -127,18 +127,18 @@ const InsightCards: React.FC = () => {
 
   return (
     <div id='ShowInsightCards'>
-      {/* <DndProvider backend={HTML5Backend}> */}
-      {Cards.map((dataset) => {
-        if (!dataset.type) {
-          throw new Error(`No data found for the date: ${dataset.type}`)
-        }
-        return (
-          <Content key={dataset.key}>
-            <InsightCard {...(dataset as InsightCardProps)} onDrop={swapCards} />
-          </Content>
-        )
-      })}
-      {/* </DndProvider> */}
+      <DndProvider backend={HTML5Backend}>
+        {Cards.map((dataset) => {
+          if (!dataset.type) {
+            throw new Error(`No data found for the date: ${dataset.type}`)
+          }
+          return (
+            <Content key={dataset.key}>
+              <InsightCard {...(dataset as InsightCardProps)} onDrop={swapCards} />
+            </Content>
+          )
+        })}
+      </DndProvider>
     </div>
   )
 }

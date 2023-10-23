@@ -8,6 +8,7 @@ import ControlSelectedData from './components/ControlSelectedData'
 const ControlBar: React.FC = () => (
   <div>
     {/* <ControlGlobalBoolean /> */}
+    <ControlFont />
     <ControlSelectedCards />
     <ControlSelectedData />
   </div>

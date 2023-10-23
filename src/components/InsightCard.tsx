@@ -28,8 +28,11 @@ type BigChartProps = {
   ChartType: string
   BigChartData: number[]
 }
-
-const PhraseComponent: React.FC<Phrase> = ({ type, value, metadata }) => {
+// 扩展Phrase类型到PhraseComponent的参数类型
+interface PhraseComponentProps extends Phrase {
+  fontsize: string
+}
+const PhraseComponent: React.FC<PhraseComponentProps> = ({ type, value, metadata, fontsize }) => {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
@@ -60,9 +63,8 @@ const PhraseComponent: React.FC<Phrase> = ({ type, value, metadata }) => {
     }
     return (
       <span style={{ color: wordColor }}>
-        <Tooltip title='prompt text'>
-          <span>{value}</span>
-        </Tooltip>
+        <span style={{ fontSize: fontsize }}>{value}</span>
+
         {
           metadata?.entityType === 'trend_desc' ? (
             <span>
@@ -79,7 +81,7 @@ const PhraseComponent: React.FC<Phrase> = ({ type, value, metadata }) => {
     )
   }
 
-  return <span>{value}</span>
+  return <span style={{ fontSize: fontsize }}>{value}</span>
 }
 PhraseComponent.defaultProps = {
   metadata: {}, // 或者其他默认值
@@ -168,7 +170,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       </div>
       {phrases.map((phrase, index) => (
         // 每一个phrase都经过这个处理
-        <PhraseComponent key={index} {...phrase} />
+        <PhraseComponent key={index} {...phrase} fontsize={fontsize} />
         // jsx中的js表达式需要{}
         // key: 这是一个特殊的prop，React用它来在列表中唯一标识每一个元素。
         // 这并不是传递给PhraseComponent的真实prop，它只是帮助React进行优化。所以PhraseComponent只接收3个props,不接收index

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column } from '@antv/g2plot'
+import { Chart } from '@antv/g2'
 
 interface BarChartProps {
   data: number[]
@@ -16,17 +16,21 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
       value,
     }))
 
-    const columnPlot = new Column(containerRef.current, {
-      data: plotData,
-      xField: 'category',
-      yField: 'value',
+    const chart = new Chart({
+      container: containerRef.current,
       autoFit: true,
+      height: 400,
+      width: 600,
     })
 
-    columnPlot.render()
+    chart.data(plotData)
+
+    chart.interval().encode('x', 'category').encode('y', 'value')
+
+    chart.render()
 
     return () => {
-      columnPlot.destroy()
+      chart.destroy()
     }
   }, [data])
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Line } from '@antv/g2plot'
+import { Chart } from '@antv/g2'
 
 interface LineChartProps {
   data: number[]
@@ -16,18 +16,39 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
       value,
     }))
 
-    const linePlot = new Line(containerRef.current, {
-      data: plotData,
-      xField: 'date',
-      yField: 'value',
-      smooth: true,
+    const chart = new Chart({
+      container: containerRef.current,
       autoFit: true,
+      height: 400,
     })
 
-    linePlot.render()
+    chart.data(plotData)
+    chart.scale({
+      date: {
+        min: 1,
+        max: data.length,
+      },
+      value: {
+        nice: true,
+      },
+    })
+
+    chart.axis('date', {
+      title: null,
+    })
+
+    chart.axis('value', {
+      title: null,
+    })
+
+    chart.line().encode('x', 'date').encode('y', 'value')
+    // line.shape('smooth')
+    chart.encode('shape', 'smooth')
+
+    chart.render()
 
     return () => {
-      linePlot.destroy()
+      chart.destroy()
     }
   }, [data])
 

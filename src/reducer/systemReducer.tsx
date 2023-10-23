@@ -5,7 +5,7 @@ const iniSystemState: systemStateType = {
   dataset: [
     {
       key: 'Card1',
-      type: 'LineChart',
+      type: 'PieChart',
       BigChartData: [2, 4, 55, 77, 99],
       phrases: [
         { type: 'entity', value: 'DAU', metadata: { entityType: 'metric_name' } },
@@ -43,7 +43,7 @@ const iniSystemState: systemStateType = {
     },
     {
       key: 'Card2',
-      type: 'LineChart',
+      type: 'PieChart',
       BigChartData: [2, 4, 55, 7, 99],
       phrases: [
         { type: 'entity', value: 'DAU', metadata: { entityType: 'metric_name' } },
@@ -81,7 +81,7 @@ const iniSystemState: systemStateType = {
     },
     {
       key: 'Card3',
-      type: 'LineChart',
+      type: 'PieChart',
       BigChartData: [2, 2, 2, 2, 99],
       phrases: [
         { type: 'entity', value: 'DAU', metadata: { entityType: 'metric_name' } },
@@ -119,7 +119,7 @@ const iniSystemState: systemStateType = {
     },
     {
       key: 'Card4',
-      type: 'LineChart',
+      type: 'PieChart',
       BigChartData: [333, 4, 55, 7, 99],
       phrases: [
         { type: 'entity', value: 'DAU', metadata: { entityType: 'metric_name' } },
@@ -157,7 +157,7 @@ const iniSystemState: systemStateType = {
     },
     {
       key: 'Card5',
-      type: 'LineChart',
+      type: 'PieChart',
       BigChartData: [2, 222, 55, 222, 99],
       phrases: [
         { type: 'entity', value: 'DAU', metadata: { entityType: 'metric_name' } },

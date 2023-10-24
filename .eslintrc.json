@@ -21,6 +21,7 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "wrap-iife": "off",
     "no-confusing-arrow": "off",
     "react/no-array-index-key": "off",
     "operator-linebreak": "off",

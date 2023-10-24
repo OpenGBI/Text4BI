@@ -108,7 +108,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-
+  const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
+    (state: AppState) => state.system,
+  )
   const {
     color,
     boldness,
@@ -168,14 +170,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       <div ref={ref} style={{ backgroundColor: 'lightgray', cursor: 'move' }}>
         Drag Handle {id}
       </div>
-      {phrases.map((phrase, index) => (
-        // 每一个phrase都经过这个处理
-        <PhraseComponent key={index} {...phrase} fontsize={fontsize} />
-        // jsx中的js表达式需要{}
-        // key: 这是一个特殊的prop，React用它来在列表中唯一标识每一个元素。
-        // 这并不是传递给PhraseComponent的真实prop，它只是帮助React进行优化。所以PhraseComponent只接收3个props,不接收index
-      ))}
-      <BigChart ChartType={type} BigChartData={BigChartData} />
+      {(function (): React.ReactNode {
+        if (showSparkLine === true) {
+          return phrases.map((phrase, index) => (
+            // 每一个phrase都经过这个处理
+            <PhraseComponent key={index} {...phrase} fontsize={fontsize} />
+            // jsx中的js表达式需要{}
+            // key: 这是一个特殊的prop，React用它来在列表中唯一标识每一个元素。
+            // 这并不是传递给PhraseComponent的真实prop，它只是帮助React进行优化。所以PhraseComponent只接收3个props,不接收index
+          ))
+        }
+        return null
+      })()}
+      {(function (): React.ReactNode {
+        if (showBigGraph === true) return <BigChart ChartType={type} BigChartData={BigChartData} />
+        return null
+      })()}
     </div>
   )
 }

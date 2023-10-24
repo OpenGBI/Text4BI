@@ -31,8 +31,21 @@ type BigChartProps = {
 // 扩展Phrase类型到PhraseComponent的参数类型
 interface PhraseComponentProps extends Phrase {
   fontsize: string
+  boldness: boolean
+  underline: boolean
+  lineHeight: number
 }
-const PhraseComponent: React.FC<PhraseComponentProps> = ({ type, value, metadata, fontsize }) => {
+const PhraseComponent: React.FC<PhraseComponentProps> = ({
+  type,
+  value,
+  metadata,
+  fontsize,
+  boldness,
+  underline,
+  lineHeight,
+}) => {
+  const fontWeightValue = boldness ? 'bold' : 'normal'
+  const underlineValue = underline ? 'underline' : 'none'
   const svgRef = useRef<SVGSVGElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
@@ -63,7 +76,16 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({ type, value, metadata
     }
     return (
       <span style={{ color: wordColor }}>
-        <span style={{ fontSize: fontsize }}>{value}</span>
+        <span
+          style={{
+            fontSize: fontsize,
+            fontWeight: fontWeightValue,
+            textDecoration: underlineValue,
+            lineHeight,
+          }}
+        >
+          {value}
+        </span>
 
         {
           metadata?.entityType === 'trend_desc' ? (
@@ -80,8 +102,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({ type, value, metadata
       </span>
     )
   }
-
-  return <span style={{ fontSize: fontsize }}>{value}</span>
+  return <span style={{ fontSize: fontsize, lineHeight }}>{value}</span>
 }
 PhraseComponent.defaultProps = {
   metadata: {}, // 或者其他默认值
@@ -174,7 +195,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         if (showSparkLine === true) {
           return phrases.map((phrase, index) => (
             // 每一个phrase都经过这个处理
-            <PhraseComponent key={index} {...phrase} fontsize={fontsize} />
+            <PhraseComponent
+              key={index}
+              {...phrase}
+              fontsize={fontsize}
+              boldness={boldness}
+              underline={underline}
+              lineHeight={lineHeight}
+            />
             // jsx中的js表达式需要{}
             // key: 这是一个特殊的prop，React用它来在列表中唯一标识每一个元素。
             // 这并不是传递给PhraseComponent的真实prop，它只是帮助React进行优化。所以PhraseComponent只接收3个props,不接收index

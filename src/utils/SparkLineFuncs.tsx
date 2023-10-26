@@ -1,9 +1,29 @@
 import React, { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 
-export const renderLineChart = (svg: SVGSVGElement, data: number[], tooltip: HTMLDivElement) => {
-  const width = 100
-  const height = 20 // Set height to match the text height
+export const renderLineChart = (
+  svg: SVGSVGElement,
+  data: number[],
+  tooltip: HTMLDivElement,
+  aspectRatio: string,
+) => {
+  let width
+  let height
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 27
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  const svgD3 = d3.select(svg)
+  svgD3.selectAll('*').remove()
 
   const xScale = d3
     .scaleLinear()
@@ -21,8 +41,6 @@ export const renderLineChart = (svg: SVGSVGElement, data: number[], tooltip: HTM
 
   // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2);
   // const yAxis = d3.axisLeft(yScale).ticks(3).tickSize(-2);
-
-  const svgD3 = d3.select(svg)
 
   svgD3
     .append('path')

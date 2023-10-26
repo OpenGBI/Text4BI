@@ -21,7 +21,7 @@ type Card = {
 interface InsightCardProps {
   type: string
   BigChartData: number[]
-  phrases: Phrase[]
+  phrasesLists: Phrase[][]
   id: string
 }
 // const CardsDataset: Card[] = [

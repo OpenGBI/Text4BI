@@ -20,7 +20,7 @@ interface Phrase {
 interface InsightCardProps {
   type: string
   BigChartData: number[]
-  phrases: Phrase[]
+  phrasesLists: Phrase[][]
   id: string
   onDrop: (id: string, targetId: string) => void
 }
@@ -34,6 +34,7 @@ interface PhraseComponentProps extends Phrase {
   boldness: boolean
   underline: boolean
   lineHeight: number
+  aspectRatio: string
 }
 const PhraseComponent: React.FC<PhraseComponentProps> = ({
   type,
@@ -43,6 +44,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   boldness,
   underline,
   lineHeight,
+  aspectRatio,
 }) => {
   const fontWeightValue = boldness ? 'bold' : 'normal'
   const underlineValue = underline ? 'underline' : 'none'
@@ -55,9 +57,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       svgRef.current &&
       tooltipRef.current
     ) {
-      renderLineChart(svgRef.current, metadata.detail, tooltipRef.current)
+      renderLineChart(svgRef.current, metadata.detail, tooltipRef.current, aspectRatio)
     }
-  }, [type, metadata])
+  }, [type, metadata, aspectRatio])
 
   if (type === 'entity') {
     let wordColor: string = 'black'
@@ -73,6 +75,18 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         break
       default:
         break
+    }
+    const getSvgWidth = (curAspectRatio: string) => {
+      if (curAspectRatio === 'tiny') {
+        return '20'
+      }
+      if (curAspectRatio === 'medium') {
+        return '27'
+      }
+      if (curAspectRatio === 'big') {
+        return '100'
+      }
+      return '100'
     }
     return (
       <span style={{ color: wordColor }}>
@@ -90,7 +104,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {
           metadata?.entityType === 'trend_desc' ? (
             <span>
-              <svg ref={svgRef} width='100' height='20' />
+              <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' />
               {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
               <div ref={tooltipRef} className='tooltip' />
             </span>
@@ -124,7 +138,7 @@ const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData }) => {
 export const InsightCard: React.FC<InsightCardProps> = ({
   type,
   BigChartData,
-  phrases,
+  phrasesLists,
   id,
   onDrop,
 }) => {
@@ -144,7 +158,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     aspectRatio,
   } = useSelector((state: AppState) => state.globalSetting)
 
-  if (!type || !BigChartData || !phrases || !id || !onDrop) {
+  if (!type || !BigChartData || !phrasesLists || !id || !onDrop) {
     throw new Error(`No data found for the date: ${type}`)
   }
 
@@ -193,19 +207,21 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       </div>
       {(function (): React.ReactNode {
         if (showSparkLine === true) {
-          return phrases.map((phrase, index) => (
-            // 每一个phrase都经过这个处理
-            <PhraseComponent
-              key={index}
-              {...phrase}
-              fontsize={fontsize}
-              boldness={boldness}
-              underline={underline}
-              lineHeight={lineHeight}
-            />
-            // jsx中的js表达式需要{}
-            // key: 这是一个特殊的prop，React用它来在列表中唯一标识每一个元素。
-            // 这并不是传递给PhraseComponent的真实prop，它只是帮助React进行优化。所以PhraseComponent只接收3个props,不接收index
+          return phrasesLists.map((phrases, outIndex) => (
+            <div key={outIndex}>
+              {bulletPoint ? <span style={{ fontSize: '20px' }}>• </span> : null}
+              {phrases.map((phrase, index) => (
+                <PhraseComponent
+                  key={index}
+                  {...phrase}
+                  fontsize={fontsize}
+                  boldness={boldness}
+                  underline={underline}
+                  lineHeight={lineHeight}
+                  aspectRatio={aspectRatio}
+                />
+              ))}
+            </div>
           ))
         }
         return null

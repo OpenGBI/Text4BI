@@ -11,7 +11,7 @@ export type Card = {
   key: string
   type: string
   BigChartData: number[]
-  phrases: Phrase[]
+  phrasesLists: Phrase[][]
 }
 export type systemStateType = {
   dataset: Card[]

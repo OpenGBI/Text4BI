@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react'
-import { Tooltip } from 'antd'
+import { Tooltip, Space, Button, message } from 'antd'
 import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useSelector } from 'react-redux'
 import { RiseOutlined } from '@ant-design/icons'
+// import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
+import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
 import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
 import LineChart from '../utils/LineChart'
 import BarChart from '../utils/BarChart'
@@ -143,6 +145,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
     (state: AppState) => state.system,
   )
@@ -161,6 +164,58 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   if (!type || !BigChartData || !phrasesLists || !id || !onDrop) {
     throw new Error(`No data found for the date: ${type}`)
   }
+  const onCopySuccess = () => {
+    console.log('success')
+  }
+
+  const onClickCopyButton = async () => {
+    if (containerRef?.current) {
+      const textExporter = new TextExporter()
+      const html = await textExporter.getNarrativeHtml(containerRef.current)
+      console.log(html)
+      const plainText = 'plainText'
+      copyToClipboard(html, plainText, onCopySuccess)
+      // onCopy?.(currentInsightInfo, ref.current)
+    }
+  }
+  // useEffect(() => {
+  //   const handleKeyPress = async (event: KeyboardEvent) => {
+  //     if (event.ctrlKey && event.key === 'c') {
+  //       // 按下 Ctrl+C
+  //       const selection = window.getSelection()
+  //       if (!selection) {
+  //         throw new Error(`No data found for the date: ${type}`)
+  //       }
+  //       if (selection.toString().length > 0) {
+  //         // 如果选中了文本
+  //         event.preventDefault() // 阻止默认复制行为
+  //         await onClickCopy() // 调用复制函数
+  //       }
+  //     }
+  //   }
+
+  //   document.addEventListener('keydown', handleKeyPress)
+
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyPress)
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     // 检查是否按下了Ctrl+C（或Cmd+C在Mac上）
+  //     if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+  //       onClickCopy()
+  //     }
+  //   }
+
+  //   // 添加事件监听器
+  //   document.addEventListener('keydown', handleKeyDown)
+
+  //   // 清除事件监听器
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyDown)
+  //   }
+  // }, [onClickCopy])
 
   const [, drop] = useDrop({
     accept: CARD_DRAG_TYPE,
@@ -201,35 +256,42 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   drag(drop(ref))
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   return (
-    <div className='insight_card'>
+    <div ref={containerRef}>
       <div ref={ref} style={{ backgroundColor: 'lightgray', cursor: 'move' }}>
         Drag Handle {id}
       </div>
-      {(function (): React.ReactNode {
-        if (showSparkLine === true) {
-          return phrasesLists.map((phrases, outIndex) => (
-            <div key={outIndex}>
-              {bulletPoint ? <span style={{ fontSize: '20px' }}>• </span> : null}
-              {phrases.map((phrase, index) => (
-                <PhraseComponent
-                  key={index}
-                  {...phrase}
-                  fontsize={fontsize}
-                  boldness={boldness}
-                  underline={underline}
-                  lineHeight={lineHeight}
-                  aspectRatio={aspectRatio}
-                />
-              ))}
-            </div>
-          ))
-        }
-        return null
-      })()}
-      {(function (): React.ReactNode {
-        if (showBigGraph === true) return <BigChart ChartType={type} BigChartData={BigChartData} />
-        return null
-      })()}
+      <Button type='primary' onClick={onClickCopyButton}>
+        复制富文本
+      </Button>
+      <div className='avar-ntv-container'>
+        {(function (): React.ReactNode {
+          if (showSparkLine === true) {
+            return phrasesLists.map((phrases, outIndex) => (
+              <div key={outIndex}>
+                {bulletPoint ? <span style={{ fontSize: '20px' }}>• </span> : null}
+                {phrases.map((phrase, index) => (
+                  <PhraseComponent
+                    key={index}
+                    {...phrase}
+                    fontsize={fontsize}
+                    boldness={boldness}
+                    underline={underline}
+                    lineHeight={lineHeight}
+                    aspectRatio={aspectRatio}
+                  />
+                ))}
+              </div>
+            ))
+          }
+          return null
+        })()}
+        {(function (): React.ReactNode {
+          if (showBigGraph === true) {
+            return <BigChart ChartType={type} BigChartData={BigChartData} />
+          }
+          return null
+        })()}
+      </div>
     </div>
   )
 }

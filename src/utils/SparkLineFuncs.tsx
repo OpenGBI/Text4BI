@@ -22,6 +22,7 @@ export const renderLineChart = (
     width = 100
     height = 20
   }
+
   const svgD3 = d3.select(svg)
   svgD3.selectAll('*').remove()
 
@@ -150,6 +151,103 @@ export const renderPieChart = (svg: SVGSVGElement, data: number[], tooltip: HTML
         .style('top', `${event.pageY - 28}px`)
         .style('display', 'inline-block')
         .html(`Value: ${d.data} (${percentage}%)`)
+    })
+    .on('mouseout', () => {
+      d3.select(tooltip).style('display', 'none')
+    })
+}
+
+export const renderLineChartDown = (
+  data: number[],
+  tooltip: HTMLDivElement,
+  aspectRatio: string,
+  targetElement: HTMLSpanElement,
+) => {
+  let width
+  let height
+  if (aspectRatio === 'tiny') {
+    width = 100
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 100
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+
+  // const svgD3 = d3.select(svg)
+  // svgD3.selectAll('*').remove()
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length - 1])
+    .range([0, width])
+  const yScale = d3
+    .scaleLinear()
+    .domain([d3.min(data) || 0, d3.max(data) || 0])
+    .range([height, 0])
+
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y((d) => yScale(d))
+
+  // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2);
+  // const yAxis = d3.axisLeft(yScale).ticks(3).tickSize(-2);
+
+  const rect = targetElement.getBoundingClientRect()
+  console.log(rect)
+  const newDiv = document.createElement('span')
+  newDiv.setAttribute('data-highlight-color-name', 'red')
+  newDiv.classList.add('MEKAs', 'rk4bK', 'PjYjK')
+  newDiv.style.position = 'absolute'
+  newDiv.style.top = '-20px'
+  newDiv.style.left = '-20px'
+  newDiv.style.width = `${rect.width + 20}px`
+  newDiv.style.height = `${rect.height + 20}px`
+  targetElement.appendChild(newDiv)
+  // 创建SVG元素
+  const svgD3 = d3
+    .select(newDiv)
+    .append('svg')
+    .attr('width', rect.width)
+    .attr('height', 20)
+    .style('position', 'absolute')
+    .style('top', '0')
+    .style('left', '0')
+
+  svgD3
+    .append('path')
+    .datum(data)
+    .attr('fill', 'none')
+    .attr('stroke', 'steelblue')
+    .attr('stroke-width', 1)
+    .attr('d', line)
+
+  const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+  const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+  svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+  svgD3.append('g').call(yAxis)
+  svgD3
+    .selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('cx', (d, i) => xScale(i))
+    .attr('cy', (d) => yScale(d))
+    .attr('r', 5) // size of circle for "hit area"
+    .style('opacity', 0) // make it invisible
+    .on('mouseover', (event, d) => {
+      d3.select(tooltip)
+        .style('left', `${event.pageX + 5}px`)
+        .style('top', `${event.pageY - 28}px`)
+        .style('display', 'inline-block')
+        .html(`Value: ${d}`)
     })
     .on('mouseout', () => {
       d3.select(tooltip).style('display', 'none')

@@ -6,7 +6,12 @@ import { useSelector } from 'react-redux'
 import { RiseOutlined } from '@ant-design/icons'
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
-import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
+import {
+  renderLineChart,
+  renderBarChart,
+  renderPieChart,
+  renderLineChartDown,
+} from '../utils/SparkLineFuncs'
 import LineChart from '../utils/LineChart'
 import BarChart from '../utils/BarChart'
 import PieChart from '../utils/PieChart'
@@ -50,16 +55,22 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
 }) => {
   const fontWeightValue = boldness ? 'bold' : 'normal'
   const underlineValue = underline ? 'underline' : 'none'
+  const wordRef = useRef<HTMLSpanElement | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
+  // useEffect(() => {
+  //   if (
+  //     type === 'entity' &&
+  //     metadata?.entityType === 'trend_desc' &&
+  //     svgRef.current &&
+  //     tooltipRef.current
+  //   ) {
+  //     renderLineChart(svgRef.current, metadata.detail, tooltipRef.current, aspectRatio)
+  //   }
+  // }, [type, metadata, aspectRatio])
   useEffect(() => {
-    if (
-      type === 'entity' &&
-      metadata?.entityType === 'trend_desc' &&
-      svgRef.current &&
-      tooltipRef.current
-    ) {
-      renderLineChart(svgRef.current, metadata.detail, tooltipRef.current, aspectRatio)
+    if (wordRef.current && tooltipRef.current) {
+      renderLineChartDown(metadata.detail, tooltipRef.current, aspectRatio, wordRef.current)
     }
   }, [type, metadata, aspectRatio])
 
@@ -93,12 +104,15 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     return (
       <span style={{ color: wordColor }}>
         <span
+          ref={wordRef}
           style={{
             fontSize: fontsize,
             fontWeight: fontWeightValue,
             textDecoration: underlineValue,
             lineHeight,
+            position: 'relative',
           }}
+          className='trend_desc'
         >
           {value}
         </span>

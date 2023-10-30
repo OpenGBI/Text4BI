@@ -8,7 +8,7 @@ const iniGlobalSettingState: GlobalSettingStateType = {
   fontsize: '16px',
   backgroundColor: 'white',
   bulletPoint: false,
-  lineHeight: 1,
+  lineHeight: 4,
   sparkLinePosition: 'up',
   aspectRatio: 'tiny',
 }

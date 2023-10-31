@@ -6,12 +6,7 @@ import { useSelector } from 'react-redux'
 import { RiseOutlined } from '@ant-design/icons'
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
-import {
-  renderLineChart,
-  renderBarChart,
-  renderPieChart,
-  renderLineChartDown,
-} from '../utils/SparkLineFuncs'
+import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
 import LineChart from '../utils/LineChart'
 import BarChart from '../utils/BarChart'
 import PieChart from '../utils/PieChart'
@@ -42,6 +37,7 @@ interface PhraseComponentProps extends Phrase {
   underline: boolean
   lineHeight: number
   aspectRatio: string
+  sparkLinePosition: string
 }
 const PhraseComponent: React.FC<PhraseComponentProps> = ({
   type,
@@ -52,12 +48,16 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   underline,
   lineHeight,
   aspectRatio,
+  sparkLinePosition,
 }) => {
+  // 接收一个词，生成一个这个词的可视化效果和行内小图
   const fontWeightValue = boldness ? 'bold' : 'normal'
   const underlineValue = underline ? 'underline' : 'none'
   const wordRef = useRef<HTMLSpanElement | null>(null)
-  const svgRef = useRef<SVGSVGElement | null>(null)
-  const tooltipRef = useRef<HTMLDivElement | null>(null)
+  const sparkLineRef = useRef<HTMLSpanElement | null>(null)
+  // const svgRef = useRef<SVGSVGElement | null>(null)
+  // const tooltipRef = useRef<HTMLDivElement | null>(null)
+
   // useEffect(() => {
   //   if (
   //     type === 'entity' &&
@@ -69,10 +69,30 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   }
   // }, [type, metadata, aspectRatio])
   useEffect(() => {
-    if (wordRef.current && tooltipRef.current) {
-      renderLineChartDown(metadata.detail, tooltipRef.current, aspectRatio, wordRef.current)
+    console.log('effecteffect')
+    if (
+      wordRef.current &&
+      metadata.detail &&
+      (sparkLinePosition === 'up' || sparkLinePosition === 'down')
+    ) {
+      renderLineChart(metadata.detail, aspectRatio, sparkLinePosition, wordRef.current, undefined)
     }
-  }, [type, metadata, aspectRatio])
+    if (
+      wordRef.current &&
+      sparkLineRef.current &&
+      metadata.detail &&
+      (sparkLinePosition === 'left' || sparkLinePosition === 'right')
+    ) {
+      renderLineChart(
+        metadata.detail,
+        aspectRatio,
+        sparkLinePosition,
+        wordRef.current,
+        sparkLineRef.current,
+      )
+    }
+  }, [type, metadata, aspectRatio, sparkLinePosition])
+  // strict模式下初始化页面会调用两次useEffect
 
   if (type === 'entity') {
     let wordColor: string = 'black'
@@ -89,20 +109,29 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       default:
         break
     }
-    const getSvgWidth = (curAspectRatio: string) => {
-      if (curAspectRatio === 'tiny') {
-        return '20'
-      }
-      if (curAspectRatio === 'medium') {
-        return '27'
-      }
-      if (curAspectRatio === 'big') {
-        return '100'
-      }
-      return '100'
-    }
+    // const getSvgWidth = (curAspectRatio: string) => {
+    //   if (curAspectRatio === 'tiny') {
+    //     return '20'
+    //   }
+    //   if (curAspectRatio === 'medium') {
+    //     return '27'
+    //   }
+    //   if (curAspectRatio === 'big') {
+    //     return '100'
+    //   }
+    //   return '100'
+    // }
     return (
       <span style={{ color: wordColor }}>
+        {
+          metadata?.entityType === 'trend_desc' && sparkLinePosition === 'left' ? (
+            <span id='sparkLineElement' ref={sparkLineRef}>
+              {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
+              {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
+              {/* <div ref={tooltipRef} className='tooltip' /> */}
+            </span>
+          ) : null // 这是一个三目运算符 ？：
+        }
         <span
           ref={wordRef}
           style={{
@@ -118,11 +147,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         </span>
 
         {
-          metadata?.entityType === 'trend_desc' ? (
-            <span>
-              <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' />
+          metadata?.entityType === 'trend_desc' && sparkLinePosition === 'right' ? (
+            <span ref={sparkLineRef}>
+              {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
               {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
-              <div ref={tooltipRef} className='tooltip' />
+              {/* <div ref={tooltipRef} className='tooltip' /> */}
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
@@ -292,6 +321,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
                     underline={underline}
                     lineHeight={lineHeight}
                     aspectRatio={aspectRatio}
+                    sparkLinePosition={sparkLinePosition}
                   />
                 ))}
               </div>

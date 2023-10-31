@@ -9,7 +9,7 @@ const iniGlobalSettingState: GlobalSettingStateType = {
   backgroundColor: 'white',
   bulletPoint: false,
   lineHeight: 4,
-  sparkLinePosition: 'up',
+  sparkLinePosition: 'left',
   aspectRatio: 'tiny',
 }
 

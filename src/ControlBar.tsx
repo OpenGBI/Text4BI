@@ -6,11 +6,13 @@ import ControlGlobalBoolean from './components/ControlGlobalBoolean'
 import ControlSelectedData from './components/ControlSelectedData'
 import ControlLineHeight from './components/ControlLineHeight'
 import ControlAspectRatio from './components/ControlAspectRatio'
+import ControlSparkLinePos from './components/ControlSparkLinePos'
 
 const ControlBar: React.FC = () => (
   <div>
     <ControlLineHeight />
-    <ControlAspectRatio />
+    <ControlSparkLinePos />
+    {/* <ControlAspectRatio /> */}
     {/* <ControlBigGraphSparkLine /> */}
     {/* <ControlFont />
     <ControlSelectedCards />

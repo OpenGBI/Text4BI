@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+#control_bar {
+  flex-basis: 20%;
+  height: 150px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#App {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  overflow: hidden;
+}
+#bottom {
+  flex-basis: 80%;
+  display: flex;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+#visualization {
+  flex-basis: 80%;
+  height: 650px;
+  overflow: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#design {
+  flex-basis: 20%;
+  height: 650px;
+}
+.view {
+  margin: 5px;
+  border: 1px solid #ccc !important;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 50%;
+}
+h2 {
+  font-size: 15px;
+  background: #f1f1f1;
+  margin: 0;
+}
+.tooltip {
+  position: absolute;
+  padding: 4px 8px;
+  background-color: #eee8e8;
+  color: #090808;
+  border-radius: 4px;
+  opacity: 0.7;
+  pointer-events: none; /* Ensure it doesn't interfere with other mouse events */
+  transition: opacity 0.2s;
+  display: none; /* Initially hidden */
+}
+.insight_card {
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 4px;
+  display: inline-block; /* 使卡片与其他文本/元素并排显示 */
+  margin: 5px;
 }

@@ -2,9 +2,9 @@ import { Checkbox, Col, Row } from 'antd'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { systemStateType } from '../types'
-import { AppState } from '../store'
-import { ChangeSystemSetting } from '../actions/systemAction'
+import { systemStateType } from '../../types'
+import { AppState } from '../../store'
+import { ChangeSystemSetting } from '../../actions/systemAction'
 
 const ControlSelectedCards: React.FC = () => {
   const dispatch = useDispatch()

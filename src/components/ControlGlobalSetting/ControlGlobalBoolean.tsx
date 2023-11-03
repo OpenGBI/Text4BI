@@ -3,9 +3,9 @@ import { Checkbox, Divider } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../actions/GlobalSettingAction'
-import { GlobalSettingStateType } from '../types'
-import { AppState } from '../store'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { GlobalSettingStateType } from '../../types'
+import { AppState } from '../../store'
 
 const plainOptions = ['boldness', 'underline', 'bulletPoint']
 const defaultCheckedList = ['']

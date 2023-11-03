@@ -2,16 +2,45 @@ export type storeType = {
   color: string
   font: string
 }
-type Phrase = {
+export type Metadata = {
+  entityType?: string
+  origin?: number
+  assessment?: 'positive' | 'negative'
+  detail?: (string | number)[]
+  selector?: string[]
+  delta_value?: string
+  ratio_value?: string
+  trend_desc?: string
+}
+export type Phrase = {
   type: string
   value: string
-  metadata?: any
+  metadata?: Metadata
 }
+export type TopicSentence = {
+  type: 'topic'
+  phrases: Phrase[]
+}
+export type NormalSentence = {
+  type: 'normal'
+  phrases: Phrase[]
+}
+
+export type BulletSentence = {
+  type: 'bullet'
+  phrases: Phrase[]
+}
+
+export type PlotSentence = {
+  type: 'plot'
+  chartType: string
+  data: number[]
+}
+
+export type sentence = TopicSentence | NormalSentence | BulletSentence | PlotSentence
 export type Card = {
-  key: string
-  type: string
-  BigChartData: number[]
-  phrasesLists: Phrase[][]
+  CardName: string
+  paragraph: sentence[]
 }
 export type systemStateType = {
   dataset: Card[]

@@ -1,25 +1,24 @@
 import { MenuProps, Dropdown, message, Space, Select } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../actions/GlobalSettingAction'
-import { AppState } from '../store'
-import { GlobalSettingStateType } from '../types'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { AppState } from '../../store'
+import { GlobalSettingStateType } from '../../types'
 
-const ControlLineHeight: React.FC = () => {
+const ControlFont: React.FC = () => {
   const dispatch = useDispatch()
-  // const [font, setFont] = useState('')
+  const [font, setFont] = useState('')
 
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
-  const handleChangeLineHeight = (lineHeight: string) => {
-    // setFont(newFont)
-    // console.log(newFont)
-    const numberLineHeight = Number(lineHeight)
+  const handleChangeFont = (newFont: string) => {
+    setFont(newFont)
+    console.log(newFont)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
-        lineHeight: numberLineHeight,
+        fontsize: newFont,
       }),
     )
   }
@@ -30,29 +29,29 @@ const ControlLineHeight: React.FC = () => {
   return (
     <Select
       showSearch
-      placeholder='Select a Line Height'
+      placeholder='Select a Font'
       optionFilterProp='children'
-      onChange={handleChangeLineHeight}
+      onChange={handleChangeFont}
       onSearch={onSearch}
       filterOption={(input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
       }
       options={[
         {
-          value: '1',
-          label: '1',
+          value: '14px',
+          label: '14px',
         },
         {
-          value: '1.5',
-          label: '1.5',
+          value: '15px',
+          label: '15px',
         },
         {
-          value: '2',
-          label: '2',
+          value: '16px',
+          label: '16px',
         },
       ]}
     />
   )
 }
 
-export default ControlLineHeight
+export default ControlFont

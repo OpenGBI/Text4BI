@@ -1,9 +1,9 @@
 import { MenuProps, Dropdown, message, Space, Select } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../actions/GlobalSettingAction'
-import { AppState } from '../store'
-import { GlobalSettingStateType } from '../types'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { AppState } from '../../store'
+import { GlobalSettingStateType } from '../../types'
 
 const ControlSparkLinePos: React.FC = () => {
   const dispatch = useDispatch()
@@ -19,6 +19,7 @@ const ControlSparkLinePos: React.FC = () => {
       ChangeGlobalSetting({
         ...globalSetting,
         sparkLinePosition: newSparkLinePosition,
+        lineHeight: 4,
       }),
     )
   }

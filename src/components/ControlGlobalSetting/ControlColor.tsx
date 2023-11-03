@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { App, ColorPicker } from 'antd'
 import type { ColorPickerProps, Color } from 'antd/es/color-picker'
 import { useDispatch, useSelector } from 'react-redux'
-import { GlobalSettingStateType } from '../types'
-import { ChangeGlobalSetting } from '../actions/GlobalSettingAction'
-import { AppState } from '../store'
+import { GlobalSettingStateType } from '../../types'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { AppState } from '../../store'
 
 const ControlColor = () => {
   const { message } = App.useApp()

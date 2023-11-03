@@ -3,9 +3,9 @@ import { Checkbox, Divider } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChangeSystemSetting } from '../actions/systemAction'
-import { systemStateType } from '../types'
-import { AppState } from '../store'
+import { ChangeSystemSetting } from '../../actions/systemAction'
+import { systemStateType } from '../../types'
+import { AppState } from '../../store'
 
 const plainOptions = ['BigGraph', 'SparkLine']
 const defaultCheckedList = ['BigGraph', 'SparkLine']

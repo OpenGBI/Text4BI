@@ -3,190 +3,59 @@ import { Tooltip, Space, Button, message } from 'antd'
 import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useSelector } from 'react-redux'
-import { RiseOutlined } from '@ant-design/icons'
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
-import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
-import LineChart from '../utils/LineChart'
-import BarChart from '../utils/BarChart'
-import PieChart from '../utils/PieChart'
 import { AppState } from '../store'
+import PhraseComponent from './PhraseComponent'
+import BigChart from './BigChart'
+import { Card, sentence } from '../types'
 
 const CARD_DRAG_TYPE = 'CARD'
-interface Phrase {
-  type: string
-  value: string
-  metadata?: any
-}
+// interface Phrase {
+//   type: string
+//   value: string
+//   metadata?: any
+// }
 
-interface InsightCardProps {
-  type: string
-  BigChartData: number[]
-  phrasesLists: Phrase[][]
+interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
 }
-type BigChartProps = {
-  ChartType: string
-  BigChartData: number[]
-}
-// 扩展Phrase类型到PhraseComponent的参数类型
-interface PhraseComponentProps extends Phrase {
-  fontsize: string
-  boldness: boolean
-  underline: boolean
-  lineHeight: number
-  aspectRatio: string
-  sparkLinePosition: string
-}
-const PhraseComponent: React.FC<PhraseComponentProps> = ({
-  type,
-  value,
-  metadata,
-  fontsize,
-  boldness,
-  underline,
-  lineHeight,
-  aspectRatio,
-  sparkLinePosition,
-}) => {
-  // 接收一个词，生成一个这个词的可视化效果和行内小图
-  const fontWeightValue = boldness ? 'bold' : 'normal'
-  const underlineValue = underline ? 'underline' : 'none'
-  const wordRef = useRef<HTMLSpanElement | null>(null)
-  const sparkLineRef = useRef<HTMLSpanElement | null>(null)
-  // const svgRef = useRef<SVGSVGElement | null>(null)
-  // const tooltipRef = useRef<HTMLDivElement | null>(null)
+// type RenderContent
+// const RenderContent = ({
+//   sentence,
+//   bulletPoint,
+//   fontsize,
+//   boldness,
+//   underline,
+//   lineHeight,
+//   aspectRatio,
+//   sparkLinePosition,
+//   showBigGraph,
+//   type,
+//   BigChartData,
+// }) => {
+//   if ('phrases' in sentence) {
+//     return sentence.phrases.map((phrase, index) => (
+//       <PhraseComponent
+//         key={index}
+//         {...phrase}
+//         fontsize={fontsize}
+//         boldness={boldness}
+//         underline={underline}
+//         lineHeight={lineHeight}
+//         aspectRatio={aspectRatio}
+//         sparkLinePosition={sparkLinePosition}
+//       />
+//     ))
+//   }
+//   if (showBigGraph) {
+//     return <BigChart ChartType={type} BigChartData={BigChartData} />
+//   }
+//   return null
+// }
 
-  // useEffect(() => {
-  //   if (
-  //     type === 'entity' &&
-  //     metadata?.entityType === 'trend_desc' &&
-  //     svgRef.current &&
-  //     tooltipRef.current
-  //   ) {
-  //     renderLineChart(svgRef.current, metadata.detail, tooltipRef.current, aspectRatio)
-  //   }
-  // }, [type, metadata, aspectRatio])
-  useEffect(() => {
-    console.log('effecteffect')
-    if (
-      wordRef.current &&
-      metadata.detail &&
-      (sparkLinePosition === 'up' || sparkLinePosition === 'down')
-    ) {
-      renderLineChart(metadata.detail, aspectRatio, sparkLinePosition, wordRef.current, undefined)
-    }
-    if (
-      wordRef.current &&
-      sparkLineRef.current &&
-      metadata.detail &&
-      (sparkLinePosition === 'left' || sparkLinePosition === 'right')
-    ) {
-      renderLineChart(
-        metadata.detail,
-        aspectRatio,
-        sparkLinePosition,
-        wordRef.current,
-        sparkLineRef.current,
-      )
-    }
-  }, [type, metadata, aspectRatio, sparkLinePosition])
-  // strict模式下初始化页面会调用两次useEffect
-
-  if (type === 'entity') {
-    let wordColor: string = 'black'
-    switch (metadata.entityType) {
-      case 'metric_value':
-        wordColor = 'blue'
-        break
-      case 'ratio_value':
-        wordColor = 'red'
-        break
-      case 'delta_value':
-        wordColor = 'red'
-        break
-      default:
-        break
-    }
-    // const getSvgWidth = (curAspectRatio: string) => {
-    //   if (curAspectRatio === 'tiny') {
-    //     return '20'
-    //   }
-    //   if (curAspectRatio === 'medium') {
-    //     return '27'
-    //   }
-    //   if (curAspectRatio === 'big') {
-    //     return '100'
-    //   }
-    //   return '100'
-    // }
-    return (
-      <span style={{ color: wordColor }}>
-        {
-          metadata?.entityType === 'trend_desc' && sparkLinePosition === 'left' ? (
-            <span id='sparkLineElement' ref={sparkLineRef}>
-              {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
-              {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
-              {/* <div ref={tooltipRef} className='tooltip' /> */}
-            </span>
-          ) : null // 这是一个三目运算符 ？：
-        }
-        <span
-          ref={wordRef}
-          style={{
-            fontSize: fontsize,
-            fontWeight: fontWeightValue,
-            textDecoration: underlineValue,
-            lineHeight,
-            position: 'relative',
-          }}
-          className='trend_desc'
-        >
-          {value}
-        </span>
-
-        {
-          metadata?.entityType === 'trend_desc' && sparkLinePosition === 'right' ? (
-            <span ref={sparkLineRef}>
-              {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
-              {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
-              {/* <div ref={tooltipRef} className='tooltip' /> */}
-            </span>
-          ) : null // 这是一个三目运算符 ？：
-        }
-        {metadata?.assessment === 'positive' ? (
-          <RiseOutlined style={{ fontSize: '16px', color: 'red' }} />
-        ) : null}
-      </span>
-    )
-  }
-  return <span style={{ fontSize: fontsize, lineHeight }}>{value}</span>
-}
-PhraseComponent.defaultProps = {
-  metadata: {}, // 或者其他默认值
-}
-
-const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData }) => {
-  // (ChartType,BigChartData)会报错
-  switch (ChartType) {
-    case 'LineChart':
-      return <LineChart data={BigChartData} />
-    case 'BarChart':
-      return <BarChart data={BigChartData} />
-    case 'PieChart':
-      return <PieChart data={BigChartData} />
-    default:
-      return <div />
-  }
-}
-export const InsightCard: React.FC<InsightCardProps> = ({
-  type,
-  BigChartData,
-  phrasesLists,
-  id,
-  onDrop,
-}) => {
+export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
   const ref = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
@@ -204,8 +73,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     aspectRatio,
   } = useSelector((state: AppState) => state.globalSetting)
 
-  if (!type || !BigChartData || !phrasesLists || !id || !onDrop) {
-    throw new Error(`No data found for the date: ${type}`)
+  if (!CardName || !paragraph || !id || !onDrop) {
+    throw new Error('No data found for the date')
   }
   const onCopySuccess = () => {
     console.log('success')
@@ -215,7 +84,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     if (containerRef?.current) {
       const textExporter = new TextExporter()
       const html = await textExporter.getNarrativeHtml(containerRef.current)
-      console.log(html)
       const plainText = 'plainText'
       copyToClipboard(html, plainText, onCopySuccess)
       // onCopy?.(currentInsightInfo, ref.current)
@@ -298,6 +166,33 @@ export const InsightCard: React.FC<InsightCardProps> = ({
 
   drag(drop(ref))
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
+  const renderBulletPoint = (curSentence: sentence) => {
+    if (bulletPoint && curSentence.type === 'bullet') {
+      return <span style={{ fontSize: '20px' }}>• </span>
+    }
+    return null
+  }
+  const renderPhrases = (curSentence: sentence) => {
+    if ('phrases' in curSentence && showSparkLine) {
+      return curSentence.phrases.map((phrase, index) => (
+        <PhraseComponent
+          key={index}
+          {...phrase}
+          fontsize={fontsize}
+          boldness={boldness}
+          underline={underline}
+          lineHeight={lineHeight}
+          aspectRatio={aspectRatio}
+          sparkLinePosition={sparkLinePosition}
+        />
+      ))
+    }
+
+    if (showBigGraph && 'chartType' in curSentence) {
+      return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.data} />
+    }
+  }
+
   return (
     <div ref={containerRef}>
       <div ref={ref} style={{ backgroundColor: 'lightgray', cursor: 'move' }}>
@@ -307,34 +202,37 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         复制富文本
       </Button>
       <div className='avar-ntv-container'>
-        {(function (): React.ReactNode {
-          if (showSparkLine === true) {
-            return phrasesLists.map((phrases, outIndex) => (
-              <div key={outIndex}>
-                {bulletPoint ? <span style={{ fontSize: '20px' }}>• </span> : null}
-                {phrases.map((phrase, index) => (
-                  <PhraseComponent
-                    key={index}
-                    {...phrase}
-                    fontsize={fontsize}
-                    boldness={boldness}
-                    underline={underline}
-                    lineHeight={lineHeight}
-                    aspectRatio={aspectRatio}
-                    sparkLinePosition={sparkLinePosition}
-                  />
-                ))}
-              </div>
-            ))
-          }
-          return null
-        })()}
-        {(function (): React.ReactNode {
+        {paragraph.map((curSentence, outIndex) => (
+          <div key={outIndex}>
+            {renderBulletPoint(curSentence)}
+            {renderPhrases(curSentence)}
+            {/* {bulletPoint && cursentence.type === 'bullet' ? (
+                  <span style={{ fontSize: '20px' }}>• </span>
+                ) : null}
+                {'phrases' in sentence ? (
+                  sentence.phrases.map((phrase, index) => (
+                    <PhraseComponent
+                      key={index}
+                      {...phrase}
+                      fontsize={fontsize}
+                      boldness={boldness}
+                      underline={underline}
+                      lineHeight={lineHeight}
+                      aspectRatio={aspectRatio}
+                      sparkLinePosition={sparkLinePosition}
+                    />
+                  ))
+                ) : showBigGraph ? (
+                  <BigChart ChartType={type} BigChartData={BigChartData} />
+                ) : null} */}
+          </div>
+        ))}
+        {/* {(function (): React.ReactNode {
           if (showBigGraph === true) {
             return <BigChart ChartType={type} BigChartData={BigChartData} />
           }
           return null
-        })()}
+        })()} */}
       </div>
     </div>
   )

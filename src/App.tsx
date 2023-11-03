@@ -4,6 +4,7 @@ import './App.css'
 import { store } from './store'
 import ControlBar from './ControlBar'
 import InsightCards from './components/InsightCards'
+import DesignBar from './DesignBar'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <div id='bottom'>
           <div id='design' className='view'>
             <h2>Design</h2>
+            <DesignBar />
           </div>
           <div id='visualization' className='view'>
             <h2>Text Vis</h2>

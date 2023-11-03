@@ -21,6 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "react/jsx-indent": "off",
+    "indent": "off",
     "wrap-iife": "off",
     "no-confusing-arrow": "off",
     "react/no-array-index-key": "off",

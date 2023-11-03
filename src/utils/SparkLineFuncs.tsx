@@ -1,82 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 
-// export const renderLineChart = (
-//   svg: SVGSVGElement,
-//   data: number[],
-//   tooltip: HTMLDivElement,
-//   aspectRatio: string,
-// ) => {
-//   let width
-//   let height
-//   if (aspectRatio === 'tiny') {
-//     width = 20
-//     height = 20
-//   } else if (aspectRatio === 'medium') {
-//     width = 27
-//     height = 20
-//   } else if (aspectRatio === 'big') {
-//     width = 100
-//     height = 20
-//   } else {
-//     width = 100
-//     height = 20
-//   }
-
-//   const svgD3 = d3.select(svg)
-//   svgD3.selectAll('*').remove()
-
-//   const xScale = d3
-//     .scaleLinear()
-//     .domain([0, data.length - 1])
-//     .range([0, width])
-//   const yScale = d3
-//     .scaleLinear()
-//     .domain([d3.min(data) || 0, d3.max(data) || 0])
-//     .range([height, 0])
-
-//   const line = d3
-//     .line<number>()
-//     .x((d, i) => xScale(i))
-//     .y((d) => yScale(d))
-
-//   // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2);
-//   // const yAxis = d3.axisLeft(yScale).ticks(3).tickSize(-2);
-
-//   svgD3
-//     .append('path')
-//     .datum(data)
-//     .attr('fill', 'none')
-//     .attr('stroke', 'steelblue')
-//     .attr('stroke-width', 1)
-//     .attr('d', line)
-
-//   const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-//   const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
-
-//   svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-//   svgD3.append('g').call(yAxis)
-//   svgD3
-//     .selectAll('circle')
-//     .data(data)
-//     .enter()
-//     .append('circle')
-//     .attr('cx', (d, i) => xScale(i))
-//     .attr('cy', (d) => yScale(d))
-//     .attr('r', 5) // size of circle for "hit area"
-//     .style('opacity', 0) // make it invisible
-//     .on('mouseover', (event, d) => {
-//       d3.select(tooltip)
-//         .style('left', `${event.pageX + 5}px`)
-//         .style('top', `${event.pageY - 28}px`)
-//         .style('display', 'inline-block')
-//         .html(`Value: ${d}`)
-//     })
-//     .on('mouseout', () => {
-//       d3.select(tooltip).style('display', 'none')
-//     })
-// }
-
 export const renderLineChart = (
   data: number[],
   aspectRatio: string,
@@ -86,11 +10,12 @@ export const renderLineChart = (
 ) => {
   let width
   let height
+  // 1:1 2.75:1 4:1
   if (aspectRatio === 'tiny') {
-    width = 100
+    width = 20
     height = 20
   } else if (aspectRatio === 'medium') {
-    width = 100
+    width = 50
     height = 20
   } else if (aspectRatio === 'big') {
     width = 100
@@ -160,17 +85,7 @@ export const renderLineChart = (
     } else {
       svgD3.style('bottom', '0').style('left', '0')
     }
-    const tooltip = d3
-      .select(newDiv)
-      .append('div')
-      .attr('id', 'tooltip')
-      .style('position', 'absolute')
-      .style('opacity', 0)
-      .style('pointer-events', 'none')
-      .style('background-color', 'white')
-      .style('padding', '10px')
-      .style('border', '1px solid black')
-      .style('border-radius', '5px')
+
     svgD3
       .append('path')
       .datum(data)
@@ -193,19 +108,19 @@ export const renderLineChart = (
       .attr('cy', (d) => yScale(d))
       .attr('r', 5) // size of circle for "hit area"
       .style('opacity', 0) // make it invisible
-      .on('mouseover', (event, d) => {
-        tooltip.transition().duration(200).style('opacity', 0.9)
-      })
-      .on('mousemove', (event, d) => {
-        console.log('eventeventeventeventeventeventevent', event)
-        tooltip
-          .html(`Value: ${d}`)
-          .style('left', `${event.offsetX + 5}px`)
-          .style('top', `${event.offsetY - 28}px`)
-      })
-      .on('mouseout', (d) => {
-        tooltip.transition().duration(500).style('opacity', 0)
-      })
+    // .on('mouseover', (event, d) => {
+    //   tooltip.transition().duration(200).style('opacity', 0.9)
+    // })
+    // .on('mousemove', (event, d) => {
+    //   console.log('eventeventeventeventeventeventevent', event)
+    //   tooltip
+    //     .html(`Value: ${d}`)
+    //     .style('left', `${event.offsetX + 5}px`)
+    //     .style('top', `${event.offsetY - 28}px`)
+    // })
+    // .on('mouseout', (d) => {
+    //   tooltip.transition().duration(500).style('opacity', 0)
+    // })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -218,17 +133,17 @@ export const renderLineChart = (
       .attr('width', width)
       .attr('height', height)
 
-    const tooltip = d3
-      .select(sparkLineElement)
-      .append('div')
-      .attr('id', 'tooltip')
-      .style('position', 'absolute')
-      .style('opacity', 0)
-      .style('pointer-events', 'none')
-      .style('background-color', 'white')
-      .style('padding', '10px')
-      .style('border', '1px solid black')
-      .style('border-radius', '5px')
+    // const tooltip = d3
+    //   .select(sparkLineElement)
+    //   .append('div')
+    //   .attr('id', 'tooltip')
+    //   .style('position', 'absolute')
+    //   .style('opacity', 0)
+    //   .style('pointer-events', 'none')
+    //   .style('background-color', 'white')
+    //   .style('padding', '10px')
+    //   .style('border', '1px solid black')
+    //   .style('border-radius', '5px')
     // svgD3.selectAll('*').remove()
     svgD3
       .append('path')
@@ -252,19 +167,19 @@ export const renderLineChart = (
       .attr('cy', (d) => yScale(d))
       .attr('r', 5) // size of circle for "hit area"
       .style('opacity', 0) // make it invisible
-      .on('mouseover', (event, d) => {
-        tooltip.transition().duration(200).style('opacity', 0.9)
-      })
-      .on('mousemove', (event, d) => {
-        console.log('lefteventlefteventlefteventlefteventleftevent', event)
-        tooltip
-          .html(`Value: ${d}`)
-          .style('left', `${event.pageX + 5}px`)
-          .style('top', `${event.pageY - 28}px`)
-      })
-      .on('mouseout', (d) => {
-        tooltip.transition().duration(500).style('opacity', 0)
-      })
+    // .on('mouseover', (event, d) => {
+    //   tooltip.transition().duration(200).style('opacity', 0.9)
+    // })
+    // .on('mousemove', (event, d) => {
+    //   console.log('lefteventlefteventlefteventlefteventleftevent', event)
+    //   tooltip
+    //     .html(`Value: ${d}`)
+    //     .style('left', `${event.pageX + 5}px`)
+    //     .style('top', `${event.pageY - 28}px`)
+    // })
+    // .on('mouseout', (d) => {
+    //   tooltip.transition().duration(500).style('opacity', 0)
+    // })
   }
 }
 

@@ -1,9 +1,9 @@
 import { MenuProps, Dropdown, message, Space, Select } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../actions/GlobalSettingAction'
-import { AppState } from '../store'
-import { GlobalSettingStateType } from '../types'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { AppState } from '../../store'
+import { GlobalSettingStateType } from '../../types'
 
 const ControlAspectRatio: React.FC = () => {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const ControlAspectRatio: React.FC = () => {
   return (
     <Select
       showSearch
-      placeholder='Select a person'
+      placeholder='Select Aspect Ratio'
       optionFilterProp='children'
       onChange={handleChangeAspectRatio}
       onSearch={onSearch}

@@ -2,10 +2,11 @@ import React, { useRef, useEffect, CSSProperties, useState } from 'react'
 import { Layout } from 'antd'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { InsightCard } from './InsightCard'
 import { AppState } from '../store'
 import { Card } from '../types'
+// import { fetchDataset } from '../actions/systemAction'
 
 const { Header, Footer, Sider, Content } = Layout
 

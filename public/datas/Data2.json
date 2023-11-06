@@ -5,7 +5,7 @@
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardType", "value": "Trend" },
+          { "type": "CardTitle", "value": "Trend" },
           { "type": "entity", "value": "Trend of Sales" }
         ]
       },
@@ -24,7 +24,7 @@
             "value": "东北",
             "metadata": {
               "entityType": "selector",
-              "detail": ["东北", "华北", "华南", "华中", "西北"]
+              "selections": ["东北", "华北", "华南", "华中", "西北"]
             }
           },
           { "type": "text", "value": "，环比昨日 " },
@@ -102,7 +102,7 @@
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardType", "value": "balabala" },
+          { "type": "CardTitle", "value": "balabala" },
           { "type": "entity", "value": "Trend of Sales" }
         ]
       },
@@ -121,7 +121,7 @@
             "value": "东北",
             "metadata": {
               "entityType": "selector",
-              "detail": ["东北", "华北", "华南", "华中", "西北"]
+              "selections": ["东北", "华北", "华南", "华中", "西北"]
             }
           },
           { "type": "text", "value": "，环比昨日 " },

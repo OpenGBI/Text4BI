@@ -15,13 +15,13 @@
 
 #visualization {
   flex-basis: 80%;
-  height: 650px;
+  height: 950px;
   overflow: auto;
 }
 
 #design {
   flex-basis: 20%;
-  height: 650px;
+  height: 950px;
 }
 .view {
   margin: 5px;

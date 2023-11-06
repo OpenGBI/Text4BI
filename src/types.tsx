@@ -4,10 +4,10 @@ export type storeType = {
 }
 export type Metadata = {
   entityType?: string
-  origin?: number
+  origin?: number | string
   assessment?: 'positive' | 'negative'
-  detail?: (string | number)[]
-  selector?: string[]
+  detail?: number[]
+  selections?: string[]
   delta_value?: string
   ratio_value?: string
   trend_desc?: string

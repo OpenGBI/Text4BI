@@ -12,7 +12,7 @@ const SelectorInText: React.FC<typeSelectorProps> = ({ defaultSelection, selecti
   <Space wrap>
     <Select
       defaultValue={defaultSelection}
-      style={{ width: 70 }}
+      style={{ width: 75 }}
       onChange={handleChange}
       options={selections.map((selection: string) => ({ value: selection, label: selection }))}
     />

@@ -173,7 +173,21 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
     return null
   }
   const renderPhrases = (curSentence: sentence) => {
-    if ('phrases' in curSentence && showSparkLine) {
+    if (curSentence.type === 'topic') {
+      return curSentence.phrases.map((phrase, index) => (
+        <PhraseComponent
+          key={index}
+          {...phrase}
+          fontsize={fontsize}
+          boldness={boldness}
+          underline={underline}
+          lineHeight={lineHeight}
+          aspectRatio={aspectRatio}
+          sparkLinePosition={sparkLinePosition}
+        />
+      ))
+    }
+    if ((curSentence.type === 'normal' || curSentence.type === 'bullet') && showSparkLine) {
       return curSentence.phrases.map((phrase, index) => (
         <PhraseComponent
           key={index}

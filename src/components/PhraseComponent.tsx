@@ -1,13 +1,14 @@
 import React, { useRef, useEffect } from 'react'
 import { RiseOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
 import SelectorInText from './LineHeightComponents/SelectorInText'
 import { renderLineChart, renderBarChart, renderPieChart } from '../utils/SparkLineFuncs'
-
-interface Phrase {
-  type: string
-  value: string
-  metadata?: any
-}
+import { Phrase, Metadata } from '../types'
+// interface Phrase {
+//   type: string
+//   value: string
+//   metadata?: any
+// }
 interface PhraseComponentProps extends Phrase {
   fontsize: string
   boldness: boolean
@@ -19,7 +20,7 @@ interface PhraseComponentProps extends Phrase {
 const PhraseComponent: React.FC<PhraseComponentProps> = ({
   type,
   value,
-  metadata,
+  metadata = {},
   fontsize,
   boldness,
   underline,
@@ -28,8 +29,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   sparkLinePosition,
 }) => {
   // 接收一个词，生成一个这个词的可视化效果和行内小图
-  const fontWeightValue = boldness ? 'bold' : 'normal'
-  const underlineValue = underline ? 'underline' : 'none'
+  let fontWeightValue = boldness ? 'bold' : 'normal'
+  let underlineValue = underline ? 'underline' : 'none'
+  let wordColor: string = 'black'
   const wordRef = useRef<HTMLSpanElement | null>(null)
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // const svgRef = useRef<SVGSVGElement | null>(null)
@@ -45,8 +47,50 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //     renderLineChart(svgRef.current, metadata.detail, tooltipRef.current, aspectRatio)
   //   }
   // }, [type, metadata, aspectRatio])
+  const renderWord = (curMetadata: Metadata) => {
+    if (curMetadata?.origin) {
+      return (
+        <Tooltip title={curMetadata.origin}>
+          <span
+            ref={wordRef}
+            style={{
+              color: wordColor,
+              fontSize: fontsize,
+              fontWeight: fontWeightValue,
+              textDecoration: underlineValue,
+              lineHeight,
+              position: 'relative',
+            }}
+            className='trend_desc'
+          >
+            {value}
+          </span>
+        </Tooltip>
+      )
+    }
+    console.log('curMetadata', curMetadata.entityType, value)
+    console.log(wordColor)
+    return (
+      <span
+        ref={wordRef}
+        style={{
+          color: wordColor,
+          fontSize: fontsize,
+          fontWeight: fontWeightValue,
+          textDecoration: underlineValue,
+          lineHeight,
+          position: 'relative',
+        }}
+        className={curMetadata.entityType}
+      >
+        {value}
+      </span>
+    )
+  }
+  // if (!metadata) {
+  //   throw new Error('No data found for the date')
+  // }
   useEffect(() => {
-    console.log('effecteffect')
     if (
       wordRef.current &&
       metadata.detail &&
@@ -71,23 +115,35 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }, [type, metadata, aspectRatio, sparkLinePosition])
   // strict模式下初始化页面会调用两次useEffect
 
-  if (type === 'entity' && metadata.entityType === 'selector') {
-    return <SelectorInText selections={metadata.detail} defaultSelection={metadata.detail[0]} />
-  }
   if (type === 'entity') {
-    let wordColor: string = 'black'
-    switch (metadata.entityType) {
-      case 'metric_value':
-        wordColor = 'blue'
-        break
-      case 'ratio_value':
-        wordColor = 'red'
-        break
-      case 'delta_value':
-        wordColor = 'red'
-        break
-      default:
-        break
+    if (metadata.entityType === 'selector' && metadata.selections) {
+      return (
+        <SelectorInText
+          selections={metadata.selections}
+          defaultSelection={metadata.selections[0]}
+        />
+      )
+    }
+
+    if (metadata.entityType === 'metric_value') {
+      wordColor = '#4B91FF'
+    }
+    if (
+      metadata.entityType === 'delta_value' ||
+      metadata.entityType === 'delta_value_ratio' ||
+      metadata.entityType === 'insight_desc'
+    ) {
+      if (metadata.assessment === 'positive') {
+        wordColor = '#13A8A8'
+      } else {
+        wordColor = '#FA541C'
+      }
+    }
+    if (metadata.entityType === 'metric_name' || metadata.entityType === 'dim_cate') {
+      fontWeightValue = 'bold'
+    }
+    if (metadata.entityType === 'algorithm') {
+      underlineValue = 'underline dashed'
     }
     // const getSvgWidth = (curAspectRatio: string) => {
     //   if (curAspectRatio === 'tiny') {
@@ -102,7 +158,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     //   return '100'
     // }
     return (
-      <span style={{ color: wordColor }}>
+      <>
         {
           metadata?.entityType === 'trend_desc' && sparkLinePosition === 'left' ? (
             <span id='sparkLineElement' ref={sparkLineRef}>
@@ -112,7 +168,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
-        <span
+        {/* <span
           ref={wordRef}
           style={{
             fontSize: fontsize,
@@ -124,7 +180,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           className='trend_desc'
         >
           {value}
-        </span>
+        </span> */}
+        {renderWord(metadata)}
 
         {
           metadata?.entityType === 'trend_desc' && sparkLinePosition === 'right' ? (
@@ -136,14 +193,29 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         }
         {metadata?.assessment === 'positive' ? (
-          <RiseOutlined style={{ fontSize: '16px', color: 'red' }} />
+          <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
         ) : null}
+      </>
+    )
+  }
+  if (type === 'CardTitle') {
+    return (
+      <span
+        style={{
+          fontSize: fontsize,
+          lineHeight,
+          position: 'relative',
+          fontWeight: 'bold',
+          backgroundColor: '#87CEFA',
+          padding: '5px',
+          borderRadius: '5px',
+        }}
+        className='CardTitle'
+      >
+        {value}
       </span>
     )
   }
   return <span style={{ fontSize: fontsize, lineHeight }}>{value}</span>
-}
-PhraseComponent.defaultProps = {
-  metadata: {}, // 或者其他默认值
 }
 export default PhraseComponent

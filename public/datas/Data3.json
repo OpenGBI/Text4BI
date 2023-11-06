@@ -5,7 +5,7 @@
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardType", "value": "DAU" },
+          { "type": "CardTitle", "value": "DAU" },
           { "type": "entity", "value": "Trend of Sales" }
         ]
       },
@@ -24,7 +24,7 @@
             "value": "东北",
             "metadata": {
               "entityType": "selector",
-              "detail": ["东北", "华北", "华南", "华中", "西北"]
+              "selections": ["东北", "华北", "华南", "华中", "西北"]
             }
           },
           { "type": "text", "value": "，环比昨日 " },

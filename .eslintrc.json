@@ -21,6 +21,7 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "react/default-props-match-prop-types": "off",
     "react/jsx-indent": "off",
     "indent": "off",
     "wrap-iife": "off",

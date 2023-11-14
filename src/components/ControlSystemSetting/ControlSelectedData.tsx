@@ -61,8 +61,18 @@ const iniData: Card[] = [
             type: 'entity',
             value: '趋势上涨',
             metadata: {
-              entityType: 'trend_desc',
-              detail: [1, 2, 6, 18, 24, 48],
+              entityType: 'insight',
+              insightType: 'Association',
+              detail: [
+                { x: 1, y: 3 },
+                { x: 4, y: 7 },
+                { x: 3, y: 6 },
+                { x: 2, y: 4 },
+              ],
+              tagData: [
+                { x: 2, y: 2 },
+                { x: 3, y: 3 },
+              ],
             },
           },
           { type: 'text', value: '。' },
@@ -97,7 +107,8 @@ const iniData: Card[] = [
             type: 'entity',
             value: '趋势上涨',
             metadata: {
-              entityType: 'trend_desc',
+              entityType: 'insight',
+              insightType: 'TemporalityTrend',
               detail: [1, 2, 6, 18, 24, 48],
             },
           },
@@ -196,7 +207,8 @@ const iniData: Card[] = [
             type: 'entity',
             value: '趋势上涨',
             metadata: {
-              entityType: 'trend_desc',
+              entityType: 'insight',
+              insightType: 'TemporalityTrend',
               detail: [1, 2, 6, 18, 24, 48],
             },
           },
@@ -232,7 +244,8 @@ const iniData: Card[] = [
             type: 'entity',
             value: '趋势上涨',
             metadata: {
-              entityType: 'trend_desc',
+              entityType: 'insight',
+              insightType: 'TemporalityTrend',
               detail: [1, 2, 6, 18, 24, 48],
             },
           },
@@ -268,7 +281,8 @@ const iniData: Card[] = [
             type: 'entity',
             value: '趋势上涨',
             metadata: {
-              entityType: 'trend_desc',
+              entityType: 'insight',
+              insightType: 'TemporalityTrend',
               detail: [1, 2, 6, 18, 24, 48],
             },
           },

@@ -58,7 +58,8 @@ const iniSystemState: systemStateType = {
               type: 'entity',
               value: '趋势上涨',
               metadata: {
-                entityType: 'trend_desc',
+                entityType: 'insight',
+                insightType: 'TemporalityTrend',
                 detail: [1, 2, 6, 18, 24, 48],
               },
             },
@@ -94,7 +95,8 @@ const iniSystemState: systemStateType = {
               type: 'entity',
               value: '趋势上涨',
               metadata: {
-                entityType: 'trend_desc',
+                entityType: 'insight',
+                insightType: 'TemporalityTrend',
                 detail: [1, 2, 6, 18, 24, 48],
               },
             },
@@ -193,7 +195,8 @@ const iniSystemState: systemStateType = {
               type: 'entity',
               value: '趋势上涨',
               metadata: {
-                entityType: 'trend_desc',
+                entityType: 'insight',
+                insightType: 'TemporalityTrend',
                 detail: [1, 2, 6, 18, 24, 48],
               },
             },
@@ -229,7 +232,8 @@ const iniSystemState: systemStateType = {
               type: 'entity',
               value: '趋势上涨',
               metadata: {
-                entityType: 'trend_desc',
+                entityType: 'insight',
+                insightType: 'TemporalityTrend',
                 detail: [1, 2, 6, 18, 24, 48],
               },
             },
@@ -265,7 +269,8 @@ const iniSystemState: systemStateType = {
               type: 'entity',
               value: '趋势上涨',
               metadata: {
-                entityType: 'trend_desc',
+                entityType: 'insight',
+                insightType: 'TemporalityTrend',
                 detail: [1, 2, 6, 18, 24, 48],
               },
             },

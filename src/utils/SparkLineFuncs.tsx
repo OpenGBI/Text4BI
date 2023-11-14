@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
+import { Point } from '../types'
 
-export const renderLineChart = (
+export const renderDistribution1 = (
   data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
@@ -10,6 +11,7 @@ export const renderLineChart = (
 ) => {
   let width
   let height
+  const padding = 1.5
   // 1:1 2.75:1 4:1
   if (aspectRatio === 'tiny') {
     width = 20
@@ -27,23 +29,335 @@ export const renderLineChart = (
   if (wordElement) {
     const children = wordElement.querySelectorAll(':scope > .sparklines')
     children.forEach((child) => {
-      // 移除每一个有"myclass"类名的子元素
       wordElement.removeChild(child)
     })
   }
 
-  // const svgD3 = d3.select(svg)
-  // svgD3.selectAll('*').remove()
-  // console.log(data)
+  const q1 = d3.quantile(data.sort(d3.ascending), 0.25)
+  const median = d3.quantile(data, 0.5)
+  const q3 = d3.quantile(data, 0.75)
+  if (!q1 || !q3 || !median) {
+    throw new Error('q1q3median计算失败')
+  }
+  const interQuantileRange = q3 - q1
+  const min = q1 - 1.5 * interQuantileRange
+  const max = q3 + 1.5 * interQuantileRange
+  const xScale = d3
+    .scaleLinear()
+    .domain([min, max])
+    .range([padding, width - padding])
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3
+      .append('rect')
+      .attr('x', xScale(q1))
+      .attr('y', height / 2)
+      .attr('height', height / 2)
+      .attr('width', xScale(q3) - xScale(q1))
+      // .attr('stroke', 'black')
+      .style('fill', '#ccd7f1')
+    svgD3
+      .append('line')
+      .attr('x1', xScale(median))
+      .attr('x2', xScale(median))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+    // 绘制上下须
+    svgD3
+      .append('line')
+      .attr('x1', xScale(min))
+      .attr('x2', xScale(max))
+      .attr('y1', (height * 3) / 4)
+      .attr('y2', (height * 3) / 4)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+
+    svgD3
+      .append('line')
+      .attr('x1', xScale(min))
+      .attr('x2', xScale(min))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+
+    svgD3
+      .append('line')
+      .attr('x1', xScale(max))
+      .attr('x2', xScale(max))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3.select(sparkLineElement).append('svg').attr('width', width).attr('height', 20)
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3
+      .append('rect')
+      .attr('x', xScale(q1))
+      .attr('y', height / 2)
+      .attr('height', height / 2)
+      .attr('width', xScale(q3) - xScale(q1))
+      // .attr('stroke', 'black')
+      .style('fill', '#ccd7f1')
+    svgD3
+      .append('line')
+      .attr('x1', xScale(median))
+      .attr('x2', xScale(median))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+    // 绘制上下须
+    svgD3
+      .append('line')
+      .attr('x1', xScale(min))
+      .attr('x2', xScale(max))
+      .attr('y1', (height * 3) / 4)
+      .attr('y2', (height * 3) / 4)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+
+    svgD3
+      .append('line')
+      .attr('x1', xScale(min))
+      .attr('x2', xScale(min))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+
+    svgD3
+      .append('line')
+      .attr('x1', xScale(max))
+      .attr('x2', xScale(max))
+      .attr('y1', height / 2)
+      .attr('y2', height)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1')
+  }
+}
+export const renderDistribution2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  function kernelDensityEstimator(kernel: (v: number) => number, X: number[]) {
+    return (V: number[]): [number, number][] =>
+      X.map((x) => [x, d3.mean(V, (v) => kernel(x - v))!] as [number, number]) // 使用非空断言
+  }
+
+  function kernelEpanechnikov(k: number): (v: number) => number {
+    return (v: number) => {
+      v /= k
+      return Math.abs(v) <= 1 ? (0.75 * (1 - v * v)) / k : 0
+    }
+  }
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  if (d3.extent(data)[0] === undefined) {
+    throw new Error('Error')
+  }
+  const xScale = d3
+    .scaleLinear()
+    .domain(d3.extent(data) as [number, number]) // data的范围
+    .range([padding, width - padding])
+  const yScale = d3.scaleLinear().range([height - padding, padding])
+  const kde = kernelDensityEstimator(kernelEpanechnikov(7), xScale.ticks(40))
+  const density = kde(data)
+  yScale.domain([0, d3.max(density, (d) => d[1])!]) // 使用非空断言
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([min, max])
+  //   .range([padding, width - padding])
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3
+      .append('path')
+      .attr('class', 'mypath')
+      .datum(density)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr('stroke-linejoin', 'round')
+      .attr(
+        'd',
+        d3
+          .line()
+          .curve(d3.curveBasis)
+          .x((d) => xScale(d[0]))
+          .y((d) => yScale(d[1])),
+      )
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3.select(sparkLineElement).append('svg').attr('width', width).attr('height', 20)
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3
+      .append('path')
+      .attr('class', 'mypath')
+      .datum(density)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr('stroke-linejoin', 'round')
+      .attr(
+        'd',
+        d3
+          .line()
+          .curve(d3.curveBasis)
+          .x((d) => xScale(d[0]))
+          .y((d) => yScale(d[1])),
+      )
+  }
+}
+
+export const renderCategorization1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height: number
+  const padding = 1
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  const barWidth = (width - padding * 2) / data.length
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
 
   const xScale = d3
     .scaleLinear()
-    .domain([0, data.length - 1])
-    .range([0, width])
+    .domain([0, data.length])
+    .range([padding, width - padding])
   const yScale = d3
     .scaleLinear()
-    .domain([d3.min(data) || 0, d3.max(data) || 0])
-    .range([height, 0])
+    .domain([0, d3.max(data) || 0])
+    .range([height - padding, padding])
 
   const line = d3
     .line<number>()
@@ -52,10 +366,964 @@ export const renderLineChart = (
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
-    // while (wordElement.firstChild) {
-    //   wordElement.removeChild(wordElement.firstChild)
-    // }
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
 
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => xScale(i))
+      .attr('y', (d) => yScale(d))
+      .attr('width', barWidth) // 5 is for padding between bars
+      .attr('height', (d) => height - yScale(d))
+      .attr('fill', 'steelblue')
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => xScale(i))
+      .attr('y', (d) => yScale(d))
+      .attr('width', barWidth) // 5 is for padding between bars
+      .attr('height', (d) => height - yScale(d))
+      .attr('fill', 'steelblue')
+  }
+}
+
+export const renderCategorization2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height: number
+  const padding = 1
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  const barWidth = (width - padding * 2) / data.length
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([0, data.length])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+  function getx(index: number, xScale: d3.ScaleLinear<number, number>) {
+    let res = 0
+    for (let i = 0; i < index; i += 1) {
+      res += Math.sqrt(data[i])
+      res += padding
+    }
+    return xScale(res)
+  }
+  function getTotal() {
+    let res = 0
+    for (let i = 0; i < data.length; i += 1) {
+      res += Math.sqrt(data[i])
+      res += padding
+    }
+    return res
+  }
+  const xScale = d3.scaleLinear().domain([0, getTotal()]).range([0, width])
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d: number, i: number) => getx(i, xScale))
+      .attr('y', (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
+      .attr('width', (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
+      .attr('height', (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d: number, i: number) => getx(i, xScale))
+      .attr('y', (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
+      .attr('width', (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
+      .attr('height', (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+  }
+}
+export const renderProportion1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 0.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+  const radius = Math.min(width, height) / 2
+
+  const pie = d3.pie<number>().sort(null)
+  const arc = d3.arc<d3.PieArcDatum<number>>().innerRadius(0).outerRadius(radius)
+
+  const color = d3.scaleOrdinal(d3.schemeCategory10)
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([0, data.length - 1])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([d3.min(data) || 0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-40px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+
+    const pieData = pie(data)
+
+    svgD3
+      .selectAll('path')
+      .data(pieData)
+      .enter()
+      .append('path')
+      .attr('d', arc) // Cast required due to typings mismatch
+      .attr('fill', (d, i) => color(i.toString()))
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+
+    const pieData = pie(data)
+
+    svgD3
+      .selectAll('path')
+      .data(pieData)
+      .enter()
+      .append('path')
+      .attr('d', arc) // Cast required due to typings mismatch
+      .attr('fill', (d, i) => color(i.toString()))
+  }
+}
+export const renderProportion2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height: number
+  const padding: number = 0.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  function getx(index: number, xScale: d3.ScaleLinear<number, number>): number {
+    let res: number = 0
+    for (let i: number = 0; i < index; i += 1) {
+      res += data[i]
+      res += padding
+    }
+    return xScale(res)
+  }
+
+  function gettotal(): number {
+    let res: number = 0
+    for (let i: number = 0; i < data.length; i += 1) {
+      res += data[i]
+      res += padding
+    }
+    return res
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+  const colorScale: d3.ScaleOrdinal<number, string> = d3
+    .scaleOrdinal<number, string>()
+    .domain(d3.range(data.length))
+    .range(d3.schemeCategory10) // const xScale = d3
+  const xScale = d3.scaleLinear().domain([0, gettotal()]).range([0, width])
+  //   .scaleLinear()
+  //   .domain([0, data.length - 1])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([d3.min(data) || 0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+    // const svgD3 = d3
+    //   .select(newDiv)
+    //   .append('svg')
+    //   .attr('width', width)
+    //   .attr('height', height)
+    //   .append('g')
+    //   .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+
+    svgD3
+      .selectAll<SVGRectElement, number>('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d: number, i: number) => getx(i, xScale))
+      .attr('y', (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
+      .attr('width', (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
+      .attr('height', 10) // 高度为面积的平方根
+      .attr('fill', (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    // const svgD3 = d3
+    //   .select(sparkLineElement)
+    //   .append('svg')
+    //   .attr('width', width)
+    //   .attr('height', height)
+    //   .append('g')
+    //   .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .selectAll<SVGRectElement, number>('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d: number, i: number) => getx(i, xScale))
+      .attr('y', (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
+      .attr('width', (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
+      .attr('height', 10) // 高度为面积的平方根
+      .attr('fill', (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
+  }
+}
+// 缺少回归线计算代码 暂时12都不行
+export const renderAssociation1 = (
+  data: Point[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: Point[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
+  const b = tagData[1].y - k * tagData[1].x
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+  const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
+  const xScale = d3
+    .scaleLinear()
+    .rangeRound([padding, width - padding])
+    .domain([-maxAbsX, maxAbsX])
+  // console.log('d3.extent(data, (d) => d.x) as number[]', d3.extent(data, (d) => d.x) as number[])
+  const maxAbsY = data.reduce((max, current) => Math.max(max, Math.abs(current.y)), 0)
+  const yScale = d3
+    .scaleLinear()
+    .rangeRound([height - padding, padding])
+    .domain([-maxAbsY, maxAbsY])
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([0, data.length])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([d3.min(data) || 0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(0,${yScale(0)})`)
+    //   .call(d3.axisBottom(xScale))
+
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(${xScale(0)},0)`)
+    //   .call(d3.axisLeft(yScale))
+
+    // // Scatter plot
+    // svgD3
+    //   .selectAll('.scatter')
+    //   .data(data)
+    //   .enter()
+    //   .append('circle')
+    //   .attr('class', 'scatter')
+    //   .attr('cx', (d) => xScale(d.x))
+    //   .attr('cy', (d) => yScale(d.y))
+    //   .attr('r', 5)
+
+    // Equation of the line: y = 4.5x + -5.0
+    svgD3
+      .append('defs')
+      .append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 5)
+      .attr('refY', 0)
+      .attr('markerWidth', 4)
+      .attr('markerHeight', 4)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('class', 'arrowHead')
+      .attr('fill', 'steelblue')
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${yScale(0)})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${xScale(0)},0)`)
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    // Equation of the line: y = 4.5x + -5.0
+    const line = d3
+      .line<Point>()
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(k * d.x + b))
+
+    const res = svgD3
+      .append('path')
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr('class', 'line')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+      .attr('marker-end', 'url(#arrow)')
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(0,${yScale(0)})`)
+    //   .call(d3.axisBottom(xScale))
+
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(${xScale(0)},0)`)
+    //   .call(d3.axisLeft(yScale))
+
+    // // Scatter plot
+    // svgD3
+    //   .selectAll('.scatter')
+    //   .data(data)
+    //   .enter()
+    //   .append('circle')
+    //   .attr('class', 'scatter')
+    //   .attr('cx', (d) => xScale(d.x))
+    //   .attr('cy', (d) => yScale(d.y))
+    //   .attr('r', 5)
+
+    // Equation of the line: y = 4.5x + -5.0
+    svgD3
+      .append('defs')
+      .append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 5)
+      .attr('refY', 0)
+      .attr('markerWidth', 4)
+      .attr('markerHeight', 4)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('class', 'arrowHead')
+      .attr('fill', 'steelblue')
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${yScale(0)})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${xScale(0)},0)`)
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    // Equation of the line: y = 4.5x + -5.0
+    const line = d3
+      .line<Point>()
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(k * d.x + b))
+
+    const res = svgD3
+      .append('path')
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr('class', 'line')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+      .attr('marker-end', 'url(#arrow)')
+  }
+}
+export const renderAssociation2 = (
+  data: Point[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: Point[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
+  const b = tagData[1].y - k * tagData[1].x
+  let width
+  let height
+  const padding = 1
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+  const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
+  const xScale = d3
+    .scaleLinear()
+    .rangeRound([padding, width - padding])
+    .domain([-maxAbsX, maxAbsX])
+  // console.log('d3.extent(data, (d) => d.x) as number[]', d3.extent(data, (d) => d.x) as number[])
+  const maxAbsY = data.reduce((max, current) => Math.max(max, Math.abs(current.y)), 0)
+  const yScale = d3
+    .scaleLinear()
+    .rangeRound([height - padding, padding])
+    .domain([-maxAbsY, maxAbsY])
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([0, data.length])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([d3.min(data) || 0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${yScale(0)})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${xScale(0)},0)`)
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    // Scatter plot
+    svgD3
+      .selectAll('.scatter')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('class', 'scatter')
+      .attr('cx', (d) => xScale(d.x))
+      .attr('cy', (d) => yScale(d.y))
+      .attr('r', 1)
+      .attr('fill', 'steelblue')
+
+    // Equation of the line: y = 4.5x + -5.0
+    const line = d3
+      .line<Point>()
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(k * d.x + b))
+
+    const res = svgD3
+      .append('path')
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr('class', 'line')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${yScale(0)})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    svgD3
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${xScale(0)},0)`)
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickSize(0.1)
+          .tickFormat(() => ''),
+      )
+      .selectAll('path, line') // 选择坐标轴的所有路径和线
+      .style('stroke', 'steelblue')
+
+    // Scatter plot
+    svgD3
+      .selectAll('.scatter')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('class', 'scatter')
+      .attr('cx', (d) => xScale(d.x))
+      .attr('cy', (d) => yScale(d.y))
+      .attr('r', 1)
+      .attr('fill', 'steelblue')
+
+    // Equation of the line: y = 4.5x + -5.0
+    const line = d3
+      .line<Point>()
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(k * d.x + b))
+    console.log('datumdatum', k, b)
+
+    const res = svgD3
+      .append('path')
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr('class', 'line')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+  }
+}
+export const renderTemporalityTrend1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length])
+    .range([padding, width - padding])
+  const yScale = d3
+    .scaleLinear()
+    .domain([d3.min(data) || 0, d3.max(data) || 0])
+    .range([height - padding, padding])
+
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
     const rect = wordElement.getBoundingClientRect()
     // console.log(rect)
     const newDiv = document.createElement('span')
@@ -73,7 +1341,529 @@ export const renderLineChart = (
     newDiv.style.width = `${rect.width + 20}px`
     newDiv.style.height = `${rect.height + 20}px`
     wordElement.appendChild(newDiv)
-    // 创建SVG元素
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+  }
+}
+// 没测试
+export const renderTemporalityTrend2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const processedData = data.map((d, i) => ({ x: i, y: d }))
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, processedData.length])
+    .range([padding, width - padding])
+  const yScale = d3
+    .scaleLinear()
+    .domain([d3.min(data) || 0, d3.max(data) || 0])
+    .range([height - padding, padding])
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', rect.width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+    svgD3
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'area-gradient')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '0%')
+      .attr('y2', '0%')
+      .selectAll('stop')
+      .data([
+        { offset: '0%', color: 'blue', opacity: '0' },
+        { offset: '100%', color: 'blue', opacity: '0.3' },
+      ])
+      .enter()
+      .append('stop')
+      .attr('offset', (d) => d.offset)
+      .attr('stop-color', (d) => d.color)
+      .attr('stop-opacity', (d) => d.opacity)
+    const area = d3
+      .area<{ x: number; y: number }>()
+      .x((d) => xScale(d.x))
+      .y0(height)
+      .y1((d) => yScale(d.y))
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    svgD3
+      .append('path')
+      .datum(processedData)
+      .attr('class', 'area')
+      .style('fill', 'url(#area-gradient)')
+      .attr('d', area)
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'area-gradient')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '0%')
+      .attr('y2', '0%')
+      .selectAll('stop')
+      .data([
+        { offset: '0%', color: 'blue', opacity: '0' },
+        { offset: '100%', color: 'blue', opacity: '0.3' },
+      ])
+      .enter()
+      .append('stop')
+      .attr('offset', (d) => d.offset)
+      .attr('stop-color', (d) => d.color)
+      .attr('stop-opacity', (d) => d.opacity)
+    const area = d3
+      .area<{ x: number; y: number }>()
+      .x((d) => xScale(d.x))
+      .y0(height)
+      .y1((d) => yScale(d.y))
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    svgD3
+      .append('path')
+      .datum(processedData)
+      .attr('class', 'area')
+      .style('fill', 'url(#area-gradient)')
+      .attr('d', area)
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+  }
+}
+// 没测试
+export const renderTemporalityDifference1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: number[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height: number
+
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  const barWidth = (width - padding * 2) / data.length
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length])
+    .range([padding, width - padding])
+
+  // 定义Y比例尺
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(data) || 0])
+    .range([height - padding, padding])
+
+  // xScale.domain(data.map((d, i) => i))
+  // 绘制线条
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y(height / 2) // 固定在 SVG 中间的高度
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', rect.width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .append('defs')
+      .append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 5)
+      .attr('refY', 0)
+      .attr('markerWidth', 4)
+      .attr('markerHeight', 4)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('class', 'arrowHead')
+      .attr('fill', 'red')
+    svgD3
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d, i) => xScale(i))
+      .attr('y', (d) => yScale(d))
+      .attr('width', barWidth)
+      .attr('height', (d) => height - yScale(d))
+
+    // 画趋势线
+    const line = d3
+      .line<number>()
+      .x((d, i) => xScale(i) + barWidth / 2)
+      .y((d) => yScale(d))
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'red')
+      .attr('stroke-width', 1.5)
+      .attr('d', line)
+      .attr('marker-end', 'url(#arrow)') // 应用箭头
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('defs')
+      .append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 5)
+      .attr('refY', 0)
+      .attr('markerWidth', 4)
+      .attr('markerHeight', 4)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('class', 'arrowHead')
+      .attr('fill', 'red')
+    svgD3
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d, i) => xScale(i))
+      .attr('y', (d) => yScale(d))
+      .attr('width', barWidth)
+      .attr('height', (d) => height - yScale(d))
+
+    // 画趋势线
+    const line = d3
+      .line<number>()
+      .x((d, i) => xScale(i) + barWidth / 2)
+      .y((d) => yScale(d))
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'red')
+      .attr('stroke-width', 1.5)
+      .attr('d', line)
+      .attr('marker-end', 'url(#arrow)') // 应用箭头
+  }
+}
+export const renderTemporalityDifference2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length])
+    .range([padding, width - padding])
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(data) || 0])
+    .range([height - padding, padding])
+
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y((d) => yScale(d))
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    // console.log(rect)
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
       .append('svg')
@@ -94,11 +1884,11 @@ export const renderLineChart = (
       .attr('stroke-width', 1)
       .attr('d', line)
 
-    const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
 
-    svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    svgD3.append('g').call(yAxis)
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
     svgD3
       .selectAll('circle')
       .data(data)
@@ -106,21 +1896,14 @@ export const renderLineChart = (
       .append('circle')
       .attr('cx', (d, i) => xScale(i))
       .attr('cy', (d) => yScale(d))
-      .attr('r', 5) // size of circle for "hit area"
-      .style('opacity', 0) // make it invisible
-    // .on('mouseover', (event, d) => {
-    //   tooltip.transition().duration(200).style('opacity', 0.9)
-    // })
-    // .on('mousemove', (event, d) => {
-    //   console.log('eventeventeventeventeventeventevent', event)
-    //   tooltip
-    //     .html(`Value: ${d}`)
-    //     .style('left', `${event.offsetX + 5}px`)
-    //     .style('top', `${event.offsetY - 28}px`)
-    // })
-    // .on('mouseout', (d) => {
-    //   tooltip.transition().duration(500).style('opacity', 0)
-    // })
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -132,19 +1915,6 @@ export const renderLineChart = (
       .append('svg')
       .attr('width', width)
       .attr('height', height)
-
-    // const tooltip = d3
-    //   .select(sparkLineElement)
-    //   .append('div')
-    //   .attr('id', 'tooltip')
-    //   .style('position', 'absolute')
-    //   .style('opacity', 0)
-    //   .style('pointer-events', 'none')
-    //   .style('background-color', 'white')
-    //   .style('padding', '10px')
-    //   .style('border', '1px solid black')
-    //   .style('border-radius', '5px')
-    // svgD3.selectAll('*').remove()
     svgD3
       .append('path')
       .datum(data)
@@ -153,11 +1923,11 @@ export const renderLineChart = (
       .attr('stroke-width', 1)
       .attr('d', line)
 
-    const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
 
-    svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    svgD3.append('g').call(yAxis)
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
     svgD3
       .selectAll('circle')
       .data(data)
@@ -165,100 +1935,593 @@ export const renderLineChart = (
       .append('circle')
       .attr('cx', (d, i) => xScale(i))
       .attr('cy', (d) => yScale(d))
-      .attr('r', 5) // size of circle for "hit area"
-      .style('opacity', 0) // make it invisible
-    // .on('mouseover', (event, d) => {
-    //   tooltip.transition().duration(200).style('opacity', 0.9)
-    // })
-    // .on('mousemove', (event, d) => {
-    //   console.log('lefteventlefteventlefteventlefteventleftevent', event)
-    //   tooltip
-    //     .html(`Value: ${d}`)
-    //     .style('left', `${event.pageX + 5}px`)
-    //     .style('top', `${event.pageY - 28}px`)
-    // })
-    // .on('mouseout', (d) => {
-    //   tooltip.transition().duration(500).style('opacity', 0)
-    // })
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
   }
 }
+export const renderTemporalityAnomaly1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: number[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
 
-export const renderBarChart = (svg: SVGSVGElement, data: number[], tooltip: HTMLDivElement) => {
-  const width = 100 // 修改了这个宽度值以适应柱状图的表现
-  const height = 20
-  const barWidth = width / data.length
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length - 1])
+    .range([padding, width - padding])
 
-  const xScale = d3.scaleLinear().domain([0, data.length]).range([0, width])
+  // 绘制线条
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y(height / 2) // 固定在 SVG 中间的高度
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', rect.width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('d', line)
+      .attr('fill', 'none')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 2)
+
+    // 标记第3个和第5个点
+    svgD3
+      .selectAll('.marked-point')
+      .data(data) // 选取第3个和第5个元素
+      .enter()
+      .append('circle')
+      .attr('class', 'marked-point')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', height / 2)
+      .attr('r', 2)
+      .attr('fill', 'red')
+      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('d', line)
+      .attr('fill', 'none')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 2)
+
+    // 标记第3个和第5个点
+    svgD3
+      .selectAll('.marked-point')
+      .data(data) // 选取第3个和第5个元素
+      .enter()
+      .append('circle')
+      .attr('class', 'marked-point')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', height / 2)
+      .attr('r', 2)
+      .attr('fill', 'red')
+      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+  }
+}
+// 没测试
+export const renderTemporalityAnomaly2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: number[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length - 1])
+    .range([padding, width - padding])
+
+  // 绘制线条
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y(height / 2) // 固定在 SVG 中间的高度
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', rect.width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('d', line)
+      .attr('fill', 'none')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 2)
+
+    // 标记第3个和第5个点
+    svgD3
+      .selectAll('line.vertical')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('x1', (d, i) => xScale(i))
+      .attr('y1', 0.2 * height)
+      .attr('x2', (d, i) => xScale(i))
+      .attr('y2', 0.8 * height)
+      .attr('stroke', 'red')
+      .attr('stroke-width', 2)
+      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('d', line)
+      .attr('fill', 'none')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 2)
+
+    // 标记第3个和第5个点
+    svgD3
+      .selectAll('line.vertical')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('x1', (d, i) => xScale(i))
+      .attr('y1', 0.2 * height)
+      .attr('x2', (d, i) => xScale(i))
+      .attr('y2', 0.8 * height)
+      .attr('stroke', 'red')
+      .attr('stroke-width', 2)
+      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+  }
+}
+// 没测试
+export const renderTemporalitySeasonality1 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: number[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
+    })
+  }
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, data.length])
+    .range([padding, width - padding])
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data) || 0])
-    .range([height, 0])
+    .domain([d3.min(data) || 0, d3.max(data) || 0])
+    .range([height - padding, padding])
 
-  const svgD3 = d3.select(svg).attr('width', width).attr('height', height)
+  const line = d3
+    .line<number>()
+    .x((d, i) => xScale(i))
+    .y((d) => yScale(d))
 
-  svgD3
-    .selectAll('rect')
-    .data(data)
-    .enter()
-    .append('rect')
-    .attr('x', (d, i) => xScale(i))
-    .attr('y', (d) => yScale(d))
-    .attr('width', barWidth - 5) // 5 is for padding between bars
-    .attr('height', (d) => height - yScale(d))
-    .attr('fill', 'steelblue')
-    .on('mouseover', (event, d) => {
-      d3.select(tooltip)
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY - 28}px`)
-        .style('display', 'inline-block')
-        .html(`Value: ${d}`)
-    })
-    .on('mouseout', () => {
-      d3.select(tooltip).style('display', 'none')
-    })
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
 
-  const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-  const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
 
-  svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-  svgD3.append('g').call(yAxis)
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+    for (let i = 0; i < tagData.length; i += 2) {
+      svgD3
+        .append('rect')
+        .attr('x', xScale(tagData[i]))
+        .attr('width', xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr('y', 0)
+        .attr('height', height)
+        .attr('fill', '#f7e3df')
+        .attr('opacity', 0.8)
+    }
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    svgD3
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1)
+      .attr('d', line)
+
+    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+    // svgD3.append('g').call(yAxis)
+    svgD3
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d, i) => xScale(i))
+      .attr('cy', (d) => yScale(d))
+      .attr('r', 1.5) // size of circle for "hit area"
+      .style('opacity', (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
+      .style('fill', 'steelblue')
+    for (let i = 0; i < tagData.length; i += 2) {
+      svgD3
+        .append('rect')
+        .attr('x', xScale(tagData[i]))
+        .attr('width', xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr('y', 0)
+        .attr('height', height)
+        .attr('fill', '#f7e3df')
+        .attr('opacity', 0.8)
+    }
+  }
 }
-
-export const renderPieChart = (svg: SVGSVGElement, data: number[], tooltip: HTMLDivElement) => {
-  const width = 20
-  const height = 20 // Assuming you want the pie chart to be square
-  const radius = Math.min(width, height) / 2
-
-  const pie = d3.pie<number>().sort(null)
-  const arc = d3.arc<d3.PieArcDatum<number>>().innerRadius(0).outerRadius(radius)
-
-  const color = d3.scaleOrdinal(d3.schemeCategory10) // A default color scale
-
-  const svgD3 = d3
-    .select(svg)
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-    .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
-
-  const pieData = pie(data)
-
-  svgD3
-    .selectAll('path')
-    .data(pieData)
-    .enter()
-    .append('path')
-    .attr('d', arc) // Cast required due to typings mismatch
-    .attr('fill', (d, i) => color(i.toString()))
-    .on('mouseover', (event, d) => {
-      const percentage = ((d.data / d3.sum(data)!) * 100).toFixed(2)
-      d3.select(tooltip)
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY - 28}px`)
-        .style('display', 'inline-block')
-        .html(`Value: ${d.data} (${percentage}%)`)
+// 没测试
+export const renderTemporalitySeasonality2 = (
+  data: number[],
+  aspectRatio: string,
+  sparkLinePosition: string,
+  tagData: number[],
+  wordElement?: HTMLSpanElement,
+  sparkLineElement?: HTMLSpanElement,
+) => {
+  let width
+  let height
+  const padding = 1.5
+  // 1:1 2.75:1 4:1
+  if (aspectRatio === 'tiny') {
+    width = 20
+    height = 20
+  } else if (aspectRatio === 'medium') {
+    width = 50
+    height = 20
+  } else if (aspectRatio === 'big') {
+    width = 100
+    height = 20
+  } else {
+    width = 100
+    height = 20
+  }
+  if (wordElement) {
+    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    children.forEach((child) => {
+      wordElement.removeChild(child)
     })
-    .on('mouseout', () => {
-      d3.select(tooltip).style('display', 'none')
-    })
+  }
+
+  const xScale = d3.scaleLinear().domain([1, data.length]).range([0, width])
+
+  // 上下放小图
+  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+    const rect = wordElement.getBoundingClientRect()
+    const newDiv = document.createElement('span')
+    newDiv.setAttribute('data-highlight-color-name', 'red')
+    newDiv.classList.add('sparklines')
+    newDiv.style.position = 'absolute'
+    if (sparkLinePosition === 'up') {
+      newDiv.style.top = '-20px'
+      newDiv.style.left = '0px'
+    } else {
+      newDiv.style.top = '0px'
+      newDiv.style.left = '0px'
+    }
+
+    newDiv.style.width = `${rect.width + 20}px`
+    newDiv.style.height = `${rect.height + 20}px`
+    wordElement.appendChild(newDiv)
+    const svgD3 = d3
+      .select(newDiv)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', 20)
+      .style('position', 'absolute')
+    if (sparkLinePosition === 'up') {
+      svgD3.style('top', '0').style('left', '0')
+    } else {
+      svgD3.style('bottom', '0').style('left', '0')
+    }
+
+    // 画横线
+    svgD3
+      .append('line')
+      .attr('x1', 0)
+      .attr('y1', height / 2)
+      .attr('x2', width)
+      .attr('y2', height / 2)
+      .attr('stroke', 'black')
+    const arcGenerator = d3
+      .line()
+      .x((d) => d[0])
+      .y((d) => d[1])
+      .curve(d3.curveBasis)
+    for (let i = 0; i < tagData.length; i += 2) {
+      const pointA = [xScale(tagData[i]), height / 2]
+      const pointB: number[] = [xScale(tagData[i + 1]), height / 2]
+      svgD3
+        .append('circle')
+        .attr('cx', pointA[0])
+        .attr('cy', pointA[1])
+        .attr('r', 2)
+        .attr('fill', 'red')
+      svgD3
+        .append('circle')
+        .attr('cx', pointB[0])
+        .attr('cy', pointB[1])
+        .attr('r', 2)
+        .attr('fill', 'red')
+      const points = [
+        pointA,
+        [(pointA[0] + pointB[0]) / 2, height / 4], // 控制点，决定弧线的高度
+        pointB,
+      ]
+      console.log(points)
+      svgD3
+        .append('path')
+        .attr('d', arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
+        .attr('fill', 'none')
+        .attr('stroke', 'blue')
+        .attr('stroke-width', 2)
+    }
+  }
+  // 左右放小图
+  if (sparkLineElement) {
+    while (sparkLineElement.firstChild) {
+      sparkLineElement.removeChild(sparkLineElement.firstChild)
+    }
+    const svgD3 = d3
+      .select(sparkLineElement)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    // 画横线
+    svgD3
+      .append('line')
+      .attr('x1', 0)
+      .attr('y1', height / 2)
+      .attr('x2', width)
+      .attr('y2', height / 2)
+      .attr('stroke', 'black')
+    const arcGenerator = d3
+      .line()
+      .x((d) => d[0])
+      .y((d) => d[1])
+      .curve(d3.curveBasis)
+    for (let i = 0; i < tagData.length; i += 2) {
+      const pointA = [xScale(tagData[i]), height / 2]
+      const pointB: number[] = [xScale(tagData[i + 1]), height / 2]
+      svgD3
+        .append('circle')
+        .attr('cx', pointA[0])
+        .attr('cy', pointA[1])
+        .attr('r', 2)
+        .attr('fill', 'red')
+      svgD3
+        .append('circle')
+        .attr('cx', pointB[0])
+        .attr('cy', pointB[1])
+        .attr('r', 2)
+        .attr('fill', 'red')
+      const points = [
+        pointA,
+        [(pointA[0] + pointB[0]) / 2, height / 4], // 控制点，决定弧线的高度
+        pointB,
+      ]
+      svgD3
+        .append('path')
+        .attr('d', arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
+        .attr('fill', 'none')
+        .attr('stroke', 'blue')
+        .attr('stroke-width', 2)
+    }
+  }
 }

@@ -2,15 +2,20 @@ export type storeType = {
   color: string
   font: string
 }
+export type Point = {
+  x: number
+  y: number
+}
 export type Metadata = {
   entityType?: string
+  insightType?: string
   origin?: number | string
   assessment?: 'positive' | 'negative'
-  detail?: number[]
+  detail?: number[] | Point[]
   selections?: string[]
   delta_value?: string
   ratio_value?: string
-  trend_desc?: string
+  tagData?: number | number[] | Point[]
 }
 export type Phrase = {
   type: string

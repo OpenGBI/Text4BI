@@ -145,7 +145,12 @@ const iniSystemState: systemStateType = {
         {
           type: 'plot',
           chartType: 'LineChart',
-          data: [2, 4, 55, 177, 99],
+          metadata: {
+            detail: [
+              { category: '2', value: 3 },
+              { category: '4', value: 7 },
+            ],
+          },
         },
       ],
     },
@@ -281,7 +286,12 @@ const iniSystemState: systemStateType = {
         {
           type: 'plot',
           chartType: 'LineChart',
-          data: [2, 4, 55, 77, 99],
+          metadata: {
+            detail: [
+              { category: '2', value: 3 },
+              { category: '4', value: 7 },
+            ],
+          },
         },
       ],
     },

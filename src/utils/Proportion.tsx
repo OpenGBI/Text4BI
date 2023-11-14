@@ -1,21 +1,22 @@
 import React from 'react'
 import { Chart } from '@antv/g2'
+import { cateAndValue } from '../types'
 
-interface PieChartData {
-  type: string
-  value: number
-}
+// interface PieChartData {
+//   type: string
+//   value: number
+// }
 
 interface PieChartProps {
-  data: number[]
+  data: cateAndValue[]
 }
 
-const PieChart: React.FC<PieChartProps> = ({ data }) => {
+const Proportion: React.FC<PieChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
-  const indexAndValue: PieChartData[] = data.map((value: number, index: number) => ({
-    type: index.toString(),
-    value,
-  }))
+  // const indexAndValue: PieChartData[] = data.map((value: number, index: number) => ({
+  //   type: index.toString(),
+  //   value,
+  // }))
 
   React.useEffect(() => {
     if (!containerRef.current) return
@@ -30,7 +31,7 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
     chart
       .interval()
       .transform({ type: 'stackY' })
-      .data(indexAndValue)
+      .data(data)
       .encode('y', 'value')
       .encode('color', 'type')
       .style('stroke', 'white')
@@ -45,7 +46,7 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
         fontWeight: 'bold',
       })
       .label({
-        text: (d: PieChartData, i: number, curData: PieChartData[]) =>
+        text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
           i < data.length - 3 ? d.value : '',
         radius: 0.8,
         fontSize: 9,
@@ -94,4 +95,4 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
 }
 
-export default PieChart
+export default Proportion

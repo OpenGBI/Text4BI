@@ -102,8 +102,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         </Tooltip>
       )
     }
-    console.log('curMetadata', curMetadata.entityType, value)
-    console.log(wordColor)
     return (
       <span
         ref={wordRef}

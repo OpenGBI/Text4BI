@@ -203,7 +203,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
     }
 
     if (showBigGraph && 'chartType' in curSentence) {
-      return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.data} />
+      return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.metadata} />
     }
   }
 

@@ -6,6 +6,7 @@ export type Point = {
   x: number
   y: number
 }
+export type cateAndValue = { [key: string]: number | string; value: number }
 export type Metadata = {
   entityType?: string
   insightType?: string
@@ -16,6 +17,10 @@ export type Metadata = {
   delta_value?: string
   ratio_value?: string
   tagData?: number | number[] | Point[]
+}
+export type Metadata4BigGraph = {
+  detail?: cateAndValue[] | Point[]
+  tagData?: cateAndValue[] | Point[]
 }
 export type Phrase = {
   type: string
@@ -39,7 +44,7 @@ export type BulletSentence = {
 export type PlotSentence = {
   type: 'plot'
   chartType: string
-  data: number[]
+  metadata: Metadata4BigGraph
 }
 
 export type sentence = TopicSentence | NormalSentence | BulletSentence | PlotSentence

@@ -2,18 +2,18 @@ import React from 'react'
 import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
-interface LineChartProps {
+interface BarChartProps {
   data: cateAndValue[]
 }
 
-const LineChart: React.FC<LineChartProps> = ({ data }) => {
+const Categorization: React.FC<BarChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
 
   React.useEffect(() => {
     if (!containerRef.current) return
 
     // const plotData = data.map((value, index) => ({
-    //   date: index + 1,
+    //   category: index + 1,
     //   value,
     // }))
 
@@ -21,30 +21,17 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
       container: containerRef.current,
       autoFit: true,
       height: 400,
+      width: 600,
     })
-
+    chart.coordinate({ transform: [{ type: 'transpose' }] })
     chart.data(data)
-    chart.scale({
-      date: {
-        min: 1,
-        max: data.length,
-      },
-      value: {
-        nice: true,
-      },
-    })
+    // console.log('CategorizationCategorizationCategorization', data)
 
-    chart.axis('date', {
-      title: null,
-    })
+    chart
+      .interval()
 
-    chart.axis('value', {
-      title: null,
-    })
-
-    chart.line().encode('x', 'category').encode('y', 'value')
-    // line.shape('smooth')
-    chart.encode('shape', 'smooth')
+      .encode('x', 'category')
+      .encode('y', 'value')
 
     chart.render()
 
@@ -56,4 +43,4 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
 }
 
-export default LineChart
+export default Categorization

@@ -803,7 +803,6 @@ export const renderProportion2 = (
       .attr('fill', (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
   }
 }
-// 缺少回归线计算代码 暂时12都不行
 export const renderAssociation1 = (
   data: Point[],
   aspectRatio: string,
@@ -1422,7 +1421,6 @@ export const renderTemporalityTrend1 = (
       .style('fill', 'steelblue')
   }
 }
-// 没测试
 export const renderTemporalityTrend2 = (
   data: number[],
   aspectRatio: string,
@@ -1626,7 +1624,6 @@ export const renderTemporalityTrend2 = (
       .style('fill', 'steelblue')
   }
 }
-// 没测试
 export const renderTemporalityDifference1 = (
   data: number[],
   aspectRatio: string,
@@ -2071,7 +2068,6 @@ export const renderTemporalityAnomaly1 = (
       .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
   }
 }
-// 没测试
 export const renderTemporalityAnomaly2 = (
   data: number[],
   aspectRatio: string,
@@ -2200,7 +2196,6 @@ export const renderTemporalityAnomaly2 = (
       .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
   }
 }
-// 没测试
 export const renderTemporalitySeasonality1 = (
   data: number[],
   aspectRatio: string,
@@ -2366,7 +2361,7 @@ export const renderTemporalitySeasonality1 = (
     }
   }
 }
-// 没测试
+
 export const renderTemporalitySeasonality2 = (
   data: number[],
   aspectRatio: string,

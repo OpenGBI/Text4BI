@@ -6,7 +6,12 @@ export type Point = {
   x: number
   y: number
 }
-export type cateAndValue = { [key: string]: number | string; value: number }
+export type cateAndValue = {
+  value: number
+  category: string
+  // 索引签名
+  [key: string]: number | string
+}
 export type Metadata = {
   entityType?: string
   insightType?: string
@@ -20,7 +25,7 @@ export type Metadata = {
 }
 export type Metadata4BigGraph = {
   detail?: cateAndValue[] | Point[]
-  tagData?: cateAndValue[] | Point[]
+  tagData?: cateAndValue[] | Point[] | number[]
 }
 export type Phrase = {
   type: string

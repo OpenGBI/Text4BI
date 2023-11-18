@@ -4,7 +4,7 @@ import ControlSelectedCards from './components/ControlSystemSetting/ControlSelec
 import ControlBigGraphSparkLine from './components/ControlSystemSetting/ControlBigGraphSparkLine'
 import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
 
-const DesignBar: React.FC = () => (
+const ControlBar: React.FC = () => (
   <div>
     <Row>
       <Col span={24}>
@@ -24,4 +24,4 @@ const DesignBar: React.FC = () => (
   </div>
 )
 
-export default DesignBar
+export default ControlBar

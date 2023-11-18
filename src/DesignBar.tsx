@@ -6,7 +6,7 @@ import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeig
 import ControlAspectRatio from './components/ControlGlobalSetting/ControlAspectRatio'
 import ControlSparkLinePos from './components/ControlGlobalSetting/ControlSparkLinePos'
 
-const ControlBar: React.FC = () => (
+const DesignBar: React.FC = () => (
   <div>
     <Row gutter={16}>
       <Col span={8}>
@@ -30,4 +30,4 @@ const ControlBar: React.FC = () => (
   </div>
 )
 
-export default ControlBar
+export default DesignBar

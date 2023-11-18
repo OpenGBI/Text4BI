@@ -1,27 +1,33 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
-import ControlBigGraphSparkLine from './components/ControlSystemSetting/ControlBigGraphSparkLine'
-import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
+import ControlFont from './components/ControlGlobalSetting/ControlFont'
+import ControlGlobalBoolean from './components/ControlGlobalSetting/ControlGlobalBoolean'
+import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
+import ControlAspectRatio from './components/ControlGlobalSetting/ControlAspectRatio'
+import ControlSparkLinePos from './components/ControlGlobalSetting/ControlSparkLinePos'
 
-const DesignBar: React.FC = () => (
+const ControlBar: React.FC = () => (
   <div>
-    <Row>
-      <Col span={24}>
-        <ControlSelectedData />
+    <Row gutter={16}>
+      <Col span={8}>
+        <ControlGlobalBoolean />
+      </Col>
+      <Col span={8}>
+        <ControlFont />
+      </Col>
+      <Col span={8}>
+        <ControlLineHeight />
       </Col>
     </Row>
-    <Row>
-      <Col span={24}>
-        <ControlBigGraphSparkLine />
+    <Row gutter={16}>
+      <Col span={8}>
+        <ControlSparkLinePos />
       </Col>
-    </Row>
-    <Row>
-      <Col span={24}>
-        <ControlSelectedCards />
+      <Col span={8}>
+        <ControlAspectRatio />
       </Col>
     </Row>
   </div>
 )
 
-export default DesignBar
+export default ControlBar

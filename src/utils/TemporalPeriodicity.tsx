@@ -3,9 +3,14 @@ import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
 interface TemporalPeriodicityProps {
-  data: cateAndValue[]
+  data: cateAndValue[] // n个AAAA
+  // tagData: number[] // 长度为n的下脚标列表，表明第几个点是周期边界点（从0开始计数）。
 }
-
+// AAAA = {
+//   category:数据类别，这n个可以一样
+//   value:这个时间点的值
+//   date:日期，是string，例如“Jan 1 2000”
+// }
 const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({ data }) => {
   const containerRef = React.useRef(null)
 

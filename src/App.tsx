@@ -11,13 +11,13 @@ function App() {
     <Provider store={store}>
       <div id='APP'>
         <div id='control_bar' className='view'>
-          <h2>Control</h2>
-          <ControlBar />
+          <h2>DesignBar</h2>
+          <DesignBar />
         </div>
         <div id='bottom'>
           <div id='design' className='view'>
-            <h2>Design</h2>
-            <DesignBar />
+            <h2>ControlBar</h2>
+            <ControlBar />
           </div>
           <div id='visualization' className='view'>
             <h2>Text Vis</h2>

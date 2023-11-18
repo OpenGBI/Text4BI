@@ -3,9 +3,14 @@ import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
 interface TemporalTrendProps {
-  data: cateAndValue[]
-  tagData: cateAndValue[]
+  data: cateAndValue[] // n个AAAA
+  tagData: cateAndValue[] // 4个AAAA,这四个点可以形成弯折的回归线，这四个点的date必须是真实值和预测值的边界
 }
+// AAAA={
+//   date: 'Jan 10 2000',
+//   value: 7,
+//   category: 'predict'或者是'real',表明这是否是预测值
+// },
 
 const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
   const containerRef = React.useRef(null)
@@ -55,7 +60,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
       .line()
       .data(tagData)
       .encode('x', (d: cateAndValue) => new Date(d.date).getDate())
-      .encode('y', 'predict')
+      .encode('y', 'value')
       .encode('color', 'gray')
       .style('lineDash', [3, 3])
 

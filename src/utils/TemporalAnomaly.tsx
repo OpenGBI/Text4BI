@@ -3,9 +3,16 @@ import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
 interface TemporalAnomalyProps {
-  data: cateAndValue[]
-  tagData: number[]
+  data: cateAndValue[] // n个AAAA
+  tagData: number[] // 长度为n的下脚标列表，表明第几个点是异常的需要加红点（从0开始计数）。
 }
+// AAAA = {
+//   category:数据类别，这n个可以一样
+//   min:这个时间点的最小值
+//   max:这个时间点的最大值
+//   predict:这个时间点的正常值的预测值
+//   value:这个时间点的真实值（设计稿的蓝线）
+// }
 
 const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({ data, tagData }) => {
   const containerRef = React.useRef(null)

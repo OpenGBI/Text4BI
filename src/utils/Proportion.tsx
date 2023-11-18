@@ -8,7 +8,7 @@ import { cateAndValue } from '../types'
 // }
 
 interface PieChartProps {
-  data: cateAndValue[]
+  data: cateAndValue[] // n个{category:,value:}画饼图
 }
 
 const Proportion: React.FC<PieChartProps> = ({ data }) => {

@@ -3,7 +3,7 @@ import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
 interface BarChartProps {
-  data: cateAndValue[]
+  data: cateAndValue[] // n个{category:,value:}画柱状图
 }
 
 const Categorization: React.FC<BarChartProps> = ({ data }) => {

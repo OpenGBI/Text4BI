@@ -21,39 +21,6 @@ interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
 }
-// type RenderContent
-// const RenderContent = ({
-//   sentence,
-//   bulletPoint,
-//   fontsize,
-//   boldness,
-//   underline,
-//   lineHeight,
-//   aspectRatio,
-//   sparkLinePosition,
-//   showBigGraph,
-//   type,
-//   BigChartData,
-// }) => {
-//   if ('phrases' in sentence) {
-//     return sentence.phrases.map((phrase, index) => (
-//       <PhraseComponent
-//         key={index}
-//         {...phrase}
-//         fontsize={fontsize}
-//         boldness={boldness}
-//         underline={underline}
-//         lineHeight={lineHeight}
-//         aspectRatio={aspectRatio}
-//         sparkLinePosition={sparkLinePosition}
-//       />
-//     ))
-//   }
-//   if (showBigGraph) {
-//     return <BigChart ChartType={type} BigChartData={BigChartData} />
-//   }
-//   return null
-// }
 
 export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -86,47 +53,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       const html = await textExporter.getNarrativeHtml(containerRef.current)
       const plainText = 'plainText'
       copyToClipboard(html, plainText, onCopySuccess)
-      // onCopy?.(currentInsightInfo, ref.current)
     }
   }
-  // useEffect(() => {
-  //   const handleKeyPress = async (event: KeyboardEvent) => {
-  //     if (event.ctrlKey && event.key === 'c') {
-  //       // 按下 Ctrl+C
-  //       const selection = window.getSelection()
-  //       if (!selection) {
-  //         throw new Error(`No data found for the date: ${type}`)
-  //       }
-  //       if (selection.toString().length > 0) {
-  //         // 如果选中了文本
-  //         event.preventDefault() // 阻止默认复制行为
-  //         await onClickCopy() // 调用复制函数
-  //       }
-  //     }
-  //   }
-
-  //   document.addEventListener('keydown', handleKeyPress)
-
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeyPress)
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => {
-  //     // 检查是否按下了Ctrl+C（或Cmd+C在Mac上）
-  //     if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
-  //       onClickCopy()
-  //     }
-  //   }
-
-  //   // 添加事件监听器
-  //   document.addEventListener('keydown', handleKeyDown)
-
-  //   // 清除事件监听器
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeyDown)
-  //   }
-  // }, [onClickCopy])
 
   const [, drop] = useDrop({
     accept: CARD_DRAG_TYPE,
@@ -220,33 +148,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           <div key={outIndex}>
             {renderBulletPoint(curSentence)}
             {renderPhrases(curSentence)}
-            {/* {bulletPoint && cursentence.type === 'bullet' ? (
-                  <span style={{ fontSize: '20px' }}>• </span>
-                ) : null}
-                {'phrases' in sentence ? (
-                  sentence.phrases.map((phrase, index) => (
-                    <PhraseComponent
-                      key={index}
-                      {...phrase}
-                      fontsize={fontsize}
-                      boldness={boldness}
-                      underline={underline}
-                      lineHeight={lineHeight}
-                      aspectRatio={aspectRatio}
-                      sparkLinePosition={sparkLinePosition}
-                    />
-                  ))
-                ) : showBigGraph ? (
-                  <BigChart ChartType={type} BigChartData={BigChartData} />
-                ) : null} */}
           </div>
         ))}
-        {/* {(function (): React.ReactNode {
-          if (showBigGraph === true) {
-            return <BigChart ChartType={type} BigChartData={BigChartData} />
-          }
-          return null
-        })()} */}
       </div>
     </div>
   )

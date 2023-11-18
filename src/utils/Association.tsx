@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useImperativeHandle, forwardRef, useRef, useEffect } from 'react'
 import { Chart } from '@antv/g2'
 import { Point } from '../types'
 
 interface AssociationProps {
-  data: Point[]
-  tagData: Point[]
+  data: Point[] // n个point画散点图
+  tagData: Point[] // 2个point画回归线
 }
 
-const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
+// const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
+const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
   const containerRef = React.useRef(null)
+  const chartRef = useRef<Chart | null>(null)
+  // 使用 useImperativeHandle 将 chart 实例暴露给父组件
+  useImperativeHandle(ref, () => ({
+    getChart: () => chartRef.current,
+  }))
 
   const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
   const b = tagData[1].y - k * tagData[1].x
@@ -43,7 +49,7 @@ const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
       autoFit: true,
       height: 500,
     })
-    console.log('散点图datadatadatadata', data)
+    // console.log('散点图datadatadatadata', data)
 
     // Load the data
     chart.data(data)
@@ -62,12 +68,13 @@ const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
 
     // Render the chart
     chart.render()
+    console.log('chartchartchartchartchartchart', chart)
+    chartRef.current = chart
     return () => {
       chart.destroy()
     }
   }, [data])
 
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
-}
-
+})
 export default Association

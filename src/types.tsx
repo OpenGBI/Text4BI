@@ -17,7 +17,7 @@ export type Metadata = {
   insightType?: string
   origin?: number | string
   assessment?: 'positive' | 'negative'
-  detail?: number[] | Point[]
+  detail?: number[] | Point[] | cateAndValue[]
   selections?: string[]
   delta_value?: string
   ratio_value?: string

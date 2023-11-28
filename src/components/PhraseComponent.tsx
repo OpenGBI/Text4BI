@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import { RiseOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import SelectorInText from './LineHeightComponents/SelectorInText'
+import SelectorTime from './LineHeightComponents/SelectionTime'
 import {
   renderAssociation1,
   renderAssociation2,
@@ -20,7 +21,7 @@ import {
   renderTemporalityTrend1,
   renderTemporalityTrend2,
 } from '../utils/SparkLineFuncs'
-import { Phrase, Metadata, Point } from '../types'
+import { Phrase, Metadata, Point, cateAndValue } from '../types'
 
 const globalBoolean = true
 // interface Phrase {
@@ -138,7 +139,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderDistribution1(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -151,7 +152,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderDistribution2(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -397,10 +398,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // strict模式下初始化页面会调用两次useEffect
 
   if (type === 'entity') {
-    if (
-      (metadata.entityType === 'filter_time' || metadata.entityType === 'filter_cate') &&
-      metadata.selections
-    ) {
+    if (metadata.entityType === 'filter_cate' && metadata.selections) {
       return (
         <SelectorInText
           selections={metadata.selections}
@@ -408,7 +406,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         />
       )
     }
-
+    if (metadata.entityType === 'filter_time' && metadata.selections) {
+      return <SelectorTime defaultSelection={metadata.selections[0]} />
+    }
     if (metadata.entityType === 'metric_value') {
       wordColor = '#4B91FF'
     }

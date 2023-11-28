@@ -1,5 +1,6 @@
 import { AssociationData } from '../datas4graph/AssociationData'
 import { DistributionData } from '../datas4graph/DistributionData'
+import { ProportionData } from '../datas4graph/ProportionData'
 import { Card } from '../types'
 
 export const iniData: Card[] = [
@@ -61,61 +62,6 @@ export const iniData: Card[] = [
       },
     ],
   },
-  // {
-  //   CardName: 'Card2',
-  //   paragraph: [
-  //     {
-  //       type: 'topic',
-  //       phrases: [
-  //         { type: 'CardTitle', value: 'difference' },
-  //         {
-  //           type: 'entity',
-  //           value: 'Analysis of Discrepancies in Total Profit by Sales Categories',
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       type: 'normal',
-  //       phrases: [
-  //         { type: 'text', value: 'From ' },
-  //         {
-  //           type: 'entity',
-  //           value: 'January 1, 2011',
-  //           metadata: { entityType: 'filter_time', selections: ['2011-1-1'] },
-  //         },
-  //         { type: 'text', value: ' to ' },
-  //         {
-  //           type: 'entity',
-  //           value: 'December 31, 2014',
-  //           metadata: { entityType: 'filter_time', selections: ['2014-12-31'] },
-  //         },
-  //         {
-  //           type: 'text',
-  //           value: ' there were noticeable differences in total profit among different ',
-  //         },
-  //         {
-  //           type: 'entity',
-  //           value: 'sales categories',
-  //           metadata: { entityType: 'metric_name' },
-  //         },
-  //         {
-  //           type: 'text',
-  //           value: '. Specifically, the profit in the "technology" category was ',
-  //         },
-  //         {
-  //           type: 'entity',
-  //           value: '174,600',
-  //           metadata: { entityType: 'delta_value', assessment: 'positive' },
-  //         },
-  //         { type: 'text', value: ' higher than the average, standing at ' },
-  //         {
-  //           type: 'entity',
-  //           value: '489,200',
-  //           metadata: { entityType: 'metric_value', origin: 489200 },
-  //         },
-  //         { type: 'text', value: '.' },
-  //       ],
-  //     },
 
   //     {
   //       type: 'plot',
@@ -408,9 +354,9 @@ export const iniData: Card[] = [
       },
       {
         type: 'plot',
-        chartType: 'Distribution',
+        chartType: 'Proportion',
         metadata: {
-          detail: DistributionData.data,
+          detail: ProportionData.data,
         },
       },
     ],

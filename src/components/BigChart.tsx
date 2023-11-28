@@ -36,6 +36,7 @@ const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData }) => {
   // const setChartRef = (newRef:HTMLDivElement) => {
   //   chartRef.current = newRef
   // }
+
   useEffect(() => {
     if (chartRef.current) {
       const chartInstance = chartRef.current.getChart()
@@ -50,7 +51,6 @@ const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData }) => {
     }
   }, [chartRef.current]) // 没有解决！！！！！！！！！！！！！
 
-  console.log('ChartType, BigChartDataChartType, BigChartData', ChartType, BigChartData)
   switch (ChartType) {
     case 'Categorization':
       return <Categorization data={BigChartData.detail as cateAndValue[]} />

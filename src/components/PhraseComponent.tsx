@@ -3,6 +3,7 @@ import { RiseOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import SelectorInText from './LineHeightComponents/SelectorInText'
 import SelectorTime from './LineHeightComponents/SelectionTime'
+import Icon from '../utils/Icon'
 import {
   renderAssociation1,
   renderAssociation2,
@@ -477,7 +478,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         }
         {metadata?.assessment === 'positive' ? (
-          <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
+          // <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
+          <Icon entityUser='binary_values' />
         ) : null}
       </>
     )

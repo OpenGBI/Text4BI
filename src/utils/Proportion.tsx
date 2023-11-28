@@ -13,10 +13,7 @@ interface PieChartProps {
 
 const Proportion: React.FC<PieChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
-  // const indexAndValue: PieChartData[] = data.map((value: number, index: number) => ({
-  //   type: index.toString(),
-  //   value,
-  // }))
+  console.log('BigChartDataBigChartDataBigChartDataBigChartData', data)
 
   React.useEffect(() => {
     if (!containerRef.current) return
@@ -33,7 +30,7 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
       .transform({ type: 'stackY' })
       .data(data)
       .encode('y', 'value')
-      .encode('color', 'type')
+      .encode('color', 'category')
       .style('stroke', 'white')
       .scale('color', {
         palette: 'spectral',

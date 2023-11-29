@@ -1,30 +1,35 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import ControlFont from './components/ControlGlobalSetting/ControlFont'
-import ControlGlobalBoolean from './components/ControlGlobalSetting/ControlGlobalBoolean'
-import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
-import ControlAspectRatio from './components/ControlGlobalSetting/ControlAspectRatio'
-import ControlSparkLinePos from './components/ControlGlobalSetting/ControlSparkLinePos'
+import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
+import ControlBigGraphSparkLine from './components/ControlSystemSetting/ControlBigGraphSparkLine'
+import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
+// import './DesignBar.css' // Make sure to import your CSS file
 
 const DesignBar: React.FC = () => (
-  <div>
-    <Row gutter={16}>
-      <Col span={8}>
-        <ControlGlobalBoolean />
+  <div id='view1' className='pane'>
+    <div className='header'>Control Panel</div>
+    <Row className='control-row'>
+      <Col span={8} className='control-label'>
+        Select Data
       </Col>
-      <Col span={8}>
-        <ControlFont />
-      </Col>
-      <Col span={8}>
-        <ControlLineHeight />
+      <Col span={16}>
+        <ControlSelectedData />
       </Col>
     </Row>
-    <Row gutter={16}>
-      <Col span={8}>
-        <ControlSparkLinePos />
+    <Row className='control-row'>
+      <Col span={8} className='control-label'>
+        Select Elements
       </Col>
-      <Col span={8}>
-        <ControlAspectRatio />
+      <Col span={16}>
+        <ControlBigGraphSparkLine />
+      </Col>
+    </Row>
+    <Row className='control-row'>
+      <Col span={8} className='control-label'>
+        Select Cards
+      </Col>
+      <Col span={16}>
+        <ControlSelectedCards />
       </Col>
     </Row>
   </div>

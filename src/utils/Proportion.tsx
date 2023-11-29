@@ -8,12 +8,15 @@ import { cateAndValue } from '../types'
 // }
 
 interface PieChartProps {
-  data: cateAndValue[] // n个{category:,value:}画饼图
+  data: cateAndValue[]
 }
 
 const Proportion: React.FC<PieChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
-  console.log('BigChartDataBigChartDataBigChartDataBigChartData', data)
+  // const indexAndValue: PieChartData[] = data.map((value: number, index: number) => ({
+  //   type: index.toString(),
+  //   value,
+  // }))
 
   React.useEffect(() => {
     if (!containerRef.current) return
@@ -30,7 +33,7 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
       .transform({ type: 'stackY' })
       .data(data)
       .encode('y', 'value')
-      .encode('color', 'category')
+      .encode('color', 'type')
       .style('stroke', 'white')
       .scale('color', {
         palette: 'spectral',

@@ -1,20 +1,14 @@
-import React, { useImperativeHandle, forwardRef, useRef, useEffect } from 'react'
+import React from 'react'
 import { Chart } from '@antv/g2'
 import { Point } from '../types'
 
 interface AssociationProps {
-  data: Point[] // n个point画散点图
-  tagData: Point[] // 2个point画回归线
+  data: Point[]
+  tagData: Point[]
 }
 
-// const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
-const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
+const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
   const containerRef = React.useRef(null)
-  const chartRef = useRef<Chart | null>(null)
-  // 使用 useImperativeHandle 将 chart 实例暴露给父组件
-  useImperativeHandle(ref, () => ({
-    getChart: () => chartRef.current,
-  }))
 
   const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
   const b = tagData[1].y - k * tagData[1].x
@@ -49,7 +43,7 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
       autoFit: true,
       height: 500,
     })
-    // console.log('散点图datadatadatadata', data)
+    console.log('散点图datadatadatadata', data)
 
     // Load the data
     chart.data(data)
@@ -57,24 +51,23 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
     // Create a scatter plot
     chart.point().encode('x', 'x').encode('y', 'y')
     // Generate data for the line y = x
-    // const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
-    // const lineData = [
-    //   { x: -maxAbsX, y: -maxAbsX * k + b },
-    //   { x: maxAbsX, y: maxAbsX * k + b },
-    // ]
+    const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
+    const lineData = [
+      { x: -maxAbsX, y: -maxAbsX * k + b },
+      { x: maxAbsX, y: maxAbsX * k + b },
+    ]
 
     // Add the line to the chart
-    chart.line().encode('x', 'x').encode('y', 'y').encode('color', 'blue').data(tagData)
+    chart.line().encode('x', 'x').encode('y', 'y').encode('color', 'blue').data(lineData)
 
     // Render the chart
     chart.render()
-    console.log('chartchartchartchartchartchart', chart)
-    chartRef.current = chart
     return () => {
       chart.destroy()
     }
   }, [data])
 
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
-})
+}
+
 export default Association

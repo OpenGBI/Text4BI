@@ -1,4 +1,112 @@
-#control_bar {
+.pane {
+  background: #fff;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 1px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  /* border-radius: 5px;
+  box-shadow: 2px 2px 2px #dddddd; */
+}
+
+.header {
+  background-color: #eee;
+  margin: 5px;
+  padding-left: 10px;
+  padding-top: 4px;
+  border-radius: 5px;
+  height: 30px;
+  font-weight: bold; /* 这行会使得文本加粗 */
+}
+
+/* DesignBar.css */
+.control-label {
+  display: flex;
+  align-items: center; /* Vertically centers the text with the form controls */
+  font-size: 14px; /* Set your desired font size */
+  padding-left: 10px;
+}
+
+.control-row {
+  margin-bottom: 15px; /* 设置control和designer的每一个设置框之间的距离 */
+}
+
+.app-container {
+  height: 100vh; /* 设置App容器的高度为视口高度 */
+}
+
+.full-height {
+  height: 100%; /* 设置Layout的高度为100% */
+}
+
+.sider {
+  height: 100%;
+  overflow: auto; /* 如果内容过多，显示滚动条 */
+}
+
+.content {
+  height: 100%;
+  overflow: auto; /* 如果内容过多，显示滚动条 */
+}
+
+.draggable {
+  cursor: move; /* 当鼠标悬浮时，显示拖拽光标 */
+}
+
+.card-container {
+  margin-bottom: 100px;
+}
+
+/* 以下是design相关的样式 */
+.custom-panel-header {
+  font-weight: bold; /* 加粗字体 */
+}
+
+/* 覆盖 antd Panel 的默认内边距，减小高度 */
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* 如果你有一个特定的类用于整个 Collapse 组件，也可以这样做 */
+.custom-collapse .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* 调整 Panel 的内容区域内边距 */
+.ant-collapse-content > .ant-collapse-content-box {
+  padding: 8px;
+}
+
+/* 移除 Panel 内容区域的边框 */
+.no-border-panel .ant-collapse-content-box {
+  border: none; /* 已经设置，确保它在你的 CSS 文件中 */
+}
+
+/* 移除 Panel 整体边框 */
+.no-border-panel .ant-collapse-item {
+  border: none !important; /* 添加 !important 确保覆盖 antd 的样式 */
+  background-color: transparent;
+}
+
+/* 移除折叠时 Panel 顶部的边框 */
+.no-border-panel .ant-collapse > .ant-collapse-item {
+  border: none !important;
+}
+
+/* 如果需要，还可以移除最外层 Collapse 组件的边框 */
+.no-border-panel .ant-collapse {
+  border: none !important;
+}
+
+/* 如果 Collapse 面板在激活状态下还显示边框，可能还需要覆盖这个样式 */
+.no-border-panel .ant-collapse-item-active {
+  border: none !important;
+}
+
+/* #control_bar {
   flex-basis: 20%;
   height: 150px;
 }
@@ -42,14 +150,14 @@ h2 {
   color: #090808;
   border-radius: 4px;
   opacity: 0.7;
-  pointer-events: none; /* Ensure it doesn't interfere with other mouse events */
+  pointer-events: none; /* Ensure it doesn't interfere with other mouse events 
   transition: opacity 0.2s;
-  display: none; /* Initially hidden */
-}
-.insight_card {
+  display: none; /* Initially hidden 
+} */
+/* .insight_card {
   border: 1px solid lightgray;
   padding: 10px;
   border-radius: 4px;
-  display: inline-block; /* 使卡片与其他文本/元素并排显示 */
+  display: inline-block; /* 使卡片与其他文本/元素并排显示 
   margin: 5px;
-}
+} */

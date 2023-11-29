@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useSelector } from 'react-redux'
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
+import { CopyOutlined, ExportOutlined } from '@ant-design/icons'
 import { AppState } from '../store'
 import PhraseComponent from './PhraseComponent'
 import BigChart from './BigChart'
@@ -21,6 +22,39 @@ interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
 }
+// type RenderContent
+// const RenderContent = ({
+//   sentence,
+//   bulletPoint,
+//   fontsize,
+//   boldness,
+//   underline,
+//   lineHeight,
+//   aspectRatio,
+//   sparkLinePosition,
+//   showBigGraph,
+//   type,
+//   BigChartData,
+// }) => {
+//   if ('phrases' in sentence) {
+//     return sentence.phrases.map((phrase, index) => (
+//       <PhraseComponent
+//         key={index}
+//         {...phrase}
+//         fontsize={fontsize}
+//         boldness={boldness}
+//         underline={underline}
+//         lineHeight={lineHeight}
+//         aspectRatio={aspectRatio}
+//         sparkLinePosition={sparkLinePosition}
+//       />
+//     ))
+//   }
+//   if (showBigGraph) {
+//     return <BigChart ChartType={type} BigChartData={BigChartData} />
+//   }
+//   return null
+// }
 
 export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -53,8 +87,47 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       const html = await textExporter.getNarrativeHtml(containerRef.current)
       const plainText = 'plainText'
       copyToClipboard(html, plainText, onCopySuccess)
+      // onCopy?.(currentInsightInfo, ref.current)
     }
   }
+  // useEffect(() => {
+  //   const handleKeyPress = async (event: KeyboardEvent) => {
+  //     if (event.ctrlKey && event.key === 'c') {
+  //       // 按下 Ctrl+C
+  //       const selection = window.getSelection()
+  //       if (!selection) {
+  //         throw new Error(`No data found for the date: ${type}`)
+  //       }
+  //       if (selection.toString().length > 0) {
+  //         // 如果选中了文本
+  //         event.preventDefault() // 阻止默认复制行为
+  //         await onClickCopy() // 调用复制函数
+  //       }
+  //     }
+  //   }
+
+  //   document.addEventListener('keydown', handleKeyPress)
+
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyPress)
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     // 检查是否按下了Ctrl+C（或Cmd+C在Mac上）
+  //     if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+  //       onClickCopy()
+  //     }
+  //   }
+
+  //   // 添加事件监听器
+  //   document.addEventListener('keydown', handleKeyDown)
+
+  //   // 清除事件监听器
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyDown)
+  //   }
+  // }, [onClickCopy])
 
   const [, drop] = useDrop({
     accept: CARD_DRAG_TYPE,
@@ -136,23 +209,52 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   }
 
   return (
-    <div ref={containerRef}>
-      <div ref={ref} style={{ backgroundColor: 'lightgray', cursor: 'move' }}>
-        Drag Handle {id}
-      </div>
-      <Button type='primary' onClick={onClickCopyButton}>
-        复制富文本
-      </Button>
-      <div className='avar-ntv-container'>
+    <div ref={containerRef} style={{ position: 'relative' }}> {/* 确保父容器相对定位 */}
+      <div
+        className='avar-ntv-container'
+        style={{
+          border: '1px solid #ccc', // 添加边框
+          borderRadius: '8px', // 添加圆角
+          boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
+          padding: '12px', // 可根据需要调整内边距
+          marginTop: '12px', // 可根据需要调整上边距
+          marginBottom: '12px', // 可根据需要调整下边距
+          marginLeft: '12px', // 可根据需要调整左边距
+          marginRight: '20px', // 可根据需要调整右边距
+        }}
+      >
         {paragraph.map((curSentence, outIndex) => (
-          <div key={outIndex}>
+          <div
+            key={outIndex}
+            className={outIndex === 0 ? 'draggable' : ''}
+            ref={outIndex === 0 ? ref : null}
+          >
             {renderBulletPoint(curSentence)}
             {renderPhrases(curSentence)}
+            {/* 其他渲染内容 */}
           </div>
         ))}
+        {/* 可能的其他内容 */}
       </div>
+      {/* 将 CopyOutlined 图标放在绝对定位的容器中 */}
+      <Tooltip title='Copy Rich Text'>
+        <div style={{ position: 'absolute', top: 20, right: 55 }}>
+          <CopyOutlined
+            onClick={onClickCopyButton}
+            style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
+          />
+        </div>
+      </Tooltip>
+      <Tooltip title='Export This Card'>
+        <div style={{ position: 'absolute', top: 20, right: 30 }}>
+          <ExportOutlined
+            onClick={onClickCopyButton}
+            style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
+          />
+        </div>
+      </Tooltip>
     </div>
-  )
+)
 }
 
 export default InsightCard

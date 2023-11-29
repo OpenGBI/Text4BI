@@ -2,11 +2,11 @@ import React from 'react'
 import { Chart } from '@antv/g2'
 import { cateAndValue } from '../types'
 
-interface DistributionProps {
-  data: cateAndValue[] // n个{category:,value:}画箱线图
+interface BarChartProps {
+  data: cateAndValue[]
 }
 
-const Distribution: React.FC<DistributionProps> = ({ data }) => {
+const Distribution: React.FC<BarChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
 
   React.useEffect(() => {

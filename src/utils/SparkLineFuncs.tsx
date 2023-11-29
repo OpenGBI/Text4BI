@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
-import { Point, cateAndValue } from '../types'
+import { Point } from '../types'
 
 export const renderDistribution1 = (
-  data: cateAndValue[],
+  data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
   wordElement?: HTMLSpanElement,
@@ -32,10 +32,10 @@ export const renderDistribution1 = (
       wordElement.removeChild(child)
     })
   }
-  const values: number[] = data.map((item) => item.value)
-  const q1 = d3.quantile(values.sort(d3.ascending), 0.25)
-  const median = d3.quantile(values, 0.5)
-  const q3 = d3.quantile(values, 0.75)
+
+  const q1 = d3.quantile(data.sort(d3.ascending), 0.25)
+  const median = d3.quantile(data, 0.5)
+  const q3 = d3.quantile(data, 0.75)
   if (!q1 || !q3 || !median) {
     throw new Error('q1q3median计算失败')
   }
@@ -181,7 +181,7 @@ export const renderDistribution1 = (
   }
 }
 export const renderDistribution2 = (
-  data: cateAndValue[],
+  data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
   wordElement?: HTMLSpanElement,
@@ -198,7 +198,6 @@ export const renderDistribution2 = (
       return Math.abs(v) <= 1 ? (0.75 * (1 - v * v)) / k : 0
     }
   }
-  const values: number[] = data.map((item) => item.value)
   let width
   let height
   const padding = 1.5
@@ -223,16 +222,16 @@ export const renderDistribution2 = (
     })
   }
 
-  if (d3.extent(values)[0] === undefined) {
+  if (d3.extent(data)[0] === undefined) {
     throw new Error('Error')
   }
   const xScale = d3
     .scaleLinear()
-    .domain(d3.extent(values) as [number, number]) // data的范围
+    .domain(d3.extent(data) as [number, number]) // data的范围
     .range([padding, width - padding])
   const yScale = d3.scaleLinear().range([height - padding, padding])
   const kde = kernelDensityEstimator(kernelEpanechnikov(7), xScale.ticks(40))
-  const density = kde(values)
+  const density = kde(data)
   yScale.domain([0, d3.max(density, (d) => d[1])!]) // 使用非空断言
   // const xScale = d3
   //   .scaleLinear()
@@ -814,7 +813,6 @@ export const renderAssociation1 = (
 ) => {
   const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
   const b = tagData[1].y - k * tagData[1].x
-  console.log('kkkkkkkk,bbbbbb', k, b)
   let width
   let height
   const padding = 1.5
@@ -843,11 +841,25 @@ export const renderAssociation1 = (
     .scaleLinear()
     .rangeRound([padding, width - padding])
     .domain([-maxAbsX, maxAbsX])
+  // console.log('d3.extent(data, (d) => d.x) as number[]', d3.extent(data, (d) => d.x) as number[])
   const maxAbsY = data.reduce((max, current) => Math.max(max, Math.abs(current.y)), 0)
   const yScale = d3
     .scaleLinear()
     .rangeRound([height - padding, padding])
     .domain([-maxAbsY, maxAbsY])
+  // const xScale = d3
+  //   .scaleLinear()
+  //   .domain([0, data.length])
+  //   .range([padding, width - padding])
+  // const yScale = d3
+  //   .scaleLinear()
+  //   .domain([d3.min(data) || 0, d3.max(data) || 0])
+  //   .range([height - padding, padding])
+
+  // const line = d3
+  //   .line<number>()
+  //   .x((d, i) => xScale(i))
+  //   .y((d) => yScale(d))
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
@@ -879,6 +891,30 @@ export const renderAssociation1 = (
       svgD3.style('bottom', '0').style('left', '0')
     }
 
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(0,${yScale(0)})`)
+    //   .call(d3.axisBottom(xScale))
+
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(${xScale(0)},0)`)
+    //   .call(d3.axisLeft(yScale))
+
+    // // Scatter plot
+    // svgD3
+    //   .selectAll('.scatter')
+    //   .data(data)
+    //   .enter()
+    //   .append('circle')
+    //   .attr('class', 'scatter')
+    //   .attr('cx', (d) => xScale(d.x))
+    //   .attr('cy', (d) => yScale(d.y))
+    //   .attr('r', 5)
+
+    // Equation of the line: y = 4.5x + -5.0
     svgD3
       .append('defs')
       .append('marker')
@@ -947,6 +983,28 @@ export const renderAssociation1 = (
       .append('svg')
       .attr('width', width)
       .attr('height', height)
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(0,${yScale(0)})`)
+    //   .call(d3.axisBottom(xScale))
+
+    // svgD3
+    //   .append('g')
+    //   .attr('class', 'axis')
+    //   .attr('transform', `translate(${xScale(0)},0)`)
+    //   .call(d3.axisLeft(yScale))
+
+    // // Scatter plot
+    // svgD3
+    //   .selectAll('.scatter')
+    //   .data(data)
+    //   .enter()
+    //   .append('circle')
+    //   .attr('class', 'scatter')
+    //   .attr('cx', (d) => xScale(d.x))
+    //   .attr('cy', (d) => yScale(d.y))
+    //   .attr('r', 5)
 
     // Equation of the line: y = 4.5x + -5.0
     svgD3
@@ -992,10 +1050,7 @@ export const renderAssociation1 = (
     // Equation of the line: y = 4.5x + -5.0
     const line = d3
       .line<Point>()
-      .x((d) => {
-        console.log('d.xd.xd.xd.xd.x', d.x)
-        return xScale(d.x)
-      })
+      .x((d) => xScale(d.x))
       .y((d) => yScale(k * d.x + b))
 
     const res = svgD3

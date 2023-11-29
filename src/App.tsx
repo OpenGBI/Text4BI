@@ -11,7 +11,7 @@ function App() {
     <Provider store={store}>
       <div id='APP'>
         <div id='control_bar' className='view'>
-          <h2>DesignBar</h2>
+          <h2>DesignBar test111</h2>
           <DesignBar />
         </div>
         <div id='bottom'>

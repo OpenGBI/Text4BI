@@ -46,14 +46,19 @@ const InsightCards: React.FC = () => {
     .filter((card) => selectedCards.includes(card.id))
 
   return (
-    <div id='ShowInsightCards'>
+    <div className='pane'>
+      <div className='header'>Text Vis</div>
+      <div style={{ height: 600, overflow: 'auto' }}>
       <DndProvider backend={HTML5Backend}>
-        {Cards.map((curDataset) => (
-          <Content key={curDataset.CardName}>
-            <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
-          </Content>
-        ))}
+        <div className='card-container'>
+          {Cards.map((curDataset) => (
+            <Content key={curDataset.CardName}>
+              <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
+            </Content>
+          ))}
+        </div>
       </DndProvider>
+      </div>
     </div>
   )
 }

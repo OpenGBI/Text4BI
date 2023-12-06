@@ -1,0 +1,66 @@
+.control-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Adjust the space between titles and buttons */
+  }
+
+  .custom-btn {
+    width: 60px; /* 自定义按钮宽度 */
+    height: 25px; /* 自定义按钮高度 */
+    font-size: 14px; /* 自定义文字大小 */
+    line-height: 25px; /* 设置行高，使文字垂直居中 */
+    padding: 0 20px; /* 根据设计可能不需要，如果已设置宽度和高度 */
+    text-align: center; /* 添加此属性以确保文字水平居中 */
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px; /* 减少值以减小间距，甚至可以是0 */
+  }
+  
+  .button-group {
+    display: flex;
+    flex: 1; /* This ensures that each button group can grow and have the same width */
+    justify-content: left; /* This will center the buttons in the space allotted to the button group */
+    gap: 0px; /* This adds space between buttons */
+    margin-right: 20px; 
+    padding-left: 0px;
+    /* margin-bottom: 5px; */
+  }
+  
+/* 激活状态的按钮样式 */
+.button-group .ant-btn-primary {
+    background-color: rgba(25, 96, 162, 0.677); /* Ant Design默认的蓝色 */
+    /* border-color: #1f71bd; */
+    color: #fff;
+  }
+  
+  /* 未点击状态的按钮样式 */
+  .button-group .ant-btn-default {
+    background-color: #d9d9d9; /* 灰色背景 */
+    /* border-color: #d9d9d9; */
+    color: rgba(0, 0, 0, 0.65); /* 文字颜色 */
+  }
+  
+  /* 激活状态的按钮，鼠标悬浮样式 */
+.button-group .ant-btn-primary:hover {
+    background-color: rgba(67, 120, 169, 0.933); /* 更深的蓝色 */
+    /* border-color: #1f71bd; 需要时可以设置边框颜色 */
+    color: #fff; /* 文字颜色保持不变 */
+  }
+  
+  /* 未点击状态的按钮，鼠标悬浮样式 */
+  .button-group .ant-btn-default:hover {
+    background-color: #b0b0b0; /* 悬浮时的灰色 */
+    /* border-color: #b0b0b0; 需要时可以设置边框颜色 */
+    color: rgba(0, 0, 0, 0.65); /* 文字颜色保持不变 */
+  }
+
+  
+  

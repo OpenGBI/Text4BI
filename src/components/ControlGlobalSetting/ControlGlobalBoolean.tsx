@@ -1,36 +1,104 @@
 import React, { useState } from 'react'
-import { Checkbox, Divider } from 'antd'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
-import type { CheckboxValueType } from 'antd/es/checkbox/Group'
+import { Button, Col, Row } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
 import { GlobalSettingStateType } from '../../types'
 import { AppState } from '../../store'
 
-const plainOptions = ['boldness', 'underline', 'bulletPoint']
-const defaultCheckedList = ['']
-
 const ControlGlobalBoolean: React.FC = () => {
-  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(defaultCheckedList)
+  const [isBoldnessOn, setIsBoldnessOn] = useState(false)
+  const [isUnderlineOn, setIsUnderlineOn] = useState(false)
+  const [isBulletPointOn, setIsBulletPointOn] = useState(false)
+
   const dispatch = useDispatch()
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
-  const handleGlobalBoolean = (list: CheckboxValueType[]) => {
-    setCheckedList(list)
-    const stringCheckedList = list.map((item) => String(item))
+
+  const toggleGlobalSetting = (setting: string, value: boolean) => {
+    switch (setting) {
+      case 'boldness':
+        setIsBoldnessOn(value)
+        break
+      case 'underline':
+        setIsUnderlineOn(value)
+        break
+      case 'bulletPoint':
+        setIsBulletPointOn(value)
+        break
+      default:
+        break
+    }
+
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
-        boldness: stringCheckedList.includes('boldness'),
-        underline: stringCheckedList.includes('underline'),
-        bulletPoint: stringCheckedList.includes('bulletPoint'),
+        [setting]: value,
       }),
     )
   }
+
   return (
-    <div>
-      <Checkbox.Group options={plainOptions} defaultValue={[]} onChange={handleGlobalBoolean} />
+    <div className='control-panel'>
+      <Row>
+        <Col span={12} className='control-label'>Boldness</Col>
+        <Col span={12} className='control-label'>Underline</Col>
+      </Row>
+      <div className='button-row'>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isBoldnessOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('boldness', true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isBoldnessOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('boldness', false)}
+          >
+            Off
+          </Button>
+        </div>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isUnderlineOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('underline', true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isUnderlineOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('underline', false)}
+          >
+            Off
+          </Button>
+        </div>
+      </div>
+      <Row>
+        <Col span={24} className='control-label'>BulletPoint</Col>
+      </Row>
+      <div className='button-row'>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isBulletPointOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('bulletPoint', true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isBulletPointOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('bulletPoint', false)}
+          >
+            Off
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

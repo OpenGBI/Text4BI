@@ -1,65 +1,83 @@
 import React, { useState } from 'react'
-import { Checkbox, Divider } from 'antd'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
-import type { CheckboxValueType } from 'antd/es/checkbox/Group'
+import { Button, Col, Row } from 'antd'
+import './ControlBigGraphSparkLine.css'// 引入CSS样式文件
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeSystemSetting } from '../../actions/systemAction'
 import { systemStateType } from '../../types'
 import { AppState } from '../../store'
 
-const plainOptions = ['BigGraph', 'SparkLine']
-const defaultCheckedList = ['BigGraph', 'SparkLine']
-
 const ControlBigGraphSparkLine: React.FC = () => {
-  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(defaultCheckedList)
+  const [isBigGraphOn, setIsBigGraphOn] = useState(true)
+  const [isSparkLineOn, setIsSparkLineOn] = useState(true)
   const dispatch = useDispatch()
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
-  const handleChangeBigSmallGraph = (list: CheckboxValueType[]) => {
-    setCheckedList(list)
-    const stringCheckedList = list.map((item) => String(item))
+
+  const toggleBigGraph = (value: boolean) => {
+    setIsBigGraphOn(value)
     dispatch(
       ChangeSystemSetting({
         ...systemSetting,
-        showBigGraph: stringCheckedList.includes('BigGraph'),
-        showSparkLine: stringCheckedList.includes('SparkLine'),
+        showBigGraph: value,
       }),
     )
   }
+
+  const toggleSparkLine = (value: boolean) => {
+    setIsSparkLineOn(value)
+    dispatch(
+      ChangeSystemSetting({
+        ...systemSetting,
+        showSparkLine: value,
+      }),
+    )
+  }
+
   return (
-    <div>
-      <Checkbox.Group
-        options={plainOptions}
-        defaultValue={['BigGraph', 'SparkLine']}
-        onChange={handleChangeBigSmallGraph}
-      />
+    <div className='control-panel'>
+      <Row>
+        <Col span={13} className='control-label'>
+          BigGraph
+        </Col>
+        <Col span={11}>
+          SparkLine
+        </Col>
+      </Row>
+      <div className='button-row'>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isBigGraphOn ? 'primary' : 'default'}
+            onClick={() => toggleBigGraph(true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isBigGraphOn ? 'primary' : 'default'}
+            onClick={() => toggleBigGraph(false)}
+          >
+            Off
+          </Button>
+        </div>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isSparkLineOn ? 'primary' : 'default'}
+            onClick={() => toggleSparkLine(true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isSparkLineOn ? 'primary' : 'default'}
+            onClick={() => toggleSparkLine(false)}
+          >
+            Off
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
 
 export default ControlBigGraphSparkLine
-
-// const handleChangeBigSmallGraph = (list: CheckboxValueType[]) => {
-//   const dispatch = useDispatch()
-//   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
-//   setCheckedList(list)
-//   const stringCheckedList = list.map((item) => String(item))
-//   dispatch(
-//     ChangeSystemSetting({
-//       ...systemSetting,
-//       showBigGraph: stringCheckedList.includes('BigGraph'),
-//       showSparkLine: stringCheckedList.includes('SparkLine'),
-//     }),
-//   )
-// }
-
-// const plainOptions = ['BigGraph', 'SparkLine']
-
-// const App: React.FC = () => (
-//   <Checkbox.Group
-//     options={plainOptions}
-//     defaultValue={['BigGraph', 'SparkLine']}
-//     onChange={handleChangeBigSmallGraph}
-//   />
-// )
-
-// export default App

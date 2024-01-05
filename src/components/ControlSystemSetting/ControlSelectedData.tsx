@@ -12,7 +12,7 @@ const ControlSelectedData: React.FC = () => {
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
 
   const handleChangeDataset = (value: string) => {
-    console.log(`../../public/datas/${value}.json`)
+    // console.log(`../../public/datas/${value}.json`)
     fetch(`http://localhost:3000/datas/${value}.json`)
       .then((response) => response.json())
       .then((jsonData) => setSelectedDataset(jsonData))
@@ -28,7 +28,7 @@ const ControlSelectedData: React.FC = () => {
     // )
   }
   useEffect(() => {
-    console.log('selectedDataset', selectedDataset)
+    // console.log('selectedDataset', selectedDataset)
     const allCardsId: string[] = selectedDataset.map((card) => card.CardName)
 
     dispatch(

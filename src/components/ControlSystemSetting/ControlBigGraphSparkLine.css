@@ -17,6 +17,12 @@
     padding: 0 20px; /* 根据设计可能不需要，如果已设置宽度和高度 */
     text-align: center; /* 添加此属性以确保文字水平居中 */
   }
+
+  .custom-btn.active {
+    background-color: rgba(25, 96, 162, 0.677); /* Ant Design默认的蓝色 */
+    /* border-color: #1f71bd; */ /* 如果你想使用边框颜色，取消这行注释 */
+    color: #fff; /* 文本颜色设置为白色 */
+  }  
   
   .button-row {
     display: flex;

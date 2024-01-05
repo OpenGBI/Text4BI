@@ -5,20 +5,20 @@ import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
 import { AppState } from '../../store'
 import { GlobalSettingStateType } from '../../types'
 
-const ControlLineHeight: React.FC = () => {
+const ControlTextPosition: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedLineHeight, setSelectedLineHeight] = useState('1.5')
+  const [selectedPosition, setSelectedPosition] = useState('top')
 
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
 
-  const handleChangeLineHeight = (lineHeight: string) => {
-    setSelectedLineHeight(lineHeight)
+  const handleChangeTextPosition = (newPosition: string) => {
+    setSelectedPosition(newPosition)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
-        lineHeight: parseFloat(lineHeight),
+        textPosition: newPosition,
       }),
     )
   }
@@ -27,18 +27,18 @@ const ControlLineHeight: React.FC = () => {
     <div className='control-panel'>
       <Row>
         <Col span={24} className='control-label'>
-          Line Spacing
+          Text Position
         </Col>
       </Row>
-      <Row className='button-row' justify='space-around' gutter={[6, 6]}>
-        {['1', '1.5', '2'].map((lineHeight) => (
-          <Col key={lineHeight} span={8}>
+      <Row className='button-row' justify='space-between'>
+        {['top', 'left'].map((position) => (
+          <Col key={position} span={6}>
             <Button
               block
-              className={`custom-btn ${selectedLineHeight === lineHeight ? 'active' : ''}`}
-              onClick={() => handleChangeLineHeight(lineHeight)}
+              className={`custom-btn ${selectedPosition === position ? 'active' : ''}`}
+              onClick={() => handleChangeTextPosition(position)}
             >
-              {lineHeight}
+              {position.charAt(0).toUpperCase() + position.slice(1)}
             </Button>
           </Col>
         ))}
@@ -47,4 +47,4 @@ const ControlLineHeight: React.FC = () => {
   )
 }
 
-export default ControlLineHeight
+export default ControlTextPosition

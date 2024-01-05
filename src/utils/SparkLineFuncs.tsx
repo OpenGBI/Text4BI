@@ -814,7 +814,7 @@ export const renderAssociation1 = (
 ) => {
   const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
   const b = tagData[1].y - k * tagData[1].x
-  console.log('kkkkkkkk,bbbbbb', k, b)
+  // console.log('kkkkkkkk,bbbbbb', k, b)
   let width
   let height
   const padding = 1.5
@@ -1207,7 +1207,7 @@ export const renderAssociation2 = (
       .line<Point>()
       .x((d) => xScale(d.x))
       .y((d) => yScale(k * d.x + b))
-    console.log('datumdatum', k, b)
+    // console.log('datumdatum', k, b)
 
     const res = svgD3
       .append('path')
@@ -2404,7 +2404,7 @@ export const renderTemporalitySeasonality2 = (
         [(pointA[0] + pointB[0]) / 2, height / 4], // 控制点，决定弧线的高度
         pointB,
       ]
-      console.log(points)
+      // console.log(points)
       svgD3
         .append('path')
         .attr('d', arcGenerator(points as any)) // `as any` is used to bypass the strict type checking

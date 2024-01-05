@@ -46,8 +46,11 @@ function isPointArray(value: any): value is Point[] {
   )
 }
 interface PhraseComponentProps extends Phrase {
+  color: string
+  backgroundColor: string
   fontsize: string
   boldness: boolean
+  contour: boolean
   underline: boolean
   lineHeight: number
   aspectRatio: string
@@ -58,7 +61,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   value,
   metadata = {},
   fontsize,
+  color,
+  backgroundColor,
   boldness,
+  contour,
   underline,
   lineHeight,
   aspectRatio,
@@ -66,10 +72,13 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
 }) => {
   // 接收一个词，生成一个这个词的可视化效果和行内小图
   let fontWeightValue = boldness ? 'bold' : 'normal'
+  const contourValue = contour ? '1px solid black' : 'none'
   let underlineValue = underline ? 'underline' : 'none'
-  let wordColor: string = 'black'
+  let wordColor: string = color
+  const backgroundColorValue: string = backgroundColor
   const wordRef = useRef<HTMLSpanElement | null>(null)
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
+  // console.log('测试输出color', wordColor)
   // const svgRef = useRef<SVGSVGElement | null>(null)
   // const tooltipRef = useRef<HTMLDivElement | null>(null)
 
@@ -91,8 +100,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             ref={wordRef}
             style={{
               color: wordColor,
+              backgroundColor: backgroundColorValue,
               fontSize: fontsize,
               fontWeight: fontWeightValue,
+              border: contourValue,
               textDecoration: underlineValue,
               lineHeight,
               position: 'relative',
@@ -109,8 +120,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         ref={wordRef}
         style={{
           color: wordColor,
+          backgroundColor: backgroundColorValue,
           fontSize: fontsize,
           fontWeight: fontWeightValue,
+          border: contourValue,
           textDecoration: underlineValue,
           lineHeight,
           position: 'relative',
@@ -411,7 +424,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       return <SelectorTime defaultSelection={metadata.selections[0]} />
     }
     if (metadata.entityType === 'metric_value') {
-      wordColor = '#4B91FF'
+      wordColor = '#16FFF8'
     }
     if (
       metadata.entityType === 'delta_value' ||
@@ -427,6 +440,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     if (metadata.entityType === 'metric_name' || metadata.entityType === 'dim_cate') {
       fontWeightValue = 'bold'
     }
+    // if (metadata.entityType === 'dim_value') {
+    //   contourValue = '1px solid black'
+    // }
     if (metadata.entityType === 'algorithm') {
       underlineValue = 'underline dashed'
     }

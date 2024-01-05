@@ -68,7 +68,7 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
 
     // Render the chart
     chart.render()
-    console.log('chartchartchartchartchartchart', chart)
+    // console.log('chartchartchartchartchartchart', chart)
     chartRef.current = chart
     return () => {
       chart.destroy()

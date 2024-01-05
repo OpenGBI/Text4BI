@@ -6,7 +6,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 const dateFormat = 'YYYY-MM-DD'
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-  console.log(date, dateString)
+  // console.log(date, dateString)
 }
 type typeSelectorTimeProps = {
   defaultSelection: string

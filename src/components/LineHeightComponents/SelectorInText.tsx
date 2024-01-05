@@ -2,7 +2,7 @@ import React from 'react'
 import { Select, Space } from 'antd'
 
 const handleChange = (value: string) => {
-  console.log(`selected ${value}`)
+  // console.log(`selected ${value}`)
 }
 type typeSelectorProps = {
   defaultSelection: string

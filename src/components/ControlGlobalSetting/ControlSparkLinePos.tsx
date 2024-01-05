@@ -7,7 +7,7 @@ import { GlobalSettingStateType } from '../../types'
 
 const ControlSparkLinePos: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedPosition, setSelectedPosition] = useState('')
+  const [selectedPosition, setSelectedPosition] = useState('right')
 
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
@@ -31,14 +31,14 @@ const ControlSparkLinePos: React.FC = () => {
         </Col>
       </Row>
       <Row className='button-row' justify='space-between'>
-        {['Up ↑', 'Down ↓', 'Left ←', 'Right →'].map((position) => (
+        {['up', 'down', 'left', 'right'].map((position) => (
           <Col key={position} span={6}>
             <Button
               block
               className={`custom-btn ${selectedPosition === position ? 'active' : ''}`}
               onClick={() => handleChangeSparkLinePosition(position)}
             >
-              {position}
+              {position.charAt(0).toUpperCase() + position.slice(1)}
             </Button>
           </Col>
         ))}

@@ -7,7 +7,7 @@ import { GlobalSettingStateType } from '../../types'
 
 const ControlFont: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedFontSize, setSelectedFontSize] = useState('')
+  const [selectedFontSize, setSelectedFontSize] = useState('14px')
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )

@@ -67,6 +67,7 @@ export type systemStateType = {
 export type GlobalSettingStateType = {
   color: string
   boldness: boolean
+  contour: boolean
   underline: boolean
   fontsize: string
   backgroundColor: string
@@ -74,4 +75,5 @@ export type GlobalSettingStateType = {
   lineHeight: number
   sparkLinePosition: string // 上下左右
   aspectRatio: string
+  textPosition: string
 }

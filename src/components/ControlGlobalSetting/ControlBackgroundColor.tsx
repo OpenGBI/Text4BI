@@ -6,21 +6,20 @@ import { GlobalSettingStateType } from '../../types'
 import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
 import { AppState } from '../../store'
 
-const ControlColor = () => {
+const ControlBackgroundColor = () => {
   const dispatch = useDispatch()
-  const [value, setValue] = useState<ColorPickerProps['value']>('#16FFF8')
+  const [value, setValue] = useState<ColorPickerProps['value']>('#DFF20F')
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
-  const handleChangeColor = (color: Color) => {
-    const hexColor = color.toHexString() // 去除 '#' 符号
+  const handleChangeColor = (backgroundColor: Color) => {
+    const hexColor = backgroundColor.toHexString() // 去除 '#' 符号
     // console.log('Selected HEX Color:', hexColor)
     setValue(hexColor)
-    // console.log('After setValue, color:', color)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
-        color: String(hexColor),
+        backgroundColor: String(hexColor),
       }),
     )
   }
@@ -28,7 +27,7 @@ const ControlColor = () => {
     <div className='control-panel'>
       <Row>
         <Col span={24} className='control-label'>
-          Color
+          backgroundColor
         </Col>
       </Row>
       <App>
@@ -38,4 +37,4 @@ const ControlColor = () => {
   )
 }
 
-export default ControlColor
+export default ControlBackgroundColor

@@ -13,7 +13,7 @@ interface PieChartProps {
 
 const Proportion: React.FC<PieChartProps> = ({ data }) => {
   const containerRef = React.useRef(null)
-  console.log('BigChartDataBigChartDataBigChartDataBigChartData', data)
+  // console.log('BigChartData', data)
 
   React.useEffect(() => {
     if (!containerRef.current) return

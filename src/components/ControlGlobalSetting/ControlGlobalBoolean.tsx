@@ -9,6 +9,7 @@ const ControlGlobalBoolean: React.FC = () => {
   const [isBoldnessOn, setIsBoldnessOn] = useState(false)
   const [isUnderlineOn, setIsUnderlineOn] = useState(false)
   const [isBulletPointOn, setIsBulletPointOn] = useState(false)
+  const [isContourOn, setIsContourOn] = useState(false)
 
   const dispatch = useDispatch()
   const globalSetting: GlobalSettingStateType = useSelector(
@@ -25,6 +26,9 @@ const ControlGlobalBoolean: React.FC = () => {
         break
       case 'bulletPoint':
         setIsBulletPointOn(value)
+        break
+      case 'contour':
+        setIsContourOn(value)
         break
       default:
         break
@@ -79,7 +83,8 @@ const ControlGlobalBoolean: React.FC = () => {
         </div>
       </div>
       <Row>
-        <Col span={24} className='control-label'>BulletPoint</Col>
+        <Col span={12} className='control-label'>BulletPoint</Col>
+        <Col span={12} className='control-label'>Contour</Col>
       </Row>
       <div className='button-row'>
         <div className='button-group'>
@@ -94,6 +99,22 @@ const ControlGlobalBoolean: React.FC = () => {
             className='custom-btn'
             type={!isBulletPointOn ? 'primary' : 'default'}
             onClick={() => toggleGlobalSetting('bulletPoint', false)}
+          >
+            Off
+          </Button>
+        </div>
+        <div className='button-group'>
+          <Button
+            className='custom-btn'
+            type={isContourOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('contour', true)}
+          >
+            On
+          </Button>
+          <Button
+            className='custom-btn'
+            type={!isContourOn ? 'primary' : 'default'}
+            onClick={() => toggleGlobalSetting('contour', false)}
           >
             Off
           </Button>

@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Tooltip, Space, Button, message } from 'antd'
 import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
 import { CopyOutlined, ExportOutlined } from '@ant-design/icons'
@@ -65,6 +65,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   const {
     color,
     boldness,
+    contour,
     underline,
     fontsize,
     backgroundColor,
@@ -72,6 +73,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
     lineHeight,
     sparkLinePosition, // 上下左右
     aspectRatio,
+    textPosition,
   } = useSelector((state: AppState) => state.globalSetting)
 
   if (!CardName || !paragraph || !id || !onDrop) {
@@ -90,6 +92,40 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       // onCopy?.(currentInsightInfo, ref.current)
     }
   }
+
+  const onClickExportButton = async () => {
+    if (containerRef?.current) {
+      const textExporter = new TextExporter()
+      const html = await textExporter.getNarrativeHtml(containerRef.current)
+      // 创建一个新窗口
+      const newWindow = window.open('', '_blank')
+      if (newWindow) {
+        // 如果新窗口存在，则向其写入HTML内容
+        newWindow.document.write(html)
+        // 更新新窗口的文档标题
+        newWindow.document.title = 'Exported Content'
+      } else {
+        // 如果新窗口不存在，可以在这里处理错误，比如通知用户
+        alert('Unable to open a new window. Please check your popup settings.')
+      }
+    }
+  }
+  // 这个代码内容是可以将富文本内容作为一个html下载到本地
+  // const onClickExportButton = async () => {
+  //   if (containerRef?.current) {
+  //     const textExporter = new TextExporter()
+  //     const html = await textExporter.getNarrativeHtml(containerRef.current)
+  //     const blob = new Blob([html], { type: 'text/html' })
+  //     const url = URL.createObjectURL(blob)
+  //     const link = document.createElement('a')
+  //     link.href = url
+  //     link.download = 'exported-content.html'
+  //     document.body.appendChild(link)
+  //     link.click()
+  //     document.body.removeChild(link)
+  //     URL.revokeObjectURL(url)
+  //   }
+  // }
   // useEffect(() => {
   //   const handleKeyPress = async (event: KeyboardEvent) => {
   //     if (event.ctrlKey && event.key === 'c') {
@@ -128,7 +164,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   //     document.removeEventListener('keydown', handleKeyDown)
   //   }
   // }, [onClickCopy])
-
   const [, drop] = useDrop({
     accept: CARD_DRAG_TYPE,
     hover: (item: any, monitor: DropTargetMonitor) => {
@@ -180,7 +215,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           key={index}
           {...phrase}
           fontsize={fontsize}
+          color={color}
+          backgroundColor={backgroundColor}
           boldness={boldness}
+          contour={contour}
           underline={underline}
           lineHeight={lineHeight}
           aspectRatio={aspectRatio}
@@ -194,7 +232,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           key={index}
           {...phrase}
           fontsize={fontsize}
+          color={color}
+          backgroundColor={backgroundColor}
           boldness={boldness}
+          contour={contour}
           underline={underline}
           lineHeight={lineHeight}
           aspectRatio={aspectRatio}
@@ -203,39 +244,124 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       ))
     }
 
-    if (showBigGraph && 'chartType' in curSentence) {
-      return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.metadata} />
+    // if (showBigGraph && 'chartType' in curSentence) {
+    //   return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.metadata} />
+    // }
+  }
+
+  // Local state for textPosition
+  // const [textPosition, setTextPosition] = useState('left')
+  // // Handlers for layout change
+  // const handleLeftRightLayout = () => setTextPosition('left')
+  // const handleTopBottomLayout = () => setTextPosition('top')
+  // 根据 textPosition 来决定如何渲染内容
+  const renderContent = () => {
+    // console.log('打印当前文本布局', textPosition)
+    if (textPosition === 'left') {
+      // 文本在左，图表在右
+      return (
+        <div
+          className='avar-ntv-container'
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            border: '1px solid #ccc', // 添加边框
+            borderRadius: '8px', // 添加圆角
+            boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
+            padding: '12px', // 可根据需要调整内边距
+            marginTop: '12px', // 可根据需要调整上边距
+            marginBottom: '12px', // 可根据需要调整下边距
+            marginLeft: '12px', // 可根据需要调整左边距
+            marginRight: '20px', // 可根据需要调整右边距
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            {/* 渲染文本 */}
+            {paragraph.map((curSentence, outIndex) => (
+              <div
+                key={outIndex}
+                className={outIndex === 0 ? 'draggable' : ''}
+                ref={outIndex === 0 ? ref : null}
+              >
+                {renderBulletPoint(curSentence)}
+                {renderPhrases(curSentence)}
+                {/* 其他渲染内容 */}
+              </div>
+            ))}
+          </div>
+          <div style={{ flex: 1 }}>
+            {/* 渲染图表 */}
+            {paragraph.map((curSentence, outIndex) => {
+              if (showBigGraph && 'chartType' in curSentence) {
+                return (
+                  <BigChart
+                    ChartType={curSentence.chartType}
+                    BigChartData={curSentence.metadata}
+                  />
+                )
+              }
+              return null
+            })}
+          </div>
+        </div>
+      )
+    }
+    if (textPosition === 'top') {
+      // 文本在上，图表在下
+      return (
+        <div
+          className='avar-ntv-container'
+          style={{
+            // display: 'flex',
+            // flexDirection: 'row',
+            border: '1px solid #ccc', // 添加边框
+            borderRadius: '8px', // 添加圆角
+            boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
+            padding: '12px', // 可根据需要调整内边距
+            marginTop: '12px', // 可根据需要调整上边距
+            marginBottom: '12px', // 可根据需要调整下边距
+            marginLeft: '12px', // 可根据需要调整左边距
+            marginRight: '20px', // 可根据需要调整右边距
+          }}
+        >
+          {/* 渲染文本 */}
+          {paragraph.map((curSentence, outIndex) => (
+              <div
+                key={outIndex}
+                className={outIndex === 0 ? 'draggable' : ''}
+                ref={outIndex === 0 ? ref : null}
+              >
+                {renderBulletPoint(curSentence)}
+                {renderPhrases(curSentence)}
+                {/* 其他渲染内容 */}
+              </div>
+            ))}
+          {/* 渲染图表 */}
+          {paragraph.map((curSentence, outIndex) => {
+            if (showBigGraph && 'chartType' in curSentence) {
+              return (
+                <BigChart
+                  ChartType={curSentence.chartType}
+                  BigChartData={curSentence.metadata}
+                />
+              )
+            }
+            return null
+          })}
+        </div>
+      )
     }
   }
 
   return (
     <div ref={containerRef} style={{ position: 'relative' }}> {/* 确保父容器相对定位 */}
-      <div
-        className='avar-ntv-container'
-        style={{
-          border: '1px solid #ccc', // 添加边框
-          borderRadius: '8px', // 添加圆角
-          boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
-          padding: '12px', // 可根据需要调整内边距
-          marginTop: '12px', // 可根据需要调整上边距
-          marginBottom: '12px', // 可根据需要调整下边距
-          marginLeft: '12px', // 可根据需要调整左边距
-          marginRight: '20px', // 可根据需要调整右边距
-        }}
-      >
-        {paragraph.map((curSentence, outIndex) => (
-          <div
-            key={outIndex}
-            className={outIndex === 0 ? 'draggable' : ''}
-            ref={outIndex === 0 ? ref : null}
-          >
-            {renderBulletPoint(curSentence)}
-            {renderPhrases(curSentence)}
-            {/* 其他渲染内容 */}
-          </div>
-        ))}
-        {/* 可能的其他内容 */}
-      </div>
+      {/* 添加布局切换按钮 */}
+      {/* <Space>
+        <Button onClick={() => handleLeftRightLayout}>Left-Right</Button>
+        <Button onClick={() => handleTopBottomLayout}>Top-Bottom</Button>
+      </Space> */}
+      {/* 渲染内容 */}
+      {renderContent()}
       {/* 将 CopyOutlined 图标放在绝对定位的容器中 */}
       <Tooltip title='Copy Rich Text'>
         <div style={{ position: 'absolute', top: 20, right: 55 }}>
@@ -248,7 +374,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       <Tooltip title='Export This Card'>
         <div style={{ position: 'absolute', top: 20, right: 30 }}>
           <ExportOutlined
-            onClick={onClickCopyButton}
+            onClick={onClickExportButton}
             style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
           />
         </div>

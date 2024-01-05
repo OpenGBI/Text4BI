@@ -7,7 +7,7 @@ import { GlobalSettingStateType } from '../../types'
 
 const ControlAspectRatio: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedAspectRatio, setSelectedAspectRatio] = useState('')
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState('tiny')
 
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
@@ -31,14 +31,15 @@ const ControlAspectRatio: React.FC = () => {
         </Col>
       </Row>
       <Row className='button-row' justify='space-around' gutter={[6, 6]}>
-        {['Tiny', 'Medium', 'Big'].map((ratio) => (
+        {['tiny', 'medium', 'big'].map((ratio) => (
           <Col key={ratio} span={8}>
             <Button
               block
               className={`custom-btn ${selectedAspectRatio === ratio ? 'active' : ''}`}
               onClick={() => handleChangeAspectRatio(ratio)}
+              style={{ textAlign: 'center' }} // 确保文字居中的样式
             >
-              {ratio}
+              {ratio.charAt(0).toUpperCase() + ratio.slice(1)}
             </Button>
           </Col>
         ))}

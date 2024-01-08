@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/OpenGBI/Text4BI/static/css/main.9d0ee963.css",
-    "main.js": "/OpenGBI/Text4BI/static/js/main.8385bf28.js",
-    "static/js/787.1fc15ca1.chunk.js": "/OpenGBI/Text4BI/static/js/787.1fc15ca1.chunk.js",
-    "index.html": "/OpenGBI/Text4BI/index.html",
-    "main.9d0ee963.css.map": "/OpenGBI/Text4BI/static/css/main.9d0ee963.css.map",
-    "main.8385bf28.js.map": "/OpenGBI/Text4BI/static/js/main.8385bf28.js.map",
-    "787.1fc15ca1.chunk.js.map": "/OpenGBI/Text4BI/static/js/787.1fc15ca1.chunk.js.map"
+    "main.css": "//bi4an/static/css/main.9d0ee963.css",
+    "main.js": "//bi4an/static/js/main.58dffc32.js",
+    "static/js/787.1fc15ca1.chunk.js": "//bi4an/static/js/787.1fc15ca1.chunk.js",
+    "index.html": "//bi4an/index.html",
+    "main.9d0ee963.css.map": "//bi4an/static/css/main.9d0ee963.css.map",
+    "main.58dffc32.js.map": "//bi4an/static/js/main.58dffc32.js.map",
+    "787.1fc15ca1.chunk.js.map": "//bi4an/static/js/787.1fc15ca1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d0ee963.css",
-    "static/js/main.8385bf28.js"
+    "static/js/main.58dffc32.js"
   ]
 }

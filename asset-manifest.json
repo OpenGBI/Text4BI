@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Text4BI/static/css/main.9d0ee963.css",
+    "main.js": "/Text4BI/static/js/main.ac54ab33.js",
+    "static/js/787.1fc15ca1.chunk.js": "/Text4BI/static/js/787.1fc15ca1.chunk.js",
+    "index.html": "/Text4BI/index.html",
+    "main.9d0ee963.css.map": "/Text4BI/static/css/main.9d0ee963.css.map",
+    "main.ac54ab33.js.map": "/Text4BI/static/js/main.ac54ab33.js.map",
+    "787.1fc15ca1.chunk.js.map": "/Text4BI/static/js/787.1fc15ca1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9d0ee963.css",
+    "static/js/main.ac54ab33.js"
+  ]
+}

@@ -1,80 +1,112 @@
 import React from 'react'
 import { Col, Row, Divider, Collapse } from 'antd'
-import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
-import ControlBigGraphSparkLine from './components/ControlSystemSetting/ControlBigGraphSparkLine'
-import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
-import ControlFont from './components/ControlGlobalSetting/ControlFont'
-import ControlGlobalBoolean from './components/ControlGlobalSetting/ControlGlobalBoolean'
-import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
-import ControlAspectRatio from './components/ControlGlobalSetting/ControlAspectRatio'
-import ControlSparkLinePos from './components/ControlGlobalSetting/ControlSparkLinePos'
+// 以下是global panel的导入
 import ControlTextPosition from './components/ControlGlobalSetting/ControlTextPosition'
-import ControlContour from './components/ControlGlobalSetting/ControlContour'
-import ControlColor from './components/ControlGlobalSetting/ControlColor'
-import ControlBackgroundColor from './components/ControlGlobalSetting/ControlBackgroundColor'
+import ControlBigGraphSparkLine from './components/ControlGlobalSetting/ControlBigGraphSparkLine'
+import ControlFont from './components/ControlGlobalSetting/ControlFont'
+import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
+import ControlBulletPoint from './components/ControlGlobalSetting/ControlBulletPoint'
+import ControlInteraction from './components/ControlGlobalSetting/ControlInteractiveOn'
+// 以下是typography panel的导入
+import ControlSelectedEntityType from './components/ControlTypographySetting/ControlEntityType'
+import ControlBoldness from './components/ControlTypographySetting/ControlBoldness'
+import ControlUnderline from './components/ControlTypographySetting/ControlUnderline'
+import ControlItalics from './components/ControlTypographySetting/ControlItalics'
+import ControlContour from './components/ControlTypographySetting/ControlContour'
+import ControlColor from './components/ControlTypographySetting/ControlColor'
+import ControlBackgroundColor from './components/ControlTypographySetting/ControlBackgroundColor'
+// 以下是word graphics panel的导入
+import ControlAspectRatio from './components/ControlWordScaleGragphicsSetting/ControlAspectRatio'
+import ControlDataDrivenGraphics from './components/ControlWordScaleGragphicsSetting/ControlDataDrivenGraphics'
+import ControlChartDesign from './components/ControlWordScaleGragphicsSetting/ControlChartDesign'
+import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
+// 以下是import&export panel的导入
+import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
+import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
 
 const { Panel } = Collapse
 
 const ControlBar: React.FC = () => (
-  <div className='pane'>
-    <Row className='control-row' style={{ paddingTop: '10px', paddingBottom: '2px', paddingLeft: '15px' }}>
-      <Col span={8} className='control-label'>
-        Select Data
-      </Col>
-      <Col span={16}>
-        <ControlSelectedData />
-      </Col>
-    </Row>
-    <Collapse defaultActiveKey={['1']} className='no-border-panel'>
-      <Panel header={<span className='custom-panel-header'>Global Design</span>} key='1'>
-        <Row className='control-row'>
-          <ControlBigGraphSparkLine />
-        </Row>
-        <Row className='control-row'>
-          <ControlColor />
-        </Row>
-        <Row className='control-row'>
-          <ControlBackgroundColor />
-        </Row>
-        <Row className='control-row'>
-          <Col span={8} className='control-label'>
-            Select Cards
-          </Col>
-          <Col span={16}>
-            <ControlSelectedCards />
-          </Col>
-        </Row>
-      </Panel>
-    </Collapse>
-    <Collapse defaultActiveKey={['1']} className='no-border-panel'>
-      <Panel header={<span className='custom-panel-header'>Typography Design</span>} key='1'>
-        <Row className='control-row'>
-          <ControlGlobalBoolean />
-        </Row>
-        <Row className='control-row'>
-            <ControlContour />
-        </Row>
-        <Row className='control-row'>
-            <ControlFont />
-        </Row>
-        <Row className='control-row'>
-            <ControlLineHeight />
-        </Row>
-        <Row className='control-row'>
+  <div className='panel1'>
+    <div
+      className='contro-label'
+      style={{ paddingBottom: 16, paddingLeft: 14, paddingTop: 14, fontSize: '16px', fontWeight: 'bold' }}
+    >
+      Design Panel
+    </div>
+    <div style={{ height: 820, overflow: 'auto' }}>
+      <Collapse defaultActiveKey={['1']} style={{ backgroundColor: '#272643' }}>
+        <Panel header={<span className='panel-header'>Global Design</span>} key='1' style={{ backgroundColor: '#fff' }}>
+          <Row className='control-row'>
             <ControlTextPosition />
-        </Row>
-      </Panel>
-    </Collapse>
-    <Collapse defaultActiveKey={['1']} className='no-border-panel'>
-      <Panel header={<span className='custom-panel-header'>Word Scale Graphics Design</span>} key='1'>
-        <Row className='control-row'>
-            <ControlSparkLinePos />
-        </Row>
-        <Row className='control-row'>
-            <ControlAspectRatio />
-        </Row>
-      </Panel>
-    </Collapse>
+          </Row>
+          <Row className='control-row'>
+            <ControlBigGraphSparkLine />
+          </Row>
+          <Row className='control-row'>
+              <ControlFont />
+          </Row>
+          <Row className='control-row'>
+              <ControlLineHeight />
+          </Row>
+          <Row className='control-row'>
+            <ControlBulletPoint />
+          </Row>
+          <Row className='control-row'>
+            <ControlInteraction />
+          </Row>
+        </Panel>
+      </Collapse>
+      <Collapse defaultActiveKey={['1']} style={{ backgroundColor: '#fff' }}>
+        <Panel header={<span className='panel-header'>Typography</span>} key='1'>
+          {/* <Row className='control-row'>
+            <Col span={8} className='control-label'>
+              Select Cards
+            </Col>
+            <Col span={16}>
+              <ControlSelectedCards />
+            </Col>
+          </Row> */}
+          <Row className='control-row'>
+            <ControlSelectedEntityType />
+          </Row>
+          <Row className='control-row'>
+            <ControlBoldness />
+          </Row>
+          <Row className='control-row'>
+            <ControlUnderline />
+          </Row>
+          <Row className='control-row'>
+            <ControlItalics />
+          </Row>
+          <Row className='control-row'>
+              <ControlContour />
+          </Row>
+          <Row className='control-row'>
+            <ControlColor />
+          </Row>
+          <Row className='control-row'>
+            <ControlBackgroundColor />
+          </Row>
+        </Panel>
+      </Collapse>
+      <Collapse defaultActiveKey={['1']} style={{ backgroundColor: '#fff' }}>
+        <Panel header={<span className='panel-header'>Word Scale Graphics</span>} key='1'>
+          <Row className='control-row'>
+              <ControlSparkLinePos />
+          </Row>
+          <Row className='control-row'>
+            <ControlDataDrivenGraphics />
+          </Row>
+          <Row className='control-row'>
+            <ControlChartDesign />
+          </Row>
+          {/* <Row className='control-row'>
+              <ControlAspectRatio />
+          </Row> */}
+        </Panel>
+      </Collapse>
+    </div>
   </div>
 )
 

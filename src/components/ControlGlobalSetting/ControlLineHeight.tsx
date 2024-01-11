@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Row, Col } from 'antd'
+import { Button, InputNumber, Row, Col } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
 import { AppState } from '../../store'
@@ -7,41 +7,69 @@ import { GlobalSettingStateType } from '../../types'
 
 const ControlLineHeight: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedLineHeight, setSelectedLineHeight] = useState('1.5')
-
+  const [selectedLineHeight, setSelectedLineHeight] = useState(1.5)
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
 
-  const handleChangeLineHeight = (lineHeight: string) => {
-    setSelectedLineHeight(lineHeight)
+  const handleLineHeightChange = (value: number | null) => {
+    let newValue = 1.5
+    if (value !== null) {
+      newValue = parseFloat(String(value))
+      // Fix to remove trailing zeros
+      newValue = parseFloat(newValue.toFixed(2))
+    }
+    setSelectedLineHeight(newValue)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
-        lineHeight: parseFloat(lineHeight),
+        lineHeight: newValue,
       }),
     )
   }
 
+  // 固定按钮宽度
+  const buttonWidth = 40 // 根据实际布局调整宽度
+
   return (
     <div className='control-panel'>
       <Row>
-        <Col span={24} className='control-label'>
-          Line Spacing
+        <Col span={10} className='control-label'>
+          Line height
         </Col>
-      </Row>
-      <Row className='button-row' justify='space-around' gutter={[6, 6]}>
-        {['1', '1.5', '2'].map((lineHeight) => (
-          <Col key={lineHeight} span={8}>
-            <Button
-              block
-              className={`custom-btn ${selectedLineHeight === lineHeight ? 'active' : ''}`}
-              onClick={() => handleChangeLineHeight(lineHeight)}
-            >
-              {lineHeight}
-            </Button>
-          </Col>
-        ))}
+        <Col span={14}>
+          <Button.Group style={{ display: 'flex' }}>
+            {['1', '1.5', '2'].map((lineHeight) => (
+              <Button
+                key={lineHeight}
+                className={`custom-btn ${selectedLineHeight === parseFloat(lineHeight) ? 'active' : ''}`}
+                onClick={() => handleLineHeightChange(parseFloat(lineHeight))}
+                style={{ width: `${buttonWidth}px` }}
+              >
+                {lineHeight}
+              </Button>
+            ))}
+            <InputNumber
+              min={1}
+              max={10}
+              step={0.25}
+              value={selectedLineHeight}
+              onChange={handleLineHeightChange}
+              style={{ width: `${buttonWidth + 100}px` }} // 设置和按钮相同的宽度以保持一致
+              formatter={(value) => { // Custom formatter to remove unnecessary zeros
+                if (!value) {
+                  return ''
+                }
+                const [integer, decimal] = value.toString().split('.')
+                if (decimal && decimal.length > 0) {
+                  // Only show decimal if it's not .00
+                  return `${integer}.${decimal.replace(/0+$/, '')}`
+                }
+                return integer
+              }}
+            />
+          </Button.Group>
+        </Col>
       </Row>
     </div>
   )

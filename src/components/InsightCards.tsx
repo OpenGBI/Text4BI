@@ -17,8 +17,11 @@ interface InsightCardProps extends Card {
 }
 
 const InsightCards: React.FC = () => {
-  const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
+  const { dataset, selectedCards } = useSelector(
     (state: AppState) => state.system,
+  )
+  const { showBigGraph, showSparkLine } = useSelector(
+    (state: AppState) => state.globalSetting,
   )
   // console.log('datasetttttttttttttt', selectedCards)
   const CardNum: number = dataset.length
@@ -74,9 +77,8 @@ const InsightCards: React.FC = () => {
     setIsModalVisible(false)
   }
   return (
-    <div className='pane'>
+    <div className='panel3'>
       <div className='header'>
-        Text Vis
         <Tooltip title='Export This Card'>
           <div style={{ position: 'absolute', top: 20, right: 30 }}>
             <ExportOutlined
@@ -90,7 +92,7 @@ const InsightCards: React.FC = () => {
           </div>
         </Tooltip>
       </div>
-      <div style={{ height: 680, overflow: 'auto' }}>
+      <div style={{ height: 800, overflow: 'auto' }}>
       <DndProvider backend={HTML5Backend}>
         <div className='card-container'>
           {Cards.map((curDataset) => (

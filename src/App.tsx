@@ -6,7 +6,7 @@ import { store } from './store'
 import ControlBar from './ControlBar'
 import InsightCards from './components/InsightCards'
 import DesignBar from './DesignBar'
-import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
+import ImportBar from './ImportBar'
 
 const { Sider, Content } = Layout
 
@@ -15,7 +15,7 @@ function App() {
     <Provider store={store}>
       <div id='APP' className='app-container'>
       <Layout className='full-height'>
-        <Sider width={350} style={{ backgroundColor: '#eee' }}>
+        <Sider width={400}>
           {/* <Content>
             <ControlSelectedData />
           </Content> */}
@@ -24,7 +24,10 @@ function App() {
           </Content>
         </Sider>
         <Layout>
-          <Content className='full-height'>
+          <Content>
+            <ImportBar />
+          </Content>
+          <Content>
             <InsightCards />
           </Content>
         </Layout>

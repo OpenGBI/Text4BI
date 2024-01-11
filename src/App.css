@@ -1,39 +1,6 @@
-.pane {
-  background: #fff;
-  border-style: solid;
-  border-color: #fff;
-  border-width: 1px;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-  /* border-radius: 5px;
-  box-shadow: 2px 2px 2px #dddddd; */
-}
-
-.header {
-  background-color: #eee;
-  margin: 5px;
-  padding-left: 10px;
-  padding-top: 4px;
-  border-radius: 5px;
-  height: 30px;
-  font-weight: bold; /* 这行会使得文本加粗 */
-}
-
-/* DesignBar.css */
-.control-label {
-  display: flex;
-  align-items: center; /* Vertically centers the text with the form controls */
-  font-size: 14px; /* Set your desired font size */
-  padding-left: 0px;
-}
-
-.control-row {
-  margin-bottom: 10px; /* 设置control和designer的每一个设置框之间的距离 */
-}
-
 .app-container {
   height: 100vh; /* 设置App容器的高度为视口高度 */
+  background-color: #fff;
 }
 
 .full-height {
@@ -50,6 +17,108 @@
   overflow: auto; /* 如果内容过多，显示滚动条 */
 }
 
+.panel1 {
+  background: #272643;
+  /* border-style: solid; */
+  /* border-color: #fff; */
+  /* border-width: 1px; */
+  /* margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px; */
+  color: #fff;
+  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  /* border-radius: 5px;
+  box-shadow: 2px 2px 2px #dddddd; */
+}
+
+/* 覆盖panel1中ant-collapse-content的背景色 */
+.ant-collapse-content {
+  background-color: #272643 !important;
+}
+
+.panel-header {
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  /* margin: 5px;
+  padding-left: 10px;
+  padding-top: 4px;
+  /* border-radius: 5px; */
+  /* height: 30px;
+  font-weight: bold; 这行会使得文本加粗 */ 
+}
+
+.panel2 {
+  background: #BADDE8;
+  color: #050404;
+  /* border-style: solid;
+  border-color: #fff;
+  border-width: 1px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px; */
+  /* border-radius: 5px;
+  box-shadow: 2px 2px 2px #dddddd; */
+}
+
+.panel3 {
+  background: #fff;
+  /* border-style: solid;
+  border-color: #fff;
+  border-width: 1px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px; */
+  /* border-radius: 5px;
+  box-shadow: 2px 2px 2px #dddddd; */
+}
+
+.control-row {
+  margin-bottom: 10px; /* 设置control和designer的每一个设置框之间的距离 */
+  font-family: 'Montserrat', sans-serif; /* 添加这一行 */ 
+}
+.control-panel {
+    /* display: flex; */
+    width: 100%;
+    flex-direction: column;
+  }
+/* DesignBar.css */
+.control-label {
+  /* display: flex;
+  align-items: center;  */
+  font-size: 14px; /* Set your desired font size */
+  padding-left: 0px;
+  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  color: #fff;
+}
+
+.control-label-layer2 {
+  display: flex;
+  align-items: center; /* Vertically centers the text with the form controls */
+  font-size: 14px; /* Set your desired font size */
+  padding-left: 15px;
+  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  color: #fff;
+}
+
+.control-label-layer3 {
+  display: flex;
+  align-items: center; /* Vertically centers the text with the form controls */
+  font-size: 14px; /* Set your desired font size */
+  padding-left: 30px;
+  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  color: #fff;
+}
+/* 在全局 CSS 文件中添加 */
+.ant-input-number-handler-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.ant-input-number-handler-up,
+.ant-input-number-handler-down {
+  pointer-events: auto !important;
+}
+
 .draggable {
   cursor: move; /* 当鼠标悬浮时，显示拖拽光标 */
 }
@@ -61,6 +130,8 @@
 /* 以下是design相关的样式 */
 .custom-panel-header {
   font-weight: bold; /* 加粗字体 */
+  color: #050404;
+  background-color: #fff;
 }
 
 /* 覆盖 antd Panel 的默认内边距，减小高度 */
@@ -80,30 +151,10 @@
   padding: 8px;
 }
 
-/* 移除 Panel 内容区域的边框 */
-.no-border-panel .ant-collapse-content-box {
-  border: none; /* 已经设置，确保它在你的 CSS 文件中 */
-}
-
-/* 移除 Panel 整体边框 */
-.no-border-panel .ant-collapse-item {
-  border: none !important; /* 添加 !important 确保覆盖 antd 的样式 */
-  background-color: transparent;
-}
-
-/* 移除折叠时 Panel 顶部的边框 */
-.no-border-panel .ant-collapse > .ant-collapse-item {
-  border: none !important;
-}
-
-/* 如果需要，还可以移除最外层 Collapse 组件的边框 */
-.no-border-panel .ant-collapse {
-  border: none !important;
-}
-
-/* 如果 Collapse 面板在激活状态下还显示边框，可能还需要覆盖这个样式 */
-.no-border-panel .ant-collapse-item-active {
-  border: none !important;
+/* 覆盖Ant Design Collapse组件的默认圆角样式 */
+.ant-collapse > .ant-collapse-item > .ant-collapse-header,
+.ant-collapse > .ant-collapse-item .ant-collapse-content {
+  border-radius: 0 !important; /* 使用!important来确保覆盖任何默认样式 */
 }
 
 /* #control_bar {

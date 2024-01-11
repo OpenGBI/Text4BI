@@ -59,22 +59,29 @@ interface InsightCardProps extends Card {
 export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
   const ref = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const { dataset, showBigGraph, showSparkLine, selectedCards } = useSelector(
+  const { dataset, selectedCards } = useSelector(
     (state: AppState) => state.system,
   )
   const {
-    color,
-    boldness,
-    contour,
-    underline,
-    fontsize,
-    backgroundColor,
-    bulletPoint,
-    lineHeight,
-    sparkLinePosition, // 上下左右
-    aspectRatio,
+    showBigGraph,
     textPosition,
+    showSparkLine,
+    fontsize,
+    lineHeight,
+    bulletPoint,
   } = useSelector((state: AppState) => state.globalSetting)
+
+  const {
+    boldness,
+    underline,
+    contour,
+    color,
+    backgroundColor,
+  } = useSelector((state: AppState) => state.typographySetting)
+
+  const { sparkLinePosition, aspectRatio } = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
 
   if (!CardName || !paragraph || !id || !onDrop) {
     throw new Error('No data found for the date')
@@ -257,7 +264,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   // 根据 textPosition 来决定如何渲染内容
   const renderContent = () => {
     // console.log('打印当前文本布局', textPosition)
-    if (textPosition === 'left') {
+    if (textPosition === 'parallel') {
       // 文本在左，图表在右
       return (
         <div
@@ -306,7 +313,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
         </div>
       )
     }
-    if (textPosition === 'top') {
+    if (textPosition === 'vertical') {
       // 文本在上，图表在下
       return (
         <div

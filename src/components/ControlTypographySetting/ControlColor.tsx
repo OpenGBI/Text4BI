@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { App, ColorPicker, Row, Col } from 'antd'
 import type { ColorPickerProps, Color } from 'antd/es/color-picker'
 import { useDispatch, useSelector } from 'react-redux'
-import { GlobalSettingStateType } from '../../types'
-import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { ChangeTypographySetting } from '../../actions/typographySettingAction'
+import { typographySettingStateType, GlobalSettingStateType } from '../../types'
 import { AppState } from '../../store'
 
 const ControlColor = () => {
   const dispatch = useDispatch()
-  const [value, setValue] = useState<ColorPickerProps['value']>('#16FFF8')
-  const globalSetting: GlobalSettingStateType = useSelector(
-    (state: AppState) => state.globalSetting,
+  const [value, setValue] = useState<ColorPickerProps['value']>('#E8372C')
+  const typographySetting: typographySettingStateType = useSelector(
+    (state: AppState) => state.typographySetting,
   )
   const handleChangeColor = (color: Color) => {
     const hexColor = color.toHexString() // 去除 '#' 符号
@@ -18,8 +18,8 @@ const ControlColor = () => {
     setValue(hexColor)
     // console.log('After setValue, color:', color)
     dispatch(
-      ChangeGlobalSetting({
-        ...globalSetting,
+      ChangeTypographySetting({
+        ...typographySetting,
         color: String(hexColor),
       }),
     )
@@ -27,13 +27,15 @@ const ControlColor = () => {
   return (
     <div className='control-panel'>
       <Row>
-        <Col span={24} className='control-label'>
-          Color
+        <Col span={10} className='control-label'>
+          Font color
+        </Col>
+        <Col span={14}>
+          <App>
+            <ColorPicker value={value} onChangeComplete={handleChangeColor} />
+          </App>
         </Col>
       </Row>
-      <App>
-        <ColorPicker value={value} onChangeComplete={handleChangeColor} />
-      </App>
     </div>
   )
 }

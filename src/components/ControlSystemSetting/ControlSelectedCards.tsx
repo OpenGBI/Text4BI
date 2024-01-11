@@ -17,8 +17,11 @@ const ControlSelectedCards: React.FC = () => {
   ])
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
 
-  const { dataset, showBigGraph, showSparkLine, selectedCards, allCards } = useSelector(
+  const { dataset, selectedCards, allCards } = useSelector(
     (state: AppState) => state.system,
+  )
+  const { showBigGraph, showSparkLine } = useSelector(
+    (state: AppState) => state.globalSetting,
   )
 
   const handleChangeCards = (newSelectedCards: CheckboxValueType[]) => {

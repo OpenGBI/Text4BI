@@ -59,21 +59,39 @@ export type Card = {
 }
 export type systemStateType = {
   dataset: Card[]
-  showBigGraph: boolean
-  showSparkLine: boolean
   selectedCards: string[]
   allCards: string[]
 }
 export type GlobalSettingStateType = {
-  color: string
-  boldness: boolean
-  contour: boolean
-  underline: boolean
-  fontsize: string
-  backgroundColor: string
-  bulletPoint: boolean
-  lineHeight: number
-  sparkLinePosition: string // 上下左右
-  aspectRatio: string
+  showBigGraph: boolean
   textPosition: string
+  showSparkLine: boolean
+  fontsize: string
+  lineHeight: number
+  bulletPoint: boolean
+  interaction: boolean
+  linking: boolean
+  detailsOnDemand: boolean
+}
+export type typographySettingStateType = {
+  selectedEntityType: string
+  boldness: boolean
+  underline: boolean
+  contour: boolean
+  color: string
+  backgroundColor: string
+}
+export type wordScaleGraphicsSettingStateType
+ = {
+  sparkLinePosition: string
+  showDataDrivenGraphics: boolean 
+  aspectRatio: string
+  distributionType: string,
+  rankType: string,
+  proportionType: string,
+  associationType: string,
+  trendType: string,
+  differenceType: string,
+  anomalyType: string,
+  seasonalityType: string,
 }

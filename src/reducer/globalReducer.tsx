@@ -2,17 +2,15 @@ import { GlobalSettingStateType } from '../types'
 import { ChangeGlobalSettingAction } from '../actions/GlobalSettingAction'
 
 const iniGlobalSettingState: GlobalSettingStateType = {
-  color: 'blue',
-  boldness: false,
-  contour: false,
-  underline: false,
+  showBigGraph: true,
+  textPosition: 'vertical',
+  showSparkLine: true,
   fontsize: '16px',
-  backgroundColor: 'white',
+  lineHeight: 1.5,
   bulletPoint: false,
-  lineHeight: 4,
-  sparkLinePosition: 'left',
-  aspectRatio: 'tiny',
-  textPosition: 'top',
+  interaction: true,
+  linking: true,
+  detailsOnDemand: true,
 }
 
 const GlobalSettingReducer = (state = iniGlobalSettingState, action: ChangeGlobalSettingAction) => {

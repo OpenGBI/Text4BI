@@ -4,8 +4,6 @@ import { iniData } from '../utils/iniData'
 
 const iniSystemState: systemStateType = {
   dataset: iniData,
-  showBigGraph: true,
-  showSparkLine: true,
   selectedCards: ['Card1', 'Card2', 'Card3', 'Card4', 'Card5'],
   allCards: ['Card1', 'Card2', 'Card3', 'Card4', 'Card5'],
 }

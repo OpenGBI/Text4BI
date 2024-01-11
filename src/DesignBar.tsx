@@ -1,17 +1,13 @@
 import React from 'react'
 import { Col, Row } from 'antd'
 import ControlFont from './components/ControlGlobalSetting/ControlFont'
-import ControlGlobalBoolean from './components/ControlGlobalSetting/ControlGlobalBoolean'
 import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
-import ControlAspectRatio from './components/ControlGlobalSetting/ControlAspectRatio'
-import ControlSparkLinePos from './components/ControlGlobalSetting/ControlSparkLinePos'
+import ControlAspectRatio from './components/ControlWordScaleGragphicsSetting/ControlAspectRatio'
+import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
 
 const DesignBar: React.FC = () => (
   <div>
     <Row gutter={16}>
-      <Col span={8}>
-        <ControlGlobalBoolean />
-      </Col>
       <Col span={8}>
         <ControlFont />
       </Col>

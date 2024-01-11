@@ -38,18 +38,18 @@ const ControlTypeSwitch: React.FC = () => {
             {type.label}
           </Col>
           <Col span={14}>
-            <Button.Group style={{ width: '50%' }}>
+            <Button.Group style={{ width: '100%' }}>
               <Button
                 type='primary'
                 onClick={() => handleTypeChange(type.key, 'a')}
-                style={{ width: '50%' }}
+                style={{ width: '100%' }}
               >
                 A
               </Button>
               <Button
                 type='default'
                 onClick={() => handleTypeChange(type.key, 'b')}
-                style={{ width: '50%' }}
+                style={{ width: '100%' }}
               >
                 B
               </Button>

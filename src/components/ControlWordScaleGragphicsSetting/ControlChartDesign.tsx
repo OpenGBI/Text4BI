@@ -36,8 +36,6 @@ const ControlChartDesign: React.FC = () => {
           />
         </Col>
       </Row>
-      <ControlAspectRatio />
-      <ControlTypeSwitch />
     </div>
   )
 }

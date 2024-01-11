@@ -20,6 +20,7 @@ import ControlAspectRatio from './components/ControlWordScaleGragphicsSetting/Co
 import ControlDataDrivenGraphics from './components/ControlWordScaleGragphicsSetting/ControlDataDrivenGraphics'
 import ControlChartDesign from './components/ControlWordScaleGragphicsSetting/ControlChartDesign'
 import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
+import ControlTypeSwitch from './components/ControlWordScaleGragphicsSetting/ControlTypeSwitch'
 // 以下是import&export panel的导入
 import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
 import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
@@ -101,9 +102,12 @@ const ControlBar: React.FC = () => (
           <Row className='control-row'>
             <ControlChartDesign />
           </Row>
-          {/* <Row className='control-row'>
-              <ControlAspectRatio />
-          </Row> */}
+          <Row className='control-row'>
+            <ControlAspectRatio />
+          </Row>
+          <Row className='control-row'>
+            <ControlTypeSwitch />
+          </Row>
         </Panel>
       </Collapse>
     </div>

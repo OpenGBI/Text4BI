@@ -94,4 +94,7 @@ export type wordScaleGraphicsSettingStateType
   differenceType: string,
   anomalyType: string,
   seasonalityType: string,
+  graphicsSignificance: boolean,
+  graphicsDirection: boolean,
+  graphicsAnomaly: boolean,
 }

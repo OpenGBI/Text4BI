@@ -24,6 +24,16 @@ const ControlTextPosition: React.FC = () => {
     )
   }
 
+  const handleShowBigGraph = (newShowBigGraph: boolean) => {
+    setShowBigGraph(newShowBigGraph)
+    dispatch(
+      ChangeGlobalSetting({
+        ...globalSetting,
+        showBigGraph: newShowBigGraph,
+      }),
+    )
+  }
+
   // Calculate the button width dynamically based on the text content
   const calculateButtonWidth = (text: string) => {
     const characterWidth = 8 // Average width of character in pixels; adjust as needed for your font
@@ -38,7 +48,7 @@ const ControlTextPosition: React.FC = () => {
           Normal-sized vis
         </Col>
         <Col span={14}>
-          <Switch checked={showBigGraph} onChange={setShowBigGraph} />
+          <Switch checked={showBigGraph} onChange={handleShowBigGraph} />
         </Col>
       </Row>
       <Row

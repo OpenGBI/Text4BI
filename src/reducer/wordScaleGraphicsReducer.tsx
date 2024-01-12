@@ -13,6 +13,9 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
     differenceType: 'a',
     anomalyType: 'a',
     seasonalityType: 'a',
+    graphicsSignificance: true,
+    graphicsDirection: true,
+    graphicsAnomaly: true,
 }
 
 const WordScaleGraphicsSettingReducer = (

@@ -21,9 +21,8 @@ import ControlDataDrivenGraphics from './components/ControlWordScaleGragphicsSet
 import ControlChartDesign from './components/ControlWordScaleGragphicsSetting/ControlChartDesign'
 import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
 import ControlTypeSwitch from './components/ControlWordScaleGragphicsSetting/ControlTypeSwitch'
-// 以下是import&export panel的导入
-import ControlSelectedData from './components/ControlSystemSetting/ControlSelectedData'
-import ControlSelectedCards from './components/ControlSystemSetting/ControlSelectedCards'
+import ControlGraphicsSign from './components/ControlWordScaleGragphicsSetting/ControlGraphicsSign'
+import ControlSemanticDriven from './components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenGraphics'
 
 const { Panel } = Collapse
 
@@ -107,6 +106,12 @@ const ControlBar: React.FC = () => (
           </Row>
           <Row className='control-row'>
             <ControlTypeSwitch />
+          </Row>
+          <Row className='control-row'>
+            <ControlGraphicsSign />
+          </Row>
+          <Row className='control-row'>
+            <ControlSemanticDriven />
           </Row>
         </Panel>
       </Collapse>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Row } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeWordScaleGraphicsSetting } from '../../actions/wordScaleGraphicsSettingAction'
@@ -21,35 +21,45 @@ const ControlTypeSwitch: React.FC = () => {
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+
+  const [isdistributionTypeOn, setIsdistributionTypeOn] = useState('a')
+  const [isrankTypeOn, setIsrankTypeOn] = useState('a')
+  const [isproportionTypeOn, setIsproportionTypeOn] = useState('a')
+  const [isassociationTypeOn, setIsassociationTypeOn] = useState('a')
+  const [istrendTypeOn, IstrendTypeOn] = useState('a')
+  const [isdifferenceTypeOn, setIsdifferenceTypeOn] = useState('a')
+  const [isanomalyTypeOn, setIsanomalyTypeOn] = useState('a')
+  const [isseasonalityTypeOn, setIsseasonalityTypeOn] = useState('a')
+
   const handleTypeChange = (typeKey: string, newValue: string) => {
     dispatch(
-        ChangeWordScaleGraphicsSetting({
-            ...wordScaleGraphicsSetting,
-            [typeKey]: newValue,
-        }),
+      ChangeWordScaleGraphicsSetting({
+        ...wordScaleGraphicsSetting,
+        [typeKey]: newValue,
+      }),
     )
   }
 
   return (
-    <>
+    <div className='control-panel'>
       {types.map((type) => (
-        <Row key={type.key}>
-          <Col span={10} className='control-label-layer3'>
-            {type.label}
+        <Row key={type.key} gutter={[16, 16]} justify='start'>
+          <Col span={10}>
+            <div className='control-label-layer3'>{type.label}</div>
           </Col>
           <Col span={14}>
-            <Button.Group style={{ width: '100%' }}>
+            <Button.Group style={{ width: '50%', paddingTop: 5 }}>
               <Button
                 type='primary'
                 onClick={() => handleTypeChange(type.key, 'a')}
-                style={{ width: '100%' }}
+                style={{ width: '50%' }}
               >
                 A
               </Button>
               <Button
                 type='default'
                 onClick={() => handleTypeChange(type.key, 'b')}
-                style={{ width: '100%' }}
+                style={{ width: '50%' }}
               >
                 B
               </Button>
@@ -57,7 +67,7 @@ const ControlTypeSwitch: React.FC = () => {
           </Col>
         </Row>
       ))}
-    </>
+    </div>
   )
 }
 

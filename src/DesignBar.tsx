@@ -1,9 +1,9 @@
-import React from 'react'
-import { Col, Row } from 'antd'
-import ControlFont from './components/ControlGlobalSetting/ControlFont'
-import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeight'
-import ControlAspectRatio from './components/ControlWordScaleGragphicsSetting/ControlAspectRatio'
-import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
+import React from "react"
+import { Col, Row } from "antd"
+import ControlFont from "./components/ControlGlobalSetting/ControlFont"
+import ControlLineHeight from "./components/ControlGlobalSetting/ControlLineHeight"
+import ControlAspectRatio from "./components/ControlWordScaleGragphicsSetting/ControlAspectRatio"
+import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/ControlSparkLinePos"
 
 const DesignBar: React.FC = () => (
   <div>

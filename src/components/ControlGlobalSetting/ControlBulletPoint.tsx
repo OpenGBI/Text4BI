@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import { Button, Col, Row, Switch } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
+import { AppState } from '../../store'
+import { GlobalSettingStateType } from '../../types'
 
 const ControlGlobalBoolean: React.FC = () => {
-  const [isLineBreakOn, setIsLineBreakOn] = useState(false)
+  const dispatch = useDispatch()
+  const globalSetting: GlobalSettingStateType = useSelector(
+    (state: AppState) => state.globalSetting,
+  )
+  const [isLineBreakOn, setIsLineBreakOn] = useState(true)
   const [bulletPointStyle, setBulletPointStyle] = useState('')
 
   const handleBulletPointChange = (style: string) => {

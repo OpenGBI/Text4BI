@@ -9,13 +9,13 @@ const { Option } = Select
 
 const ControlFont: React.FC = () => {
   const dispatch = useDispatch()
+  const globalSetting: GlobalSettingStateType = useSelector(
+    (state: AppState) => state.globalSetting,
+  )
   // 选中的字体大小
   const [selectedFontSize, setSelectedFontSize] = useState('14px')
   // 下拉框显示的值
   const [dropdownDisplay, setDropdownDisplay] = useState('...')
-  const globalSetting: GlobalSettingStateType = useSelector(
-    (state: AppState) => state.globalSetting,
-  )
 
   const handleFontSizeChange = (size: string) => {
     setSelectedFontSize(size) // 设置选中的字体大小

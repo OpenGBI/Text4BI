@@ -29,24 +29,23 @@ const ControlUnderline: React.FC = () => {
       <Row>
         <Col span={10} className='control-label'>Underline</Col>
         <Col span={14}>
-          <div className='button-row'>
-            <div className='button-group'>
-              <Button
-                className='custom-btn'
-                type={isUnderlineOn ? 'primary' : 'default'}
-                onClick={() => handleUnderlineChange(true)}
-              >
-                On
-              </Button>
-              <Button
-                className='custom-btn'
-                type={!isUnderlineOn ? 'primary' : 'default'}
-                onClick={() => handleUnderlineChange(false)}
-              >
-                Off
-              </Button>
-            </div>
-          </div>
+          <Button.Group style={{ width: '100%' }}>
+            <Button
+              className='custom-btn'
+              type={isUnderlineOn ? 'primary' : 'default'}
+              onClick={() => handleUnderlineChange(true)}
+            >
+              On
+            </Button>
+            <Button
+              className='custom-btn'
+              type={!isUnderlineOn ? 'primary' : 'default'}
+              onClick={() => handleUnderlineChange(false)}
+            >
+              Off
+            </Button>
+          </Button.Group>
+
         </Col>
       </Row>
     </div>

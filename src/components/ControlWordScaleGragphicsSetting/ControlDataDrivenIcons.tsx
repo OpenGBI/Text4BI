@@ -5,8 +5,11 @@ import { ChangeWordScaleGraphicsSetting } from '../../actions/wordScaleGraphicsS
 import { AppState } from '../../store'
 import { wordScaleGraphicsSettingStateType } from '../../types'
 
-const ControlGraphicsSIgn: React.FC = () => {
+const ControlDataDrivenIcons: React.FC = () => {
   const dispatch = useDispatch()
+  const { showDataDrivenGraphics } = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -40,9 +43,9 @@ const ControlGraphicsSIgn: React.FC = () => {
 
   // 创建一个渲染按钮组的函数
   const renderButtonGroup = (typeKey: string, label: string, value: boolean) => (
-    <Row key={typeKey} gutter={[16, 16]} justify='start'>
+    <Row>
       <Col span={10}>
-        <div className='control-label-layer3'>{label}</div>
+        <div className='control-label-layer2'>{label}</div>
       </Col>
       <Col span={14}>
         <Button.Group style={{ width: '50%', paddingBottom: 7 }}>
@@ -66,7 +69,7 @@ const ControlGraphicsSIgn: React.FC = () => {
   )
 
   return (
-    <div className='control-panel' style={{ paddingTop: -2 }}>
+    <div className='control-panel' style={{ paddingTop: -2, display: showDataDrivenGraphics ? 'block' : 'none' }}>
       {renderButtonGroup('graphicsSignificance', 'Significance', graphicsSignificance)}
       {renderButtonGroup('graphicsDirection', 'Direction', graphicsDirection)}
       {renderButtonGroup('graphicsAnomaly', 'Anomaly', graphicsAnomaly)}
@@ -74,4 +77,4 @@ const ControlGraphicsSIgn: React.FC = () => {
   )
 }
 
-export default ControlGraphicsSIgn
+export default ControlDataDrivenIcons

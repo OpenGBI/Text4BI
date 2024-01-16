@@ -7,13 +7,11 @@ import { GlobalSettingStateType } from '../../types'
 
 const ControlTextPosition: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedPosition, setSelectedPosition] = useState('vertical')
-  const [showBigGraph, setShowBigGraph] = useState(true) // State to control visibility
-
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
-
+  const [showBigGraph, setShowBigGraph] = useState(true) // State to control visibility
+  const [selectedPosition, setSelectedPosition] = useState('vertical')
   const handleChangeTextPosition = (newPosition: string) => {
     setSelectedPosition(newPosition)
     dispatch(

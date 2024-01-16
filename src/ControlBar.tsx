@@ -8,7 +8,7 @@ import ControlLineHeight from './components/ControlGlobalSetting/ControlLineHeig
 import ControlBulletPoint from './components/ControlGlobalSetting/ControlBulletPoint'
 import ControlInteraction from './components/ControlGlobalSetting/ControlInteractiveOn'
 // 以下是typography panel的导入
-import ControlSelectedEntityType from './components/ControlTypographySetting/ControlEntityType'
+import ControlSelectedEntityType from './components/ControlTypographySetting/ControlSelectedEntityType'
 import ControlBoldness from './components/ControlTypographySetting/ControlBoldness'
 import ControlUnderline from './components/ControlTypographySetting/ControlUnderline'
 import ControlItalics from './components/ControlTypographySetting/ControlItalics'
@@ -18,11 +18,11 @@ import ControlBackgroundColor from './components/ControlTypographySetting/Contro
 // 以下是word graphics panel的导入
 import ControlAspectRatio from './components/ControlWordScaleGragphicsSetting/ControlAspectRatio'
 import ControlDataDrivenGraphics from './components/ControlWordScaleGragphicsSetting/ControlDataDrivenGraphics'
-import ControlChartDesign from './components/ControlWordScaleGragphicsSetting/ControlChartDesign'
+import ControlDataDrivenCharts from './components/ControlWordScaleGragphicsSetting/ControlDataDrivenCharts'
 import ControlSparkLinePos from './components/ControlWordScaleGragphicsSetting/ControlSparkLinePos'
 import ControlTypeSwitch from './components/ControlWordScaleGragphicsSetting/ControlTypeSwitch'
-import ControlGraphicsSign from './components/ControlWordScaleGragphicsSetting/ControlGraphicsSign'
-import ControlSemanticDriven from './components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenGraphics'
+import ControlDataDrivenIcons from './components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons'
+import ControlSemanticDrivenIcons from './components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons'
 
 const { Panel } = Collapse
 
@@ -98,20 +98,18 @@ const ControlBar: React.FC = () => (
           <Row className='control-row'>
             <ControlDataDrivenGraphics />
           </Row>
-          <Row className='control-row'>
-            <ControlChartDesign />
-          </Row>
-          <Row className='control-row'>
+          <ControlDataDrivenCharts />
+          {/* <Row className='control-row'>
             <ControlAspectRatio />
           </Row>
           <Row className='control-row'>
             <ControlTypeSwitch />
+          </Row> */}
+          <Row className='control-row'>
+            <ControlDataDrivenIcons />
           </Row>
           <Row className='control-row'>
-            <ControlGraphicsSign />
-          </Row>
-          <Row className='control-row'>
-            <ControlSemanticDriven />
+            <ControlSemanticDrivenIcons />
           </Row>
         </Panel>
       </Collapse>

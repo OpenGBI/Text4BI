@@ -1,6 +1,6 @@
-import React from 'react'
-import { Chart } from '@antv/g2'
-import { cateAndValue } from '../types'
+import React from "react"
+import { Chart } from "@antv/g2"
+import { cateAndValue } from "../types"
 
 interface DistributionProps {
   data: cateAndValue[] // n个{category:,value:}画箱线图
@@ -23,7 +23,7 @@ const Distribution: React.FC<DistributionProps> = ({ data }) => {
       height: 400,
       width: 600,
     })
-    chart.coordinate({ transform: [{ type: 'transpose' }] })
+    chart.coordinate({ transform: [{ type: "transpose" }] })
     // chart.coordinate({ transform: [{ type: 'transpose' }] })
     // chart.boxplot().data(data)
     // console.log('DistributionDistributionDistributionDistributionDistribution', data)
@@ -37,10 +37,10 @@ const Distribution: React.FC<DistributionProps> = ({ data }) => {
     chart
       .boxplot()
       .data(data)
-      .encode('x', 'category')
-      .encode('y', 'value')
-      .encode('color', 'category')
-      .encode('series', 'category')
+      .encode("x", "category")
+      .encode("y", "value")
+      .encode("color", "category")
+      .encode("series", "category")
     chart.render()
 
     return () => {

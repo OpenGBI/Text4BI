@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Button, Col, Row } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeTypographySetting } from '../../actions/typographySettingAction'
-import { typographySettingStateType } from '../../types'
-import { AppState } from '../../store'
+import React, { useState } from "react"
+import { Button, Col, Row } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeTypographySetting } from "../../actions/typographySettingAction"
+import { typographySettingStateType } from "../../types"
+import { AppState } from "../../store"
 
 const ControlItalics: React.FC = () => {
   const [isBoldnessOn, setIsBoldnessOn] = useState(false)
@@ -25,22 +25,24 @@ const ControlItalics: React.FC = () => {
   }
 
   return (
-    <div className='control-panel'>
+    <div className="control-panel">
       <Row>
-        <Col span={10} className='control-label'>Italics</Col>
+        <Col span={10} className="control-label">
+          Italics
+        </Col>
         <Col span={14}>
-          <div className='button-row'>
-            <div className='button-group'>
+          <div className="button-row">
+            <div className="button-group">
               <Button
-                className='custom-btn'
-                type={isBoldnessOn ? 'primary' : 'default'}
+                className="custom-btn"
+                type={isBoldnessOn ? "primary" : "default"}
                 onClick={() => handleBoldnessChange(true)}
               >
                 On
               </Button>
               <Button
-                className='custom-btn'
-                type={!isBoldnessOn ? 'primary' : 'default'}
+                className="custom-btn"
+                type={!isBoldnessOn ? "primary" : "default"}
                 onClick={() => handleBoldnessChange(false)}
               >
                 Off

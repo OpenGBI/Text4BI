@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Select, Space } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { systemStateType, Card } from '../../types'
-import { AppState } from '../../store'
-import { ChangeSystemSetting } from '../../actions/systemAction'
-import { iniData } from '../../utils/iniData'
+import React, { useState, useEffect } from "react"
+import { Select, Space } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { systemStateType, Card } from "../../types"
+import { AppState } from "../../store"
+import { ChangeSystemSetting } from "../../actions/systemAction"
+import { iniData } from "../../utils/iniData"
 
 const ControlSelectedData: React.FC = () => {
   const [selectedDataset, setSelectedDataset] = useState<Card[]>(iniData)
@@ -43,12 +43,12 @@ const ControlSelectedData: React.FC = () => {
   return (
     <Space wrap>
       <Select
-        defaultValue='Data1'
+        defaultValue="Data1"
         style={{ width: 120 }}
         onChange={handleChangeDataset}
         options={[
-          { value: 'Data1', label: 'Data1' },
-          { value: 'Data2', label: 'Data2' },
+          { value: "Data1", label: "Data1" },
+          { value: "Data2", label: "Data2" },
         ]}
       />
     </Space>

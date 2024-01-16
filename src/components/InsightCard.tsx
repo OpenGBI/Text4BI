@@ -1,17 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { Tooltip, Space, Button, message } from 'antd'
-import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useRef, useEffect, useState } from "react"
+import { Tooltip, Space, Button, message } from "antd"
+import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
+import { useSelector, useDispatch } from "react-redux"
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
-import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from '@antv/ava-react'
-import { CopyOutlined, ExportOutlined } from '@ant-design/icons'
-import { AppState } from '../store'
-import PhraseComponent from './PhraseComponent'
-import BigChart from './BigChart'
-import { Card, sentence } from '../types'
+import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
+import { CopyOutlined, ExportOutlined } from "@ant-design/icons"
+import { AppState } from "../store"
+import PhraseComponent from "./PhraseComponent"
+import BigChart from "./BigChart"
+import { Card, sentence } from "../types"
 
-const CARD_DRAG_TYPE = 'CARD'
+const CARD_DRAG_TYPE = "CARD"
 // interface Phrase {
 //   type: string
 //   value: string
@@ -59,42 +59,36 @@ interface InsightCardProps extends Card {
 export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
   const ref = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const { dataset, selectedCards } = useSelector(
-    (state: AppState) => state.system,
-  )
-  const {
-    showBigGraph,
-    textPosition,
-    showSparkLine,
-    fontsize,
-    lineHeight,
-    bulletPoint,
-  } = useSelector((state: AppState) => state.globalSetting)
+  const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
+  const { showBigGraph, textPosition, showSparkLine, fontsize, lineHeight, bulletPoint } =
+    useSelector((state: AppState) => state.globalSetting)
 
-  const {
-    boldness,
-    underline,
-    contour,
-    color,
-    backgroundColor,
-  } = useSelector((state: AppState) => state.typographySetting)
+  const { boldness, underline, contour, color, backgroundColor } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
 
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
 
+  const [topk, setTopk] = useState<number>(-1) // 控制数据集中的哪几项用于绘图
+
+  const handleDataChange = (newData: number) => {
+    setTopk(newData)
+  }
+
   if (!CardName || !paragraph || !id || !onDrop) {
-    throw new Error('No data found for the date')
+    throw new Error("No data found for the date")
   }
   const onCopySuccess = () => {
-    console.log('success')
+    console.log("success")
   }
 
   const onClickCopyButton = async () => {
     if (containerRef?.current) {
       const textExporter = new TextExporter()
       const html = await textExporter.getNarrativeHtml(containerRef.current)
-      const plainText = 'plainText'
+      const plainText = "plainText"
       copyToClipboard(html, plainText, onCopySuccess)
       // onCopy?.(currentInsightInfo, ref.current)
     }
@@ -105,15 +99,15 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       const textExporter = new TextExporter()
       const html = await textExporter.getNarrativeHtml(containerRef.current)
       // 创建一个新窗口
-      const newWindow = window.open('', '_blank')
+      const newWindow = window.open("", "_blank")
       if (newWindow) {
         // 如果新窗口存在，则向其写入HTML内容
         newWindow.document.write(html)
         // 更新新窗口的文档标题
-        newWindow.document.title = 'Exported Content'
+        newWindow.document.title = "Exported Content"
       } else {
         // 如果新窗口不存在，可以在这里处理错误，比如通知用户
-        alert('Unable to open a new window. Please check your popup settings.')
+        alert("Unable to open a new window. Please check your popup settings.")
       }
     }
   }
@@ -210,13 +204,13 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   drag(drop(ref))
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   const renderBulletPoint = (curSentence: sentence) => {
-    if (bulletPoint && curSentence.type === 'bullet') {
-      return <span style={{ fontSize: '20px' }}>• </span>
+    if (bulletPoint && curSentence.type === "bullet") {
+      return <span style={{ fontSize: "20px" }}>• </span>
     }
     return null
   }
   const renderPhrases = (curSentence: sentence) => {
-    if (curSentence.type === 'topic') {
+    if (curSentence.type === "topic") {
       return curSentence.phrases.map((phrase, index) => (
         <PhraseComponent
           key={index}
@@ -230,10 +224,11 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           lineHeight={lineHeight}
           aspectRatio={aspectRatio}
           sparkLinePosition={sparkLinePosition}
+          onTopkChange={handleDataChange}
         />
       ))
     }
-    if ((curSentence.type === 'normal' || curSentence.type === 'bullet') && showSparkLine) {
+    if ((curSentence.type === "normal" || curSentence.type === "bullet") && showSparkLine) {
       return curSentence.phrases.map((phrase, index) => (
         <PhraseComponent
           key={index}
@@ -247,6 +242,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           lineHeight={lineHeight}
           aspectRatio={aspectRatio}
           sparkLinePosition={sparkLinePosition}
+          onTopkChange={handleDataChange}
         />
       ))
     }
@@ -264,22 +260,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   // 根据 textPosition 来决定如何渲染内容
   const renderContent = () => {
     // console.log('打印当前文本布局', textPosition)
-    if (textPosition === 'parallel') {
+    if (textPosition === "parallel") {
       // 文本在左，图表在右
       return (
         <div
-          className='avar-ntv-container'
+          className="avar-ntv-container"
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            border: '1px solid #ccc', // 添加边框
-            borderRadius: '8px', // 添加圆角
-            boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
-            padding: '12px', // 可根据需要调整内边距
-            marginTop: '12px', // 可根据需要调整上边距
-            marginBottom: '12px', // 可根据需要调整下边距
-            marginLeft: '12px', // 可根据需要调整左边距
-            marginRight: '20px', // 可根据需要调整右边距
+            display: "flex",
+            flexDirection: "row",
+            border: "1px solid #ccc", // 添加边框
+            borderRadius: "8px", // 添加圆角
+            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)", // 添加阴影
+            padding: "12px", // 可根据需要调整内边距
+            marginTop: "12px", // 可根据需要调整上边距
+            marginBottom: "12px", // 可根据需要调整下边距
+            marginLeft: "12px", // 可根据需要调整左边距
+            marginRight: "20px", // 可根据需要调整右边距
           }}
         >
           <div style={{ flex: 1 }}>
@@ -287,7 +283,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
             {paragraph.map((curSentence, outIndex) => (
               <div
                 key={outIndex}
-                className={outIndex === 0 ? 'draggable' : ''}
+                className={outIndex === 0 ? "draggable" : ""}
                 ref={outIndex === 0 ? ref : null}
               >
                 {renderBulletPoint(curSentence)}
@@ -299,11 +295,12 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           <div style={{ flex: 1 }}>
             {/* 渲染图表 */}
             {paragraph.map((curSentence, outIndex) => {
-              if (showBigGraph && 'chartType' in curSentence) {
+              if (showBigGraph && "chartType" in curSentence) {
                 return (
                   <BigChart
                     ChartType={curSentence.chartType}
                     BigChartData={curSentence.metadata}
+                    topk={topk}
                   />
                 )
               }
@@ -313,43 +310,44 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
         </div>
       )
     }
-    if (textPosition === 'vertical') {
+    if (textPosition === "vertical") {
       // 文本在上，图表在下
       return (
         <div
-          className='avar-ntv-container'
+          className="avar-ntv-container"
           style={{
             // display: 'flex',
             // flexDirection: 'row',
-            border: '1px solid #ccc', // 添加边框
-            borderRadius: '8px', // 添加圆角
-            boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', // 添加阴影
-            padding: '12px', // 可根据需要调整内边距
-            marginTop: '12px', // 可根据需要调整上边距
-            marginBottom: '12px', // 可根据需要调整下边距
-            marginLeft: '12px', // 可根据需要调整左边距
-            marginRight: '20px', // 可根据需要调整右边距
+            border: "1px solid #ccc", // 添加边框
+            borderRadius: "8px", // 添加圆角
+            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)", // 添加阴影
+            padding: "12px", // 可根据需要调整内边距
+            marginTop: "12px", // 可根据需要调整上边距
+            marginBottom: "12px", // 可根据需要调整下边距
+            marginLeft: "12px", // 可根据需要调整左边距
+            marginRight: "20px", // 可根据需要调整右边距
           }}
         >
           {/* 渲染文本 */}
           {paragraph.map((curSentence, outIndex) => (
-              <div
-                key={outIndex}
-                className={outIndex === 0 ? 'draggable' : ''}
-                ref={outIndex === 0 ? ref : null}
-              >
-                {renderBulletPoint(curSentence)}
-                {renderPhrases(curSentence)}
-                {/* 其他渲染内容 */}
-              </div>
-            ))}
+            <div
+              key={outIndex}
+              className={outIndex === 0 ? "draggable" : ""}
+              ref={outIndex === 0 ? ref : null}
+            >
+              {renderBulletPoint(curSentence)}
+              {renderPhrases(curSentence)}
+              {/* 其他渲染内容 */}
+            </div>
+          ))}
           {/* 渲染图表 */}
           {paragraph.map((curSentence, outIndex) => {
-            if (showBigGraph && 'chartType' in curSentence) {
+            if (showBigGraph && "chartType" in curSentence) {
               return (
                 <BigChart
                   ChartType={curSentence.chartType}
                   BigChartData={curSentence.metadata}
+                  topk={topk}
                 />
               )
             }
@@ -361,7 +359,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   }
 
   return (
-    <div ref={containerRef} style={{ position: 'relative' }}> {/* 确保父容器相对定位 */}
+    <div ref={containerRef} style={{ position: "relative" }}>
+      {" "}
+      {/* 确保父容器相对定位 */}
       {/* 添加布局切换按钮 */}
       {/* <Space>
         <Button onClick={() => handleLeftRightLayout}>Left-Right</Button>
@@ -370,24 +370,24 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
       {/* 渲染内容 */}
       {renderContent()}
       {/* 将 CopyOutlined 图标放在绝对定位的容器中 */}
-      <Tooltip title='Copy Rich Text'>
-        <div style={{ position: 'absolute', top: 20, right: 55 }}>
+      <Tooltip title="Copy Rich Text">
+        <div style={{ position: "absolute", top: 20, right: 55 }}>
           <CopyOutlined
             onClick={onClickCopyButton}
-            style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
+            style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
           />
         </div>
       </Tooltip>
-      <Tooltip title='Export This Card'>
-        <div style={{ position: 'absolute', top: 20, right: 30 }}>
+      <Tooltip title="Export This Card">
+        <div style={{ position: "absolute", top: 20, right: 30 }}>
           <ExportOutlined
             onClick={onClickExportButton}
-            style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
+            style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
           />
         </div>
       </Tooltip>
     </div>
-)
+  )
 }
 
 export default InsightCard

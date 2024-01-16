@@ -1,6 +1,6 @@
-import React, { useImperativeHandle, forwardRef, useRef, useEffect } from 'react'
-import { Chart } from '@antv/g2'
-import { Point } from '../types'
+import React, { useImperativeHandle, forwardRef, useRef, useEffect } from "react"
+import { Chart } from "@antv/g2"
+import { Point } from "../types"
 
 interface AssociationProps {
   data: Point[] // n个point画散点图
@@ -55,7 +55,7 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
     chart.data(data)
 
     // Create a scatter plot
-    chart.point().encode('x', 'x').encode('y', 'y')
+    chart.point().encode("x", "x").encode("y", "y")
     // Generate data for the line y = x
     // const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
     // const lineData = [
@@ -64,7 +64,7 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
     // ]
 
     // Add the line to the chart
-    chart.line().encode('x', 'x').encode('y', 'y').encode('color', 'blue').data(tagData)
+    chart.line().encode("x", "x").encode("y", "y").encode("color", "blue").data(tagData)
 
     // Render the chart
     chart.render()

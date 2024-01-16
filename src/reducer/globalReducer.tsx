@@ -1,20 +1,20 @@
-import { GlobalSettingStateType } from '../types'
-import { ChangeGlobalSettingAction } from '../actions/GlobalSettingAction'
+import { GlobalSettingStateType } from "../types"
+import { ChangeGlobalSettingAction } from "../actions/GlobalSettingAction"
 
 const iniGlobalSettingState: GlobalSettingStateType = {
   showBigGraph: true,
-  textPosition: 'vertical',
+  textPosition: "vertical",
   showSparkLine: true,
-  fontsize: '16px',
+  fontsize: "16px",
   lineHeight: 1.5,
-  bulletPoint: false,
+  bulletPoint: true,
   interaction: true,
   linking: true,
   detailsOnDemand: true,
 }
 
 const GlobalSettingReducer = (state = iniGlobalSettingState, action: ChangeGlobalSettingAction) => {
-  if (action.type === 'CHANGE_GLOBAL_SETTING') return action.payload
+  if (action.type === "CHANGE_GLOBAL_SETTING") return action.payload
   return state
 }
 export default GlobalSettingReducer

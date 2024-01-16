@@ -1,6 +1,6 @@
-import React from 'react'
-import { Chart } from '@antv/g2'
-import { cateAndValue } from '../types'
+import React from "react"
+import { Chart } from "@antv/g2"
+import { cateAndValue } from "../types"
 
 // interface PieChartData {
 //   type: string
@@ -24,32 +24,32 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
       height: 400,
       width: 600,
     })
-    chart.coordinate({ type: 'theta' })
+    chart.coordinate({ type: "theta" })
     chart
       .interval()
-      .transform({ type: 'stackY' })
+      .transform({ type: "stackY" })
       .data(data)
-      .encode('y', 'value')
-      .encode('color', 'category')
-      .style('stroke', 'white')
-      .scale('color', {
-        palette: 'spectral',
+      .encode("y", "value")
+      .encode("color", "category")
+      .style("stroke", "white")
+      .scale("color", {
+        palette: "spectral",
         offset: (t) => t * 0.8 + 0.1,
       })
       .label({
-        text: 'name',
+        text: "name",
         radius: 0.8,
         fontSize: 10,
-        fontWeight: 'bold',
+        fontWeight: "bold",
       })
       .label({
         text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
-          i < data.length - 3 ? d.value : '',
+          i < data.length - 3 ? d.value : "",
         radius: 0.8,
         fontSize: 9,
         dy: 12,
       })
-      .animate('enter', { type: 'waveIn' })
+      .animate("enter", { type: "waveIn" })
       .legend(false)
 
     chart.render()

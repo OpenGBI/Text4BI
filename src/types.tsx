@@ -16,12 +16,12 @@ export type Metadata = {
   entityType?: string
   insightType?: string
   origin?: number | string
-  assessment?: 'positive' | 'negative'
+  assessment?: string
   detail?: number[] | Point[] | cateAndValue[]
   selections?: string[]
   delta_value?: string
   ratio_value?: string
-  tagData?: number | number[] | Point[]
+  tagData?: number | number[] | Point[] | cateAndValue[] | string
 }
 export type Metadata4BigGraph = {
   detail?: cateAndValue[] | Point[]
@@ -33,21 +33,21 @@ export type Phrase = {
   metadata?: Metadata
 }
 export type TopicSentence = {
-  type: 'topic'
+  type: "topic"
   phrases: Phrase[]
 }
 export type NormalSentence = {
-  type: 'normal'
+  type: "normal"
   phrases: Phrase[]
 }
 
 export type BulletSentence = {
-  type: 'bullet'
+  type: "bullet"
   phrases: Phrase[]
 }
 
 export type PlotSentence = {
-  type: 'plot'
+  type: "plot"
   chartType: string
   metadata: Metadata4BigGraph
 }
@@ -81,17 +81,16 @@ export type typographySettingStateType = {
   color: string
   backgroundColor: string
 }
-export type wordScaleGraphicsSettingStateType
- = {
+export type wordScaleGraphicsSettingStateType = {
   sparkLinePosition: string
-  showDataDrivenGraphics: boolean 
+  showDataDrivenGraphics: boolean
   aspectRatio: string
-  distributionType: string,
-  rankType: string,
-  proportionType: string,
-  associationType: string,
-  trendType: string,
-  differenceType: string,
-  anomalyType: string,
-  seasonalityType: string,
+  distributionType: string
+  rankType: string
+  proportionType: string
+  associationType: string
+  trendType: string
+  differenceType: string
+  anomalyType: string
+  seasonalityType: string
 }

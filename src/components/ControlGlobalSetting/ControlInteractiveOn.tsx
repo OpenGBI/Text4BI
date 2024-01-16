@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Button, Col, Row, Switch } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
-import { AppState } from '../../store'
-import { GlobalSettingStateType } from '../../types'
+import React, { useState } from "react"
+import { Button, Col, Row, Switch } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import { AppState } from "../../store"
+import { GlobalSettingStateType } from "../../types"
 
 const ControlInteraction: React.FC = () => {
   // 使用全局状态管理
@@ -30,20 +30,20 @@ const ControlInteraction: React.FC = () => {
   // 交互状态变化时的处理函数
   const handleInteractionChange = (value: boolean) => {
     setIsInteractionOn(value)
-    toggleGlobalSetting('interaction', value)
+    toggleGlobalSetting("interaction", value)
     // 关闭交互同时关闭下属的设置项
     if (!value) {
       setIsLinkingOn(false)
-      toggleGlobalSetting('linking', false)
+      toggleGlobalSetting("linking", false)
       setIsDetailsOnDemandOn(false)
-      toggleGlobalSetting('detailsOnDemand', false)
+      toggleGlobalSetting("detailsOnDemand", false)
     }
   }
 
   return (
-    <div className='control-panel'>
-      <Row align='middle' style={{ paddingBottom: 10 }}>
-        <Col span={10} className='control-label'>
+    <div className="control-panel">
+      <Row align="middle" style={{ paddingBottom: 10 }}>
+        <Col span={10} className="control-label">
           Interaction
         </Col>
         <Col span={14}>
@@ -52,8 +52,8 @@ const ControlInteraction: React.FC = () => {
       </Row>
       {isInteractionOn && (
         <>
-          <Row align='middle' style={{ paddingBottom: 10 }}>
-            <Col span={10} className='control-label-layer2'>
+          <Row align="middle" style={{ paddingBottom: 10 }}>
+            <Col span={10} className="control-label-layer2">
               Linking
             </Col>
             <Col span={14}>
@@ -61,13 +61,13 @@ const ControlInteraction: React.FC = () => {
                 checked={isLinkingOn}
                 onChange={(checked) => {
                   setIsLinkingOn(checked)
-                  toggleGlobalSetting('linking', checked)
+                  toggleGlobalSetting("linking", checked)
                 }}
               />
             </Col>
           </Row>
-          <Row align='middle' style={{ paddingBottom: 10 }}>
-            <Col span={10} className='control-label-layer2'>
+          <Row align="middle" style={{ paddingBottom: 10 }}>
+            <Col span={10} className="control-label-layer2">
               Details on demand
             </Col>
             <Col span={14}>
@@ -75,7 +75,7 @@ const ControlInteraction: React.FC = () => {
                 checked={isDetailsOnDemandOn}
                 onChange={(checked) => {
                   setIsDetailsOnDemandOn(checked)
-                  toggleGlobalSetting('detailsOnDemand', checked)
+                  toggleGlobalSetting("detailsOnDemand", checked)
                 }}
               />
             </Col>

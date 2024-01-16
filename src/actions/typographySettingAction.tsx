@@ -1,6 +1,6 @@
-import { typographySettingStateType } from '../types'
+import { typographySettingStateType } from "../types"
 
-export const CHANGE_TYPOGRAPHY_SETTING = 'CHANGE_TYPOGRAPHY_SETTING'
+export const CHANGE_TYPOGRAPHY_SETTING = "CHANGE_TYPOGRAPHY_SETTING"
 
 export type ChangeTypographySettingAction = {
   type: string

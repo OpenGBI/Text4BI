@@ -1,6 +1,6 @@
-import React from 'react'
-import { Chart } from '@antv/g2'
-import { cateAndValue } from '../types'
+import React from "react"
+import { Chart } from "@antv/g2"
+import { cateAndValue } from "../types"
 
 interface BarChartProps {
   data: cateAndValue[] // n个{category:,value:}画柱状图
@@ -23,15 +23,15 @@ const Categorization: React.FC<BarChartProps> = ({ data }) => {
       height: 400,
       width: 600,
     })
-    chart.coordinate({ transform: [{ type: 'transpose' }] })
+    chart.coordinate({ transform: [{ type: "transpose" }] })
     chart.data(data)
     // console.log('CategorizationCategorizationCategorization', data)
 
     chart
       .interval()
 
-      .encode('x', 'category')
-      .encode('y', 'value')
+      .encode("x", "category")
+      .encode("y", "value")
 
     chart.render()
 

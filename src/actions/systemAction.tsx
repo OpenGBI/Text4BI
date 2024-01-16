@@ -1,6 +1,6 @@
-import { systemStateType } from '../types'
+import { systemStateType } from "../types"
 
-export const CHANGE_SYSTEM_ACTION = 'CHANGE_SYSTEM_ACTION'
+export const CHANGE_SYSTEM_ACTION = "CHANGE_SYSTEM_ACTION"
 
 export type SystemActionType = {
   type: string

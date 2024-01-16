@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, CSSProperties, useState } from 'react'
-import { Layout, Tooltip, Modal, Button } from 'antd'
-import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useSelector, useDispatch } from 'react-redux'
-import { ExportOutlined } from '@ant-design/icons'
-import { InsightCard } from './InsightCard'
-import { AppState } from '../store'
-import { Card } from '../types'
+import React, { useRef, useEffect, CSSProperties, useState } from "react"
+import { Layout, Tooltip, Modal, Button } from "antd"
+import { DndProvider, useDrag, useDrop } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
+import { useSelector, useDispatch } from "react-redux"
+import { ExportOutlined } from "@ant-design/icons"
+import { InsightCard } from "./InsightCard"
+import { AppState } from "../store"
+import { Card } from "../types"
 // import { fetchDataset } from '../actions/systemAction'
 
 const { Header, Footer, Sider, Content } = Layout
@@ -17,12 +17,8 @@ interface InsightCardProps extends Card {
 }
 
 const InsightCards: React.FC = () => {
-  const { dataset, selectedCards } = useSelector(
-    (state: AppState) => state.system,
-  )
-  const { showBigGraph, showSparkLine } = useSelector(
-    (state: AppState) => state.globalSetting,
-  )
+  const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
+  const { showBigGraph, showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   // console.log('datasetttttttttttttt', selectedCards)
   const CardNum: number = dataset.length
   const CardsId: string[] = dataset.map((card) => card.CardName)
@@ -40,7 +36,8 @@ const InsightCards: React.FC = () => {
     setCards(newCards)
   }
   const exportSelectedCardsAsHtml = () => {
-    let htmlContent = '<!DOCTYPE html><html lang="en"><head><title>Exported Cards</title></head><body>'
+    let htmlContent =
+      "<!DOCTYPE html><html lang='en'><head><title>Exported Cards</title></head><body>"
     selectedCards.forEach((cardId) => {
       const cardElement = document.getElementById(cardId)
       // console.log('cardElement', cardId)
@@ -48,13 +45,13 @@ const InsightCards: React.FC = () => {
         htmlContent += cardElement.outerHTML
       }
     })
-    htmlContent += '</body></html>'
-    const newWindow = window.open('', '_blank')
+    htmlContent += "</body></html>"
+    const newWindow = window.open("", "_blank")
     if (newWindow) {
       newWindow.document.write(htmlContent)
       newWindow.document.close()
     } else {
-      console.error('Unable to open a new window. Perhaps it has been blocked by a popup blocker.')
+      console.error("Unable to open a new window. Perhaps it has been blocked by a popup blocker.")
     }
   }
   const Cards = cards
@@ -77,31 +74,40 @@ const InsightCards: React.FC = () => {
     setIsModalVisible(false)
   }
   return (
-    <div className='panel3'>
-      <div className='header'>
-        <Tooltip title='Export This Card'>
-          <div style={{ position: 'absolute', top: 20, right: 30 }}>
+    <div className="panel3">
+      <div className="header">
+        <Tooltip title="Export This Card">
+          <div style={{ position: "absolute", top: 20, right: 30 }}>
             <ExportOutlined
               onClick={showModal}
-              style={{ cursor: 'pointer', fontSize: '20px' }} // 调整图标的大小
+              style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
             />
-            <Modal title='Export Options' visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-              <p><Button onClick={exportSelectedCardsAsHtml}>Download HTML</Button></p>
-              <p><Button onClick={exportSelectedCardsAsHtml}>Download Image</Button></p>
+            <Modal
+              title="Export Options"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>
+                <Button onClick={exportSelectedCardsAsHtml}>Download HTML</Button>
+              </p>
+              <p>
+                <Button onClick={exportSelectedCardsAsHtml}>Download Image</Button>
+              </p>
             </Modal>
           </div>
         </Tooltip>
       </div>
-      <div style={{ height: 800, overflow: 'auto' }}>
-      <DndProvider backend={HTML5Backend}>
-        <div className='card-container'>
-          {Cards.map((curDataset) => (
-            <Content id={curDataset.CardName} key={curDataset.CardName}>
-              <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
-            </Content>
-          ))}
-        </div>
-      </DndProvider>
+      <div style={{ height: 800, overflow: "auto" }}>
+        <DndProvider backend={HTML5Backend}>
+          <div className="card-container">
+            {Cards.map((curDataset) => (
+              <Content id={curDataset.CardName} key={curDataset.CardName}>
+                <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
+              </Content>
+            ))}
+          </div>
+        </DndProvider>
       </div>
     </div>
   )

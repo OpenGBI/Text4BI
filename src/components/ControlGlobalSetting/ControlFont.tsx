@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import { Button, Row, Col, Select } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
-import { AppState } from '../../store'
-import { GlobalSettingStateType } from '../../types'
+import React, { useState } from "react"
+import { Button, Row, Col, Select } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import { AppState } from "../../store"
+import { GlobalSettingStateType } from "../../types"
 
 const { Option } = Select
 
 const ControlFont: React.FC = () => {
   const dispatch = useDispatch()
   // 选中的字体大小
-  const [selectedFontSize, setSelectedFontSize] = useState('14px')
+  const [selectedFontSize, setSelectedFontSize] = useState("14px")
   // 下拉框显示的值
-  const [dropdownDisplay, setDropdownDisplay] = useState('...')
+  const [dropdownDisplay, setDropdownDisplay] = useState("...")
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
@@ -32,31 +32,29 @@ const ControlFont: React.FC = () => {
   // 生成字体大小选项的数组
   const fontSizeOptions = []
   for (let i = 5; i <= 72; i += 1) {
-    fontSizeOptions.push(
-      <Option key={`${i}px`} value={`${i}px`}>{`${i}px`}</Option>,
-    )
+    fontSizeOptions.push(<Option key={`${i}px`} value={`${i}px`}>{`${i}px`}</Option>)
   }
 
   // 固定按钮宽度
   const buttonWidth = 50 // 按布局需要调整
 
   return (
-    <div className='control-panel'>
+    <div className="control-panel">
       <Row>
-        <Col span={10} className='control-label'>
+        <Col span={10} className="control-label">
           Font size
         </Col>
         <Col span={14}>
-          <Button.Group style={{ display: 'flex' }}>
-            {['14px', '15px', '16px'].map((size) => (
+          <Button.Group style={{ display: "flex" }}>
+            {["14px", "15px", "16px"].map((size) => (
               <Button
                 key={size}
-                className={`custom-btn ${selectedFontSize === size ? 'active' : ''}`}
+                className={`custom-btn ${selectedFontSize === size ? "active" : ""}`}
                 onClick={() => {
                   handleFontSizeChange(size)
-                  setDropdownDisplay('...') // 点击按钮后重置下拉框显示
+                  setDropdownDisplay("...") // 点击按钮后重置下拉框显示
                 }}
-                style={{ width: `${buttonWidth}px`, textAlign: 'center' }} // 设置固定宽度
+                style={{ width: `${buttonWidth}px`, textAlign: "center" }} // 设置固定宽度
               >
                 {size}
               </Button>
@@ -66,8 +64,8 @@ const ControlFont: React.FC = () => {
               style={{ width: `${buttonWidth + 20}px` }}
               onChange={handleFontSizeChange}
               dropdownMatchSelectWidth={false}
-              onFocus={() => setDropdownDisplay('14px')} // 聚焦时显示实际选中的值
-              onBlur={() => setDropdownDisplay('....')} // 失焦时显示....
+              onFocus={() => setDropdownDisplay("14px")} // 聚焦时显示实际选中的值
+              onBlur={() => setDropdownDisplay("....")} // 失焦时显示....
             >
               {fontSizeOptions}
             </Select>

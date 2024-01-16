@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
-import * as d3 from 'd3'
-import { Point, cateAndValue } from '../types'
+import React, { useRef, useEffect } from "react"
+import * as d3 from "d3"
+import { Point, cateAndValue } from "../types"
 
 export const renderDistribution1 = (
   data: cateAndValue[],
@@ -13,13 +13,13 @@ export const renderDistribution1 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -27,7 +27,7 @@ export const renderDistribution1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -37,7 +37,7 @@ export const renderDistribution1 = (
   const median = d3.quantile(values, 0.5)
   const q3 = d3.quantile(values, 0.75)
   if (!q1 || !q3 || !median) {
-    throw new Error('q1q3median计算失败')
+    throw new Error("q1q3median计算失败")
   }
   const interQuantileRange = q3 - q1
   const min = q1 - 1.5 * interQuantileRange
@@ -48,18 +48,18 @@ export const renderDistribution1 = (
     .range([padding, width - padding])
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -67,117 +67,117 @@ export const renderDistribution1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
-    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3.append("g").attr("transform", `translate(0,${height})`)
     svgD3
-      .append('rect')
-      .attr('x', xScale(q1))
-      .attr('y', height / 2)
-      .attr('height', height / 2)
-      .attr('width', xScale(q3) - xScale(q1))
+      .append("rect")
+      .attr("x", xScale(q1))
+      .attr("y", height / 2)
+      .attr("height", height / 2)
+      .attr("width", xScale(q3) - xScale(q1))
       // .attr('stroke', 'black')
-      .style('fill', '#ccd7f1')
+      .style("fill", "#ccd7f1")
     svgD3
-      .append('line')
-      .attr('x1', xScale(median))
-      .attr('x2', xScale(median))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(median))
+      .attr("x2", xScale(median))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
     // 绘制上下须
     svgD3
-      .append('line')
-      .attr('x1', xScale(min))
-      .attr('x2', xScale(max))
-      .attr('y1', (height * 3) / 4)
-      .attr('y2', (height * 3) / 4)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(min))
+      .attr("x2", xScale(max))
+      .attr("y1", (height * 3) / 4)
+      .attr("y2", (height * 3) / 4)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
 
     svgD3
-      .append('line')
-      .attr('x1', xScale(min))
-      .attr('x2', xScale(min))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(min))
+      .attr("x2", xScale(min))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
 
     svgD3
-      .append('line')
-      .attr('x1', xScale(max))
-      .attr('x2', xScale(max))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(max))
+      .attr("x2", xScale(max))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
   }
   // 左右放小图
   if (sparkLineElement) {
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
-    const svgD3 = d3.select(sparkLineElement).append('svg').attr('width', width).attr('height', 20)
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+    const svgD3 = d3.select(sparkLineElement).append("svg").attr("width", width).attr("height", 20)
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
-    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3.append("g").attr("transform", `translate(0,${height})`)
     svgD3
-      .append('rect')
-      .attr('x', xScale(q1))
-      .attr('y', height / 2)
-      .attr('height', height / 2)
-      .attr('width', xScale(q3) - xScale(q1))
+      .append("rect")
+      .attr("x", xScale(q1))
+      .attr("y", height / 2)
+      .attr("height", height / 2)
+      .attr("width", xScale(q3) - xScale(q1))
       // .attr('stroke', 'black')
-      .style('fill', '#ccd7f1')
+      .style("fill", "#ccd7f1")
     svgD3
-      .append('line')
-      .attr('x1', xScale(median))
-      .attr('x2', xScale(median))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(median))
+      .attr("x2", xScale(median))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
     // 绘制上下须
     svgD3
-      .append('line')
-      .attr('x1', xScale(min))
-      .attr('x2', xScale(max))
-      .attr('y1', (height * 3) / 4)
-      .attr('y2', (height * 3) / 4)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(min))
+      .attr("x2", xScale(max))
+      .attr("y1", (height * 3) / 4)
+      .attr("y2", (height * 3) / 4)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
 
     svgD3
-      .append('line')
-      .attr('x1', xScale(min))
-      .attr('x2', xScale(min))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(min))
+      .attr("x2", xScale(min))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
 
     svgD3
-      .append('line')
-      .attr('x1', xScale(max))
-      .attr('x2', xScale(max))
-      .attr('y1', height / 2)
-      .attr('y2', height)
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1')
+      .append("line")
+      .attr("x1", xScale(max))
+      .attr("x2", xScale(max))
+      .attr("y1", height / 2)
+      .attr("y2", height)
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
   }
 }
 export const renderDistribution2 = (
@@ -203,13 +203,13 @@ export const renderDistribution2 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -217,14 +217,14 @@ export const renderDistribution2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
   }
 
   if (d3.extent(values)[0] === undefined) {
-    throw new Error('Error')
+    throw new Error("Error")
   }
   const xScale = d3
     .scaleLinear()
@@ -240,18 +240,18 @@ export const renderDistribution2 = (
   //   .range([padding, width - padding])
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -259,27 +259,27 @@ export const renderDistribution2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
-    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3.append("g").attr("transform", `translate(0,${height})`)
     svgD3
-      .append('path')
-      .attr('class', 'mypath')
+      .append("path")
+      .attr("class", "mypath")
       .datum(density)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 2)
-      .attr('stroke-linejoin', 'round')
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2)
+      .attr("stroke-linejoin", "round")
       .attr(
-        'd',
+        "d",
         d3
           .line()
           .curve(d3.curveBasis)
@@ -292,24 +292,24 @@ export const renderDistribution2 = (
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
-    const svgD3 = d3.select(sparkLineElement).append('svg').attr('width', width).attr('height', 20)
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+    const svgD3 = d3.select(sparkLineElement).append("svg").attr("width", width).attr("height", 20)
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
-    svgD3.append('g').attr('transform', `translate(0,${height})`)
+    svgD3.append("g").attr("transform", `translate(0,${height})`)
     svgD3
-      .append('path')
-      .attr('class', 'mypath')
+      .append("path")
+      .attr("class", "mypath")
       .datum(density)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 2)
-      .attr('stroke-linejoin', 'round')
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2)
+      .attr("stroke-linejoin", "round")
       .attr(
-        'd',
+        "d",
         d3
           .line()
           .curve(d3.curveBasis)
@@ -320,7 +320,8 @@ export const renderDistribution2 = (
 }
 
 export const renderCategorization1 = (
-  data: number[],
+  iniData: cateAndValue[],
+  tagData: number,
   aspectRatio: string,
   sparkLinePosition: string,
   wordElement?: HTMLSpanElement,
@@ -330,13 +331,15 @@ export const renderCategorization1 = (
   let height: number
   const padding = 1
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  const slicedData = iniData.slice(0, 5)
+  const data: number[] = slicedData.map((item) => item.value)
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -345,7 +348,7 @@ export const renderCategorization1 = (
   }
   const barWidth = (width - padding * 2) / data.length
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -366,18 +369,18 @@ export const renderCategorization1 = (
     .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -385,26 +388,31 @@ export const renderCategorization1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .selectAll('rect')
+      .selectAll("rect")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('x', (d, i) => xScale(i))
-      .attr('y', (d) => yScale(d))
-      .attr('width', barWidth) // 5 is for padding between bars
-      .attr('height', (d) => height - yScale(d))
-      .attr('fill', 'steelblue')
+      .append("rect")
+      .attr("x", (d, i) => xScale(i))
+      .attr("y", (d) => yScale(d))
+      .attr("width", barWidth) // 5 is for padding between bars
+      .attr("height", (d) => height - yScale(d))
+      .attr("fill", (d, i) => {
+        if (tagData === -1) {
+          return "#3769b1"
+        }
+        return i === tagData ? "#3769b1" : "#cbd7ed"
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -413,24 +421,30 @@ export const renderCategorization1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .selectAll('rect')
+      .selectAll("rect")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('x', (d, i) => xScale(i))
-      .attr('y', (d) => yScale(d))
-      .attr('width', barWidth) // 5 is for padding between bars
-      .attr('height', (d) => height - yScale(d))
-      .attr('fill', 'steelblue')
+      .append("rect")
+      .attr("x", (d, i) => xScale(i))
+      .attr("y", (d) => yScale(d))
+      .attr("width", barWidth) // 5 is for padding between bars
+      .attr("height", (d) => height - yScale(d))
+      .attr("fill", (d, i) => {
+        if (tagData === -1) {
+          return "#3769b1"
+        }
+        return i === tagData ? "#3769b1" : "#cbd7ed"
+      })
   }
 }
 
 export const renderCategorization2 = (
-  data: number[],
+  iniData: cateAndValue[],
+  tagData: number,
   aspectRatio: string,
   sparkLinePosition: string,
   wordElement?: HTMLSpanElement,
@@ -439,14 +453,16 @@ export const renderCategorization2 = (
   let width
   let height: number
   const padding = 1
+  const slicedData = iniData.slice(0, 5)
+  const data: number[] = slicedData.map((item) => item.value)
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -455,7 +471,7 @@ export const renderCategorization2 = (
   }
   const barWidth = (width - padding * 2) / data.length
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -487,18 +503,18 @@ export const renderCategorization2 = (
   }
   const xScale = d3.scaleLinear().domain([0, getTotal()]).range([0, width])
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -506,26 +522,32 @@ export const renderCategorization2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .selectAll('.bar')
+      .selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d: number, i: number) => getx(i, xScale))
-      .attr('y', (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
-      .attr('width', (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
-      .attr('height', (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d: number, i: number) => getx(i, xScale))
+      .attr("y", (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
+      .attr("width", (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
+      .attr("height", (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+      .attr("fill", (d, i) => {
+        if (tagData === -1) {
+          return "#3769b1"
+        }
+        return i === tagData ? "#3769b1" : "#cbd7ed"
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -534,19 +556,25 @@ export const renderCategorization2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .selectAll('.bar')
+      .selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d: number, i: number) => getx(i, xScale))
-      .attr('y', (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
-      .attr('width', (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
-      .attr('height', (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d: number, i: number) => getx(i, xScale))
+      .attr("y", (d: number) => height - xScale(Math.sqrt(d))) // y coordinate is the SVG height minus the square's side length
+      .attr("width", (d: number) => xScale(Math.sqrt(d))) // The width is the bandwidth calculated by the scale
+      .attr("height", (d: number) => xScale(Math.sqrt(d))) // The height is the square root of the area
+      .attr("fill", (d, i) => {
+        if (tagData === -1) {
+          return "#3769b1"
+        }
+        return i === tagData ? "#3769b1" : "#cbd7ed"
+      })
   }
 }
 export const renderProportion1 = (
@@ -560,13 +588,13 @@ export const renderProportion1 = (
   let height
   const padding = 0.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -574,7 +602,7 @@ export const renderProportion1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -600,18 +628,18 @@ export const renderProportion1 = (
   //   .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-40px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-40px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -620,21 +648,21 @@ export const renderProportion1 = (
 
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${width / 2}, ${height / 2})`) // Center the pie chart
 
     const pieData = pie(data)
 
     svgD3
-      .selectAll('path')
+      .selectAll("path")
       .data(pieData)
       .enter()
-      .append('path')
-      .attr('d', arc) // Cast required due to typings mismatch
-      .attr('fill', (d, i) => color(i.toString()))
+      .append("path")
+      .attr("d", arc) // Cast required due to typings mismatch
+      .attr("fill", (d, i) => color(i.toString()))
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -643,21 +671,21 @@ export const renderProportion1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${width / 2}, ${height / 2})`) // Center the pie chart
 
     const pieData = pie(data)
 
     svgD3
-      .selectAll('path')
+      .selectAll("path")
       .data(pieData)
       .enter()
-      .append('path')
-      .attr('d', arc) // Cast required due to typings mismatch
-      .attr('fill', (d, i) => color(i.toString()))
+      .append("path")
+      .attr("d", arc) // Cast required due to typings mismatch
+      .attr("fill", (d, i) => color(i.toString()))
   }
 }
 export const renderProportion2 = (
@@ -671,13 +699,13 @@ export const renderProportion2 = (
   let height: number
   const padding: number = 0.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -702,7 +730,7 @@ export const renderProportion2 = (
     return res
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -726,18 +754,18 @@ export const renderProportion2 = (
   //   .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -745,14 +773,14 @@ export const renderProportion2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
     // const svgD3 = d3
     //   .select(newDiv)
@@ -763,16 +791,16 @@ export const renderProportion2 = (
     //   .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
 
     svgD3
-      .selectAll<SVGRectElement, number>('.bar')
+      .selectAll<SVGRectElement, number>(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d: number, i: number) => getx(i, xScale))
-      .attr('y', (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
-      .attr('width', (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
-      .attr('height', 10) // 高度为面积的平方根
-      .attr('fill', (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d: number, i: number) => getx(i, xScale))
+      .attr("y", (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
+      .attr("width", (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
+      .attr("height", 10) // 高度为面积的平方根
+      .attr("fill", (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -788,20 +816,20 @@ export const renderProportion2 = (
     //   .attr('transform', `translate(${width / 2}, ${height / 2})`) // Center the pie chart
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .selectAll<SVGRectElement, number>('.bar')
+      .selectAll<SVGRectElement, number>(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d: number, i: number) => getx(i, xScale))
-      .attr('y', (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
-      .attr('width', (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
-      .attr('height', 10) // 高度为面积的平方根
-      .attr('fill', (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d: number, i: number) => getx(i, xScale))
+      .attr("y", (d: number) => height - 10) // y坐标由SVG高度减去正方形的边长
+      .attr("width", (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
+      .attr("height", 10) // 高度为面积的平方根
+      .attr("fill", (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
   }
 }
 export const renderAssociation1 = (
@@ -819,13 +847,13 @@ export const renderAssociation1 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -833,7 +861,7 @@ export const renderAssociation1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -850,18 +878,18 @@ export const renderAssociation1 = (
     .domain([-maxAbsY, maxAbsY])
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -869,55 +897,55 @@ export const renderAssociation1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('defs')
-      .append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 5)
-      .attr('refY', 0)
-      .attr('markerWidth', 4)
-      .attr('markerHeight', 4)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('class', 'arrowHead')
-      .attr('fill', 'steelblue')
+      .append("defs")
+      .append("marker")
+      .attr("id", "arrow")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 5)
+      .attr("refY", 0)
+      .attr("markerWidth", 4)
+      .attr("markerHeight", 4)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .attr("class", "arrowHead")
+      .attr("fill", "steelblue")
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(0,${yScale(0)})`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${yScale(0)})`)
       .call(
         d3
           .axisBottom(xScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(${xScale(0)},0)`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(${xScale(0)},0)`)
       .call(
         d3
           .axisLeft(yScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     // Equation of the line: y = 4.5x + -5.0
     const line = d3
@@ -926,16 +954,16 @@ export const renderAssociation1 = (
       .y((d) => yScale(k * d.x + b))
 
     const res = svgD3
-      .append('path')
+      .append("path")
       .datum([
         { x: -maxAbsX, y: 0 },
         { x: maxAbsX, y: 0 },
       ])
-      .attr('class', 'line')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
-      .attr('marker-end', 'url(#arrow)')
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)")
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -944,71 +972,68 @@ export const renderAssociation1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
 
     // Equation of the line: y = 4.5x + -5.0
     svgD3
-      .append('defs')
-      .append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 5)
-      .attr('refY', 0)
-      .attr('markerWidth', 4)
-      .attr('markerHeight', 4)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('class', 'arrowHead')
-      .attr('fill', 'steelblue')
+      .append("defs")
+      .append("marker")
+      .attr("id", "arrow")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 5)
+      .attr("refY", 0)
+      .attr("markerWidth", 4)
+      .attr("markerHeight", 4)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .attr("class", "arrowHead")
+      .attr("fill", "steelblue")
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(0,${yScale(0)})`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${yScale(0)})`)
       .call(
         d3
           .axisBottom(xScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(${xScale(0)},0)`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(${xScale(0)},0)`)
       .call(
         d3
           .axisLeft(yScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     // Equation of the line: y = 4.5x + -5.0
     const line = d3
       .line<Point>()
-      .x((d) => {
-        console.log('d.xd.xd.xd.xd.x', d.x)
-        return xScale(d.x)
-      })
+      .x((d) => xScale(d.x))
       .y((d) => yScale(k * d.x + b))
 
     const res = svgD3
-      .append('path')
+      .append("path")
       .datum([
         { x: -maxAbsX, y: 0 },
         { x: maxAbsX, y: 0 },
       ])
-      .attr('class', 'line')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
-      .attr('marker-end', 'url(#arrow)')
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)")
   }
 }
 export const renderAssociation2 = (
@@ -1025,13 +1050,13 @@ export const renderAssociation2 = (
   let height
   const padding = 1
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -1039,7 +1064,7 @@ export const renderAssociation2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -1070,18 +1095,18 @@ export const renderAssociation2 = (
   //   .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1089,53 +1114,53 @@ export const renderAssociation2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(0,${yScale(0)})`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${yScale(0)})`)
       .call(
         d3
           .axisBottom(xScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(${xScale(0)},0)`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(${xScale(0)},0)`)
       .call(
         d3
           .axisLeft(yScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     // Scatter plot
     svgD3
-      .selectAll('.scatter')
+      .selectAll(".scatter")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('class', 'scatter')
-      .attr('cx', (d) => xScale(d.x))
-      .attr('cy', (d) => yScale(d.y))
-      .attr('r', 1)
-      .attr('fill', 'steelblue')
+      .append("circle")
+      .attr("class", "scatter")
+      .attr("cx", (d) => xScale(d.x))
+      .attr("cy", (d) => yScale(d.y))
+      .attr("r", 1)
+      .attr("fill", "steelblue")
 
     // Equation of the line: y = 4.5x + -5.0
     const line = d3
@@ -1144,15 +1169,15 @@ export const renderAssociation2 = (
       .y((d) => yScale(k * d.x + b))
 
     const res = svgD3
-      .append('path')
+      .append("path")
       .datum([
         { x: -maxAbsX, y: 0 },
         { x: maxAbsX, y: 0 },
       ])
-      .attr('class', 'line')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1161,46 +1186,46 @@ export const renderAssociation2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(0,${yScale(0)})`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${yScale(0)})`)
       .call(
         d3
           .axisBottom(xScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     svgD3
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(${xScale(0)},0)`)
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(${xScale(0)},0)`)
       .call(
         d3
           .axisLeft(yScale)
           .tickSize(0.1)
-          .tickFormat(() => ''),
+          .tickFormat(() => ""),
       )
-      .selectAll('path, line') // 选择坐标轴的所有路径和线
-      .style('stroke', 'steelblue')
+      .selectAll("path, line") // 选择坐标轴的所有路径和线
+      .style("stroke", "steelblue")
 
     // Scatter plot
     svgD3
-      .selectAll('.scatter')
+      .selectAll(".scatter")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('class', 'scatter')
-      .attr('cx', (d) => xScale(d.x))
-      .attr('cy', (d) => yScale(d.y))
-      .attr('r', 1)
-      .attr('fill', 'steelblue')
+      .append("circle")
+      .attr("class", "scatter")
+      .attr("cx", (d) => xScale(d.x))
+      .attr("cy", (d) => yScale(d.y))
+      .attr("r", 1)
+      .attr("fill", "steelblue")
 
     // Equation of the line: y = 4.5x + -5.0
     const line = d3
@@ -1210,15 +1235,15 @@ export const renderAssociation2 = (
     // console.log('datumdatum', k, b)
 
     const res = svgD3
-      .append('path')
+      .append("path")
       .datum([
         { x: -maxAbsX, y: 0 },
         { x: maxAbsX, y: 0 },
       ])
-      .attr('class', 'line')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
   }
 }
 export const renderTemporalityTrend1 = (
@@ -1232,13 +1257,13 @@ export const renderTemporalityTrend1 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -1246,7 +1271,7 @@ export const renderTemporalityTrend1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -1267,19 +1292,19 @@ export const renderTemporalityTrend1 = (
     .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
     // console.log(rect)
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1287,23 +1312,23 @@ export const renderTemporalityTrend1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -1311,20 +1336,20 @@ export const renderTemporalityTrend1 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1333,16 +1358,16 @@ export const renderTemporalityTrend1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -1350,20 +1375,20 @@ export const renderTemporalityTrend1 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
 }
 export const renderTemporalityTrend2 = (
@@ -1377,13 +1402,13 @@ export const renderTemporalityTrend2 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -1391,7 +1416,7 @@ export const renderTemporalityTrend2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -1412,18 +1437,18 @@ export const renderTemporalityTrend2 = (
     .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1431,33 +1456,33 @@ export const renderTemporalityTrend2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', rect.width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", rect.width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
     svgD3
-      .append('defs')
-      .append('linearGradient')
-      .attr('id', 'area-gradient')
-      .attr('x1', '0%')
-      .attr('y1', '100%')
-      .attr('x2', '0%')
-      .attr('y2', '0%')
-      .selectAll('stop')
+      .append("defs")
+      .append("linearGradient")
+      .attr("id", "area-gradient")
+      .attr("x1", "0%")
+      .attr("y1", "100%")
+      .attr("x2", "0%")
+      .attr("y2", "0%")
+      .selectAll("stop")
       .data([
-        { offset: '0%', color: 'blue', opacity: '0' },
-        { offset: '100%', color: 'blue', opacity: '0.3' },
+        { offset: "0%", color: "blue", opacity: "0" },
+        { offset: "100%", color: "blue", opacity: "0.3" },
       ])
       .enter()
-      .append('stop')
-      .attr('offset', (d) => d.offset)
-      .attr('stop-color', (d) => d.color)
-      .attr('stop-opacity', (d) => d.opacity)
+      .append("stop")
+      .attr("offset", (d) => d.offset)
+      .attr("stop-color", (d) => d.color)
+      .attr("stop-opacity", (d) => d.opacity)
     const area = d3
       .area<{ x: number; y: number }>()
       .x((d) => xScale(d.x))
@@ -1465,39 +1490,39 @@ export const renderTemporalityTrend2 = (
       .y1((d) => yScale(d.y))
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(processedData)
-      .attr('class', 'area')
-      .style('fill', 'url(#area-gradient)')
-      .attr('d', area)
+      .attr("class", "area")
+      .style("fill", "url(#area-gradient)")
+      .attr("d", area)
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1506,27 +1531,27 @@ export const renderTemporalityTrend2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('defs')
-      .append('linearGradient')
-      .attr('id', 'area-gradient')
-      .attr('x1', '0%')
-      .attr('y1', '100%')
-      .attr('x2', '0%')
-      .attr('y2', '0%')
-      .selectAll('stop')
+      .append("defs")
+      .append("linearGradient")
+      .attr("id", "area-gradient")
+      .attr("x1", "0%")
+      .attr("y1", "100%")
+      .attr("x2", "0%")
+      .attr("y2", "0%")
+      .selectAll("stop")
       .data([
-        { offset: '0%', color: 'blue', opacity: '0' },
-        { offset: '100%', color: 'blue', opacity: '0.3' },
+        { offset: "0%", color: "blue", opacity: "0" },
+        { offset: "100%", color: "blue", opacity: "0.3" },
       ])
       .enter()
-      .append('stop')
-      .attr('offset', (d) => d.offset)
-      .attr('stop-color', (d) => d.color)
-      .attr('stop-opacity', (d) => d.opacity)
+      .append("stop")
+      .attr("offset", (d) => d.offset)
+      .attr("stop-color", (d) => d.color)
+      .attr("stop-opacity", (d) => d.opacity)
     const area = d3
       .area<{ x: number; y: number }>()
       .x((d) => xScale(d.x))
@@ -1534,43 +1559,43 @@ export const renderTemporalityTrend2 = (
       .y1((d) => yScale(d.y))
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(processedData)
-      .attr('class', 'area')
-      .style('fill', 'url(#area-gradient)')
-      .attr('d', area)
+      .attr("class", "area")
+      .style("fill", "url(#area-gradient)")
+      .attr("d", area)
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
 }
 export const renderTemporalityDifference1 = (
-  data: number[],
+  iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
   tagData: number[],
@@ -1581,23 +1606,34 @@ export const renderTemporalityDifference1 = (
   let height: number
 
   const padding = 1.5
+  const data: number[] = tagData.map((year) => {
+    const sum = iniData
+      .filter((item) => item.year === year)
+      .reduce((acc, item) => acc + item.value, 0)
+    return sum
+  })
+
+  console.log(
+    "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
+    data,
+  )
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
     width = 100
     height = 20
   }
-  const barWidth = (width - padding * 2) / data.length
+  const barWidth = (width - padding * 6) / data.length
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -1622,18 +1658,18 @@ export const renderTemporalityDifference1 = (
   //   .y(height / 2) // 固定在 SVG 中间的高度
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1641,40 +1677,40 @@ export const renderTemporalityDifference1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', rect.width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", rect.width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('defs')
-      .append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 5)
-      .attr('refY', 0)
-      .attr('markerWidth', 4)
-      .attr('markerHeight', 4)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('class', 'arrowHead')
-      .attr('fill', 'red')
+      .append("defs")
+      .append("marker")
+      .attr("id", "arrow")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 5)
+      .attr("refY", 0)
+      .attr("markerWidth", 4)
+      .attr("markerHeight", 4)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .attr("class", "arrowHead")
+      .attr("fill", "red")
     svgD3
-      .selectAll('.bar')
+      .selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d, i) => xScale(i))
-      .attr('y', (d) => yScale(d))
-      .attr('width', barWidth)
-      .attr('height', (d) => height - yScale(d))
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d, i) => xScale(i))
+      .attr("y", (d) => yScale(d))
+      .attr("width", barWidth)
+      .attr("height", (d) => height - yScale(d))
 
     // 画趋势线
     const line = d3
@@ -1683,13 +1719,13 @@ export const renderTemporalityDifference1 = (
       .y((d) => yScale(d))
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'red')
-      .attr('stroke-width', 1.5)
-      .attr('d', line)
-      .attr('marker-end', 'url(#arrow)') // 应用箭头
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 1.5)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)") // 应用箭头
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1698,33 +1734,34 @@ export const renderTemporalityDifference1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('defs')
-      .append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 5)
-      .attr('refY', 0)
-      .attr('markerWidth', 4)
-      .attr('markerHeight', 4)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('class', 'arrowHead')
-      .attr('fill', 'red')
+      .append("defs")
+      .append("marker")
+      .attr("id", "arrow")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 5)
+      .attr("refY", 0)
+      .attr("markerWidth", 4)
+      .attr("markerHeight", 4)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .attr("class", "arrowHead")
+      .attr("fill", "red")
     svgD3
-      .selectAll('.bar')
+      .selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d, i) => xScale(i))
-      .attr('y', (d) => yScale(d))
-      .attr('width', barWidth)
-      .attr('height', (d) => height - yScale(d))
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d, i) => xScale(i))
+      .attr("y", (d) => yScale(d))
+      .attr("width", barWidth)
+      .attr("height", (d) => height - yScale(d))
+      .attr("fill", "steelblue")
 
     // 画趋势线
     const line = d3
@@ -1733,33 +1770,40 @@ export const renderTemporalityDifference1 = (
       .y((d) => yScale(d))
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'red')
-      .attr('stroke-width', 1.5)
-      .attr('d', line)
-      .attr('marker-end', 'url(#arrow)') // 应用箭头
+      .attr("fill", "red")
+      .attr("stroke", "red")
+      .attr("stroke-width", 1.5)
+      .attr("d", line)
+    // .attr("marker-end", "url(#arrow)") // 应用箭头
   }
 }
 export const renderTemporalityDifference2 = (
-  data: number[],
+  iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
+  tagData: number[],
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
   let width
   let height
   const padding = 1.5
+  const data: number[] = tagData.map((year) => {
+    const sum = iniData
+      .filter((item) => item.year === year)
+      .reduce((acc, item) => acc + item.value, 0)
+    return sum
+  })
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -1767,7 +1811,7 @@ export const renderTemporalityDifference2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -1788,19 +1832,19 @@ export const renderTemporalityDifference2 = (
     .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
     // console.log(rect)
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1808,23 +1852,23 @@ export const renderTemporalityDifference2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', rect.width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", rect.width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -1832,20 +1876,20 @@ export const renderTemporalityDifference2 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1854,16 +1898,16 @@ export const renderTemporalityDifference2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -1871,41 +1915,44 @@ export const renderTemporalityDifference2 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
   }
 }
 export const renderTemporalityAnomaly1 = (
-  data: number[],
+  iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
-  tagData: number[],
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
   let width
   let height
   const padding = 1.5
+  const data = iniData.map((item, index) => index)
+  const tagData = iniData
+    .map((item, index) => (item.category === "abnormal" ? index : -1))
+    .filter((index) => index !== -1)
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -1913,12 +1960,11 @@ export const renderTemporalityAnomaly1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
   }
-
   const xScale = d3
     .scaleLinear()
     .domain([0, data.length - 1])
@@ -1931,18 +1977,18 @@ export const renderTemporalityAnomaly1 = (
     .y(height / 2) // 固定在 SVG 中间的高度
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -1950,36 +1996,36 @@ export const renderTemporalityAnomaly1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', rect.width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", rect.width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('d', line)
-      .attr('fill', 'none')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
 
     // 标记第3个和第5个点
     svgD3
-      .selectAll('.marked-point')
+      .selectAll(".marked-point")
       .data(data) // 选取第3个和第5个元素
       .enter()
-      .append('circle')
-      .attr('class', 'marked-point')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', height / 2)
-      .attr('r', 2)
-      .attr('fill', 'red')
-      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+      .append("circle")
+      .attr("class", "marked-point")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", height / 2)
+      .attr("r", 2)
+      .attr("fill", "red")
+      .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1988,50 +2034,53 @@ export const renderTemporalityAnomaly1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('d', line)
-      .attr('fill', 'none')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
 
     // 标记第3个和第5个点
     svgD3
-      .selectAll('.marked-point')
+      .selectAll(".marked-point")
       .data(data) // 选取第3个和第5个元素
       .enter()
-      .append('circle')
-      .attr('class', 'marked-point')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', height / 2)
-      .attr('r', 2)
-      .attr('fill', 'red')
-      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+      .append("circle")
+      .attr("class", "marked-point")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", height / 2)
+      .attr("r", 2)
+      .attr("fill", "red")
+      .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
   }
 }
 export const renderTemporalityAnomaly2 = (
-  data: number[],
+  iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
-  tagData: number[],
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
   let width
   let height
   const padding = 1.5
+  const data = iniData.map((item, index) => index)
+  const tagData = iniData
+    .map((item, index) => (item.category === "abnormal" ? index : -1))
+    .filter((index) => index !== -1)
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -2039,7 +2088,7 @@ export const renderTemporalityAnomaly2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -2057,18 +2106,18 @@ export const renderTemporalityAnomaly2 = (
     .y(height / 2) // 固定在 SVG 中间的高度
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -2076,37 +2125,37 @@ export const renderTemporalityAnomaly2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', rect.width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", rect.width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('d', line)
-      .attr('fill', 'none')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
 
     // 标记第3个和第5个点
     svgD3
-      .selectAll('line.vertical')
+      .selectAll("line.vertical")
       .data(data)
       .enter()
-      .append('line')
-      .attr('x1', (d, i) => xScale(i))
-      .attr('y1', 0.2 * height)
-      .attr('x2', (d, i) => xScale(i))
-      .attr('y2', 0.8 * height)
-      .attr('stroke', 'red')
-      .attr('stroke-width', 2)
-      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+      .append("line")
+      .attr("x1", (d, i) => xScale(i))
+      .attr("y1", 0.2 * height)
+      .attr("x2", (d, i) => xScale(i))
+      .attr("y2", 0.8 * height)
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
+      .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2115,51 +2164,53 @@ export const renderTemporalityAnomaly2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('d', line)
-      .attr('fill', 'none')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
 
     // 标记第3个和第5个点
     svgD3
-      .selectAll('line.vertical')
+      .selectAll("line.vertical")
       .data(data)
       .enter()
-      .append('line')
-      .attr('x1', (d, i) => xScale(i))
-      .attr('y1', 0.2 * height)
-      .attr('x2', (d, i) => xScale(i))
-      .attr('y2', 0.8 * height)
-      .attr('stroke', 'red')
-      .attr('stroke-width', 2)
-      .attr('opacity', (d, i) => (tagData.includes(i) ? 1 : 0))
+      .append("line")
+      .attr("x1", (d, i) => xScale(i))
+      .attr("y1", 0.2 * height)
+      .attr("x2", (d, i) => xScale(i))
+      .attr("y2", 0.8 * height)
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
+      .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
   }
 }
 export const renderTemporalitySeasonality1 = (
-  data: number[],
+  iniData: cateAndValue[],
+  iniTagData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
-  tagData: number[],
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
   let width
   let height
   const padding = 1.5
+  const data: number[] = iniData.map((item) => item.value)
+  const tagData: number[] = iniTagData.map((item) => item.value)
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -2167,7 +2218,7 @@ export const renderTemporalitySeasonality1 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -2188,18 +2239,18 @@ export const renderTemporalitySeasonality1 = (
     .y((d) => yScale(d))
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -2207,23 +2258,23 @@ export const renderTemporalitySeasonality1 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -2231,29 +2282,29 @@ export const renderTemporalitySeasonality1 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
     for (let i = 0; i < tagData.length; i += 2) {
       svgD3
-        .append('rect')
-        .attr('x', xScale(tagData[i]))
-        .attr('width', xScale(tagData[i + 1]) - xScale(tagData[i]))
-        .attr('y', 0)
-        .attr('height', height)
-        .attr('fill', '#f7e3df')
-        .attr('opacity', 0.8)
+        .append("rect")
+        .attr("x", xScale(tagData[i]))
+        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr("y", 0)
+        .attr("height", height)
+        .attr("fill", "#f7e3df")
+        .attr("opacity", 0.8)
     }
   }
   // 左右放小图
@@ -2263,16 +2314,16 @@ export const renderTemporalitySeasonality1 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     svgD3
-      .append('path')
+      .append("path")
       .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1)
-      .attr('d', line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -2280,29 +2331,29 @@ export const renderTemporalitySeasonality1 = (
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
     svgD3
-      .selectAll('circle')
+      .selectAll("circle")
       .data(data)
       .enter()
-      .append('circle')
-      .attr('cx', (d, i) => xScale(i))
-      .attr('cy', (d) => yScale(d))
-      .attr('r', 1.5) // size of circle for "hit area"
-      .style('opacity', (d, i) => {
+      .append("circle")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d))
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
         }
         return 0 // 默认的半径大小
       })
-      .style('fill', 'steelblue')
+      .style("fill", "steelblue")
     for (let i = 0; i < tagData.length; i += 2) {
       svgD3
-        .append('rect')
-        .attr('x', xScale(tagData[i]))
-        .attr('width', xScale(tagData[i + 1]) - xScale(tagData[i]))
-        .attr('y', 0)
-        .attr('height', height)
-        .attr('fill', '#f7e3df')
-        .attr('opacity', 0.8)
+        .append("rect")
+        .attr("x", xScale(tagData[i]))
+        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr("y", 0)
+        .attr("height", height)
+        .attr("fill", "#f7e3df")
+        .attr("opacity", 0.8)
     }
   }
 }
@@ -2319,13 +2370,13 @@ export const renderTemporalitySeasonality2 = (
   let height
   const padding = 1.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === 'tiny') {
+  if (aspectRatio === "tiny") {
     width = 20
     height = 20
-  } else if (aspectRatio === 'medium') {
+  } else if (aspectRatio === "medium") {
     width = 50
     height = 20
-  } else if (aspectRatio === 'big') {
+  } else if (aspectRatio === "big") {
     width = 100
     height = 20
   } else {
@@ -2333,7 +2384,7 @@ export const renderTemporalitySeasonality2 = (
     height = 20
   }
   if (wordElement) {
-    const children = wordElement.querySelectorAll(':scope > .sparklines')
+    const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
       wordElement.removeChild(child)
     })
@@ -2342,18 +2393,18 @@ export const renderTemporalitySeasonality2 = (
   const xScale = d3.scaleLinear().domain([1, data.length]).range([0, width])
 
   // 上下放小图
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
+  if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    const newDiv = document.createElement('span')
-    newDiv.setAttribute('data-highlight-color-name', 'red')
-    newDiv.classList.add('sparklines')
-    newDiv.style.position = 'absolute'
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px'
-      newDiv.style.left = '0px'
+    const newDiv = document.createElement("span")
+    newDiv.setAttribute("data-highlight-color-name", "red")
+    newDiv.classList.add("sparklines")
+    newDiv.style.position = "absolute"
+    if (sparkLinePosition === "up") {
+      newDiv.style.top = "-20px"
+      newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = '0px'
-      newDiv.style.left = '0px'
+      newDiv.style.top = "0px"
+      newDiv.style.left = "0px"
     }
 
     newDiv.style.width = `${rect.width + 20}px`
@@ -2361,24 +2412,24 @@ export const renderTemporalitySeasonality2 = (
     wordElement.appendChild(newDiv)
     const svgD3 = d3
       .select(newDiv)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', 20)
-      .style('position', 'absolute')
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", 20)
+      .style("position", "absolute")
+    if (sparkLinePosition === "up") {
+      svgD3.style("top", "0").style("left", "0")
     } else {
-      svgD3.style('bottom', '0').style('left', '0')
+      svgD3.style("bottom", "0").style("left", "0")
     }
 
     // 画横线
     svgD3
-      .append('line')
-      .attr('x1', 0)
-      .attr('y1', height / 2)
-      .attr('x2', width)
-      .attr('y2', height / 2)
-      .attr('stroke', 'black')
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", height / 2)
+      .attr("x2", width)
+      .attr("y2", height / 2)
+      .attr("stroke", "black")
     const arcGenerator = d3
       .line()
       .x((d) => d[0])
@@ -2388,17 +2439,17 @@ export const renderTemporalitySeasonality2 = (
       const pointA = [xScale(tagData[i]), height / 2]
       const pointB: number[] = [xScale(tagData[i + 1]), height / 2]
       svgD3
-        .append('circle')
-        .attr('cx', pointA[0])
-        .attr('cy', pointA[1])
-        .attr('r', 2)
-        .attr('fill', 'red')
+        .append("circle")
+        .attr("cx", pointA[0])
+        .attr("cy", pointA[1])
+        .attr("r", 2)
+        .attr("fill", "red")
       svgD3
-        .append('circle')
-        .attr('cx', pointB[0])
-        .attr('cy', pointB[1])
-        .attr('r', 2)
-        .attr('fill', 'red')
+        .append("circle")
+        .attr("cx", pointB[0])
+        .attr("cy", pointB[1])
+        .attr("r", 2)
+        .attr("fill", "red")
       const points = [
         pointA,
         [(pointA[0] + pointB[0]) / 2, height / 4], // 控制点，决定弧线的高度
@@ -2406,11 +2457,11 @@ export const renderTemporalitySeasonality2 = (
       ]
       // console.log(points)
       svgD3
-        .append('path')
-        .attr('d', arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
-        .attr('fill', 'none')
-        .attr('stroke', 'blue')
-        .attr('stroke-width', 2)
+        .append("path")
+        .attr("d", arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
+        .attr("fill", "none")
+        .attr("stroke", "blue")
+        .attr("stroke-width", 2)
     }
   }
   // 左右放小图
@@ -2420,17 +2471,17 @@ export const renderTemporalitySeasonality2 = (
     }
     const svgD3 = d3
       .select(sparkLineElement)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
     // 画横线
     svgD3
-      .append('line')
-      .attr('x1', 0)
-      .attr('y1', height / 2)
-      .attr('x2', width)
-      .attr('y2', height / 2)
-      .attr('stroke', 'black')
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", height / 2)
+      .attr("x2", width)
+      .attr("y2", height / 2)
+      .attr("stroke", "black")
     const arcGenerator = d3
       .line()
       .x((d) => d[0])
@@ -2440,28 +2491,28 @@ export const renderTemporalitySeasonality2 = (
       const pointA = [xScale(tagData[i]), height / 2]
       const pointB: number[] = [xScale(tagData[i + 1]), height / 2]
       svgD3
-        .append('circle')
-        .attr('cx', pointA[0])
-        .attr('cy', pointA[1])
-        .attr('r', 2)
-        .attr('fill', 'red')
+        .append("circle")
+        .attr("cx", pointA[0])
+        .attr("cy", pointA[1])
+        .attr("r", 2)
+        .attr("fill", "red")
       svgD3
-        .append('circle')
-        .attr('cx', pointB[0])
-        .attr('cy', pointB[1])
-        .attr('r', 2)
-        .attr('fill', 'red')
+        .append("circle")
+        .attr("cx", pointB[0])
+        .attr("cy", pointB[1])
+        .attr("r", 2)
+        .attr("fill", "red")
       const points = [
         pointA,
         [(pointA[0] + pointB[0]) / 2, height / 4], // 控制点，决定弧线的高度
         pointB,
       ]
       svgD3
-        .append('path')
-        .attr('d', arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
-        .attr('fill', 'none')
-        .attr('stroke', 'blue')
-        .attr('stroke-width', 2)
+        .append("path")
+        .attr("d", arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
+        .attr("fill", "none")
+        .attr("stroke", "blue")
+        .attr("stroke-width", 2)
     }
   }
 }

@@ -1,6 +1,6 @@
-import React from 'react'
-import { Chart } from '@antv/g2'
-import { cateAndValue } from '../types'
+import React from "react"
+import { Chart } from "@antv/g2"
+import { cateAndValue } from "../types"
 
 interface TemporalAnomalyProps {
   data: cateAndValue[] // n个AAAA
@@ -32,33 +32,42 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({ data, tagData }) => {
       width: 600,
     })
 
-    chart.data(data).axis('y', { title: false }).scale('x', { type: 'linear', tickCount: 10 })
+    chart.data(data)
+    // .axis("y", { title: false }).scale("x", { type: "linear", tickCount: 10 })
     chart
       .area()
-      .encode('x', (d: cateAndValue) => {
-        console.log(d)
-        return new Date(d.date).getDate()
-      })
-      .encode('y', ['min', 'max'])
-      .encode('shape', 'smooth')
-      .style('stroke', '#f8d6b8')
+      .encode(
+        "x",
+        (d: cateAndValue) =>
+          `${new Date(d.date).getFullYear()}-${new Date(d.date).getMonth()}${1}-${new Date(
+            d.date,
+          ).getDate()}`,
+      )
+      .encode("y", ["min", "max"])
+      .encode("shape", "smooth")
+      .style("stroke", "#f8d6b8")
       // .style('lineWidth', 0)
-      .style('fillOpacity', 0.65)
-      .style('fill', '#fef5ea')
-      .style('lineWidth', 1)
+      .style("fillOpacity", 0.65)
+      .style("fill", "#fef5ea")
+      .style("lineWidth", 1)
 
     chart
       .point()
-      .encode('x', (d: cateAndValue) => {
-        console.log(d)
-        return new Date(d.date).getDate()
-      })
-      .encode('y', 'value')
-      .encode('size', 2)
-      .encode('shape', 'point')
-      .tooltip('value')
-      .style('fill', 'red')
-      .style('fillOpacity', (datum: cateAndValue, i: number) => (tagData.includes(i) ? 1 : 0))
+      .encode(
+        "x",
+        (d: cateAndValue) =>
+          `${new Date(d.date).getFullYear()}-${new Date(d.date).getMonth()}${1}-${new Date(
+            d.date,
+          ).getDate()}`,
+      )
+      .encode("y", "value")
+      .encode("size", 2)
+      .encode("shape", "point")
+      .tooltip("value")
+      .style("fill", "red")
+      .style("fillOpacity", (datum: cateAndValue, i: number) =>
+        datum.category === "abnormal" ? 1 : 0,
+      )
 
     // chart
     // .point()
@@ -72,23 +81,29 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({ data, tagData }) => {
 
     chart
       .line()
-      .encode('x', (d: cateAndValue) => {
-        console.log(d)
-        return new Date(d.date).getDate()
-      })
-      .encode('y', 'value')
-      .encode('color', '#5a85c4')
-      .encode('shape', 'smooth')
+      .encode(
+        "x",
+        (d: cateAndValue) =>
+          `${new Date(d.date).getFullYear()}-${new Date(d.date).getMonth()}${1}-${new Date(
+            d.date,
+          ).getDate()}`,
+      )
+      .encode("y", "value")
+      .encode("color", "#5a85c4")
+      .encode("shape", "smooth")
 
     chart
       .line()
-      .encode('x', (d: cateAndValue) => {
-        console.log(d)
-        return new Date(d.date).getDate()
-      })
-      .encode('y', 'predict')
-      .encode('color', '#f2a15d')
-      .encode('shape', 'smooth')
+      .encode(
+        "x",
+        (d: cateAndValue) =>
+          `${new Date(d.date).getFullYear()}-${new Date(d.date).getMonth()}${1}-${new Date(
+            d.date,
+          ).getDate()}`,
+      )
+      .encode("y", "predict")
+      .encode("color", "#f2a15d")
+      .encode("shape", "smooth")
 
     chart.render()
 

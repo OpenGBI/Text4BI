@@ -1,60 +1,89 @@
-import { AssociationData } from '../datas4graph/AssociationData'
-import { DistributionData } from '../datas4graph/DistributionData'
-import { ProportionData } from '../datas4graph/ProportionData'
-import { Card } from '../types'
+import { AssociationData } from "../datas4graph/AssociationData"
+import { DistributionData } from "../datas4graph/DistributionData"
+import { ProportionData } from "../datas4graph/ProportionData"
+import { Category11 } from "../datas4graph/CategoryData"
+import { Card, cateAndValue } from "../types"
+import { TrendData11 } from "../datas4graph/TrendData"
+import { PeriodicityData } from "../datas4graph/PeriodicityData"
+import { AnomalyData } from "../datas4graph/AnomalyData"
+import { DifferenceData } from "../datas4graph/DifferenceData"
 
 export const iniData: Card[] = [
   {
-    CardName: 'Card1',
+    CardName: "Card1",
     paragraph: [
       {
-        type: 'topic',
+        type: "topic",
         phrases: [
-          { type: 'CardTitle', value: 'Association' },
-          { type: 'entity', value: 'Correlation Analysis of Sales and Profit' },
+          { type: "CardTitle", value: "Association" },
+          { type: "text", value: " Association between " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " and " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
+          },
         ],
       },
       {
-        type: 'normal',
+        type: "normal",
         phrases: [
-          { type: 'text', value: 'Sales and Profit: According to the ' },
+          { type: "text", value: "According to the " },
           {
-            type: 'entity',
-            value: 'Pearson correlation coefficient',
+            type: "entity",
+            value: "Pearson correlation coefficient",
             metadata: {
-              entityType: 'algorithm',
-              origin: '这里缺一个算法的解释',
+              entityType: "algorithm",
+              origin:
+                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient" +
+                " is equal to 1, it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
             },
           },
-          { type: 'text', value: ', the correlation between ' },
+          { type: "text", value: ", the correlation between " },
           {
-            type: 'entity',
-            value: 'Sales',
-            metadata: { entityType: 'metric_name' },
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
           },
-          { type: 'text', value: ' and ' },
+          { type: "text", value: " and " },
           {
-            type: 'entity',
-            value: 'Profit',
-            metadata: { entityType: 'metric_name' },
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
           },
-          { type: 'text', value: ' is ' },
+          { type: "text", value: " equals " },
           {
-            type: 'entity',
-            value: '0.65',
+            type: "entity",
+            value: "0.65",
             metadata: {
-              entityType: 'insight',
-              insightType: 'Association',
+              entityType: "insight",
+              insightType: "Association",
               detail: AssociationData.data,
               tagData: AssociationData.tagData,
             },
           },
-          { type: 'text', value: ' The correlation is depicted in the graph below:' },
+          { type: "text", value: " indicating a " },
+          {
+            type: "entity",
+            value: "positive",
+            metadata: { entityType: "insight_desc", assessment: "positive" },
+          },
+          { type: "text", value: " relationship. Besides, the correlation is statistically " },
+          {
+            type: "entity",
+            value: "significant",
+            metadata: { entityType: "insight_desc", assessment: "significant" },
+          },
         ],
       },
       {
-        type: 'plot',
-        chartType: 'Association',
+        type: "plot",
+        chartType: "Association",
         metadata: {
           detail: AssociationData.data,
           tagData: AssociationData.tagData,
@@ -63,176 +92,163 @@ export const iniData: Card[] = [
     ],
   },
 
-  //     {
-  //       type: 'plot',
-  //       chartType: 'LineChart',
-  //       metadata: {
-  //         detail: [
-  //           { category: '2', value: 3 },
-  //           { category: '4', value: 7 },
-  //         ],
-  //       },
-  //     },
-  //   ],
-  // },
   {
-    CardName: 'Card2',
+    CardName: "Card2",
     paragraph: [
       {
-        type: 'topic',
+        type: "topic",
         phrases: [
-          { type: 'CardTitle', value: 'distribution' },
+          { type: "CardTitle", value: "Distribution" },
+          { type: "text", value: " Distribution of " },
           {
-            type: 'entity',
-            value: 'Distribution Analysis of Daily Sales Sum',
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
           },
         ],
       },
       {
-        type: 'normal',
+        type: "normal",
         phrases: [
-          { type: 'text', value: 'From ' },
+          { type: "text", value: "From " },
           {
-            type: 'entity',
-            value: 'January 1, 2011',
-            metadata: { entityType: 'filter_time', selections: ['2011-1-1'] },
+            type: "entity",
+            value: "January 01, 2011",
+            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
           },
-          { type: 'text', value: ' to ' },
+          { type: "text", value: " to " },
           {
-            type: 'entity',
-            value: 'December 31, 2014',
-            metadata: { entityType: 'filter_time', selections: ['2014-12-31'] },
-          },
-          {
-            type: 'text',
-            value: ', the distribution of ',
+            type: "entity",
+            value: "December 31, 2014",
+            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
           },
           {
-            type: 'entity',
-            value: 'daily sales sums ',
-            metadata: { entityType: 'metric_name' },
+            type: "text",
+            value: ", the distribution of ",
           },
           {
-            type: 'entity',
-            value: 'right-skewed',
-            metadata: { entityType: 'insight_desc', assessment: 'negative' },
+            type: "entity",
+            value: " Sales ",
+            metadata: { entityType: "metric_name" },
           },
           {
-            type: 'entity',
-            value: '',
+            type: "text",
+            value: "is ",
+          },
+          // {
+          //   type: "entity",
+          //   value: "left-skewed ",
+          //   metadata: { entityType: "insight_desc", assessment: "negative" },
+          // },
+          {
+            type: "entity",
+            value: " left-skewed ",
             metadata: {
-              entityType: 'insight',
-              insightType: 'Distribution',
+              entityType: "insight",
+              insightType: "Distribution",
               detail: DistributionData.data,
             },
           },
           {
-            type: 'text',
-            value:
-              'distribution. The current binning strategy employs equidistant bins with a total of ',
+            type: "text",
+            value: "Most data points lie in the range of ",
           },
           {
-            type: 'entity',
-            value: '37',
-            metadata: { entityType: 'metric_value', origin: 37 },
+            type: "entity",
+            value: "0",
+            metadata: { entityType: "metric_value", origin: 0 },
           },
-          { type: 'text', value: ' bins and a bin width of ' },
           {
-            type: 'entity',
-            value: '681.945',
-            metadata: { entityType: 'metric_value', origin: 681.9450621621 },
+            type: "text",
+            value: " - ",
           },
-          { type: 'text', value: '.' },
+          {
+            type: "entity",
+            value: "7700",
+            metadata: { entityType: "metric_value", origin: 7700.14 },
+          },
+          {
+            type: "text",
+            value: ", ",
+          },
+          {
+            type: "entity",
+            value: "29",
+            metadata: { entityType: "metric_value", origin: 29 },
+          },
+          { type: "text", value: " outliers have been identified, with " },
         ],
       },
       {
-        type: 'normal',
+        type: "bullet",
         phrases: [
-          { type: 'text', value: 'The samples maximum value is ' },
+          { type: "text", value: "Min = " },
           {
-            type: 'entity',
-            value: '39,500',
-            metadata: { entityType: 'metric_value', origin: 39500 },
+            type: "entity",
+            value: "2.69",
+            metadata: { entityType: "metric_value", origin: 2.69 },
           },
-          { type: 'text', value: ' , the minimum value is ' },
+          { type: "text", value: " , Max = " },
           {
-            type: 'entity',
-            value: '2,690',
-            metadata: { entityType: 'metric_value', origin: 2690 },
+            type: "entity",
+            value: "39536.13",
+            metadata: { entityType: "metric_value", origin: 39536.13 },
           },
-          { type: 'text', value: ' , the mean is' },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: "Q1 = " },
           {
-            type: 'entity',
-            value: '8,840.91',
-            metadata: { entityType: 'metric_value', origin: 8840.91 },
+            type: "entity",
+            value: "3794.66",
+            metadata: { entityType: "metric_value", origin: 3794.66 },
           },
+          { type: "text", value: " , Q2 (Median) = " },
           {
-            type: 'text',
-            value: ', the median is ',
+            type: "entity",
+            value: "7700.14",
+            metadata: { entityType: "metric_value", origin: 7700.14 },
           },
+          { type: "text", value: " , Q3 = " },
           {
-            type: 'entity',
-            value: '7,700.14',
-            metadata: { entityType: 'metric_value', origin: 7700.14 },
+            type: "entity",
+            value: "12466.37",
+            metadata: { entityType: "metric_value", origin: 12466.37 },
           },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: "Mean = " },
           {
-            type: 'text',
-            value: ', the 75th percentile is ',
+            type: "entity",
+            value: "8840.91",
+            metadata: { entityType: "metric_value", origin: 8840.91 },
           },
+          { type: "text", value: " , Standard deviation = " },
+          // {
+          //   type: "entity",
+          //   value: "6567.82",
+          //   metadata: { entityType: "metric_value", origin: 6567.82 },
+          // },
           {
-            type: 'entity',
-            value: '12,500',
-            metadata: { entityType: 'metric_value', origin: 12500 },
-          },
-          {
-            type: 'text',
-            value: ', the 25th percentile is ',
-          },
-          {
-            type: 'entity',
-            value: '3,780.98',
-            metadata: { entityType: 'metric_value', origin: 3780.98 },
-          },
-          {
-            type: 'text',
-            value: ', and the standard deviation is ',
-          },
-          {
-            type: 'entity',
-            value: '6,570.12',
-            metadata: { entityType: 'metric_value', origin: 6570.12 },
-          },
-          {
-            type: 'entity',
-            value: '',
+            type: "entity",
+            value: "6567.82",
             metadata: {
-              entityType: 'insight',
-              insightType: 'Distribution',
+              entityType: "insight",
+              insightType: "Distribution",
               detail: DistributionData.data,
             },
           },
-          {
-            type: 'text',
-            value:
-              '. The sample data contains outliers, and it is advisable to use the median, rather than the mean, to describe the overall numerical level.',
-          },
         ],
       },
+
       {
-        type: 'normal',
-        phrases: [
-          { type: 'text', value: 'In the box plot outlier detection, there are' },
-          {
-            type: 'entity',
-            value: '29',
-            metadata: { entityType: 'metric_value', origin: 29 },
-          },
-          { type: 'text', value: ' outliers in this sample.' },
-        ],
-      },
-      {
-        type: 'plot',
-        chartType: 'Distribution',
+        type: "plot",
+        chartType: "Distribution",
         metadata: {
           detail: DistributionData.data,
         },
@@ -240,123 +256,725 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: 'Card3',
+    CardName: "Card3",
     paragraph: [
       {
-        type: 'topic',
+        type: "topic",
         phrases: [
-          { type: 'CardTitle', value: 'proportion' },
+          { type: "CardTitle", value: "proportion" },
           {
-            type: 'entity',
-            value: 'Proportion Analysis of Sales Volume by Different Countries',
+            type: "entity",
+            value: "Proportion Analysis of Sales Volume by Different Countries",
           },
         ],
       },
       {
-        type: 'normal',
+        type: "normal",
         phrases: [
-          { type: 'text', value: 'From ' },
+          { type: "text", value: "From " },
           {
-            type: 'entity',
-            value: 'January 1, 2011',
-            metadata: { entityType: 'filter_time', selections: ['2011-1-1'] },
+            type: "entity",
+            value: "January 1, 2011",
+            metadata: { entityType: "filter_time", selections: ["2011-1-1"] },
           },
-          { type: 'text', value: ' to ' },
+          { type: "text", value: " to " },
           {
-            type: 'entity',
-            value: 'December 31, 2014',
-            metadata: { entityType: 'filter_time', selections: ['2014-12-31'] },
-          },
-          {
-            type: 'text',
-            value: ', when drilling down by ',
+            type: "entity",
+            value: "December 31, 2014",
+            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
           },
           {
-            type: 'entity',
-            value: '中国',
+            type: "text",
+            value: ", when drilling down by ",
+          },
+          {
+            type: "entity",
+            value: "中国",
             metadata: {
-              entityType: 'filter_cate',
-              selections: ['中国', '美国', '英国', '日本', '西班牙'],
+              entityType: "filter_cate",
+              selections: ["中国", "美国", "英国", "日本", "西班牙"],
             },
           },
           {
-            type: 'text',
-            value: ', the specific proportions of total ',
+            type: "text",
+            value: ", the specific proportions of total ",
           },
           {
-            type: 'entity',
-            value: 'sales',
-            metadata: { entityType: 'metric_name' },
+            type: "entity",
+            value: "sales",
+            metadata: { entityType: "metric_name" },
           },
           {
-            type: 'text',
-            value: ' volume are as follows:',
+            type: "text",
+            value: " volume are as follows:",
           },
         ],
       },
       {
-        type: 'bullet',
+        type: "bullet",
         phrases: [
           {
-            type: 'entity',
-            value: 'United States',
-            metadata: { entityType: 'dim_cate' },
+            type: "entity",
+            value: "United States",
+            metadata: { entityType: "dim_cate" },
           },
           {
-            type: 'text',
-            value: ' ranks first, with a proportion of ',
+            type: "text",
+            value: " ranks first, with a proportion of ",
           },
 
           {
-            type: 'entity',
-            value: '18.77%',
-            metadata: { entityType: 'metric_value', origin: 0.1877 },
+            type: "entity",
+            value: "18.77%",
+            metadata: { entityType: "metric_value", origin: 0.1877 },
           },
           {
-            type: 'entity',
-            value: '',
+            type: "entity",
+            value: "",
             metadata: {
-              entityType: 'insight',
-              insightType: 'Proportion',
+              entityType: "insight",
+              insightType: "Proportion",
               detail: [0.1877, 1 - 0.1877],
             },
           },
         ],
       },
       {
-        type: 'bullet',
+        type: "bullet",
         phrases: [
           {
-            type: 'entity',
-            value: 'Australia',
-            metadata: { entityType: 'dim_cate' },
+            type: "entity",
+            value: "Australia",
+            metadata: { entityType: "dim_cate" },
           },
           {
-            type: 'text',
-            value: ' takes the second position, with a proportion of ',
+            type: "text",
+            value: " takes the second position, with a proportion of ",
           },
 
           {
-            type: 'entity',
-            value: '7.32%',
-            metadata: { entityType: 'metric_value', origin: 0.0732 },
+            type: "entity",
+            value: "7.32%",
+            metadata: { entityType: "metric_value", origin: 0.0732 },
           },
           {
-            type: 'entity',
-            value: '',
+            type: "entity",
+            value: "",
             metadata: {
-              entityType: 'insight',
-              insightType: 'Proportion',
+              entityType: "insight",
+              insightType: "Proportion",
               detail: [0.1877, 1 - 0.1877],
             },
           },
         ],
       },
       {
-        type: 'plot',
-        chartType: 'Proportion',
+        type: "plot",
+        chartType: "Proportion",
         metadata: {
           detail: ProportionData.data,
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card4",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Categorization" },
+          { type: "text", value: " Sum of " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " by " },
+          {
+            type: "entity",
+            value: "City",
+            metadata: { entityType: "dim_cate" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "When looking at " },
+          {
+            type: "entity",
+            value: "sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " by " },
+          {
+            type: "entity",
+            value: "City",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["City", "Market", "Country"],
+            },
+          },
+          { type: "text", value: ", there are " },
+          {
+            type: "entity",
+            value: "7 ",
+            metadata: { entityType: "metric_value", origin: 7 },
+          },
+          {
+            type: "entity",
+            value: "categories",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: -1,
+            },
+          },
+          { type: "text", value: ", and the top" },
+          {
+            type: "entity",
+            value: "3",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["3", "4", "5"],
+            },
+          },
+          { type: "text", value: "categories are:" },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          {
+            type: "entity",
+            value: "New York City",
+            metadata: { entityType: "dim_cate" },
+          },
+          {
+            type: "text",
+            value: ": ",
+          },
+          // {
+          //   type: 'entity',
+          //   value: '256368.16',
+          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
+          // },
+          {
+            type: "entity",
+            value: "256368.16",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: 0, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          {
+            type: "entity",
+            value: "Los Angeles",
+            metadata: { entityType: "dim_cate" },
+          },
+          {
+            type: "text",
+            value: ": ",
+          },
+          // {
+          //   type: 'entity',
+          //   value: '175851.34',
+          //   metadata: { entityType: 'metric_value', origin: 175851.34 },
+          // },
+          {
+            type: "entity",
+            value: "175851.34",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: 1, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          {
+            type: "entity",
+            value: "Manila",
+            metadata: { entityType: "dim_cate" },
+          },
+          {
+            type: "text",
+            value: ": ",
+          },
+          // {
+          //   type: 'entity',
+          //   value: '120886.95',
+          //   metadata: { entityType: 'metric_value', origin: 120886.95 },
+          // },
+          {
+            type: "entity",
+            value: "120886.95",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: 2, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+      {
+        type: "plot",
+        chartType: "Categorization",
+        metadata: {
+          detail: Category11.data,
+        },
+      },
+    ],
+  },
+
+  {
+    CardName: "Card5",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Temporal Trend" },
+          { type: "text", value: "Trend of " },
+          {
+            type: "entity",
+            value: "sales",
+            metadata: { entityType: "metric_name" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "According to the " },
+          {
+            type: "entity",
+            value: "linear regression,",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
+            },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "In the past " },
+          {
+            type: "entity",
+            value: "365 days",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["365 days", "30 days", "7 days"],
+            },
+          },
+          { type: "text", value: " there is an " },
+          {
+            type: "entity",
+            value: "",
+            metadata: { entityType: "insight_desc", assessment: "positive" },
+          },
+          {
+            type: "entity",
+            value: "increased",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalityTrend",
+              detail: TrendData11.data as cateAndValue[],
+              tagData: TrendData11.predictData as cateAndValue[],
+            },
+          },
+          { type: "text", value: " trend." },
+        ],
+      },
+
+      {
+        type: "plot",
+        chartType: "TemporalTrend",
+        metadata: {
+          detail: [...TrendData11.data, ...TrendData11.predictData] as cateAndValue[],
+          tagData: TrendData11.tagData as cateAndValue[],
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card6",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Temporal Periodicity" },
+          { type: "text", value: " Periodicity of " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "According to the " },
+          {
+            type: "entity",
+            value: "ACF algorithm",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "The Autocorrelation Function (ACF) is a statistical tool used for analyzing time series data, measuring the correlation between a data point at a given time and data points at different lagged time points. It helps in identifying seasonal and" +
+                " periodic patterns in time series data. By examining the ACF plot, you can identify significant positive or negative correlations at various lagged time points, allowing you to infer the presence of seasonal cycles.",
+            },
+          },
+          { type: "text", value: ", in the past " },
+          {
+            type: "entity",
+            value: "4 years",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["4 years", "3 years", "2 years", "365 days"],
+            },
+          },
+          { type: "text", value: " ,the seasonality of the trend is " },
+          {
+            type: "entity",
+            value: "significant",
+            metadata: { entityType: "insight_desc", assessment: "significant" },
+          },
+          {
+            type: "entity",
+            value: "",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData,
+            },
+          },
+          { type: "text", value: " 2 seasons are identified, and the average period is " },
+          {
+            type: "entity",
+            value: "365 ",
+            metadata: { entityType: "metric_value", origin: 365 },
+          },
+          { type: "text", value: "days. " },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2011-01 - 2012-01: peak = " },
+          {
+            type: "entity",
+            value: "11 ",
+            metadata: { entityType: "metric_value", origin: 11 },
+          },
+          { type: "text", value: ", bottom = " },
+          {
+            type: "entity",
+            value: "02 ",
+            metadata: { entityType: "metric_value", origin: 2 },
+          },
+          // {
+          //   type: 'entity',
+          //   value: '256368.16',
+          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
+          // },
+          {
+            type: "entity",
+            value: "256368.16",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2012-01 - 2013-01: peak = " },
+          {
+            type: "entity",
+            value: "11 ",
+            metadata: { entityType: "metric_value", origin: 11 },
+          },
+          { type: "text", value: ", bottom = " },
+          {
+            type: "entity",
+            value: "02 ",
+            metadata: { entityType: "metric_value", origin: 2 },
+          },
+          // {
+          //   type: 'entity',
+          //   value: '256368.16',
+          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
+          // },
+          {
+            type: "entity",
+            value: "256368.16",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+
+      {
+        type: "plot",
+        chartType: "TemporalPeriodicity",
+        metadata: {
+          detail: PeriodicityData.data,
+          tagData: PeriodicityData.tagData,
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card7",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Temporal Anomaly" },
+          { type: "text", value: " Anomaly detection of " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "According to the " },
+          {
+            type: "entity",
+            value: "Confidence interval method ",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "Local trends were first estimated using LOWESS (Locally Weighted Scatterplot Smoothing) by weighting the neighboring data points near each data point to get the predicted values and confidence intervals were calculated to get the outliers.",
+            },
+          },
+          { type: "text", value: ", in the past " },
+          {
+            type: "entity",
+            value: "365 days",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["4 years", "3 years", "2 years", "365 days"],
+            },
+          },
+          { type: "text", value: " , there are " },
+          {
+            type: "entity",
+            value: "12",
+            metadata: { entityType: "insight_desc", assessment: "anomaly" },
+          },
+          {
+            type: "entity",
+            value: " anomalies",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalityAnomaly",
+              detail: AnomalyData.data,
+            },
+          },
+          { type: "text", value: " 2 seasons are identified, and the average period is " },
+          {
+            type: "entity",
+            value: "365 ",
+            metadata: { entityType: "metric_value", origin: 365 },
+          },
+          { type: "text", value: "days. " },
+        ],
+      },
+
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2011-10-14, " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " = " },
+          {
+            type: "entity",
+            value: "14453.23 ",
+            metadata: { entityType: "metric_value", origin: 14453.23 },
+          },
+          { type: "text", value: "exceeding the baseline " },
+          {
+            type: "entity",
+            value: "6235.21",
+            metadata: { entityType: "delta_value", origin: 6235.21 },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2011-10-27, " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " = " },
+          {
+            type: "entity",
+            value: "17289.69 ",
+            metadata: { entityType: "metric_value", origin: 17289.69 },
+          },
+          { type: "text", value: "exceeding the baseline " },
+          {
+            type: "entity",
+            value: "4995.34.",
+            metadata: { entityType: "delta_value", origin: 4995.34 },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2011-10-06, " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " = " },
+          {
+            type: "entity",
+            value: "17289.69 ",
+            metadata: { entityType: "metric_value", origin: 17289.69 },
+          },
+          { type: "text", value: "exceeding the baseline " },
+          {
+            type: "entity",
+            value: "6732.64",
+            metadata: { entityType: "delta_value", origin: 6732.64 },
+          },
+        ],
+      },
+      {
+        type: "plot",
+        chartType: "TemporalAnomaly",
+        metadata: {
+          detail: AnomalyData.data,
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card8",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Difference" },
+          { type: "text", value: " Difference of total " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " by " },
+          {
+            type: "entity",
+            value: "Year",
+            metadata: { entityType: "dim_cate" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "From " },
+          {
+            type: "entity",
+            value: "2012.01.01",
+            metadata: { entityType: "filter_time", selections: ["2012-01-01"] },
+          },
+          { type: "text", value: "to " },
+          {
+            type: "entity",
+            value: "2012.12.31",
+            metadata: { entityType: "filter_time", selections: ["2012-12-31"] },
+          },
+          { type: "text", value: ", total " },
+          {
+            type: "entity",
+            value: "profit ",
+            metadata: { entityType: "metric_name" },
+          },
+          {
+            type: "entity",
+            value: "increased ",
+            metadata: { entityType: "insight_desc", assessment: "increase" },
+          },
+          { type: "text", value: "by " },
+          {
+            type: "entity",
+            value: "23.49% ",
+            metadata: { entityType: "delta_value_ratio", assessment: "positive" },
+          },
+          {
+            type: "entity",
+            value: "(248940.81 → 307415) ",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalDifference",
+              detail: DifferenceData.data,
+              tagData: DifferenceData.tagData,
+            },
+          },
+          { type: "text", value: "from " },
+          {
+            type: "entity",
+            value: "2011.01.01",
+            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
+          },
+          { type: "text", value: "to " },
+          {
+            type: "entity",
+            value: "2011.12.31",
+            metadata: { entityType: "filter_time", selections: ["2011-12-31"] },
+          },
+        ],
+      },
+
+      {
+        type: "plot",
+        chartType: "TemporalDifference",
+        metadata: {
+          detail: DifferenceData.data,
+          tagData: DifferenceData.tagData,
         },
       },
     ],

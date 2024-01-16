@@ -1,6 +1,6 @@
-import { GlobalSettingStateType } from '../types'
+import { GlobalSettingStateType } from "../types"
 
-export const CHANGE_GLOBAL_SETTING = 'CHANGE_GLOBAL_SETTING'
+export const CHANGE_GLOBAL_SETTING = "CHANGE_GLOBAL_SETTING"
 
 export type ChangeGlobalSettingAction = {
   type: string

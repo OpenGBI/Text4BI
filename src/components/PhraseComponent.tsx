@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react'
-import { RiseOutlined } from '@ant-design/icons'
-import { Tooltip } from 'antd'
-import SelectorInText from './LineHeightComponents/SelectorInText'
-import SelectorTime from './LineHeightComponents/SelectionTime'
-import Icon from '../utils/Icon'
+import React, { useRef, useEffect } from "react"
+import { RiseOutlined } from "@ant-design/icons"
+import { Tooltip } from "antd"
+import SelectorInText from "./LineHeightComponents/SelectorInText"
+import SelectorTime from "./LineHeightComponents/SelectionTime"
+import Icon from "../utils/Icon"
 import {
   renderAssociation1,
   renderAssociation2,
@@ -21,8 +21,8 @@ import {
   renderTemporalitySeasonality2,
   renderTemporalityTrend1,
   renderTemporalityTrend2,
-} from '../utils/SparkLineFuncs'
-import { Phrase, Metadata, Point, cateAndValue } from '../types'
+} from "../utils/SparkLineFuncs"
+import { Phrase, Metadata, Point, cateAndValue } from "../types"
 
 const globalBoolean = true
 // interface Phrase {
@@ -37,12 +37,12 @@ function isPointArray(value: any): value is Point[] {
 
   return value.every(
     (point) =>
-      typeof point === 'object' &&
+      typeof point === "object" &&
       point !== null &&
-      'x' in point &&
-      'y' in point &&
-      typeof point.x === 'number' &&
-      typeof point.y === 'number',
+      "x" in point &&
+      "y" in point &&
+      typeof point.x === "number" &&
+      typeof point.y === "number",
   )
 }
 interface PhraseComponentProps extends Phrase {
@@ -55,6 +55,7 @@ interface PhraseComponentProps extends Phrase {
   lineHeight: number
   aspectRatio: string
   sparkLinePosition: string
+  onTopkChange: (newData: number) => void
 }
 const PhraseComponent: React.FC<PhraseComponentProps> = ({
   type,
@@ -69,11 +70,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   lineHeight,
   aspectRatio,
   sparkLinePosition,
+  onTopkChange,
 }) => {
   // 接收一个词，生成一个这个词的可视化效果和行内小图
-  let fontWeightValue = boldness ? 'bold' : 'normal'
-  const contourValue = contour ? '1px solid black' : 'none'
-  let underlineValue = underline ? 'underline' : 'none'
+  let fontWeightValue = boldness ? "bold" : "normal"
+  const contourValue = contour ? "1px solid black" : "none"
+  let underlineValue = underline ? "underline" : "none"
   let wordColor: string = color
   const backgroundColorValue: string = backgroundColor
   const wordRef = useRef<HTMLSpanElement | null>(null)
@@ -106,7 +108,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               border: contourValue,
               textDecoration: underlineValue,
               lineHeight,
-              position: 'relative',
+              position: "relative",
             }}
             className={curMetadata.insightType}
           >
@@ -126,7 +128,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           border: contourValue,
           textDecoration: underlineValue,
           lineHeight,
-          position: 'relative',
+          position: "relative",
         }}
         className={curMetadata.entityType}
       >
@@ -143,9 +145,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     defaultChoice: boolean, // 是否选择函数1
   ) => {
     if (!curMetadata.detail) {
-      throw new Error('no curMetadata')
+      throw new Error("no curMetadata")
     }
-    if (curMetadata.insightType === 'Distribution') {
+    if (curMetadata.insightType === "Distribution") {
       if (
         defaultChoice
         // &&
@@ -174,7 +176,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
-    if (curMetadata.insightType === 'Categorization') {
+    if (curMetadata.insightType === "Categorization") {
       if (
         defaultChoice
         // &&
@@ -182,7 +184,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderCategorization1(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
+          curMetadata.tagData as number,
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -195,7 +198,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderCategorization2(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
+          curMetadata.tagData as number,
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -203,7 +207,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
-    if (curMetadata.insightType === 'Proportion') {
+    if (curMetadata.insightType === "Proportion") {
       if (
         defaultChoice
         // &&
@@ -232,7 +236,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
-    if (curMetadata.insightType === 'Association') {
+    if (curMetadata.insightType === "Association") {
       if (defaultChoice && isPointArray(curMetadata.detail)) {
         renderAssociation1(
           curMetadata.detail as Point[],
@@ -253,15 +257,25 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
-    if (curMetadata.insightType === 'TemporalityTrend') {
+    if (curMetadata.insightType === "TemporalityTrend") {
       if (
         defaultChoice
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
+        const valuesFromData = curMetadata.detail.map((item) => (item as cateAndValue).value)
+        let valuesFromPredictData: number[] = []
+
+        if (curMetadata.tagData) {
+          // Now valuesFromPredictData is accessible within this block
+          valuesFromPredictData = (curMetadata.tagData as cateAndValue[]).map((item) => item.value)
+        }
+
+        const combinedValues = [...valuesFromData, ...valuesFromPredictData]
+
         renderTemporalityTrend1(
-          curMetadata.detail as number[],
+          combinedValues as number[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -273,8 +287,17 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
+        const valuesFromData = curMetadata.detail.map((item) => (item as cateAndValue).value)
+        let valuesFromPredictData: number[] = []
+
+        if (curMetadata.tagData) {
+          // Now valuesFromPredictData is accessible within this block
+          valuesFromPredictData = (curMetadata.tagData as cateAndValue[]).map((item) => item.value)
+        }
+
+        const combinedValues = [...valuesFromData, ...valuesFromPredictData]
         renderTemporalityTrend2(
-          curMetadata.detail as number[],
+          combinedValues as number[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -282,15 +305,18 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
-    if (curMetadata.insightType === 'TemporalityDifference') {
+    if (curMetadata.insightType === "TemporalDifference") {
       if (
         defaultChoice
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
+        console.log(
+          "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
+        )
         renderTemporalityDifference1(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
           metadata.tagData as number[],
@@ -304,15 +330,16 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderTemporalityDifference2(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
+          metadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
       }
     }
-    if (curMetadata.insightType === 'TemporalityAnomaly' && curMetadata.tagData) {
+    if (curMetadata.insightType === "TemporalityAnomaly") {
       if (
         defaultChoice
         // &&
@@ -320,10 +347,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderTemporalityAnomaly1(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -334,16 +360,15 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderTemporalityAnomaly2(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
       }
     }
-    if (curMetadata.insightType === 'TemporalitySeasonality' && curMetadata.tagData) {
+    if (curMetadata.insightType === "TemporalitySeasonality" && curMetadata.tagData) {
       if (
         defaultChoice
         // &&
@@ -351,10 +376,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
         renderTemporalitySeasonality1(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
+          metadata.tagData as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -382,7 +407,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     if (
       wordRef.current &&
       metadata.detail &&
-      (sparkLinePosition === 'up' || sparkLinePosition === 'down')
+      (sparkLinePosition === "up" || sparkLinePosition === "down")
     ) {
       renderSparkLine(
         metadata,
@@ -397,7 +422,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       wordRef.current &&
       sparkLineRef.current &&
       metadata.detail &&
-      (sparkLinePosition === 'left' || sparkLinePosition === 'right')
+      (sparkLinePosition === "left" || sparkLinePosition === "right")
     ) {
       renderSparkLine(
         metadata,
@@ -411,40 +436,46 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }, [type, metadata, aspectRatio, sparkLinePosition])
   // strict模式下初始化页面会调用两次useEffect
 
-  if (type === 'entity') {
-    if (metadata.entityType === 'filter_cate' && metadata.selections) {
+  if (type === "entity") {
+    if (metadata.entityType === "filter_cate" && metadata.selections) {
       return (
         <SelectorInText
           selections={metadata.selections}
           defaultSelection={metadata.selections[0]}
+          onTopkChange={onTopkChange}
         />
       )
     }
-    if (metadata.entityType === 'filter_time' && metadata.selections) {
+    if (metadata.entityType === "filter_time" && metadata.selections) {
       return <SelectorTime defaultSelection={metadata.selections[0]} />
     }
-    if (metadata.entityType === 'metric_value') {
-      wordColor = '#16FFF8'
+    if (metadata.entityType === "metric_value") {
+      wordColor = "#4B91FF"
     }
     if (
-      metadata.entityType === 'delta_value' ||
-      metadata.entityType === 'delta_value_ratio' ||
-      metadata.entityType === 'insight_desc'
+      metadata.entityType === "delta_value" ||
+      metadata.entityType === "delta_value_ratio" ||
+      metadata.entityType === "insight_desc"
     ) {
-      if (metadata.assessment === 'positive') {
-        wordColor = '#13A8A8'
+      if (
+        metadata.assessment === "positive" ||
+        metadata.assessment === "increase" ||
+        metadata.assessment === "significant" ||
+        metadata.assessment === "left-skewed"
+      ) {
+        wordColor = "#13A8A8"
       } else {
-        wordColor = '#FA541C'
+        wordColor = "#FA541C"
       }
     }
-    if (metadata.entityType === 'metric_name' || metadata.entityType === 'dim_cate') {
-      fontWeightValue = 'bold'
+    if (metadata.entityType === "metric_name" || metadata.entityType === "dim_cate") {
+      fontWeightValue = "bold"
     }
     // if (metadata.entityType === 'dim_value') {
     //   contourValue = '1px solid black'
     // }
-    if (metadata.entityType === 'algorithm') {
-      underlineValue = 'underline dashed'
+    if (metadata.entityType === "algorithm") {
+      underlineValue = "underline dashed"
     }
     // const getSvgWidth = (curAspectRatio: string) => {
     //   if (curAspectRatio === 'tiny') {
@@ -458,11 +489,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     //   }
     //   return '100'
     // }
+
     return (
       <>
         {
-          metadata?.entityType === 'insight' && sparkLinePosition === 'left' ? (
-            <span id='sparkLineElement' ref={sparkLineRef} className='sparkLineSpan'>
+          metadata?.entityType === "insight" && sparkLinePosition === "left" ? (
+            <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan">
               {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
               {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
               {/* <div ref={tooltipRef} className='tooltip' /> */}
@@ -485,34 +517,34 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {renderWord(metadata)}
 
         {
-          metadata?.entityType === 'insight' && sparkLinePosition === 'right' ? (
-            <span ref={sparkLineRef} className='sparkLineSpan'>
+          metadata?.entityType === "insight" && sparkLinePosition === "right" ? (
+            <span ref={sparkLineRef} className="sparkLineSpan">
               {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height='20' /> */}
               {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
               {/* <div ref={tooltipRef} className='tooltip' /> */}
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
-        {metadata?.assessment === 'positive' ? (
+        {metadata?.entityType === "insight_desc" ? (
           // <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
-          <Icon entityUser='binary_values' />
+          <Icon assessment={metadata.assessment as string} />
         ) : null}
       </>
     )
   }
-  if (type === 'CardTitle') {
+  if (type === "CardTitle") {
     return (
       <span
         style={{
           fontSize: fontsize,
           lineHeight,
-          position: 'relative',
-          fontWeight: 'bold',
-          backgroundColor: '#87CEFA',
-          padding: '5px',
-          borderRadius: '5px',
+          position: "relative",
+          fontWeight: "bold",
+          backgroundColor: "#87CEFA",
+          padding: "5px",
+          borderRadius: "5px",
         }}
-        className='CardTitle'
+        className="CardTitle"
       >
         {value}
       </span>
@@ -520,4 +552,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }
   return <span style={{ fontSize: fontsize, lineHeight }}>{value}</span>
 }
+// PhraseComponent.defaultProps={
+//   onDataChange
+// }
 export default PhraseComponent

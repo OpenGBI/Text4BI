@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { App, ColorPicker, Row, Col } from 'antd'
-import type { ColorPickerProps, Color } from 'antd/es/color-picker'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeTypographySetting } from '../../actions/typographySettingAction'
-import { typographySettingStateType, GlobalSettingStateType } from '../../types'
-import { AppState } from '../../store'
+import React, { useState } from "react"
+import { App, ColorPicker, Row, Col } from "antd"
+import type { ColorPickerProps, Color } from "antd/es/color-picker"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeTypographySetting } from "../../actions/typographySettingAction"
+import { typographySettingStateType, GlobalSettingStateType } from "../../types"
+import { AppState } from "../../store"
 
 const ControlBackgroundColor = () => {
   const dispatch = useDispatch()
-  const [value, setValue] = useState<ColorPickerProps['value']>('#fff')
+  const [value, setValue] = useState<ColorPickerProps["value"]>("#fff")
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
@@ -24,9 +24,9 @@ const ControlBackgroundColor = () => {
     )
   }
   return (
-    <div className='control-panel'>
+    <div className="control-panel">
       <Row>
-        <Col span={10} className='control-label'>
+        <Col span={10} className="control-label">
           Background color
         </Col>
         <Col span={14}>

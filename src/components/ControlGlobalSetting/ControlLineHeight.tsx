@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Button, InputNumber, Row, Col } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
-import { AppState } from '../../store'
-import { GlobalSettingStateType } from '../../types'
+import React, { useState } from "react"
+import { Button, InputNumber, Row, Col } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import { AppState } from "../../store"
+import { GlobalSettingStateType } from "../../types"
 
 const ControlLineHeight: React.FC = () => {
   const dispatch = useDispatch()
@@ -32,17 +32,19 @@ const ControlLineHeight: React.FC = () => {
   const buttonWidth = 40 // 根据实际布局调整宽度
 
   return (
-    <div className='control-panel'>
+    <div className="control-panel">
       <Row>
-        <Col span={10} className='control-label'>
+        <Col span={10} className="control-label">
           Line height
         </Col>
         <Col span={14}>
-          <Button.Group style={{ display: 'flex' }}>
-            {['1', '1.5', '2'].map((lineHeight) => (
+          <Button.Group style={{ display: "flex" }}>
+            {["1", "1.5", "2"].map((lineHeight) => (
               <Button
                 key={lineHeight}
-                className={`custom-btn ${selectedLineHeight === parseFloat(lineHeight) ? 'active' : ''}`}
+                className={`custom-btn ${
+                  selectedLineHeight === parseFloat(lineHeight) ? "active" : ""
+                }`}
                 onClick={() => handleLineHeightChange(parseFloat(lineHeight))}
                 style={{ width: `${buttonWidth}px` }}
               >
@@ -56,14 +58,15 @@ const ControlLineHeight: React.FC = () => {
               value={selectedLineHeight}
               onChange={handleLineHeightChange}
               style={{ width: `${buttonWidth + 100}px` }} // 设置和按钮相同的宽度以保持一致
-              formatter={(value) => { // Custom formatter to remove unnecessary zeros
+              formatter={(value) => {
+                // Custom formatter to remove unnecessary zeros
                 if (!value) {
-                  return ''
+                  return ""
                 }
-                const [integer, decimal] = value.toString().split('.')
+                const [integer, decimal] = value.toString().split(".")
                 if (decimal && decimal.length > 0) {
                   // Only show decimal if it's not .00
-                  return `${integer}.${decimal.replace(/0+$/, '')}`
+                  return `${integer}.${decimal.replace(/0+$/, "")}`
                 }
                 return integer
               }}

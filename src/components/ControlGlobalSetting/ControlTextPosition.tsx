@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Button, Row, Col, Switch } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { ChangeGlobalSetting } from '../../actions/GlobalSettingAction'
-import { AppState } from '../../store'
-import { GlobalSettingStateType } from '../../types'
+import React, { useState } from "react"
+import { Button, Row, Col, Switch } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import { AppState } from "../../store"
+import { GlobalSettingStateType } from "../../types"
 
 const ControlTextPosition: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedPosition, setSelectedPosition] = useState('vertical')
+  const [selectedPosition, setSelectedPosition] = useState("vertical")
   const [showBigGraph, setShowBigGraph] = useState(true) // State to control visibility
 
   const globalSetting: GlobalSettingStateType = useSelector(
@@ -32,9 +32,9 @@ const ControlTextPosition: React.FC = () => {
   }
 
   return (
-    <div className='control-panel'>
-      <Row align='middle' style={{ paddingBottom: 10 }}>
-        <Col span={10} className='control-label'>
+    <div className="control-panel">
+      <Row align="middle" style={{ paddingBottom: 10 }}>
+        <Col span={10} className="control-label">
           Normal-sized vis
         </Col>
         <Col span={14}>
@@ -42,22 +42,22 @@ const ControlTextPosition: React.FC = () => {
         </Col>
       </Row>
       <Row
-        align='middle'
+        align="middle"
         style={{
-          transition: 'max-height 0.3s ease',
-          maxHeight: showBigGraph ? '100px' : '0', // Adjust max height
-          overflow: 'hidden',
+          transition: "max-height 0.3s ease",
+          maxHeight: showBigGraph ? "100px" : "0", // Adjust max height
+          overflow: "hidden",
         }}
       >
-        <Col span={10} className='control-label-layer2'>
+        <Col span={10} className="control-label-layer2">
           Vis-text layout
         </Col>
         <Col span={14}>
-          <Button.Group style={{ display: 'flex', width: '100%' }}>
-            {['vertical', 'parallel'].map((position) => (
+          <Button.Group style={{ display: "flex", width: "100%" }}>
+            {["vertical", "parallel"].map((position) => (
               <Button
                 key={position}
-                className={`custom-btn ${selectedPosition === position ? 'active' : ''}`}
+                className={`custom-btn ${selectedPosition === position ? "active" : ""}`}
                 onClick={() => handleChangeTextPosition(position)}
                 style={{
                   width: calculateButtonWidth(position),

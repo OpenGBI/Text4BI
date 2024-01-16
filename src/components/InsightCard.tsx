@@ -228,7 +228,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
         />
       ))
     }
-    if ((curSentence.type === "normal" || curSentence.type === "bullet") && showSparkLine) {
+    if (curSentence.type === "normal" || curSentence.type === "bullet") {
       return curSentence.phrases.map((phrase, index) => (
         <PhraseComponent
           key={index}

@@ -34,18 +34,18 @@ const ControlSelectedEntityType: React.FC = () => {
         </Col>
         <Col span={14}>
           <Select
-            style={{ width: "100%" }}
+            style={{ width: "70%" }}
             value={selectedEntityType}
             onChange={handlePrimaryChange}
           >
-            <Option value="Association">Association</Option>
-            <Option value="Difference">Difference</Option>
-            <Option value="Distribution">Distribution</Option>
-            <Option value="Categorization">Categorization</Option>
-            <Option value="Proportion">Proportion</Option>
-            <Option value="TemporalityGeneralTrend">Temporality-General trend</Option>
-            <Option value="TemporalitySeasonalFeature">Temporality-Seasonal feature</Option>
-            <Option value="TemporalityAbnormality">Temporality-Abnormality</Option>
+            <Option value="metric_value">metric_value</Option>
+            <Option value="delta_value">delta_value</Option>
+            <Option value="insight_desc">insight desc</Option>
+            <Option value="metric_name">metric_name</Option>
+            <Option value="dim_cate">dim_cate</Option>
+            <Option value="algorithm">algorithm</Option>
+            <Option value="filter_time">filter_time</Option>
+            <Option value="filter_num">filter_num</Option>
           </Select>
         </Col>
         {showSecondaryOptions && (

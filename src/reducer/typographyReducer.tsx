@@ -2,7 +2,7 @@ import { typographySettingStateType } from "../types"
 import { ChangeTypographySettingAction } from "../actions/typographySettingAction"
 
 const iniTypographySettingState: typographySettingStateType = {
-  selectedEntityType: "Association",
+  selectedEntityType: "metric_value",
   boldness: false,
   underline: false,
   contour: false,

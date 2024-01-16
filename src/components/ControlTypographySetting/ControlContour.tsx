@@ -31,24 +31,22 @@ const ControlContour: React.FC = () => {
           Contour
         </Col>
         <Col span={14}>
-          <div className="button-row">
-            <div className="button-group">
-              <Button
-                className="custom-btn"
-                type={isContourOn ? "primary" : "default"}
-                onClick={() => toggleGlobalSetting(true)}
-              >
-                On
-              </Button>
-              <Button
-                className="custom-btn"
-                type={!isContourOn ? "primary" : "default"}
-                onClick={() => toggleGlobalSetting(false)}
-              >
-                Off
-              </Button>
-            </div>
-          </div>
+          <Button.Group style={{ width: "100%" }}>
+            <Button
+              className="custom-btn"
+              type={isContourOn ? "primary" : "default"}
+              onClick={() => toggleGlobalSetting(true)}
+            >
+              On
+            </Button>
+            <Button
+              className="custom-btn"
+              type={!isContourOn ? "primary" : "default"}
+              onClick={() => toggleGlobalSetting(false)}
+            >
+              Off
+            </Button>
+          </Button.Group>
         </Col>
       </Row>
     </div>

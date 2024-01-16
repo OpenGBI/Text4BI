@@ -7,19 +7,27 @@ import { GlobalSettingStateType } from "../../types"
 
 const ControlTextPosition: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedPosition, setSelectedPosition] = useState("vertical")
-  const [showBigGraph, setShowBigGraph] = useState(true) // State to control visibility
-
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
-
+  const [showBigGraph, setShowBigGraph] = useState(true) // State to control visibility
+  const [selectedPosition, setSelectedPosition] = useState("vertical")
   const handleChangeTextPosition = (newPosition: string) => {
     setSelectedPosition(newPosition)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
         textPosition: newPosition,
+      }),
+    )
+  }
+
+  const handleShowBigGraph = (newShowBigGraph: boolean) => {
+    setShowBigGraph(newShowBigGraph)
+    dispatch(
+      ChangeGlobalSetting({
+        ...globalSetting,
+        showBigGraph: newShowBigGraph,
       }),
     )
   }
@@ -38,7 +46,7 @@ const ControlTextPosition: React.FC = () => {
           Normal-sized vis
         </Col>
         <Col span={14}>
-          <Switch checked={showBigGraph} onChange={setShowBigGraph} />
+          <Switch checked={showBigGraph} onChange={handleShowBigGraph} />
         </Col>
       </Row>
       <Row

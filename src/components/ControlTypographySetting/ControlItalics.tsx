@@ -31,24 +31,22 @@ const ControlItalics: React.FC = () => {
           Italics
         </Col>
         <Col span={14}>
-          <div className="button-row">
-            <div className="button-group">
-              <Button
-                className="custom-btn"
-                type={isBoldnessOn ? "primary" : "default"}
-                onClick={() => handleBoldnessChange(true)}
-              >
-                On
-              </Button>
-              <Button
-                className="custom-btn"
-                type={!isBoldnessOn ? "primary" : "default"}
-                onClick={() => handleBoldnessChange(false)}
-              >
-                Off
-              </Button>
-            </div>
-          </div>
+          <Button.Group style={{ width: "100%" }}>
+            <Button
+              className="custom-btn"
+              type={isBoldnessOn ? "primary" : "default"}
+              onClick={() => handleBoldnessChange(true)}
+            >
+              On
+            </Button>
+            <Button
+              className="custom-btn"
+              type={!isBoldnessOn ? "primary" : "default"}
+              onClick={() => handleBoldnessChange(false)}
+            >
+              Off
+            </Button>
+          </Button.Group>
         </Col>
       </Row>
     </div>

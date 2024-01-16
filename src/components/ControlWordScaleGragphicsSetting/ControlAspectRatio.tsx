@@ -33,7 +33,7 @@ const ControlAspectRatio: React.FC = () => {
     "4:1": "big",
   }
   // 固定按钮宽度
-  const buttonWidth = 20 // 按布局需要调整
+  const buttonWidth = 30 // 按布局需要调整
 
   return (
     <div className="control-panel">
@@ -42,27 +42,35 @@ const ControlAspectRatio: React.FC = () => {
           Sizing
         </Col>
         <Col span={14}>
-          <Button.Group style={{ display: "flex", width: "80%" }}>
-            {Object.entries(aspectRatios).map(([text, ratio]) => (
+          <Button.Group style={{ display: "flex", width: "100%" }}>
+            {["1:1", "2:1", "4:1"].map((ratio) => (
               <Button
                 key={ratio}
-                className={`custom-btn ${selectedAspectRatio === text ? "active" : ""}`}
-                onClick={() => handleChangeAspectRatio(text)}
+                className={`custom-btn ${selectedAspectRatio === ratio ? "active" : ""}`}
+                onClick={() => {
+                  handleChangeAspectRatio(ratio)
+                  setDropdownDisplay("...") // 点击按钮后重置下拉框显示
+                }}
                 style={{
                   flex: 1,
-                  borderRight: ratio !== "big" ? "none" : undefined,
+                  // borderRight: ratio !== 'big' ? 'none' : undefined,
                   textAlign: "center", // Ensure the text is centered
                   width: `${buttonWidth}px`, // 设置固定宽度
                 }}
               >
-                {text}
+                {ratio}
               </Button>
             ))}
-            <Select style={{ width: `${buttonWidth + 20}px`, textAlign: "center" }}>
-              <Option value="...">{dropdownDisplay}</Option>
-              {Object.entries(aspectRatios).map(([text, ratio]) => (
+            <Select
+              style={{ width: `${buttonWidth + 50}px`, textAlign: "center" }}
+              value={dropdownDisplay} // 下拉框显示的值
+              onChange={handleChangeAspectRatio}
+              onFocus={() => setDropdownDisplay(selectedAspectRatio)} // 聚焦时显示实际选中的值
+              onBlur={() => setDropdownDisplay("...")} // 失焦时显示....
+            >
+              {["4:3", "16:9"].map((ratio) => (
                 <Option key={ratio} value={ratio}>
-                  {text}
+                  {ratio}
                 </Option>
               ))}
             </Select>

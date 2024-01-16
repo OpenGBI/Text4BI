@@ -4,7 +4,8 @@ import { ChangeWordScaleGraphicsSettingAction } from "../actions/wordScaleGraphi
 const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   sparkLinePosition: "left",
   showDataDrivenGraphics: true,
-  aspectRatio: "tiny",
+  showDataDrivenCharts: true,
+  aspectRatio: "1:1",
   distributionType: "a",
   rankType: "a",
   proportionType: "a",
@@ -13,6 +14,14 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   differenceType: "a",
   anomalyType: "a",
   seasonalityType: "a",
+  graphicsSignificance: true,
+  graphicsDirection: true,
+  graphicsAnomaly: true,
+  isSemanticDrivenIconsOn: true,
+  semanticsAbsolutePosition: "begin",
+  selectedSymbol1: "a",
+  semanticBindingEntityType: "metric_value",
+  selectedSymbol2: "a",
 }
 
 const WordScaleGraphicsSettingReducer = (

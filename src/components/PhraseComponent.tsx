@@ -1,9 +1,12 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import { RiseOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
+import { useDispatch, useSelector } from "react-redux"
 import SelectorInText from "./LineHeightComponents/SelectorInText"
 import SelectorTime from "./LineHeightComponents/SelectionTime"
 import Icon from "../utils/Icon"
+import { ChangeGlobalSetting } from "../actions/GlobalSettingAction"
+import { AppState } from "../store"
 import {
   renderAssociation1,
   renderAssociation2,
@@ -22,7 +25,7 @@ import {
   renderTemporalityTrend1,
   renderTemporalityTrend2,
 } from "../utils/SparkLineFuncs"
-import { Phrase, Metadata, Point, cateAndValue } from "../types"
+import { Phrase, Metadata, Point, cateAndValue, GlobalSettingStateType } from "../types"
 
 const globalBoolean = true
 // interface Phrase {
@@ -72,6 +75,26 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   sparkLinePosition,
   onTopkChange,
 }) => {
+  const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
+  const {
+    distributionType,
+    rankType,
+    proportionType,
+    associationType,
+    trendType,
+    differenceType,
+    anomalyType,
+    seasonalityType,
+  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
+  const sparkLineRef = useRef<HTMLSpanElement | null>(null)
+  // useEffect(() => {
+  //   // 当 showBigGraph 为 true 时，ref 保持不变。
+  //   // 当 showBigGraph 为 false 时，将 ref.current 设置为 null。
+  //   if (!showSparkLine) {
+  //     sparkLineRef.current = null
+  //   }
+  // }, [showSparkLine])
   // 接收一个词，生成一个这个词的可视化效果和行内小图
   let fontWeightValue = boldness ? "bold" : "normal"
   const contourValue = contour ? "1px solid black" : "none"
@@ -79,7 +102,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   let wordColor: string = color
   const backgroundColorValue: string = backgroundColor
   const wordRef = useRef<HTMLSpanElement | null>(null)
-  const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // console.log('测试输出color', wordColor)
   // const svgRef = useRef<SVGSVGElement | null>(null)
   // const tooltipRef = useRef<HTMLDivElement | null>(null)
@@ -96,6 +118,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // }, [type, metadata, aspectRatio])
   const renderWord = (curMetadata: Metadata) => {
     if (curMetadata.entityType) {
+      // console.log('测试输出curMetadata', curMetadata.entityType) //这个地方就是用来调整entity的样式的！
       return (
         <Tooltip title={curMetadata.origin}>
           <span
@@ -404,37 +427,48 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   throw new Error('No data found for the date')
   // }
   useEffect(() => {
-    if (
-      wordRef.current &&
-      metadata.detail &&
-      (sparkLinePosition === "up" || sparkLinePosition === "down")
-    ) {
-      renderSparkLine(
-        metadata,
-        aspectRatio,
-        sparkLinePosition,
-        wordRef.current,
-        undefined,
-        globalBoolean,
-      )
+    // showSparkLine 为 true 时，重新显示或创建小图
+    if (showSparkLine) {
+      // 如果之前隐藏了小图，现在重新显示它
+      if (sparkLineRef.current) {
+        sparkLineRef.current.style.display = "" // 或者 'block', 取决于你的布局需求
+      }
+      // 以下是原有的逻辑，用于创建小图
+      if (
+        wordRef.current &&
+        metadata.detail &&
+        (sparkLinePosition === "up" || sparkLinePosition === "down")
+      ) {
+        renderSparkLine(
+          metadata,
+          aspectRatio,
+          sparkLinePosition,
+          wordRef.current,
+          undefined,
+          globalBoolean,
+        )
+      }
+      if (
+        wordRef.current &&
+        sparkLineRef.current &&
+        metadata.detail &&
+        (sparkLinePosition === "left" || sparkLinePosition === "right")
+      ) {
+        renderSparkLine(
+          metadata,
+          aspectRatio,
+          sparkLinePosition,
+          wordRef.current,
+          sparkLineRef.current,
+          globalBoolean,
+        )
+      }
+    } else if (sparkLineRef.current) {
+      // showSparkLine 为 false 时，隐藏或移除小图
+      sparkLineRef.current.style.display = "none"
+      // 或者移除内容：sparkLineRef.current.innerHTML = ''
     }
-    if (
-      wordRef.current &&
-      sparkLineRef.current &&
-      metadata.detail &&
-      (sparkLinePosition === "left" || sparkLinePosition === "right")
-    ) {
-      renderSparkLine(
-        metadata,
-        aspectRatio,
-        sparkLinePosition,
-        wordRef.current,
-        sparkLineRef.current,
-        globalBoolean,
-      )
-    }
-  }, [type, metadata, aspectRatio, sparkLinePosition])
-  // strict模式下初始化页面会调用两次useEffect
+  }, [type, metadata, aspectRatio, sparkLinePosition, showSparkLine]) // 确保 showSparkLine 在依赖项中
 
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {

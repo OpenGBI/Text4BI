@@ -8,6 +8,8 @@ const iniGlobalSettingState: GlobalSettingStateType = {
   fontsize: "16px",
   lineHeight: 1.5,
   bulletPoint: true,
+  isLineBreakOn: true,
+  bulletPointStyle: ".",
   interaction: true,
   linking: true,
   detailsOnDemand: true,

@@ -69,6 +69,8 @@ export type GlobalSettingStateType = {
   fontsize: string
   lineHeight: number
   bulletPoint: boolean
+  isLineBreakOn: boolean
+  bulletPointStyle: string
   interaction: boolean
   linking: boolean
   detailsOnDemand: boolean
@@ -84,6 +86,7 @@ export type typographySettingStateType = {
 export type wordScaleGraphicsSettingStateType = {
   sparkLinePosition: string
   showDataDrivenGraphics: boolean
+  showDataDrivenCharts: boolean
   aspectRatio: string
   distributionType: string
   rankType: string
@@ -93,4 +96,12 @@ export type wordScaleGraphicsSettingStateType = {
   differenceType: string
   anomalyType: string
   seasonalityType: string
+  graphicsSignificance: boolean
+  graphicsDirection: boolean
+  graphicsAnomaly: boolean
+  isSemanticDrivenIconsOn: boolean
+  semanticsAbsolutePosition: string
+  selectedSymbol1: string
+  semanticBindingEntityType: string
+  selectedSymbol2: string
 }

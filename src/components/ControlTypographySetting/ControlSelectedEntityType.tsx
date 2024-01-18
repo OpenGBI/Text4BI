@@ -40,12 +40,13 @@ const ControlSelectedEntityType: React.FC = () => {
           >
             <Option value="metric_value">metric_value</Option>
             <Option value="delta_value">delta_value</Option>
-            <Option value="insight_desc">insight desc</Option>
+            <Option value="insight">insight</Option>
             <Option value="metric_name">metric_name</Option>
             <Option value="dim_cate">dim_cate</Option>
             <Option value="algorithm">algorithm</Option>
             <Option value="filter_time">filter_time</Option>
             <Option value="filter_num">filter_num</Option>
+            {/* <Option value="filter_cate">filter_cate</Option> */}
           </Select>
         </Col>
         {showSecondaryOptions && (

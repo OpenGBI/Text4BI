@@ -6,10 +6,11 @@ import { useSelector, useDispatch } from "react-redux"
 // import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
 import { CopyOutlined, ExportOutlined } from "@ant-design/icons"
+import { Chart } from "@antv/g2"
 import { AppState } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
-import { Card, sentence } from "../types"
+import { Card, sentence, highLightMessage } from "../types"
 
 const CARD_DRAG_TYPE = "CARD"
 // interface Phrase {
@@ -21,44 +22,39 @@ const CARD_DRAG_TYPE = "CARD"
 interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
+  cardRef: React.RefObject<HTMLDivElement>
 }
-// type RenderContent
-// const RenderContent = ({
-//   sentence,
-//   bulletPoint,
-//   fontsize,
-//   boldness,
-//   underline,
-//   lineHeight,
-//   aspectRatio,
-//   sparkLinePosition,
-//   showBigGraph,
-//   type,
-//   BigChartData,
-// }) => {
-//   if ('phrases' in sentence) {
-//     return sentence.phrases.map((phrase, index) => (
-//       <PhraseComponent
-//         key={index}
-//         {...phrase}
-//         fontsize={fontsize}
-//         boldness={boldness}
-//         underline={underline}
-//         lineHeight={lineHeight}
-//         aspectRatio={aspectRatio}
-//         sparkLinePosition={sparkLinePosition}
-//       />
-//     ))
-//   }
-//   if (showBigGraph) {
-//     return <BigChart ChartType={type} BigChartData={BigChartData} />
-//   }
-//   return null
-// }
 
-export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, id, onDrop }) => {
+export const InsightCard: React.FC<InsightCardProps> = ({
+  CardName,
+  paragraph,
+  id,
+  onDrop,
+  cardRef,
+}) => {
+  // 给大图交互留的 old
+  const [curBigChart, setCurBigChart] = React.useState<Chart | null>(null)
+  // ref = useRef() ref => React.MutableRefObject<Chart | null>
+  // ref.current -> Chart | null
+
+  // ref.current
+  const handleCurBigChart = (curBigChart1: Chart | null) => {
+    setCurBigChart(curBigChart1)
+  }
+
+  // 给大图交互留的 new
+  const [highlightMessage, setHighlightMessage] = React.useState<highLightMessage | null>(null)
+
+  // <insightCard>
+  //   <PhraseComponent />
+  //   <BigChart>
+  //     <Categorization />
+  //   </BigChart>
+  // </insightCard>
+  //
+
   const ref = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  // const containerRef = useRef<HTMLDivElement>(null)
   const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
   const { showBigGraph, textPosition, showSparkLine, fontsize, lineHeight, bulletPoint } =
     useSelector((state: AppState) => state.globalSetting)
@@ -85,9 +81,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   }
 
   const onClickCopyButton = async () => {
-    if (containerRef?.current) {
+    if (cardRef?.current) {
       const textExporter = new TextExporter()
-      const html = await textExporter.getNarrativeHtml(containerRef.current)
+      const html = await textExporter.getNarrativeHtml(cardRef.current)
       const plainText = "plainText"
       copyToClipboard(html, plainText, onCopySuccess)
       // onCopy?.(currentInsightInfo, ref.current)
@@ -95,9 +91,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   }
 
   const onClickExportButton = async () => {
-    if (containerRef?.current) {
+    if (cardRef?.current) {
       const textExporter = new TextExporter()
-      const html = await textExporter.getNarrativeHtml(containerRef.current)
+      const html = await textExporter.getNarrativeHtml(cardRef.current)
       // 创建一个新窗口
       const newWindow = window.open("", "_blank")
       if (newWindow) {
@@ -225,6 +221,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           aspectRatio={aspectRatio}
           sparkLinePosition={sparkLinePosition}
           onTopkChange={handleDataChange}
+          outChart={curBigChart}
+          setHighlightMessage={setHighlightMessage}
         />
       ))
     }
@@ -243,6 +241,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
           aspectRatio={aspectRatio}
           sparkLinePosition={sparkLinePosition}
           onTopkChange={handleDataChange}
+          outChart={curBigChart}
+          setHighlightMessage={setHighlightMessage}
         />
       ))
     }
@@ -301,6 +301,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
                     ChartType={curSentence.chartType}
                     BigChartData={curSentence.metadata}
                     topk={topk}
+                    handleCurBigChart={handleCurBigChart}
+                    highlightMessage={highlightMessage}
                   />
                 )
               }
@@ -348,6 +350,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
                   ChartType={curSentence.chartType}
                   BigChartData={curSentence.metadata}
                   topk={topk}
+                  handleCurBigChart={handleCurBigChart}
+                  highlightMessage={highlightMessage}
                 />
               )
             }
@@ -359,7 +363,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({ CardName, paragraph, i
   }
 
   return (
-    <div ref={containerRef} style={{ position: "relative" }}>
+    <div ref={cardRef} style={{ position: "relative" }}>
       {" "}
       {/* 确保父容器相对定位 */}
       {/* 添加布局切换按钮 */}

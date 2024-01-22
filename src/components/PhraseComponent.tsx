@@ -2,11 +2,20 @@ import React, { useRef, useEffect, useState } from "react"
 import { RiseOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
 import { useDispatch, useSelector } from "react-redux"
+import { Chart } from "@antv/g2"
 import SelectorInText from "./LineHeightComponents/SelectorInText"
 import SelectorTime from "./LineHeightComponents/SelectionTime"
 import Icon from "../utils/Icon"
 import { ChangeGlobalSetting } from "../actions/GlobalSettingAction"
 import { AppState } from "../store"
+import {
+  highLightMessage,
+  Phrase,
+  Metadata,
+  Point,
+  cateAndValue,
+  GlobalSettingStateType,
+} from "../types"
 import {
   renderAssociation1,
   renderAssociation2,
@@ -25,7 +34,6 @@ import {
   renderTemporalityTrend1,
   renderTemporalityTrend2,
 } from "../utils/SparkLineFuncs"
-import { Phrase, Metadata, Point, cateAndValue, GlobalSettingStateType } from "../types"
 
 const globalBoolean = true
 // interface Phrase {
@@ -58,7 +66,10 @@ interface PhraseComponentProps extends Phrase {
   lineHeight: number
   aspectRatio: string
   sparkLinePosition: string
-  onTopkChange: (newData: number) => void
+  onTopkChange: (newData: number) => void // 往子组件传递回调函数
+  outChart: Chart | null
+  setHighlightMessage: (message: highLightMessage) => void
+  // React.MutableRefObject<Chart | null> ref
 }
 const PhraseComponent: React.FC<PhraseComponentProps> = ({
   type,
@@ -74,6 +85,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   aspectRatio,
   sparkLinePosition,
   onTopkChange,
+  outChart,
+  setHighlightMessage,
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const {
@@ -87,6 +100,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     seasonalityType,
   } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
+
+  // const [hoverState, setHoverState] = useState({ message: "", hoverOrNot: false })
+
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // useEffect(() => {
   //   // 当 showBigGraph 为 true 时，ref 保持不变。
@@ -117,6 +133,22 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   }
   // }, [type, metadata, aspectRatio])
   const renderWord = (curMetadata: Metadata) => {
+    const handleHover = () => {
+      if (curMetadata.origin) {
+        console.log("message: curMetadata.origin", curMetadata.origin)
+        setHighlightMessage({ message: curMetadata.origin, hoverOrNot: true })
+      } else {
+        setHighlightMessage({ message: value, hoverOrNot: true })
+      }
+
+      // 使用setHighlightMessage(hoverState)是不对的，因为setHoverState({ message: curValue, hoverOrNot: true })是异步的，执行setHighlightMessage时，hoverState还没被修改 zyx
+      // outChart.emit("brush:remove", {})
+    }
+    const handleLeave = () => {
+      // 这里可以添加你希望在鼠标离开时执行的代码
+      // 例如，可以取消高亮显示
+      setHighlightMessage({ message: "", hoverOrNot: false })
+    }
     if (curMetadata.entityType) {
       // console.log('测试输出curMetadata', curMetadata.entityType) //这个地方就是用来调整entity的样式的！
       return (
@@ -134,6 +166,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               position: "relative",
             }}
             className={curMetadata.insightType}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleLeave}
           >
             {value}
           </span>
@@ -154,6 +188,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           position: "relative",
         }}
         className={curMetadata.entityType}
+        // onMouseEnter={handleHover}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleLeave}
       >
         {value}
       </span>
@@ -265,7 +302,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as Point[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as Point[],
+          curMetadata.tagData as Point[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -274,7 +311,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as Point[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as Point[],
+          curMetadata.tagData as Point[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -335,14 +372,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === 'number')
       ) {
-        console.log(
-          "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
-        )
         renderTemporalityDifference1(
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -356,7 +390,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -400,7 +434,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       ) {
         renderTemporalitySeasonality1(
           curMetadata.detail as cateAndValue[],
-          metadata.tagData as cateAndValue[],
+          curMetadata.tagData as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -416,7 +450,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as number[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -511,18 +545,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     if (metadata.entityType === "algorithm") {
       underlineValue = "underline dashed"
     }
-    // const getSvgWidth = (curAspectRatio: string) => {
-    //   if (curAspectRatio === 'tiny') {
-    //     return '20'
-    //   }
-    //   if (curAspectRatio === 'medium') {
-    //     return '27'
-    //   }
-    //   if (curAspectRatio === 'big') {
-    //     return '100'
-    //   }
-    //   return '100'
-    // }
 
     return (
       <>

@@ -15,8 +15,8 @@ interface TemporalTrendProps {
 const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
   const containerRef = React.useRef(null)
 
-  console.log("SlicedBigChartData.detailSlicedBigChartData.detail", data)
-  console.log("tagDatatagDatatagDatatagData", tagData)
+  // console.log("SlicedBigChartData.detailSlicedBigChartData.detail", data)
+  // console.log("tagDatatagDatatagDatatagData", tagData)
 
   React.useEffect(() => {
     if (!containerRef.current) return
@@ -39,8 +39,8 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
     const predictValue = data.filter((item) => item.category === "predict")
     // const realtag = tagData.filter((item) => item.category === 'value')
     // const predictTag = tagData.filter((item) => item.category === 'predict')
-    console.log("realValuerealValuerealValuerealValue", realValue)
-    console.log(new Date(realValue[0].date))
+    // console.log("realValuerealValuerealValuerealValue", realValue)
+    // console.log(new Date(realValue[0].date))
     chart
       .line()
       .data(realValue)

@@ -325,8 +325,8 @@ export const iniData: Card[] = [
 
           {
             type: "entity",
-            value: "18.77%",
-            metadata: { entityType: "metric_value", origin: 0.1877 },
+            value: "18.17%",
+            metadata: { entityType: "metric_value", origin: 0.1817 },
           },
           {
             type: "entity",
@@ -334,7 +334,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "insight",
               insightType: "Proportion",
-              detail: [0.1877, 1 - 0.1877],
+              detail: [0.1817, 1 - 0.1817],
             },
           },
         ],
@@ -363,7 +363,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "insight",
               insightType: "Proportion",
-              detail: [0.1877, 1 - 0.1877],
+              detail: [0.0732, 1 - 0.0732],
             },
           },
         ],
@@ -469,6 +469,7 @@ export const iniData: Card[] = [
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 0, // 标记第几个数据高亮
+              origin: 256368.161,
             },
           },
         ],
@@ -498,6 +499,7 @@ export const iniData: Card[] = [
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 1, // 标记第几个数据高亮
+              origin: 175851.34,
             },
           },
         ],
@@ -527,6 +529,7 @@ export const iniData: Card[] = [
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 2, // 标记第几个数据高亮
+              origin: 120886.95,
             },
           },
         ],

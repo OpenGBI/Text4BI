@@ -13,9 +13,9 @@ const ControlContour: React.FC = () => {
   )
 
   const toggleGlobalSetting = (value: boolean) => {
-    console.log("Before dispatch, isContourOn:", isContourOn)
+    // console.log("Before dispatch, isContourOn:", isContourOn)
     setIsContourOn(value)
-    console.log("After setIsContourOn, isContourOn:", value)
+    // console.log("After setIsContourOn, isContourOn:", value)
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,

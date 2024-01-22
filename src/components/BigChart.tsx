@@ -9,7 +9,7 @@ import Distribution from "../utils/Distribution"
 import TemporalAnomaly from "../utils/TemporalAnomaly"
 import TemporalPeriodicity from "../utils/TemporalPeriodicity"
 import TemporalTrend from "../utils/TemporalTrend"
-import { Metadata4BigGraph, Point, cateAndValue } from "../types"
+import { Metadata4BigGraph, Point, cateAndValue, highLightMessage } from "../types"
 
 type ChartRef = {
   getChart: () => Chart | null
@@ -21,18 +21,41 @@ type BigChartProps = {
   ChartType: string
   BigChartData: Metadata4BigGraph
   topk: number
+  handleCurBigChart: (ref: Chart | null) => void // 父组件传到子组件的回调函数的定义方法 zyx
+  highlightMessage: highLightMessage | null
 }
-const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData, topk }) => {
+const BigChart: React.FC<BigChartProps> = ({
+  ChartType,
+  BigChartData,
+  topk,
+  handleCurBigChart,
+  highlightMessage,
+}) => {
   // (ChartType,BigChartData)会报错
 
+  // 用usememo创建SlicedBigChartData，只监听BigChartData和topk的变化 未解决
   const SlicedBigChartData = _.cloneDeep(BigChartData) // 深拷贝
+
   SlicedBigChartData.detail =
     topk !== -1 ? SlicedBigChartData.detail?.slice(0, topk) : SlicedBigChartData.detail
+  const BigChartDataRef = useRef(SlicedBigChartData)
+
+  // // 使用useEffect来更新BigChartDataRef.current，以便它总是反映最新的BigChartData
+  useEffect(() => {
+    BigChartDataRef.current = _.cloneDeep(SlicedBigChartData)
+  }, [BigChartData, topk]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
+  // console.log("BigChartDataRefBigChartDataRefBigChartDataRefBigChartDataRef", BigChartDataRef)
+  if (ChartType === "Categorization") {
+    console.log("BigChart中的SlicedBigChartData和topk", BigChartData)
+    console.log("BigChart中的SlicedBigChartData和topk", topk)
+    console.log("BigChart中的SlicedBigChartData和topk", SlicedBigChartData)
+    console.log("BigChart中的SlicedBigChartData和topk", BigChartDataRef)
+  }
 
   // 这可以通过可选链（?.）操作符来实现，它允许你安全地访问嵌套对象属性，即使其中一些属性可能是未定义的。
   // 在这个版本中，如果 BigChartData.detail 是未定义的，?. 会阻止进一步的调用或访问，并返回 undefined。然后，整个表达式的结果就会根据 topk 的值来决定是一
   // 个截断的数组或原始的 BigChartData.detail。如果 BigChartData.detail 本身就是 undefined，
-  // 那么不管 topk 的值是什么，结果都会是 undefined。
+  // 那么不管 topk 的值是什么，结果都会是 undefined。zyx
 
   // BigChartData.detail = BigChartData.detail
   const chartRef = useRef<ChartRef>(null) // 创建引用
@@ -50,46 +73,62 @@ const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData, topk }) =>
   //   chartRef.current = newRef
   // }
 
-  useEffect(() => {
-    if (chartRef.current) {
-      const chartInstance = chartRef.current.getChart()
-      // 在这里可以使用 chart 实例
-      console.log(
-        "chartInstancechartInstancechartInstancechartInstancechartInstance",
-        chartRef.current.getChart(),
-      ) // 仅示例，实际使用时您可能需要其他逻辑
-      if (chartInstance) {
-        chartInstance.interaction("brushHighlight", true)
-      }
-    }
-  }, [chartRef.current]) // 没有解决！！！！！！！！！！！！！
+  // useEffect(() => {
+  //   if (chartRef.current) {
+  //     const chartInstance = chartRef.current.getChart()
+  //     // 在这里可以使用 chart 实例
+  //     console.log(
+  //       "chartInstancechartInstancechartInstancechartInstancechartInstance",
+  //       chartRef.current.getChart(),
+  //     ) // 仅示例，实际使用时您可能需要其他逻辑
+  //     if (chartInstance) {
+  //       chartInstance.interaction("brushHighlight", true)
+  //     }
+  //   }
+  // }, [chartRef.current]) // 没有解决！！！！！！！！！！！！！
 
   switch (ChartType) {
-    case "Categorization":
-      return <Categorization data={SlicedBigChartData.detail as cateAndValue[]} />
+    case "Categorization": {
+      return (
+        <Categorization
+          // data={_.cloneDeep( BigChartDataRef.current.detail) as cateAndValue[]} 这句代码会导致死循环zyx 待解决
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          handleCurBigChart={handleCurBigChart}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+        />
+      )
+    }
+
     case "Proportion":
-      return <Proportion data={SlicedBigChartData.detail as cateAndValue[]} />
+      return (
+        <Proportion
+          // data={SlicedBigChartData.detail as cateAndValue[]}
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          handleCurBigChart={handleCurBigChart}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+        />
+      )
     case "Association":
       return (
         <Association
-          data={SlicedBigChartData.detail as Point[]}
+          data={BigChartDataRef.current.detail as Point[]}
           tagData={SlicedBigChartData.tagData as Point[]}
           ref={chartRef}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
         />
       )
     case "Distribution":
-      return <Distribution data={SlicedBigChartData.detail as cateAndValue[]} />
+      return <Distribution data={BigChartDataRef.current.detail as cateAndValue[]} />
     case "TemporalDifference":
-      return <Difference iniData={SlicedBigChartData.detail as cateAndValue[]} />
+      return <Difference iniData={BigChartDataRef.current.detail as cateAndValue[]} />
     case "TemporalPeriodicity": {
-      console.log(
-        "TemporalPeriodicityTemporalPeriodicityTemporalPeriodicityTemporalPeriodicity",
-        SlicedBigChartData,
-      )
       return (
         <TemporalPeriodicity
-          data={SlicedBigChartData.detail as cateAndValue[]}
-          tagData={SlicedBigChartData.tagData as cateAndValue[]}
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          tagData={BigChartDataRef.current.tagData as cateAndValue[]}
         />
       )
     }
@@ -97,15 +136,15 @@ const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData, topk }) =>
     case "TemporalAnomaly":
       return (
         <TemporalAnomaly
-          data={SlicedBigChartData.detail as cateAndValue[]}
-          tagData={SlicedBigChartData.tagData as number[]}
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          tagData={BigChartDataRef.current.tagData as number[]}
         />
       )
     case "TemporalTrend":
       return (
         <TemporalTrend
-          data={SlicedBigChartData.detail as cateAndValue[]}
-          tagData={SlicedBigChartData.tagData as cateAndValue[]}
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          tagData={BigChartDataRef.current.tagData as cateAndValue[]}
         />
       )
     default:

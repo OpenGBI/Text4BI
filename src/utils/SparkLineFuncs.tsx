@@ -9,7 +9,7 @@ export const renderDistribution1 = (
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
-  console.log("确认小图函数是否调用 分布1", sparkLineElement)
+  // console.log("确认小图函数是否调用 分布1", sparkLineElement)
   let width
   let height
   const padding = 1.5
@@ -194,7 +194,7 @@ export const renderDistribution2 = (
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
-  console.log("确认小图函数是否调用 分布2", sparkLineElement)
+  // console.log("确认小图函数是否调用 分布2", sparkLineElement)
   function kernelDensityEstimator(kernel: (v: number) => number, X: number[]) {
     return (V: number[]): [number, number][] =>
       X.map((x) => [x, d3.mean(V, (v) => kernel(x - v))!] as [number, number]) // 使用非空断言
@@ -633,6 +633,7 @@ export const renderProportion1 = (
     width = 36
     height = 20
   }
+
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
@@ -658,7 +659,7 @@ export const renderProportion1 = (
   //   .line<number>()
   //   .x((d, i) => xScale(i))
   //   .y((d) => yScale(d))
-
+  console.log("sparkLinePositionsparkLinePositionsparkLinePosition", sparkLinePosition)
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
@@ -1675,10 +1676,10 @@ export const renderTemporalityDifference1 = (
     return sum
   })
 
-  console.log(
-    "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
-    data,
-  )
+  // console.log(
+  //   "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
+  //   data,
+  // )
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20

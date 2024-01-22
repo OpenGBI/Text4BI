@@ -23,6 +23,7 @@ import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/C
 import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/ControlTypeSwitch"
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
+import Navigation from "./Navigation"
 
 const { Panel } = Collapse
 

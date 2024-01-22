@@ -1,7 +1,7 @@
 import React from "react"
 import { Chart } from "@antv/g2"
+import { find } from "lodash"
 import { cateAndValue } from "../types"
-
 // interface PieChartData {
 //   type: string
 //   value: number
@@ -9,17 +9,23 @@ import { cateAndValue } from "../types"
 
 interface PieChartProps {
   data: cateAndValue[] // n个{category:,value:}画饼图
+  handleCurBigChart: (ref: Chart | null) => void
+  message: string | number | undefined
+  hoverOrNot: boolean | undefined
 }
 
-const Proportion: React.FC<PieChartProps> = ({ data }) => {
-  const containerRef = React.useRef(null)
+const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message, hoverOrNot }) => {
+  const containerRef = React.useRef<Chart | null>(null)
+  const ProportionRef = React.useRef(null)
   // console.log('BigChartData', data)
-
+  const interactiveRef = React.useRef<Chart | null>(null)
   React.useEffect(() => {
-    if (!containerRef.current) return
-
+    // 把子组件中的变量通过回调函数往上传
+    if (!ProportionRef.current) {
+      return
+    }
     const chart = new Chart({
-      container: containerRef.current,
+      container: ProportionRef.current,
       autoFit: true,
       height: 400,
       width: 600,
@@ -29,6 +35,7 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
       .interval()
       .transform({ type: "stackY" })
       .data(data)
+      // .encode("x", "category")
       .encode("y", "value")
       .encode("color", "category")
       .style("stroke", "white")
@@ -37,7 +44,7 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
         offset: (t) => t * 0.8 + 0.1,
       })
       .label({
-        text: "name",
+        text: "category",
         radius: 0.8,
         fontSize: 10,
         fontWeight: "bold",
@@ -51,45 +58,75 @@ const Proportion: React.FC<PieChartProps> = ({ data }) => {
       })
       .animate("enter", { type: "waveIn" })
       .legend(false)
-
+      .state("active", { opacity: 1 })
+      .state("inactive", { opacity: 0.5 })
+    chart.interaction("elementHighlight", true)
+    // containerRef.current = chart
+    interactiveRef.current = chart
     chart.render()
-
-    // chart.data(indexAndValue)
-    // chart.scale('value', {
-    //   nice: true,
-    // })
-
-    // chart.coordinate('theta', {
-    //   radius: 0.8,
-    //   innerRadius: 0.6,
-    // })
-
-    // chart
-    //   .interval()
-    //   .encode('y', 'value')
-    //   .encode('color', 'type')
-    //   .label({
-    //     text: 'name',
-    //     radius: 0.8,
-    //     fontSize: 10,
-    //     fontWeight: 'bold',
-    //   })
-    //   .label({
-    //     text: (d: PieChartData, i: number, curData: PieChartData[]) =>
-    //       i < curData.length - 3 ? d.value : '',
-    //     radius: 0.8,
-    //     fontSize: 9,
-    //     dy: 12,
-    //   })
-
-    // chart.render()
 
     return () => {
       chart.destroy()
     }
-  }, [data])
+  }, [data[0].category])
+  // }, [data])
+  // useEffect中使用setState时
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
 
-  return <div ref={containerRef} style={{ height: 400, width: 600 }} />
+    if (message === undefined) {
+      return
+    }
+    // const highlightData = data.filter((item) => item.category === message).[0]
+    // const highlightData = data?.filter((item) => item.category === message)?.[0]
+    // ?.是猜疑链 data?.filter是指，如果data是null或undefined，就不调用filter，而是直接返回undefined，
+    // 同理，X?.[0]是指如果X为null或undefined，就不取第一个元素，?.是一个语法糖 zyx
+
+    const highlightData = find(
+      data,
+      (item: cateAndValue) => item.category === message || item.value === message,
+    )
+    // if (!highlightData) {
+    //   highlightData = find(data, (item) => {
+    //     if (item.value !== undefined) {
+    //       const formattedValue = item.value.toFixed(2)
+
+    //       // 然后，将数字转换为字符串
+    //       const valueStr = formattedValue.toString()
+
+    //       // 根据message长度截取字符串
+    //       const valueSubstring = valueStr.substring(0, message.length)
+
+    //       // 检查截取后的字符串是否与message相等
+    //       return valueSubstring === message
+    //     }
+    //     // 如果item没有value属性，则返回false
+    //     return false
+    //   })
+    // }
+    console.log("Categorizationdatadatadatadata1", data)
+    console.log("Categorizationdatadatadatadata2", highlightData)
+    if (highlightData) {
+      // data?.filter((item) => item.category === message)?.[0]
+      interactiveRef.current?.emit("element:highlight", {
+        data: { data: highlightData },
+      })
+    }
+  }, [message])
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
+    if (hoverOrNot === undefined) {
+      return
+    }
+    if (!hoverOrNot) {
+      interactiveRef.current?.emit("element:unhighlight", {})
+    }
+  }, [hoverOrNot])
+  return <div ref={ProportionRef} style={{ height: 400, width: 600 }} />
 }
 
 export default Proportion

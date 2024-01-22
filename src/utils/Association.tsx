@@ -1,16 +1,20 @@
 import React, { useImperativeHandle, forwardRef, useRef, useEffect } from "react"
 import { Chart } from "@antv/g2"
+import { find } from "lodash"
 import { Point } from "../types"
 
 interface AssociationProps {
   data: Point[] // n个point画散点图
   tagData: Point[] // 2个point画回归线
+  message: string | number | undefined
+  hoverOrNot: boolean | undefined
 }
 
 // const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
-const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
+const Association = forwardRef(({ data, tagData, message, hoverOrNot }: AssociationProps, ref) => {
   const containerRef = React.useRef(null)
   const chartRef = useRef<Chart | null>(null)
+  const interactiveRef = React.useRef<Chart | null>(null)
   // 使用 useImperativeHandle 将 chart 实例暴露给父组件
   useImperativeHandle(ref, () => ({
     getChart: () => chartRef.current,
@@ -19,29 +23,6 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
   const k = (tagData[1].y - tagData[0].y) / (tagData[1].x - tagData[0].x)
   const b = tagData[1].y - k * tagData[1].x
   React.useEffect(() => {
-    // const data = [
-    //   { x: -2, y: 12 },
-    //   { x: -13, y: -7 },
-    //   { x: 18, y: -13 },
-    //   { x: 6, y: 0 },
-    //   { x: -15, y: -18 },
-    //   { x: -10, y: -11 },
-    //   { x: 18, y: -13 },
-    //   { x: -8, y: 17 },
-    //   { x: 20, y: 6 },
-    //   { x: -20, y: 0 },
-    //   { x: -5, y: 12 },
-    //   { x: -8, y: -20 },
-    //   { x: -14, y: 4 },
-    //   { x: -1, y: -17 },
-    //   { x: 11, y: -13 },
-    //   { x: 20, y: 6 },
-    //   { x: 2, y: -18 },
-    //   { x: -18, y: -2 },
-    //   { x: -11, y: -10 },
-    //   { x: -17, y: 9 },
-    // ]
-
     // Create a new chart instance
     if (!containerRef.current) return
     const chart = new Chart({
@@ -52,10 +33,16 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
     // console.log('散点图datadatadatadata', data)
 
     // Load the data
-    chart.data(data)
+    // chart
 
     // Create a scatter plot
-    chart.point().encode("x", "x").encode("y", "y")
+    chart
+      .data(data)
+      .point()
+      .encode("x", "x")
+      .encode("y", "y")
+      .state("active", { fill: "#4B91FF" })
+      .state("inactive", { opacity: 0.5 })
     // Generate data for the line y = x
     // const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
     // const lineData = [
@@ -64,8 +51,16 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
     // ]
 
     // Add the line to the chart
-    chart.line().encode("x", "x").encode("y", "y").encode("color", "blue").data(tagData)
-
+    chart
+      .line()
+      .encode("x", "x")
+      .encode("y", "y")
+      .encode("color", "blue")
+      .data(tagData)
+      .state("active", { opacity: 1 })
+      .state("inactive", { opacity: 0.5 })
+    chart.interaction("elementHighlight", true)
+    interactiveRef.current = chart
     // Render the chart
     chart.render()
     // console.log('chartchartchartchartchartchart', chart)
@@ -74,6 +69,28 @@ const Association = forwardRef(({ data, tagData }: AssociationProps, ref) => {
       chart.destroy()
     }
   }, [data])
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
+    if (message === undefined) {
+      return
+    }
+    interactiveRef.current?.emit("element:highlight", {
+      data: { data: tagData },
+    })
+  }, [message])
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
+    if (hoverOrNot === undefined) {
+      return
+    }
+    if (!hoverOrNot) {
+      interactiveRef.current?.emit("element:unhighlight", {})
+    }
+  }, [hoverOrNot])
 
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
 })

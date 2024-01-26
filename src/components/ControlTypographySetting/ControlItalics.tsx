@@ -6,20 +6,20 @@ import { typographySettingStateType } from "../../types"
 import { AppState } from "../../store"
 
 const ControlItalics: React.FC = () => {
-  const [isBoldnessOn, setIsBoldnessOn] = useState(false)
+  const [isItalicsOn, setIsItalicsOn] = useState(false)
 
   const dispatch = useDispatch()
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
 
-  const handleBoldnessChange = (value: boolean) => {
-    setIsBoldnessOn(value)
+  const handleItalicsChange = (value: boolean) => {
+    setIsItalicsOn(value)
     // setShowSecondaryOptions(value === 'temporality')
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
-        boldness: value,
+        italics: value,
       }),
     )
   }
@@ -34,15 +34,15 @@ const ControlItalics: React.FC = () => {
           <Button.Group style={{ width: "100%" }}>
             <Button
               className="custom-btn"
-              type={isBoldnessOn ? "primary" : "default"}
-              onClick={() => handleBoldnessChange(true)}
+              type={isItalicsOn ? "primary" : "default"}
+              onClick={() => handleItalicsChange(true)}
             >
               On
             </Button>
             <Button
               className="custom-btn"
-              type={!isBoldnessOn ? "primary" : "default"}
-              onClick={() => handleBoldnessChange(false)}
+              type={!isItalicsOn ? "primary" : "default"}
+              onClick={() => handleItalicsChange(false)}
             >
               Off
             </Button>

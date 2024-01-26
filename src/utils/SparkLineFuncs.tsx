@@ -27,10 +27,10 @@ export const renderDistribution1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -224,10 +224,10 @@ export const renderDistribution2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -360,10 +360,10 @@ export const renderCategorization1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   const barWidth = (width - padding * 2) / data.length
@@ -489,10 +489,10 @@ export const renderCategorization2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   const barWidth = (width - padding * 2) / data.length
@@ -627,10 +627,10 @@ export const renderProportion1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
 
@@ -745,10 +745,10 @@ export const renderProportion2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   function getx(index: number, xScale: d3.ScaleLinear<number, number>): number {
@@ -899,10 +899,10 @@ export const renderAssociation1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -1108,10 +1108,10 @@ export const renderAssociation2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -1321,10 +1321,10 @@ export const renderTemporalityTrend1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -1472,10 +1472,10 @@ export const renderTemporalityTrend2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -1694,10 +1694,10 @@ export const renderTemporalityDifference1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   const barWidth = (width - padding * 6) / data.length
@@ -1879,10 +1879,10 @@ export const renderTemporalityDifference2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -2034,10 +2034,10 @@ export const renderTemporalityAnomaly1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -2168,10 +2168,10 @@ export const renderTemporalityAnomaly2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -2304,10 +2304,10 @@ export const renderTemporalitySeasonality1 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {
@@ -2476,10 +2476,10 @@ export const renderTemporalitySeasonality2 = (
     width = 27
     height = 20
   } else if (aspectRatio === "16:9") {
-    width = 20
+    width = 36
     height = 20
   } else {
-    width = 36
+    width = 100
     height = 20
   }
   if (wordElement) {

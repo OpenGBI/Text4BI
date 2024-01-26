@@ -11,30 +11,45 @@ const ControlGlobalBoolean: React.FC = () => {
     (state: AppState) => state.globalSetting,
   )
   const [isLineBreakOn, setIsLineBreakOn] = useState(true)
-  const [bulletPointStyle, setBulletPointStyle] = useState("")
+  const [bulletPointStyle, setBulletPointStyle] = useState("•")
+
+  const handleIsLineBreakOn = (value: boolean) => {
+    setIsLineBreakOn(value)
+    dispatch(
+      ChangeGlobalSetting({
+        ...globalSetting,
+        isLineBreakOn: value,
+      }),
+    )
+  }
 
   const handleBulletPointChange = (style: string) => {
-    setBulletPointStyle(bulletPointStyle === style ? "" : style)
+    setBulletPointStyle(style)
+    dispatch(
+      ChangeGlobalSetting({
+        ...globalSetting,
+        bulletPointStyle: style,
+      }),
+    )
   }
 
   return (
     <div className="control-panel">
       <Row>
-        <Col span={10} className="control-label">
-          Line break
-        </Col>
+        <Col span={10} className="control-label">Line break</Col>
         <Col span={14}>
-          <Switch checked={isLineBreakOn} onChange={() => setIsLineBreakOn(!isLineBreakOn)} />
+          <Switch
+            checked={isLineBreakOn}
+            onChange={handleIsLineBreakOn}
+          />
         </Col>
       </Row>
       {isLineBreakOn && (
         <Row style={{ marginTop: 10 }}>
-          <Col span={10} className="control-label-layer2">
-            Bullet Point
-          </Col>
+          <Col span={10} className="control-label-layer2">Bullet Point</Col>
           <Col span={14}>
             <Button.Group>
-              {[".", "#", "-"].map((style) => (
+              {["•", "#", "-"].map((style) => (
                 <Button
                   key={style}
                   className={`custom-btn ${bulletPointStyle === style ? "active" : ""}`}

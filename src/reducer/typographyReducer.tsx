@@ -5,6 +5,7 @@ const iniTypographySettingState: typographySettingStateType = {
   selectedEntityType: "metric_value",
   boldness: false,
   underline: false,
+  italics: false,
   contour: false,
   color: "black",
   backgroundColor: "white",

@@ -9,7 +9,7 @@ const iniGlobalSettingState: GlobalSettingStateType = {
   lineHeight: 1.5,
   bulletPoint: true,
   isLineBreakOn: true,
-  bulletPointStyle: ".",
+  bulletPointStyle: "•",
   interaction: true,
   linking: true,
   detailsOnDemand: true,

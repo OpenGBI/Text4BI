@@ -79,6 +79,7 @@ export type typographySettingStateType = {
   selectedEntityType: string
   boldness: boolean
   underline: boolean
+  italics: boolean
   contour: boolean
   color: string
   backgroundColor: string

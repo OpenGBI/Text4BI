@@ -3,7 +3,7 @@ import { Tooltip, Space, Button, message } from "antd"
 import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { useSelector, useDispatch } from "react-redux"
-// import { NarrativeTextSpec, NarrativeTextVis } from '@antv/ava-react'
+// import { NarrativeTextSpec, NarrativeTextVis } from "@antv/ava-react"
 import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
 import { CopyOutlined, ExportOutlined } from "@ant-design/icons"
 import { Chart } from "@antv/g2"
@@ -24,6 +24,39 @@ interface InsightCardProps extends Card {
   onDrop: (id: string, targetId: string) => void
   cardRef: React.RefObject<HTMLDivElement>
 }
+// type RenderContent
+// const RenderContent = ({
+//   sentence,
+//   bulletPoint,
+//   fontsize,
+//   boldness,
+//   underline,
+//   lineHeight,
+//   aspectRatio,
+//   sparkLinePosition,
+//   showBigGraph,
+//   type,
+//   BigChartData,
+// }) => {
+//   if ("phrases" in sentence) {
+//     return sentence.phrases.map((phrase, index) => (
+//       <PhraseComponent
+//         key={index}
+//         {...phrase}
+//         fontsize={fontsize}
+//         boldness={boldness}
+//         underline={underline}
+//         lineHeight={lineHeight}
+//         aspectRatio={aspectRatio}
+//         sparkLinePosition={sparkLinePosition}
+//       />
+//     ))
+//   }
+//   if (showBigGraph) {
+//     return <BigChart ChartType={type} BigChartData={BigChartData} />
+//   }
+//   return null
+// }
 
 export const InsightCard: React.FC<InsightCardProps> = ({
   CardName,
@@ -56,13 +89,19 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const ref = useRef<HTMLDivElement>(null)
   // const containerRef = useRef<HTMLDivElement>(null)
   const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
-  const { showBigGraph, textPosition, showSparkLine, fontsize, lineHeight, bulletPoint } =
-    useSelector((state: AppState) => state.globalSetting)
-
-  const { boldness, underline, contour, color, backgroundColor } = useSelector(
-    (state: AppState) => state.typographySetting,
-  )
-
+  const {
+    showBigGraph,
+    textPosition,
+    showSparkLine,
+    fontsize,
+    lineHeight,
+    bulletPoint,
+    isLineBreakOn,
+    bulletPointStyle,
+  } = useSelector((state: AppState) => state.globalSetting)
+  const { selectedEntityType, boldness, underline, italics, contour, color, backgroundColor } =
+    useSelector((state: AppState) => state.typographySetting)
+  // console.log("确认entitytype值的改变", selectedEntityType)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -112,11 +151,11 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   //   if (containerRef?.current) {
   //     const textExporter = new TextExporter()
   //     const html = await textExporter.getNarrativeHtml(containerRef.current)
-  //     const blob = new Blob([html], { type: 'text/html' })
+  //     const blob = new Blob([html], { type: "text/html" })
   //     const url = URL.createObjectURL(blob)
-  //     const link = document.createElement('a')
+  //     const link = document.createElement("a")
   //     link.href = url
-  //     link.download = 'exported-content.html'
+  //     link.download = "exported-content.html"
   //     document.body.appendChild(link)
   //     link.click()
   //     document.body.removeChild(link)
@@ -125,7 +164,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   // }
   // useEffect(() => {
   //   const handleKeyPress = async (event: KeyboardEvent) => {
-  //     if (event.ctrlKey && event.key === 'c') {
+  //     if (event.ctrlKey && event.key === "c") {
   //       // 按下 Ctrl+C
   //       const selection = window.getSelection()
   //       if (!selection) {
@@ -139,26 +178,26 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   //     }
   //   }
 
-  //   document.addEventListener('keydown', handleKeyPress)
+  //   document.addEventListener("keydown", handleKeyPress)
 
   //   return () => {
-  //     document.removeEventListener('keydown', handleKeyPress)
+  //     document.removeEventListener("keydown", handleKeyPress)
   //   }
   // }, [])
   // useEffect(() => {
   //   const handleKeyDown = (event: KeyboardEvent) => {
   //     // 检查是否按下了Ctrl+C（或Cmd+C在Mac上）
-  //     if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+  //     if ((event.ctrlKey || event.metaKey) && event.key === "c") {
   //       onClickCopy()
   //     }
   //   }
 
   //   // 添加事件监听器
-  //   document.addEventListener('keydown', handleKeyDown)
+  //   document.addEventListener("keydown", handleKeyDown)
 
   //   // 清除事件监听器
   //   return () => {
-  //     document.removeEventListener('keydown', handleKeyDown)
+  //     document.removeEventListener("keydown", handleKeyDown)
   //   }
   // }, [onClickCopy])
   const [, drop] = useDrop({
@@ -200,8 +239,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   drag(drop(ref))
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   const renderBulletPoint = (curSentence: sentence) => {
-    if (bulletPoint && curSentence.type === "bullet") {
-      return <span style={{ fontSize: "20px" }}>• </span>
+    if (isLineBreakOn && curSentence.type === "bullet") {
+      return <span style={{ fontSize: "20px" }}>{bulletPointStyle}</span>
     }
     return null
   }
@@ -215,6 +254,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           color={color}
           backgroundColor={backgroundColor}
           boldness={boldness}
+          italics={italics}
           contour={contour}
           underline={underline}
           lineHeight={lineHeight}
@@ -235,6 +275,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           color={color}
           backgroundColor={backgroundColor}
           boldness={boldness}
+          italics={italics}
           contour={contour}
           underline={underline}
           lineHeight={lineHeight}
@@ -247,19 +288,19 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       ))
     }
 
-    // if (showBigGraph && 'chartType' in curSentence) {
+    // if (showBigGraph && "chartType" in curSentence) {
     //   return <BigChart ChartType={curSentence.chartType} BigChartData={curSentence.metadata} />
     // }
   }
 
   // Local state for textPosition
-  // const [textPosition, setTextPosition] = useState('left')
+  // const [textPosition, setTextPosition] = useState("left")
   // // Handlers for layout change
-  // const handleLeftRightLayout = () => setTextPosition('left')
-  // const handleTopBottomLayout = () => setTextPosition('top')
+  // const handleLeftRightLayout = () => setTextPosition("left")
+  // const handleTopBottomLayout = () => setTextPosition("top")
   // 根据 textPosition 来决定如何渲染内容
   const renderContent = () => {
-    // console.log('打印当前文本布局', textPosition)
+    // console.log("打印当前文本布局", textPosition)
     if (textPosition === "parallel") {
       // 文本在左，图表在右
       return (
@@ -280,17 +321,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         >
           <div style={{ flex: 1 }}>
             {/* 渲染文本 */}
-            {paragraph.map((curSentence, outIndex) => (
-              <div
-                key={outIndex}
-                className={outIndex === 0 ? "draggable" : ""}
-                ref={outIndex === 0 ? ref : null}
-              >
-                {renderBulletPoint(curSentence)}
-                {renderPhrases(curSentence)}
-                {/* 其他渲染内容 */}
-              </div>
-            ))}
+            {paragraph.map((curSentence, outIndex) => {
+              // 动态确定使用 div 还是 span
+              // console.log("确定此时的样式", isLineBreakOn, curSentence.type)
+              const Element = isLineBreakOn || curSentence.type !== "bullet" ? "div" : "span"
+              return (
+                <Element
+                  key={outIndex}
+                  className={outIndex === 0 ? "draggable" : ""}
+                  ref={outIndex === 0 ? ref : null}
+                >
+                  {renderBulletPoint(curSentence)}
+                  {renderPhrases(curSentence)}
+                  {/* 其他渲染内容 */}
+                </Element>
+              )
+            })}
           </div>
           <div style={{ flex: 1 }}>
             {/* 渲染图表 */}
@@ -318,8 +364,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         <div
           className="avar-ntv-container"
           style={{
-            // display: 'flex',
-            // flexDirection: 'row',
+            // display: "flex",
+            // flexDirection: "row",
             border: "1px solid #ccc", // 添加边框
             borderRadius: "8px", // 添加圆角
             boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)", // 添加阴影
@@ -331,17 +377,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           }}
         >
           {/* 渲染文本 */}
-          {paragraph.map((curSentence, outIndex) => (
-            <div
-              key={outIndex}
-              className={outIndex === 0 ? "draggable" : ""}
-              ref={outIndex === 0 ? ref : null}
-            >
-              {renderBulletPoint(curSentence)}
-              {renderPhrases(curSentence)}
-              {/* 其他渲染内容 */}
-            </div>
-          ))}
+          {paragraph.map((curSentence, outIndex) => {
+            // 动态确定使用 div 还是 span
+            // console.log("确定此时的样式", isLineBreakOn, curSentence.type)
+            const Element = isLineBreakOn || curSentence.type !== "bullet" ? "div" : "span"
+            return (
+              <Element
+                key={outIndex}
+                className={outIndex === 0 ? "draggable" : ""}
+                ref={outIndex === 0 ? ref : null}
+              >
+                {renderBulletPoint(curSentence)}
+                {renderPhrases(curSentence)}
+                {/* 其他渲染内容 */}
+              </Element>
+            )
+          })}
           {/* 渲染图表 */}
           {paragraph.map((curSentence, outIndex) => {
             if (showBigGraph && "chartType" in curSentence) {

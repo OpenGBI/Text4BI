@@ -2,7 +2,7 @@ import { wordScaleGraphicsSettingStateType } from "../types"
 import { ChangeWordScaleGraphicsSettingAction } from "../actions/wordScaleGraphicsSettingAction"
 
 const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
-  sparkLinePosition: "left",
+  sparkLinePosition: "right",
   showDataDrivenGraphics: true,
   showDataDrivenCharts: true,
   aspectRatio: "1:1",

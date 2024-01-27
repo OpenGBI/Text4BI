@@ -12,10 +12,14 @@ interface TagRenderProps {
 const ControlSelectedInsights: React.FC = () => {
   const defaultValue = ["gold", "cyan"]
   const options = [
-    { value: "gold", label: "Trend of Sales" },
-    { value: "lime", label: "Lime Sales" },
-    { value: "green", label: "Green Sales" },
     { value: "cyan", label: "Distribution of Sales" },
+    { value: "lime", label: "Difference of total Profit by Year" },
+    { value: "magenta", label: "Sum of Sales by City" },
+    { value: "volcano", label: "Proportion Analysis of Sales Volume by Different Countries" },
+    { value: "orange", label: "Association between Sales and Profit" },
+    { value: "gold", label: "Trend of Sales" },
+    { value: "green", label: "Anomaly detection of Sales" },
+    { value: "green", label: "Periodicity of Sales" },
   ]
 
   const tagRender = ({ label, value, closable, onClose }: TagRenderProps) => {

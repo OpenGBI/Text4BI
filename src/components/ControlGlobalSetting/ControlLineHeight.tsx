@@ -7,7 +7,7 @@ import { GlobalSettingStateType } from "../../types"
 
 const ControlLineHeight: React.FC = () => {
   const dispatch = useDispatch()
-  const [selectedLineHeight, setSelectedLineHeight] = useState(1.5)
+  const [selectedLineHeight, setSelectedLineHeight] = useState(2)
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )

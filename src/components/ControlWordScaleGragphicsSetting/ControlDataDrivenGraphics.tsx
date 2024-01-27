@@ -7,6 +7,7 @@ import { wordScaleGraphicsSettingStateType } from "../../types"
 
 const ControlDataDrivenGraphics: React.FC = () => {
   const dispatch = useDispatch()
+  const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -28,7 +29,7 @@ const ControlDataDrivenGraphics: React.FC = () => {
           Data-Driven
         </Col>
         <Col span={14}>
-          <Switch checked={isDataDrivenGraphicsOn} onChange={changeDataDrivenGraphics} />
+          <Switch checked={isDataDrivenGraphicsOn && showSparkLine} onChange={changeDataDrivenGraphics} />
         </Col>
       </Row>
     </div>

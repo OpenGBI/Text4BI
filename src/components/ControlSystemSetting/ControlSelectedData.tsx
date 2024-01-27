@@ -49,6 +49,7 @@ const ControlSelectedData: React.FC = () => {
         options={[
           { value: "Data1", label: "Data1" },
           { value: "Data2", label: "Data2" },
+          { value: "Data3", label: "Data3" },
         ]}
       />
     </Space>

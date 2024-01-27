@@ -27,7 +27,9 @@ import {
 } from "../utils/SparkLineFuncs"
 import { Phrase, Metadata, Point, cateAndValue, GlobalSettingStateType } from "../types"
 
-const globalBoolean = true
+const globalBoolean = false
+// let colorindex = 0
+const COLOR_PALETTE = ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec"] // Pastel1 色板
 // interface Phrase {
 //   type: string
 //   value: string
@@ -88,6 +90,28 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
+  const {
+    distributionType,
+    rankType,
+    proportionType,
+    associationType,
+    trendType,
+    differenceType,
+    anomalyType,
+    seasonalityType,
+    graphicsSignificance,
+    graphicsDirection,
+    graphicsAnomaly,
+  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const distributionTypeOn1 = distributionType === "a"
+  // console.log("检查distributionTypeOn", distributionTypeOn1)
+  const rankTypeOn1 = rankType === "a"
+  const proportionTypeOn1 = proportionType === "a"
+  const associationTypeOn1 = associationType === "a"
+  const trendTypeOn1 = trendType === "a"
+  const differenceTypeOn1 = differenceType === "a"
+  const anomalyTypeOn1 = anomalyType === "a"
+  const seasonalityTypeOn1 = seasonalityType === "a"
   // console.log("确认entitytype值的改变", selectedEntityType)
     // 初始时为特定entityType设置的自定义样式
   // 现在 currentStyles 有了明确的索引签名
@@ -108,16 +132,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }
   const [currentStyles, setCurrentStyles] = useState(initialStyles)
   // const [entityTypeStyles, setCustomStyles] = useState(initialEntityStyles)
-  const {
-    distributionType,
-    rankType,
-    proportionType,
-    associationType,
-    trendType,
-    differenceType,
-    anomalyType,
-    seasonalityType,
-  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // useEffect(() => {
@@ -163,44 +177,25 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   }))
   // }, [color, backgroundColor, fontsize, boldness, italics, contour, underline])
 
-  // 针对 color 的 useEffect
-  useEffect(() => {
-    if (currentStyles[selectedEntityType]?.color !== color) {
-      setCurrentStyles((prevStyles) => ({
-        ...prevStyles,
-        [selectedEntityType]: {
-          ...prevStyles[selectedEntityType],
-          color,
-        },
-      }))
+  const getInitialColor = () => {
+    const savedColor = localStorage.getItem(`cardTitleBackgroundColor_${value}`)
+    if (savedColor) {
+      return savedColor
     }
-  }, [color])
+    const randomColor = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)]
+    localStorage.setItem(`cardTitleBackgroundColor_${value}`, randomColor)
+    return randomColor
+  }
 
-  // 针对 backgroundColor 的 useEffect
-  useEffect(() => {
-    if (currentStyles[selectedEntityType]?.backgroundColor !== backgroundColor) {
-      setCurrentStyles((prevStyles) => ({
-        ...prevStyles,
-        [selectedEntityType]: {
-          ...prevStyles[selectedEntityType],
-          backgroundColor,
-        },
-      }))
-    }
-  }, [backgroundColor])
+  const [cardTitleBackgroundColor, setBackgroundColor] = useState(getInitialColor)
 
-  // 针对 fontsize 的 useEffect
   useEffect(() => {
-    if (currentStyles[selectedEntityType]?.fontSize !== fontsize) {
-      setCurrentStyles((prevStyles) => ({
-        ...prevStyles,
-        [selectedEntityType]: {
-          ...prevStyles[selectedEntityType],
-          fontSize: fontsize,
-        },
-      }))
+    if (!localStorage.getItem(`cardTitleBackgroundColor_${value}`)) {
+      const randomColor = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)]
+      setBackgroundColor(randomColor)
+      localStorage.setItem(`cardTitleBackgroundColor_${value}`, randomColor)
     }
-  }, [fontsize])
+  }, [value])
 
   // 针对 boldness 的 useEffect
   useEffect(() => {
@@ -215,6 +210,20 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       }))
     }
   }, [boldness])
+
+  // 针对 underline 的 useEffect
+  useEffect(() => {
+    const newTextDecoration = underline ? "underline" : "none"
+    if (currentStyles[selectedEntityType]?.textDecoration !== newTextDecoration) {
+      setCurrentStyles((prevStyles) => ({
+        ...prevStyles,
+        [selectedEntityType]: {
+          ...prevStyles[selectedEntityType],
+          textDecoration: newTextDecoration,
+        },
+      }))
+    }
+  }, [underline])
 
   // 针对 italics 的 useEffect
   useEffect(() => {
@@ -244,19 +253,31 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
   }, [contour])
 
-  // 针对 underline 的 useEffect
+  // 针对 color 的 useEffect
   useEffect(() => {
-    const newTextDecoration = underline ? "underline" : "none"
-    if (currentStyles[selectedEntityType]?.textDecoration !== newTextDecoration) {
+    if (currentStyles[selectedEntityType]?.color !== color) {
       setCurrentStyles((prevStyles) => ({
         ...prevStyles,
         [selectedEntityType]: {
           ...prevStyles[selectedEntityType],
-          textDecoration: newTextDecoration,
+          color,
         },
       }))
     }
-  }, [underline])
+  }, [color])
+
+  // 针对 backgroundColor 的 useEffect
+  useEffect(() => {
+    if (currentStyles[selectedEntityType]?.backgroundColor !== backgroundColor) {
+      setCurrentStyles((prevStyles) => ({
+        ...prevStyles,
+        [selectedEntityType]: {
+          ...prevStyles[selectedEntityType],
+          backgroundColor,
+        },
+      }))
+    }
+  }, [backgroundColor])
 
   const renderWord = (curMetadata: Metadata) => {
     // 确保 entityType 不是 undefined
@@ -270,13 +291,13 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         <span
           ref={wordRef}
           style={{
-            color: style.color || "#000000",
-            backgroundColor: style.backgroundColor || "#FFFFFF",
-            fontSize: style.fontSize || "medium",
             fontWeight: style.fontWeight || "normal",
+            textDecoration: style.textDecoration || "none",
             fontStyle: style.fontStyle || "normal",
             border: style.border || "none",
-            textDecoration: style.textDecoration || "none",
+            color: style.color || "#000000",
+            backgroundColor: style.backgroundColor || "#FFFFFF",
+            fontSize: fontsize,
             lineHeight,
             position: "relative",
           }}
@@ -294,14 +315,23 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     curSparkLinePosition: string,
     curWordSpan: HTMLSpanElement,
     curSparkLineSpan: HTMLSpanElement | undefined,
-    defaultChoice: boolean, // 是否选择函数1
+    // defaultChoice: boolean, // 是否选择函数1
+    distributionTypeOn: boolean,
+    rankTypeOn: boolean,
+    proportionTypeOn: boolean,
+    associationTypeOn: boolean,
+    trendTypeOn: boolean,
+    differenceTypeOn: boolean,
+    anomalyTypeOn: boolean,
+    seasonalityTypeOn: boolean,
   ) => {
     if (!curMetadata.detail) {
       throw new Error("no curMetadata")
     }
+    console.log("检查dis", distributionTypeOn)
     if (curMetadata.insightType === "Distribution") {
       if (
-        defaultChoice
+        distributionTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -314,7 +344,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        distributionTypeOn === false
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -330,7 +360,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "Categorization") {
       if (
-        defaultChoice
+        rankTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -344,7 +374,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !rankTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -361,7 +391,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "Proportion") {
       if (
-        defaultChoice
+        proportionTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -374,7 +404,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !proportionTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -389,7 +419,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       }
     }
     if (curMetadata.insightType === "Association") {
-      if (defaultChoice && isPointArray(curMetadata.detail)) {
+      if (associationTypeOn && isPointArray(curMetadata.detail)) {
         renderAssociation1(
           curMetadata.detail as Point[],
           curAspectRatio,
@@ -398,7 +428,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curWordSpan,
           curSparkLineSpan,
         )
-      } else if (!defaultChoice && isPointArray(curMetadata.detail)) {
+      } else if (!associationTypeOn && isPointArray(curMetadata.detail)) {
         renderAssociation2(
           curMetadata.detail as Point[],
           curAspectRatio,
@@ -411,7 +441,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "TemporalityTrend") {
       if (
-        defaultChoice
+        trendTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -434,7 +464,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !trendTypeOn
         //  &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -459,7 +489,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "TemporalDifference") {
       if (
-        defaultChoice
+        differenceTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -476,7 +506,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !differenceTypeOn
         //  &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -493,7 +523,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "TemporalityAnomaly") {
       if (
-        defaultChoice
+        anomalyTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -506,7 +536,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !anomalyTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -522,7 +552,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
     if (curMetadata.insightType === "TemporalitySeasonality" && curMetadata.tagData) {
       if (
-        defaultChoice
+        seasonalityTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -536,7 +566,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curSparkLineSpan,
         )
       } else if (
-        !defaultChoice
+        !seasonalityTypeOn
         // &&
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
@@ -574,7 +604,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           sparkLinePosition,
           wordRef.current,
           undefined,
-          globalBoolean,
+          distributionTypeOn1,
+          rankTypeOn1,
+          proportionTypeOn1,
+          associationTypeOn1,
+          trendTypeOn1,
+          differenceTypeOn1,
+          anomalyTypeOn1,
+          seasonalityTypeOn1,
         )
       }
       if (
@@ -589,7 +626,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           sparkLinePosition,
           wordRef.current,
           sparkLineRef.current,
-          globalBoolean,
+          distributionTypeOn1,
+          rankTypeOn1,
+          proportionTypeOn1,
+          associationTypeOn1,
+          trendTypeOn1,
+          differenceTypeOn1,
+          anomalyTypeOn1,
+          seasonalityTypeOn1,
         )
       }
     } else if (sparkLineRef.current) {
@@ -597,7 +641,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       sparkLineRef.current.style.display = "none"
       // 或者移除内容：sparkLineRef.current.innerHTML = ""
     }
-  }, [type, metadata, aspectRatio, sparkLinePosition, showSparkLine]) // 确保 showSparkLine 在依赖项中
+  }, [type, metadata, aspectRatio, sparkLinePosition, showSparkLine, distributionTypeOn1, rankTypeOn1, proportionTypeOn1, associationTypeOn1, trendTypeOn1, differenceTypeOn1, anomalyTypeOn1, seasonalityTypeOn1]) // 确保 showSparkLine 在依赖项中
 
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {
@@ -671,8 +715,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         >
           {value}
         </span> */}
+        {metadata?.entityType === "insight_desc" && showSparkLine ? (
+          // <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
+          <Icon assessment={metadata.assessment as string} />
+        ) : null}
         {renderWord(metadata)}
-
         {
           metadata?.entityType === "insight" && sparkLinePosition === "right" ? (
             <span ref={sparkLineRef} className="sparkLineSpan">
@@ -682,14 +729,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
-        {metadata?.entityType === "insight_desc" ? (
-          // <RiseOutlined style={{ fontSize: "16px", color: "#FA541C" }} />
-          <Icon assessment={metadata.assessment as string} />
-        ) : null}
       </>
     )
   }
   if (type === "CardTitle") {
+    // 生成随机颜色
     return (
       <span
         style={{
@@ -697,13 +741,13 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           lineHeight,
           position: "relative",
           fontWeight: "bold",
-          backgroundColor: "#87CEFA",
+          backgroundColor: cardTitleBackgroundColor, // 使用存储的颜色
           padding: "5px",
           borderRadius: "5px",
         }}
         className="CardTitle"
       >
-        {value}{""}
+        {value}
       </span>
     )
   }

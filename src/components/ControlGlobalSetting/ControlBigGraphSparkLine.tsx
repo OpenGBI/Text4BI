@@ -3,8 +3,9 @@ import { Switch, Col, Row } from "antd"
 import "./ControlBigGraphSparkLine.css" // Assuming this file contains necessary CSS
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
 import { AppState } from "../../store"
-import { GlobalSettingStateType } from "../../types"
+import { GlobalSettingStateType, wordScaleGraphicsSettingStateType } from "../../types"
 
 const ControlBigGraphSparkLine: React.FC = () => {
   const [isSparkLineOn, setIsSparkLineOn] = useState(true)
@@ -12,12 +13,22 @@ const ControlBigGraphSparkLine: React.FC = () => {
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
+  const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   const changeSparkLine = (checked: boolean) => {
     setIsSparkLineOn(checked)
     dispatch(
       ChangeGlobalSetting({
         ...globalSetting,
         showSparkLine: checked,
+      }),
+    )
+    dispatch(
+      ChangeWordScaleGraphicsSetting({
+        ...wordScaleGraphicsSetting,
+        showDataDrivenGraphics: checked,
+        isSemanticDrivenIconsOn: checked,
       }),
     )
   }

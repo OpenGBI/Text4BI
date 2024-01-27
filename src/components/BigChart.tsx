@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from "react"
 import { Chart } from "@antv/g2"
 import _ from "lodash"
 import Categorization from "../utils/Categorization"
@@ -22,18 +22,29 @@ type BigChartProps = {
   BigChartData: Metadata4BigGraph
   topk: number
 }
-const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData, topk }) => {
+const BigChart: React.FC<BigChartProps> = ({ ChartType, BigChartData, topk }, ref) => {
   // (ChartType,BigChartData)会报错
-
   const SlicedBigChartData = _.cloneDeep(BigChartData) // 深拷贝
   SlicedBigChartData.detail =
     topk !== -1 ? SlicedBigChartData.detail?.slice(0, topk) : SlicedBigChartData.detail
 
+  const chartInstanceRef = useRef<Chart | null>(null)
+  // // 使用useImperativeHandle暴露getSvg方法
+  // useImperativeHandle(ref, () => ({
+  //   getSvg: () => {
+  //     // 确保chartInstanceRef.current是有效的，并且提供了导出SVG的方法
+  //     if (chartInstanceRef.current) {
+  //       const chart = chartInstanceRef.current
+  //       // 这里替换为你的图表库的获取SVG的方法
+  //       return chart.get('canvas').get('el').innerHTML
+  //     }
+  //     return ''
+  //   },
+  // }))
   // 这可以通过可选链（?.）操作符来实现，它允许你安全地访问嵌套对象属性，即使其中一些属性可能是未定义的。
   // 在这个版本中，如果 BigChartData.detail 是未定义的，?. 会阻止进一步的调用或访问，并返回 undefined。然后，整个表达式的结果就会根据 topk 的值来决定是一
   // 个截断的数组或原始的 BigChartData.detail。如果 BigChartData.detail 本身就是 undefined，
   // 那么不管 topk 的值是什么，结果都会是 undefined。
-
   // BigChartData.detail = BigChartData.detail
   const chartRef = useRef<ChartRef>(null) // 创建引用
   // const getChartInstance = () => {

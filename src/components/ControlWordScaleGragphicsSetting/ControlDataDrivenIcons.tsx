@@ -10,6 +10,7 @@ const ControlDataDrivenIcons: React.FC = () => {
   const { showDataDrivenGraphics } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+  const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -71,7 +72,7 @@ const ControlDataDrivenIcons: React.FC = () => {
   return (
     <div
       className="control-panel"
-      style={{ paddingTop: -2, display: showDataDrivenGraphics ? "block" : "none" }}
+      style={{ display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}
     >
       {renderButtonGroup("graphicsSignificance", "Significance", graphicsSignificance)}
       {renderButtonGroup("graphicsDirection", "Direction", graphicsDirection)}

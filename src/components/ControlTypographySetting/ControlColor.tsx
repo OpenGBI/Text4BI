@@ -8,7 +8,7 @@ import { AppState } from "../../store"
 
 const ControlColor = () => {
   const dispatch = useDispatch()
-  const [value, setValue] = useState<ColorPickerProps["value"]>("#E8372C")
+  const [value, setValue] = useState<ColorPickerProps["value"]>("#4B91FF")
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )

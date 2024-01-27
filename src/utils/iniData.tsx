@@ -15,89 +15,6 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "Association" },
-          { type: "text", value: " Association between " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_name" },
-          },
-          { type: "text", value: " and " },
-          {
-            type: "entity",
-            value: "Profit",
-            metadata: { entityType: "metric_name" },
-          },
-        ],
-      },
-      {
-        type: "normal",
-        phrases: [
-          { type: "text", value: "According to the " },
-          {
-            type: "entity",
-            value: "Pearson correlation coefficient",
-            metadata: {
-              entityType: "algorithm",
-              origin:
-                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient" +
-                " is equal to 1, it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
-            },
-          },
-          { type: "text", value: ", the correlation between " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_name" },
-          },
-          { type: "text", value: " and " },
-          {
-            type: "entity",
-            value: "Profit",
-            metadata: { entityType: "metric_name" },
-          },
-          { type: "text", value: " equals " },
-          {
-            type: "entity",
-            value: "0.65",
-            metadata: {
-              entityType: "insight",
-              insightType: "Association",
-              detail: AssociationData.data,
-              tagData: AssociationData.tagData,
-            },
-          },
-          { type: "text", value: " indicating a " },
-          {
-            type: "entity",
-            value: "positive",
-            metadata: { entityType: "insight_desc", assessment: "positive" },
-          },
-          { type: "text", value: " relationship. Besides, the correlation is statistically " },
-          {
-            type: "entity",
-            value: "significant",
-            metadata: { entityType: "insight_desc", assessment: "significant" },
-          },
-        ],
-      },
-      {
-        type: "plot",
-        chartType: "Association",
-        metadata: {
-          detail: AssociationData.data,
-          tagData: AssociationData.tagData,
-        },
-      },
-    ],
-  },
-
-  {
-    CardName: "Card2",
-    paragraph: [
-      {
-        type: "topic",
-        phrases: [
           { type: "CardTitle", value: "Distribution" },
           { type: "text", value: " Distribution of " },
           {
@@ -151,7 +68,7 @@ export const iniData: Card[] = [
           },
           {
             type: "text",
-            value: "Most data points lie in the range of ",
+            value: ". Most data points lie in the range of ",
           },
           {
             type: "entity",
@@ -256,15 +173,23 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card3",
+    CardName: "Card2",
     paragraph: [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "proportion" },
+          { type: "CardTitle", value: "Difference" },
+          { type: "text", value: " Difference of total " },
           {
             type: "entity",
-            value: "Proportion Analysis of Sales Volume by Different Countries",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " by " },
+          {
+            type: "entity",
+            value: "Year",
+            metadata: { entityType: "dim_cate" },
           },
         ],
       },
@@ -274,111 +199,69 @@ export const iniData: Card[] = [
           { type: "text", value: "From " },
           {
             type: "entity",
-            value: "January 1, 2011",
-            metadata: { entityType: "filter_time", selections: ["2011-1-1"] },
+            value: "2012.01.01",
+            metadata: { entityType: "filter_time", selections: ["2012-01-01"] },
           },
-          { type: "text", value: " to " },
+          { type: "text", value: "to " },
           {
             type: "entity",
-            value: "December 31, 2014",
-            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
+            value: "2012.12.31",
+            metadata: { entityType: "filter_time", selections: ["2012-12-31"] },
           },
-          {
-            type: "text",
-            value: ", when drilling down by ",
-          },
+          { type: "text", value: ", total " },
           {
             type: "entity",
-            value: "中国",
-            metadata: {
-              entityType: "filter_cate",
-              selections: ["中国", "美国", "英国", "日本", "西班牙"],
-            },
-          },
-          {
-            type: "text",
-            value: ", the specific proportions of total ",
-          },
-          {
-            type: "entity",
-            value: "sales",
+            value: "profit ",
             metadata: { entityType: "metric_name" },
           },
           {
-            type: "text",
-            value: " volume are as follows:",
+            type: "entity",
+            value: "increased ",
+            metadata: { entityType: "insight_desc", assessment: "increase" },
           },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
+          { type: "text", value: "by " },
           {
             type: "entity",
-            value: "United States",
-            metadata: { entityType: "dim_cate" },
-          },
-          {
-            type: "text",
-            value: " ranks first, with a proportion of ",
-          },
-
-          {
-            type: "entity",
-            value: "18.77%",
-            metadata: { entityType: "metric_value", origin: 0.1877 },
+            value: "23.49% ",
+            metadata: { entityType: "delta_value_ratio", assessment: "increase" },
           },
           {
             type: "entity",
-            value: "",
+            value: "(248940.81 → 307415) ",
             metadata: {
               entityType: "insight",
-              insightType: "Proportion",
-              detail: [0.1877, 1 - 0.1877],
+              insightType: "TemporalDifference",
+              detail: DifferenceData.data,
+              tagData: DifferenceData.tagData,
             },
+          },
+          { type: "text", value: "from " },
+          {
+            type: "entity",
+            value: "2011.01.01",
+            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
+          },
+          { type: "text", value: "to " },
+          {
+            type: "entity",
+            value: "2011.12.31",
+            metadata: { entityType: "filter_time", selections: ["2011-12-31"] },
           },
         ],
       },
-      {
-        type: "bullet",
-        phrases: [
-          {
-            type: "entity",
-            value: "Australia",
-            metadata: { entityType: "dim_cate" },
-          },
-          {
-            type: "text",
-            value: " takes the second position, with a proportion of ",
-          },
 
-          {
-            type: "entity",
-            value: "7.32%",
-            metadata: { entityType: "metric_value", origin: 0.0732 },
-          },
-          {
-            type: "entity",
-            value: "",
-            metadata: {
-              entityType: "insight",
-              insightType: "Proportion",
-              detail: [0.1877, 1 - 0.1877],
-            },
-          },
-        ],
-      },
       {
         type: "plot",
-        chartType: "Proportion",
+        chartType: "TemporalDifference",
         metadata: {
-          detail: ProportionData.data,
+          detail: DifferenceData.data,
+          tagData: DifferenceData.tagData,
         },
       },
     ],
   },
   {
-    CardName: "Card4",
+    CardName: "Card3",
     paragraph: [
       {
         type: "topic",
@@ -540,15 +423,219 @@ export const iniData: Card[] = [
       },
     ],
   },
+  {
+    CardName: "Card4",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Proportion" },
+          {
+            type: "entity",
+            value: " Proportion Analysis of Sales Volume by Different Countries",
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "From " },
+          {
+            type: "entity",
+            value: "January 1, 2011",
+            metadata: { entityType: "filter_time", selections: ["2011-1-1"] },
+          },
+          { type: "text", value: " to " },
+          {
+            type: "entity",
+            value: "December 31, 2014",
+            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
+          },
+          {
+            type: "text",
+            value: ", when drilling down by ",
+          },
+          {
+            type: "entity",
+            value: "中国",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["中国", "美国", "英国", "日本", "西班牙"],
+            },
+          },
+          {
+            type: "text",
+            value: ", the specific proportions of total ",
+          },
+          {
+            type: "entity",
+            value: "sales",
+            metadata: { entityType: "metric_name" },
+          },
+          {
+            type: "text",
+            value: " volume are as follows:",
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          {
+            type: "entity",
+            value: "United States",
+            metadata: { entityType: "dim_cate" },
+          },
+          {
+            type: "text",
+            value: " ranks first, with a proportion of ",
+          },
 
+          {
+            type: "entity",
+            value: "18.77%",
+            metadata: { entityType: "metric_value", origin: 0.1877 },
+          },
+          {
+            type: "entity",
+            value: "",
+            metadata: {
+              entityType: "insight",
+              insightType: "Proportion",
+              detail: [0.1877, 1 - 0.1877],
+            },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          {
+            type: "entity",
+            value: "Australia",
+            metadata: { entityType: "dim_cate" },
+          },
+          {
+            type: "text",
+            value: " takes the second position, with a proportion of ",
+          },
+
+          {
+            type: "entity",
+            value: "7.32%",
+            metadata: { entityType: "metric_value", origin: 0.0732 },
+          },
+          {
+            type: "entity",
+            value: "",
+            metadata: {
+              entityType: "insight",
+              insightType: "Proportion",
+              detail: [0.1877, 1 - 0.1877],
+            },
+          },
+        ],
+      },
+      {
+        type: "plot",
+        chartType: "Proportion",
+        metadata: {
+          detail: ProportionData.data,
+        },
+      },
+    ],
+  },
   {
     CardName: "Card5",
     paragraph: [
       {
         type: "topic",
         phrases: [
+          { type: "CardTitle", value: "Association" },
+          { type: "text", value: " Association between " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " and " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "text", value: "According to the " },
+          {
+            type: "entity",
+            value: "Pearson correlation coefficient",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient" +
+                " is equal to 1, it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
+            },
+          },
+          { type: "text", value: ", the correlation between " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " and " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " equals " },
+          {
+            type: "entity",
+            value: "0.65",
+            metadata: {
+              entityType: "insight",
+              insightType: "Association",
+              detail: AssociationData.data,
+              tagData: AssociationData.tagData,
+            },
+          },
+          { type: "text", value: " indicating a " },
+          {
+            type: "entity",
+            value: "positive",
+            metadata: { entityType: "insight_desc", assessment: "increase" },
+          },
+          { type: "text", value: " relationship. Besides, the correlation is statistically " },
+          {
+            type: "entity",
+            value: "significant",
+            metadata: { entityType: "insight_desc", assessment: "significant" },
+          },
+          { type: "text", value: "." },
+        ],
+      },
+      {
+        type: "plot",
+        chartType: "Association",
+        metadata: {
+          detail: AssociationData.data,
+          tagData: AssociationData.tagData,
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card6",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
           { type: "CardTitle", value: "Temporal Trend" },
-          { type: "text", value: "Trend of " },
+          { type: "text", value: " Trend of " },
           {
             type: "entity",
             value: "sales",
@@ -587,7 +674,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "",
-            metadata: { entityType: "insight_desc", assessment: "positive" },
+            metadata: { entityType: "insight_desc", assessment: "increase" },
           },
           {
             type: "entity",
@@ -609,144 +696,6 @@ export const iniData: Card[] = [
         metadata: {
           detail: [...TrendData11.data, ...TrendData11.predictData] as cateAndValue[],
           tagData: TrendData11.tagData as cateAndValue[],
-        },
-      },
-    ],
-  },
-  {
-    CardName: "Card6",
-    paragraph: [
-      {
-        type: "topic",
-        phrases: [
-          { type: "CardTitle", value: "Temporal Periodicity" },
-          { type: "text", value: " Periodicity of " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_name" },
-          },
-        ],
-      },
-      {
-        type: "normal",
-        phrases: [
-          { type: "text", value: "According to the " },
-          {
-            type: "entity",
-            value: "ACF algorithm",
-            metadata: {
-              entityType: "algorithm",
-              origin:
-                "The Autocorrelation Function (ACF) is a statistical tool used for analyzing time series data, measuring the correlation between a data point at a given time and data points at different lagged time points. It helps in identifying seasonal and" +
-                " periodic patterns in time series data. By examining the ACF plot, you can identify significant positive or negative correlations at various lagged time points, allowing you to infer the presence of seasonal cycles.",
-            },
-          },
-          { type: "text", value: ", in the past " },
-          {
-            type: "entity",
-            value: "4 years",
-            metadata: {
-              entityType: "filter_cate",
-              selections: ["4 years", "3 years", "2 years", "365 days"],
-            },
-          },
-          { type: "text", value: " ,the seasonality of the trend is " },
-          {
-            type: "entity",
-            value: "significant",
-            metadata: { entityType: "insight_desc", assessment: "significant" },
-          },
-          {
-            type: "entity",
-            value: "",
-            metadata: {
-              entityType: "insight",
-              insightType: "TemporalitySeasonality",
-              detail: PeriodicityData.data,
-              tagData: PeriodicityData.tagData,
-            },
-          },
-          { type: "text", value: " 2 seasons are identified, and the average period is " },
-          {
-            type: "entity",
-            value: "365 ",
-            metadata: { entityType: "metric_value", origin: 365 },
-          },
-          { type: "text", value: "days. " },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "text", value: " 2011-01 - 2012-01: peak = " },
-          {
-            type: "entity",
-            value: "11 ",
-            metadata: { entityType: "metric_value", origin: 11 },
-          },
-          { type: "text", value: ", bottom = " },
-          {
-            type: "entity",
-            value: "02 ",
-            metadata: { entityType: "metric_value", origin: 2 },
-          },
-          // {
-          //   type: 'entity',
-          //   value: '256368.16',
-          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
-          // },
-          {
-            type: "entity",
-            value: "256368.16",
-            metadata: {
-              entityType: "insight",
-              insightType: "TemporalitySeasonality",
-              detail: PeriodicityData.data,
-              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
-            },
-          },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "text", value: " 2012-01 - 2013-01: peak = " },
-          {
-            type: "entity",
-            value: "11 ",
-            metadata: { entityType: "metric_value", origin: 11 },
-          },
-          { type: "text", value: ", bottom = " },
-          {
-            type: "entity",
-            value: "02 ",
-            metadata: { entityType: "metric_value", origin: 2 },
-          },
-          // {
-          //   type: 'entity',
-          //   value: '256368.16',
-          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
-          // },
-          {
-            type: "entity",
-            value: "256368.16",
-            metadata: {
-              entityType: "insight",
-              insightType: "TemporalitySeasonality",
-              detail: PeriodicityData.data,
-              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
-            },
-          },
-        ],
-      },
-
-      {
-        type: "plot",
-        chartType: "TemporalPeriodicity",
-        metadata: {
-          detail: PeriodicityData.data,
-          tagData: PeriodicityData.tagData,
         },
       },
     ],
@@ -897,84 +846,135 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "Difference" },
-          { type: "text", value: " Difference of total " },
+          { type: "CardTitle", value: "Temporal Periodicity" },
+          { type: "text", value: " Periodicity of " },
           {
             type: "entity",
-            value: "Profit",
+            value: "Sales",
             metadata: { entityType: "metric_name" },
-          },
-          { type: "text", value: " by " },
-          {
-            type: "entity",
-            value: "Year",
-            metadata: { entityType: "dim_cate" },
           },
         ],
       },
       {
         type: "normal",
         phrases: [
-          { type: "text", value: "From " },
+          { type: "text", value: "According to the " },
           {
             type: "entity",
-            value: "2012.01.01",
-            metadata: { entityType: "filter_time", selections: ["2012-01-01"] },
-          },
-          { type: "text", value: "to " },
-          {
-            type: "entity",
-            value: "2012.12.31",
-            metadata: { entityType: "filter_time", selections: ["2012-12-31"] },
-          },
-          { type: "text", value: ", total " },
-          {
-            type: "entity",
-            value: "profit ",
-            metadata: { entityType: "metric_name" },
-          },
-          {
-            type: "entity",
-            value: "increased ",
-            metadata: { entityType: "insight_desc", assessment: "increase" },
-          },
-          { type: "text", value: "by " },
-          {
-            type: "entity",
-            value: "23.49% ",
-            metadata: { entityType: "delta_value_ratio", assessment: "positive" },
-          },
-          {
-            type: "entity",
-            value: "(248940.81 → 307415) ",
+            value: "ACF algorithm",
             metadata: {
-              entityType: "insight",
-              insightType: "TemporalDifference",
-              detail: DifferenceData.data,
-              tagData: DifferenceData.tagData,
+              entityType: "algorithm",
+              origin:
+                "The Autocorrelation Function (ACF) is a statistical tool used for analyzing time series data, measuring the correlation between a data point at a given time and data points at different lagged time points. It helps in identifying seasonal and" +
+                " periodic patterns in time series data. By examining the ACF plot, you can identify significant positive or negative correlations at various lagged time points, allowing you to infer the presence of seasonal cycles.",
             },
           },
-          { type: "text", value: "from " },
+          { type: "text", value: ", in the past " },
           {
             type: "entity",
-            value: "2011.01.01",
-            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
+            value: "4 years",
+            metadata: {
+              entityType: "filter_cate",
+              selections: ["4 years", "3 years", "2 years", "365 days"],
+            },
           },
-          { type: "text", value: "to " },
+          { type: "text", value: " ,the seasonality of the trend is " },
           {
             type: "entity",
-            value: "2011.12.31",
-            metadata: { entityType: "filter_time", selections: ["2011-12-31"] },
+            value: "significant",
+            metadata: { entityType: "insight_desc", assessment: "significant" },
+          },
+          { type: "text", value: ". 2 seasons " },
+          {
+            type: "entity",
+            value: "",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData,
+            },
+          },
+          { type: "text", value: " are identified, and the average period is " },
+          {
+            type: "entity",
+            value: "365 ",
+            metadata: { entityType: "metric_value", origin: 365 },
+          },
+          { type: "text", value: "days. " },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2011-01 - 2012-01: peak = " },
+          {
+            type: "entity",
+            value: "11 ",
+            metadata: { entityType: "metric_value", origin: 11 },
+          },
+          { type: "text", value: ", bottom = " },
+          {
+            type: "entity",
+            value: "02 ",
+            metadata: { entityType: "metric_value", origin: 2 },
+          },
+          // {
+          //   type: 'entity',
+          //   value: '256368.16',
+          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
+          // },
+          {
+            type: "entity",
+            value: "",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+            },
+          },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "text", value: " 2012-01 - 2013-01: peak = " },
+          {
+            type: "entity",
+            value: "11 ",
+            metadata: { entityType: "metric_value", origin: 11 },
+          },
+          { type: "text", value: ", bottom = " },
+          {
+            type: "entity",
+            value: "02 ",
+            metadata: { entityType: "metric_value", origin: 2 },
+          },
+          // {
+          //   type: 'entity',
+          //   value: '256368.16',
+          //   metadata: { entityType: 'metric_value', origin: 256368.16 },
+          // },
+          {
+            type: "entity",
+            value: " ",
+            metadata: {
+              entityType: "insight",
+              insightType: "TemporalitySeasonality",
+              detail: PeriodicityData.data,
+              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+            },
           },
         ],
       },
 
       {
         type: "plot",
-        chartType: "TemporalDifference",
+        chartType: "TemporalPeriodicity",
         metadata: {
-          detail: DifferenceData.data,
-          tagData: DifferenceData.tagData,
+          detail: PeriodicityData.data,
+          tagData: PeriodicityData.tagData,
         },
       },
     ],

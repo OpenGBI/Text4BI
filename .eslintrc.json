@@ -21,6 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "no-debugger": "off",
+    "no-undef": "off",
     "max-len": ["error", { "code": 300 }],
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",

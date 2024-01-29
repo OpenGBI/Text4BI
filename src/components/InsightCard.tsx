@@ -4,9 +4,11 @@ import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } f
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { useSelector, useDispatch } from "react-redux"
 // import { NarrativeTextSpec, NarrativeTextVis } from "@antv/ava-react"
-import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
+// import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
+import { copyToClipboard } from "@antv/ava-react"
 import { CopyOutlined, ExportOutlined } from "@ant-design/icons"
 import { Chart } from "@antv/g2"
+import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter"
 import { AppState } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
@@ -121,8 +123,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
 
   const onClickCopyButton = async () => {
     if (cardRef?.current) {
-      const textExporter = new TextExporter()
-      const html = await textExporter.getNarrativeHtml(cardRef.current)
+      // const textExporter = new TextExporter()
+      const html = await getNarrativeHtml(cardRef.current)
       const plainText = "plainText"
       copyToClipboard(html, plainText, onCopySuccess)
       // onCopy?.(currentInsightInfo, ref.current)
@@ -131,8 +133,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({
 
   const onClickExportButton = async () => {
     if (cardRef?.current) {
-      const textExporter = new TextExporter()
-      const html = await textExporter.getNarrativeHtml(cardRef.current)
+      // const textExporter = new TextExporter()
+      // const textExporter = new TextExporter()
+      const html = await getNarrativeHtml(cardRef.current)
+      // const html = await getNarrativeHtml(cardRef.current)
       // 创建一个新窗口
       const newWindow = window.open("", "_blank")
       if (newWindow) {

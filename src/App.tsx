@@ -21,9 +21,6 @@ function App() {
 
   const cardRefs = iniData.map(() => useRef<HTMLDivElement>(null))
   const navigationClick = (squareNumber: number) => {
-    console.log("navigationClicknavigationClicknavigationClicknavigationClick")
-    console.log(squareNumber)
-    console.log(cardRefs)
     const cardRef = cardRefs[squareNumber]
 
     if (cardRef.current) {
@@ -57,22 +54,8 @@ function App() {
           <Sider width={400}>
             <Content>
               <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
-              {/* <div>体育采访v古巴iububniubniububuibikuihbuhvghvghvgsdcvcdwcd </div> */}
-              {/* <ControlBar /> */}
             </Content>
-            {/* <Content>
-              <div className="panel1">
-
-              </div>
-            </Content> */}
-            {/* <Content>
-              <div>啊摄像头吃软饭v与i农民开辟了， </div>
-            </Content> */}
           </Sider>
-          {/* <Container /> */}
-          {/* <div className="navigation">
-          <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
-        </div> */}
         </Layout>
       </div>
     </Provider>

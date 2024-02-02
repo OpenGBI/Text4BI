@@ -10,13 +10,16 @@ import { Card } from "../types"
 // import { fetchDataset } from '../actions/systemAction'
 
 const { Header, Footer, Sider, Content } = Layout
-
+interface InsightCardsProps {
+  cardRefs: React.RefObject<HTMLDivElement>[]
+  cardsExchange: (newCardsIDs: string[]) => void
+}
 interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
 }
 
-const InsightCards: React.FC = () => {
+const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) => {
   const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
   const { showBigGraph, showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   // console.log('datasetttttttttttttt', selectedCards)
@@ -34,6 +37,7 @@ const InsightCards: React.FC = () => {
       return card
     })
     setCards(newCards)
+    cardsExchange(newCards)
   }
   const exportSelectedCardsAsHtml = () => {
     let htmlContent =
@@ -101,9 +105,13 @@ const InsightCards: React.FC = () => {
       <div style={{ height: 800, overflow: "auto" }}>
         <DndProvider backend={HTML5Backend}>
           <div className="card-container">
-            {Cards.map((curDataset) => (
+            {Cards.map((curDataset, index) => (
               <Content id={curDataset.CardName} key={curDataset.CardName}>
-                <InsightCard {...(curDataset as InsightCardProps)} onDrop={swapCards} />
+                <InsightCard
+                  {...(curDataset as InsightCardProps)}
+                  onDrop={swapCards}
+                  cardRef={cardRefs[index]}
+                />
               </Content>
             ))}
           </div>

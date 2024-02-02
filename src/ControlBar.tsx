@@ -24,6 +24,7 @@ import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/Con
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
 import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
+import Navigation from "./Navigation"
 
 const { Panel } = Collapse
 

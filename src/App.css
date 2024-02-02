@@ -26,7 +26,7 @@
   margin-left: 5px;
   margin-right: 5px; */
   color: #fff;
-  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
   /* border-radius: 5px;
   box-shadow: 2px 2px 2px #dddddd; */
 }
@@ -38,17 +38,17 @@
 
 .panel-header {
   background-color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   /* margin: 5px;
   padding-left: 10px;
   padding-top: 4px;
   /* border-radius: 5px; */
   /* height: 30px;
-  font-weight: bold; 这行会使得文本加粗 */ 
+  font-weight: bold; 这行会使得文本加粗 */
 }
 
 .panel2 {
-  background: #BADDE8;
+  background: #badde8;
   color: #050404;
   /* border-style: solid;
   border-color: #fff;
@@ -74,20 +74,20 @@
 
 .control-row {
   margin-bottom: 10px; /* 设置control和designer的每一个设置框之间的距离 */
-  font-family: 'Montserrat', sans-serif; /* 添加这一行 */ 
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
 }
 .control-panel {
-    /* display: flex; */
-    width: 100%;
-    flex-direction: column;
-  }
+  /* display: flex; */
+  width: 100%;
+  flex-direction: column;
+}
 /* DesignBar.css */
 .control-label {
   /* display: flex;
   align-items: center;  */
   font-size: 14px; /* Set your desired font size */
   padding-left: 0px;
-  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
   color: #fff;
 }
 
@@ -96,7 +96,7 @@
   align-items: center; /* Vertically centers the text with the form controls */
   font-size: 14px; /* Set your desired font size */
   padding-left: 15px;
-  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
   color: #fff;
 }
 
@@ -105,7 +105,7 @@
   align-items: center; /* Vertically centers the text with the form controls */
   font-size: 14px; /* Set your desired font size */
   padding-left: 30px;
-  font-family: 'Montserrat', sans-serif; /* 添加这一行 */
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
   color: #fff;
 }
 /* 在全局 CSS 文件中添加 */
@@ -217,6 +217,11 @@
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   padding: var(--select-padding) !important;
 } */
+.navigation {
+  width: 200;
+  height: 300;
+}
+
 /* #control_bar {
   flex-basis: 20%;
   height: 150px;

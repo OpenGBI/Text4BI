@@ -2,11 +2,20 @@ import React, { useRef, useEffect, useState } from "react"
 import { RiseOutlined } from "@ant-design/icons"
 import { Tooltip } from "antd"
 import { useDispatch, useSelector } from "react-redux"
+import { Chart } from "@antv/g2"
 import SelectorInText from "./LineHeightComponents/SelectorInText"
 import SelectorTime from "./LineHeightComponents/SelectionTime"
 import Icon from "../utils/Icon"
 import { ChangeGlobalSetting } from "../actions/GlobalSettingAction"
 import { AppState } from "../store"
+import {
+  highLightMessage,
+  Phrase,
+  Metadata,
+  Point,
+  cateAndValue,
+  GlobalSettingStateType,
+} from "../types"
 import {
   renderAssociation1,
   renderAssociation2,
@@ -25,7 +34,6 @@ import {
   renderTemporalityTrend1,
   renderTemporalityTrend2,
 } from "../utils/SparkLineFuncs"
-import { Phrase, Metadata, Point, cateAndValue, GlobalSettingStateType } from "../types"
 
 const globalBoolean = false
 // let colorindex = 0
@@ -61,7 +69,10 @@ interface PhraseComponentProps extends Phrase {
   lineHeight: number
   aspectRatio: string
   sparkLinePosition: string
-  onTopkChange: (newData: number) => void
+  onTopkChange: (newData: number) => void // 往子组件传递回调函数
+  outChart: Chart | null
+  setHighlightMessage: (message: highLightMessage) => void
+  // React.MutableRefObject<Chart | null> ref
 }
 interface Style {
   color?: string
@@ -87,6 +98,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   aspectRatio,
   sparkLinePosition,
   onTopkChange,
+  outChart,
+  setHighlightMessage,
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
@@ -118,17 +131,21 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const anomalyTypeOn1 = anomalyType === "a"
   const seasonalityTypeOn1 = seasonalityType === "a"
   // console.log("确认entitytype值的改变", selectedEntityType)
-    // 初始时为特定entityType设置的自定义样式
+  // 初始时为特定entityType设置的自定义样式
   // 现在 currentStyles 有了明确的索引签名
-// 初始样式对象
+  // 初始样式对象
   const initialStyles: { [key: string]: Style } = {
     metric_value: { color: "#4B91FF" },
     delta_value: { color: "#13A8A8" },
     delta_value_ratio: { color: "#13A8A8" },
     insight_desc: {
-      color: metadata.assessment === "positive" || metadata.assessment === "increase" || metadata.assessment === "significant" || metadata.assessment === "left-skewed"
-        ? "#13A8A8"
-        : "#FA541C",
+      color:
+        metadata.assessment === "positive" ||
+        metadata.assessment === "increase" ||
+        metadata.assessment === "significant" ||
+        metadata.assessment === "left-skewed"
+          ? "#13A8A8"
+          : "#FA541C",
     },
     metric_name: { fontWeight: "bold" },
     dim_cate: { fontWeight: "bold" },
@@ -138,6 +155,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const [currentStyles, setCurrentStyles] = useState(initialStyles)
   // const [entityTypeStyles, setCustomStyles] = useState(initialEntityStyles)
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
+
+  // const [hoverState, setHoverState] = useState({ message: "", hoverOrNot: false })
+
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // useEffect(() => {
   //   // 当 showBigGraph 为 true 时，ref 保持不变。
@@ -430,7 +450,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as Point[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as Point[],
+          curMetadata.tagData as Point[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -439,7 +459,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as Point[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as Point[],
+          curMetadata.tagData as Point[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -500,14 +520,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
       ) {
-        console.log(
-          "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
-        )
         renderTemporalityDifference1(
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -521,7 +538,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -565,7 +582,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       ) {
         renderTemporalitySeasonality1(
           curMetadata.detail as cateAndValue[],
-          metadata.tagData as cateAndValue[],
+          curMetadata.tagData as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
           curWordSpan,
@@ -581,7 +598,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as number[],
           curAspectRatio,
           curSparkLinePosition,
-          metadata.tagData as number[],
+          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )

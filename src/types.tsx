@@ -106,3 +106,7 @@ export type wordScaleGraphicsSettingStateType = {
   semanticBindingEntityType: string
   selectedSymbol2: string
 }
+export type highLightMessage = {
+  message: string | number
+  hoverOrNot: boolean
+}

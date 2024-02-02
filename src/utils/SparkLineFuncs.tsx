@@ -651,6 +651,7 @@ export const renderProportion1 = (
     width = 100
     height = 20
   }
+
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
@@ -676,7 +677,7 @@ export const renderProportion1 = (
   //   .line<number>()
   //   .x((d, i) => xScale(i))
   //   .y((d) => yScale(d))
-
+  console.log("sparkLinePositionsparkLinePositionsparkLinePosition", sparkLinePosition)
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
@@ -1693,10 +1694,10 @@ export const renderTemporalityDifference1 = (
     return sum
   })
 
-  console.log(
-    "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
-    data,
-  )
+  // console.log(
+  //   "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
+  //   data,
+  // )
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20

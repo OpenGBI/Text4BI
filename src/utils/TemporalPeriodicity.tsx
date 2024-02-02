@@ -76,7 +76,6 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({ data, tagData
         fontSize: 10,
       })
       .tooltip({ channel: "y", valueFormatter: ".1f" })
-    console.log("TemporalPeriodicityPropstagDatatagDatatagDatatagData", tagData)
     // chart.data(tagData)
 
     // chart

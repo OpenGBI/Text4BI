@@ -1,0 +1,48 @@
+import React from "react"
+import { Col, Row, Divider, Collapse } from "antd"
+import ControlFont from "./components/ControlGlobalSetting/ControlFont"
+import ControlLineHeight from "./components/ControlGlobalSetting/ControlLineHeight"
+import ControlAspectRatio from "./components/ControlWordScaleGragphicsSetting/ControlAspectRatio"
+import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/ControlSparkLinePos"
+import NavigationCard from "./components/NavigationCard"
+
+const { Panel } = Collapse
+type navigationProps = {
+  navigationClick: (cardID: number) => void
+  CardsIDs: string[]
+}
+const Navigation: React.FC<navigationProps> = ({ navigationClick, CardsIDs }) => (
+  <div>
+    {CardsIDs.map((cardID, index) => (
+      <div key={index}>
+        {/* <button type="submit" onClick={() => navigationClick(index)}>
+            {cardID}
+          </button> */}
+        <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#272643" }}>
+          <Panel
+            header={<span className="panel-header">Global Design</span>}
+            key="1"
+            style={{ backgroundColor: "#fff" }}
+          >
+            <NavigationCard navigationClick={navigationClick} CardID={cardID} cardIndex={index} />
+          </Panel>
+        </Collapse>
+      </div>
+    ))}
+  </div>
+)
+
+//   <div>
+//     <button type="submit" onClick={() => navigationClick(1)}>
+//       Square 1
+//     </button>
+//     <button type="submit" onClick={() => navigationClick(2)}>
+//       Square 2
+//     </button>
+//     <button type="submit" onClick={() => navigationClick(3)}>
+//       Square 3
+//     </button>
+//   </div>
+// )
+
+export default Navigation

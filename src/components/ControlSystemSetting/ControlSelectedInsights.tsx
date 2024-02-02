@@ -19,7 +19,7 @@ const ControlSelectedInsights: React.FC = () => {
     { value: "orange", label: "Association between Sales and Profit" },
     { value: "gold", label: "Trend of Sales" },
     { value: "green", label: "Anomaly detection of Sales" },
-    { value: "green", label: "Periodicity of Sales" },
+    { value: "yellow", label: "Periodicity of Sales" },
   ]
 
   const tagRender = ({ label, value, closable, onClose }: TagRenderProps) => {
@@ -33,7 +33,14 @@ const ControlSelectedInsights: React.FC = () => {
         onMouseDown={onPreventMouseDown}
         closable={closable}
         onClose={onClose}
-        style={{ marginRight: 3 }}
+        style={{
+          marginRight: 3,
+          maxWidth: 200, // 这里可以设置一个最大宽度
+          maxHeight: 30,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
       >
         {label}
       </Tag>
@@ -45,14 +52,18 @@ const ControlSelectedInsights: React.FC = () => {
   )
 
   return (
-    <Select
-      mode="multiple"
-      showArrow
-      tagRender={tagRender} // 应该不需要进行类型断言
-      defaultValue={defaultValuesLabels}
-      style={{ width: "50%" }}
-      options={options}
-    />
+    <div style={{ width: 300, display: "inline-block" }}> {/* 设置外部容器的固定宽度 */}
+      <Select
+        mode="multiple"
+        showArrow
+        tagRender={tagRender}
+        defaultValue={defaultValuesLabels}
+        style={{ width: "100%" }} // 设置Select组件的宽度为100%
+        dropdownMatchSelectWidth={false} // 确保下拉菜单的宽度不会改变
+        dropdownStyle={{ width: 300 }} // 设置下拉菜单的固定宽度
+        options={options}
+      />
+    </div>
   )
 }
 

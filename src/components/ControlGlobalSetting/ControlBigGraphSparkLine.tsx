@@ -28,6 +28,10 @@ const ControlBigGraphSparkLine: React.FC = () => {
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         showDataDrivenGraphics: checked,
+        showDataDrivenCharts: checked,
+        graphicsSignificance: checked,
+        graphicsDirection: checked,
+        graphicsAnomaly: checked,
         isSemanticDrivenIconsOn: checked,
       }),
     )

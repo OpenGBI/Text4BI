@@ -151,12 +151,25 @@
   padding: 8px;
 }
 
-/* 覆盖Ant Design Collapse组件的默认圆角样式 */
-.ant-collapse > .ant-collapse-item > .ant-collapse-header,
-.ant-collapse > .ant-collapse-item .ant-collapse-content {
-  border-radius: 0 !important; /* 使用!important来确保覆盖任何默认样式 */
+.ant-collapse {
+  border-radius: 0px !important;
 }
 
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  border-radius: 0px !important;
+}
+
+.ant-collapse .ant-collapse-content {
+  border-radius: 0px !important;
+}
+
+.ant-collapse .ant-collapse-content > .ant-collapse-content-box {
+  border-radius: 0px !important;
+}
+
+.ant-collapse-item-collapsed > .ant-collapse-header {
+  border-radius: 0px !important;
+}
 /* styles.css */
 .ant-picker input {
   font-size: var(--dynamic-font-size) !important; /* 使用 CSS 变量 */
@@ -166,6 +179,35 @@
 .ant-picker {
   font-size: var(--dynamic-font-size) !important; /* 使用!important来确保覆盖默认样式 */
 }
+
+.ant-select .ant-select-selector {
+  width: 100%; /* 确保selector占满整个Select组件的宽度 */
+  overflow: hidden; /* 隐藏溢出的内容 */
+  white-space: nowrap; /* 防止内容换行 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  text-align: left; /* 文本左对齐 */
+}
+
+.ant-select .ant-select-selection-overflow {
+  width: 100%; /* 确保overflow元素占满selector的宽度 */
+  display: flex; /* 使子元素按行排列 */
+  flex-wrap: nowrap; /* 防止子元素换行 */
+  overflow: hidden; /* 隐藏溢出的内容 */
+  max-width: 100%; /* 防止子元素超出容器宽度 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  text-align: left; /* 文本左对齐 */
+}
+
+.ant-select .ant-select-selection-overflow-item {
+  max-width: none; /* 移除最大宽度限制 */
+  flex-grow: 1; /* 允许子项根据需要扩展 */
+  margin-right: 0; /* 调整或移除外边距 */
+  flex-shrink: 0; /* 防止项目在溢出容器时缩小 */
+  text-align: left;
+}
+
 /* 在您的全局样式文件中，例如 styles.css
 .ant-select-single .ant-select-selector .ant-select-selection-item,
 .ant-select-single .ant-select-selector .ant-select-selection-placeholder {

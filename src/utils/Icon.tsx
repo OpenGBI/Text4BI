@@ -15,8 +15,9 @@ import { AppState } from "../store"
 
 interface IconProps {
   assessment: string
+  style?: React.CSSProperties // 添加这行代码来定义 style 属性
 }
-const Icon: React.FC<IconProps> = ({ assessment }) => {
+const Icon: React.FC<IconProps> = ({ assessment, style }) => {
   const {
     graphicsSignificance,
     graphicsDirection,
@@ -34,20 +35,24 @@ const Icon: React.FC<IconProps> = ({ assessment }) => {
   // 根据 assessment 返回相应的图标
   switch (assessment) {
     case "significant":
-      return <CheckCircleOutlined style={{ fontSize: "16px", color: "#13A8A8" }} />
+      return <CheckCircleOutlined style={{ ...style, fontSize: "16px", color: "#13A8A8" }} />
     case "insignificant":
-      return <CloseCircleOutlined style={{ fontSize: "16px", color: "#FA5413" }} />
+      return <CloseCircleOutlined style={{ ...style, fontSize: "16px", color: "#FA5413" }} />
     case "increase":
-      return <CaretUpFilled style={{ fontSize: "16px", color: "#13A8A8" }} />
+      return <CaretUpFilled style={{ ...style, fontSize: "16px", color: "#13A8A8" }} />
     case "decrease":
-      return <CaretDownFilled style={{ fontSize: "16px", color: "#FA5413" }} />
+      return <CaretDownFilled style={{ ...style, fontSize: "16px", color: "#FA5413" }} />
     case "outlier":
-      return <WarningFilled style={{ fontSize: "16px", color: "#FA5413" }} />
+      return <WarningFilled style={{ ...style, fontSize: "16px", color: "#FA5413" }} />
     case "anomaly":
-      return <WarningFilled style={{ fontSize: "16px", color: "#FA5413" }} />
+      return <WarningFilled style={{ ...style, fontSize: "16px", color: "#FA5413" }} />
     default:
       return null
   }
+}
+
+Icon.defaultProps = {
+  style: {}, // 提供一个空对象作为默认的 style 值
 }
 
 export default Icon

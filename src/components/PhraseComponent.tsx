@@ -91,6 +91,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
   const {
+    showDataDrivenGraphics,
+    showDataDrivenCharts,
     distributionType,
     rankType,
     proportionType,
@@ -102,7 +104,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     graphicsSignificance,
     graphicsDirection,
     graphicsAnomaly,
+    isSemanticDrivenIconsOn,
   } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const shouldShowSparkLine = showSparkLine && showDataDrivenGraphics && showDataDrivenCharts
+  // console.log("检查shouldShowSparkLine", shouldShowSparkLine)
   const distributionTypeOn1 = distributionType === "a"
   // console.log("检查distributionTypeOn", distributionTypeOn1)
   const rankTypeOn1 = rankType === "a"
@@ -324,11 +329,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     differenceTypeOn: boolean,
     anomalyTypeOn: boolean,
     seasonalityTypeOn: boolean,
+    curShouldShowSparkLine: boolean,
   ) => {
     if (!curMetadata.detail) {
       throw new Error("no curMetadata")
     }
-    console.log("检查dis", distributionTypeOn)
+    // console.log("检查dis", distributionTypeOn)
     if (curMetadata.insightType === "Distribution") {
       if (
         distributionTypeOn
@@ -586,9 +592,18 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   throw new Error("No data found for the date")
   // }
   useEffect(() => {
+    console.log(`检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`)
+    // 如果不需要显示 SparkLine，立即隐藏
+    // if (!showSparkLine || !showDataDrivenGraphics || !showDataDrivenCharts) {
+    //   if (sparkLineRef.current) {
+    //     sparkLineRef.current.style.display = "none"
+    //   }
+    //   // 提早退出，避免执行后续的显示逻辑
+    //   return
+    // }
     // showSparkLine 为 true 时，重新显示或创建小图
-    if (showSparkLine) {
-      // 如果之前隐藏了小图，现在重新显示它
+    // 如果之前隐藏了小图，现在重新显示它
+    if (shouldShowSparkLine) {
       if (sparkLineRef.current) {
         sparkLineRef.current.style.display = "" // 或者 "block", 取决于你的布局需求
       }
@@ -612,6 +627,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           differenceTypeOn1,
           anomalyTypeOn1,
           seasonalityTypeOn1,
+          shouldShowSparkLine,
         )
       }
       if (
@@ -634,14 +650,20 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           differenceTypeOn1,
           anomalyTypeOn1,
           seasonalityTypeOn1,
+          shouldShowSparkLine,
         )
       }
+    } else if (wordRef.current &&
+      (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+      const sparklines = wordRef.current.getElementsByClassName("sparklines")
+      Array.from(sparklines).forEach((sparkline) => sparkline.remove())
+      console.log("sparkLineRef.current 为空")
     } else if (sparkLineRef.current) {
       // showSparkLine 为 false 时，隐藏或移除小图
       sparkLineRef.current.style.display = "none"
       // 或者移除内容：sparkLineRef.current.innerHTML = ""
     }
-  }, [type, metadata, aspectRatio, sparkLinePosition, showSparkLine, distributionTypeOn1, rankTypeOn1, proportionTypeOn1, associationTypeOn1, trendTypeOn1, differenceTypeOn1, anomalyTypeOn1, seasonalityTypeOn1]) // 确保 showSparkLine 在依赖项中
+  }, [type, metadata, aspectRatio, sparkLinePosition, showSparkLine, showDataDrivenGraphics, showDataDrivenCharts, distributionTypeOn1, rankTypeOn1, proportionTypeOn1, associationTypeOn1, trendTypeOn1, differenceTypeOn1, anomalyTypeOn1, seasonalityTypeOn1]) // 确保 showSparkLine 在依赖项中
 
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {
@@ -692,7 +714,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     // }
 
     return (
-      <>
+      <span style={{ position: "relative" }}> {/* 确保父元素具有相对定位 */}
         {
           metadata?.entityType === "insight" && sparkLinePosition === "left" ? (
             <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan">
@@ -702,24 +724,41 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
-        {/* <span
-          ref={wordRef}
-          style={{
-            fontSize: fontsize,
-            fontWeight: fontWeightValue,
-            textDecoration: underlineValue,
-            lineHeight,
-            position: "relative",
-          }}
-          className="trend_desc"
-        >
-          {value}
-        </span> */}
-        {metadata?.entityType === "insight_desc" && showSparkLine ? (
-          // <RiseOutlined style={{ fontSize: '16px', color: '#FA541C' }} />
-          <Icon assessment={metadata.assessment as string} />
-        ) : null}
+        {
+          metadata?.entityType === "insight_desc" && showSparkLine && showDataDrivenGraphics && sparkLinePosition === "left" && (
+            <span style={{ marginRight: "0px" }}>
+              <Icon assessment={metadata.assessment as string} />
+            </span>
+          )
+        }
         {renderWord(metadata)}
+        {
+          metadata?.entityType === "insight_desc" && showSparkLine && showDataDrivenGraphics && sparkLinePosition === "right" && (
+            <span style={{ marginLeft: "-1px" }}> {/* 添加外边距以避免重叠 */}
+              <Icon assessment={metadata.assessment as string} />
+            </span>
+          )
+        }
+        {
+          // 如果 sparkLinePosition 是 "up" 或 "down"，则在相应位置渲染 SparkLine
+          metadata?.entityType === "insight" && (sparkLinePosition === "up" || sparkLinePosition === "down") && (
+            <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan">
+              {/* SparkLine SVG 和 Tooltip 代码在这里 */}
+            </span>
+          )
+        }
+        {
+          // 如果 sparkLinePosition 是 "up"，则在文本上方渲染 Icon
+          metadata?.entityType === "insight_desc" && showSparkLine && showDataDrivenGraphics && sparkLinePosition === "up" && (
+            <Icon assessment={metadata.assessment as string} style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)" }} />
+          )
+        }
+        {
+          // 如果 sparkLinePosition 是 "down"，则在文本下方渲染 Icon
+          metadata?.entityType === "insight_desc" && showSparkLine && showDataDrivenGraphics && sparkLinePosition === "down" && (
+            <Icon assessment={metadata.assessment as string} style={{ position: "absolute", bottom: "-12px", left: "50%", transform: "translateX(-50%)" }} />
+          )
+        }
         {
           metadata?.entityType === "insight" && sparkLinePosition === "right" ? (
             <span ref={sparkLineRef} className="sparkLineSpan">
@@ -729,7 +768,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             </span>
           ) : null // 这是一个三目运算符 ？：
         }
-      </>
+      </span>
     )
   }
   if (type === "CardTitle") {

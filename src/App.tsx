@@ -52,11 +52,11 @@ function App() {
             </Content>
             {/* <Container /> */}
           </Content>
-          {/* <Sider width={400}>
+          <Sider width={150}>
             <Content>
               <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>
-          </Sider> */}
+          </Sider>
         </Layout>
       </div>
     </Provider>

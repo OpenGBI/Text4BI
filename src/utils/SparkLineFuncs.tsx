@@ -1,15 +1,33 @@
 import React, { useRef, useEffect } from "react"
 import * as d3 from "d3"
+// import { useDispatch, useSelector } from "react-redux"
 import { Point, cateAndValue } from "../types"
+// import { AppState } from "../store"
 
+// const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
+// const {
+//   showDataDrivenGraphics,
+//   showDataDrivenCharts,
+// } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+// const shouldRenderSparkLine = showSparkLine && (showDataDrivenGraphics || showDataDrivenCharts)
 export const renderDistribution1 = (
   data: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
+  // shouldRenderSparkLine?: boolean,
 ) => {
   // console.log("确认小图函数是否调用 分布1", sparkLineElement)
+  // 判断是否应该渲染小图
+  // if (!shouldRenderSparkLine && wordElement) {
+  //   // 如果不应该渲染小图，但之前已经渲染过，现在需要移除它们
+  //   const sparklines = wordElement.querySelectorAll(".sparklines")
+  //   sparklines.forEach((sparkline) => {
+  //     sparkline.remove() // 移除所有的小图元素
+  //   })
+  //   return // 不继续执行后面的代码
+  // }
   let width
   let height
   const padding = 1.5
@@ -65,7 +83,7 @@ export const renderDistribution1 = (
       newDiv.style.top = "-20px"
       newDiv.style.left = "0px"
     } else {
-      newDiv.style.top = "0px"
+      newDiv.style.top = "-10px"
       newDiv.style.left = "0px"
     }
 

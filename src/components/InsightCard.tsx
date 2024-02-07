@@ -70,6 +70,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   )
 
   const [topk, setTopk] = useState<number>(-1) // 控制数据集中的哪几项用于绘图
+  let bulletPointIndex = 0 // 记录当前的bulletPoint的位置
 
   useEffect(() => {
     if (!paragraph[0]) {
@@ -212,10 +213,17 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   const renderBulletPoint = (curSentence: sentence) => {
     if (isLineBreakOn && curSentence.type === "bullet") {
-      return <span style={{ fontSize: "20px" }}>{bulletPointStyle}</span>
+      if (bulletPointStyle === "#") {
+        // Render a numbered list item
+        bulletPointIndex += 1
+        return <span style={{ fontSize: fontsize }}>{bulletPointIndex}.</span>
+      }
+      // Render the original bullet point style
+      return <span style={{ fontSize: fontsize }}>{bulletPointStyle}</span>
     }
     return null
   }
+  // Usage: renderBulletPoint(sentence, index) where `index` is the position of the current item in the list
   const renderPhrases = (curSentence: sentence) => {
     if (curSentence.type === "topic") {
       return curSentence.phrases.map((phrase, index) => (

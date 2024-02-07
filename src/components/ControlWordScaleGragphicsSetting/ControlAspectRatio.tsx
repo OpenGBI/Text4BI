@@ -12,7 +12,7 @@ const ControlAspectRatio: React.FC = () => {
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
-  const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1")
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState("4:1")
   // 下拉框显示的值
   const [dropdownDisplay, setDropdownDisplay] = useState("...")
 

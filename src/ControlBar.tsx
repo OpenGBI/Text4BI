@@ -23,6 +23,7 @@ import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/C
 import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/ControlTypeSwitch"
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
+import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
 import Navigation from "./Navigation"
 
 const { Panel } = Collapse
@@ -42,7 +43,7 @@ const ControlBar: React.FC = () => (
       Design Panel
     </div>
     <div style={{ height: 820, overflow: "auto" }}>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#272643" }}>
+      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }}>
         <Panel
           header={<span className="panel-header">Global Design</span>}
           key="1"
@@ -121,6 +122,9 @@ const ControlBar: React.FC = () => (
           </Row>
           <Row className="control-row">
             <ControlSemanticDrivenIcons />
+          </Row>
+          <Row className="control-row">
+            <ControlIconDesign />
           </Row>
         </Panel>
       </Collapse>

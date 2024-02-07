@@ -6,7 +6,7 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   sparkLinePosition: "right",
   showDataDrivenGraphics: true,
   showDataDrivenCharts: true,
-  aspectRatio: "1:1",
+  aspectRatio: "4:1",
   distributionType: "a",
   rankType: "a",
   proportionType: "a",

@@ -7,7 +7,7 @@ const iniTypographySettingState: typographySettingStateType = {
   underline: false,
   italics: false,
   contour: false,
-  color: "black",
+  color: "#4B91FF",
   backgroundColor: "white",
 }
 

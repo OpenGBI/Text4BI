@@ -6,7 +6,7 @@ const iniGlobalSettingState: GlobalSettingStateType = {
   textPosition: "vertical",
   showSparkLine: true,
   fontsize: "16px",
-  lineHeight: 1.5,
+  lineHeight: 2,
   bulletPoint: true,
   isLineBreakOn: true,
   bulletPointStyle: "•",

@@ -13,6 +13,7 @@ const ControlDataDrivenCharts: React.FC = () => {
   const { showDataDrivenGraphics, showDataDrivenCharts } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+  const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -28,7 +29,7 @@ const ControlDataDrivenCharts: React.FC = () => {
   }
 
   return (
-    <div style={{ width: "100%", display: showDataDrivenGraphics ? "block" : "none" }}>
+    <div style={{ width: "100%", display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}>
       <Row className="control-row">
         <div className="control-panel">
           <Row align="middle">

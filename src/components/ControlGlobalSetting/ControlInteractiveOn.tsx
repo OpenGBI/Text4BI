@@ -30,6 +30,8 @@ const ControlInteraction: React.FC = () => {
   // 交互状态变化时的处理函数
   const handleInteractionChange = (value: boolean) => {
     setIsInteractionOn(value)
+    setIsLinkingOn(value)
+    setIsDetailsOnDemandOn(value)
     toggleGlobalSetting("interaction", value)
     // 关闭交互同时关闭下属的设置项
     if (!value) {

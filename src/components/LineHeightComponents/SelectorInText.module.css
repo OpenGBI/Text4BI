@@ -1,0 +1,21 @@
+/* SelectorInText.module.css
+.customDropdown .ant-select-selection-search-input,
+.customDropdown .ant-select-selection-item,
+.customDropdown .ant-select-selection-placeholder {
+  font-size: var(--dynamic-font-size) !important;
+}
+/* 在您的全局样式文件中，例如 styles.css */
+/* .ant-select-single .ant-select-selector .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  font-size: var(--dynamic-font-size) !important;
+}  */
+/* .customSelect .ant-select-selector .ant-select-selection-item, 
+.customSelect .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    font-size: var(--dynamic-font-size) !important;
+  } */
+
+.customDropdown .ant-select-selector .ant-select-selection-item, 
+.customDropdown .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  font-size: var(--dynamic-font-size) !important;
+  padding: var(--select-padding-top) var(--select-padding-right) var(--select-padding-bottom) var(--select-padding-left) !important;
+}

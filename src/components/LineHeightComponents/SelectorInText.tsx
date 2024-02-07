@@ -1,37 +1,82 @@
-import React from "react"
-import { Select, Space } from "antd"
+import React, { useEffect } from "react"
+import { ConfigProvider, Select, Space } from "antd"
+import { useSelector } from "react-redux"
+import { AppState } from "../../store" // 确保路径正确
+import styles from "./SelectorInText.module.css"
 
-type typeSelectorProps = {
+interface SelectorProps {
   defaultSelection: string
   selections: string[]
   onTopkChange: (value: number) => void
 }
-const SelectorInText: React.FC<typeSelectorProps> = ({
+
+const SelectorInText: React.FC<SelectorProps> = ({
   defaultSelection,
   selections,
   onTopkChange,
 }) => {
-  const handleChange = (value: string) => {
-    // console.log(`selected ${value}`)
-    // 尝试将 value 转换为数字
-    const numericValue = parseFloat(value)
+  const { fontsize } = useSelector((state: AppState) => state.globalSetting)
+  const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
+  const width = `${Math.max(40, fontSizeNumber * 10)}px` // 根据fontsize计算width
+  const height = `${Math.max(10, fontSizeNumber * 1.8)}px` // 根据fontsize计算width
+  const paddingSize = `${Math.max(5, fontSizeNumber)}px` // 根据fontsize计算padding
+  const dropdownTextSize = fontsize // 设置下拉框中文本的大小与fontsize一致
 
-    // 检查转换后的值是否是有效数字
+  useEffect(() => {
+    // const fontsize = fontSizeNumber
+    // 更新 CSS 变量以匹配 fontsize
+    document.documentElement.style.setProperty("--dynamic-font-size", fontsize)
+  }, [fontsize])
+
+  useEffect(() => {
+    // 计算 padding-top 和 padding-bottom
+    const paddingTop = "0"
+    const paddingBottom = "0"
+
+    document.documentElement.style.setProperty("--select-padding-left", paddingSize)
+    document.documentElement.style.setProperty("--select-padding-right", paddingSize)
+    document.documentElement.style.setProperty("--select-padding-top", paddingTop)
+    document.documentElement.style.setProperty("--select-padding-bottom", paddingBottom)
+  }, [fontsize])
+
+  const handleChange = (value: string) => {
+    const numericValue = parseFloat(value)
     if (!Number.isNaN(numericValue)) {
-      // 如果是有效数字，调用 onTopkChange
       onTopkChange(numericValue)
     }
   }
 
   return (
-    <Space wrap>
-      <Select
-        defaultValue={defaultSelection}
-        style={{ width: 75 }}
-        onChange={handleChange}
-        options={selections.map((selection: string) => ({ value: selection, label: selection }))}
-      />
-    </Space>
+    <ConfigProvider
+      theme={{
+        components: {
+          Select: {
+            fontSize: fontSizeNumber,
+          },
+        },
+      }}
+    >
+      <Space direction="vertical">
+        <Select
+          defaultValue={defaultSelection}
+          className={styles.customDropdown}
+          style={{
+            width,
+            height,
+            // fontSize: fontsize,
+            padding: `0 ${paddingSize}`, // 应用计算后的padding
+          }}
+          // dropdownClassName={styles.customDropdown} // 使用模块化CSS类
+          onChange={handleChange}
+        >
+          {selections.map((selection: string) => (
+            <Select.Option key={selection} value={selection} style={{ fontSize: fontsize }}>
+              {selection}
+            </Select.Option>
+          ))}
+        </Select>
+      </Space>
+    </ConfigProvider>
   )
 }
 

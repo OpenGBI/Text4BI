@@ -97,11 +97,11 @@ const ControlTypeSwitch: React.FC = () => {
   return (
     <div className="control-panel">
       {renderButtonGroup("distributionType", "Distribution", isdistributionTypeOn)}
+      {renderButtonGroup("differenceType", "Difference", isdifferenceTypeOn)}
       {renderButtonGroup("rankType", "Rank", isrankTypeOn)}
       {renderButtonGroup("proportionType", "Proportion", isproportionTypeOn)}
       {renderButtonGroup("associationType", "Association", isassociationTypeOn)}
       {renderButtonGroup("trendType", "Trend", istrendTypeOn)}
-      {renderButtonGroup("differenceType", "Difference", isdifferenceTypeOn)}
       {renderButtonGroup("anomalyType", "Anomaly", isanomalyTypeOn)}
       {renderButtonGroup("seasonalityType", "Seasonality", isseasonalityTypeOn)}
     </div>

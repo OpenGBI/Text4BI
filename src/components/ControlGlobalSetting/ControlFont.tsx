@@ -13,7 +13,7 @@ const ControlFont: React.FC = () => {
     (state: AppState) => state.globalSetting,
   )
   // 选中的字体大小
-  const [selectedFontSize, setSelectedFontSize] = useState("14px")
+  const [selectedFontSize, setSelectedFontSize] = useState("16px")
   // 下拉框显示的值
   const [dropdownDisplay, setDropdownDisplay] = useState("...")
 
@@ -31,7 +31,7 @@ const ControlFont: React.FC = () => {
 
   // 生成字体大小选项的数组
   const fontSizeOptions = []
-  for (let i = 5; i <= 72; i += 1) {
+  for (let i = 10; i <= 25; i += 1) {
     fontSizeOptions.push(<Option key={`${i}px`} value={`${i}px`}>{`${i}px`}</Option>)
   }
 
@@ -65,7 +65,7 @@ const ControlFont: React.FC = () => {
               onChange={handleFontSizeChange}
               dropdownMatchSelectWidth={false}
               onFocus={() => setDropdownDisplay("14px")} // 聚焦时显示实际选中的值
-              onBlur={() => setDropdownDisplay("....")} // 失焦时显示....
+              // onBlur={() => setDropdownDisplay("....")} // 失焦时显示....
             >
               {fontSizeOptions}
             </Select>

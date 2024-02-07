@@ -96,6 +96,7 @@ const BigChart: React.FC<BigChartProps> = ({
           handleCurBigChart={handleCurBigChart}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     }
@@ -121,7 +122,14 @@ const BigChart: React.FC<BigChartProps> = ({
         />
       )
     case "Distribution":
-      return <Distribution data={BigChartDataRef.current.detail as cateAndValue[]} />
+      return (
+        <Distribution
+          data={BigChartDataRef.current.detail as cateAndValue[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
+        />
+      )
     case "TemporalDifference":
       return <Difference iniData={BigChartDataRef.current.detail as cateAndValue[]} />
     case "TemporalPeriodicity": {

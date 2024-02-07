@@ -163,11 +163,23 @@
 // export default Container
 
 import React, { useEffect, useRef } from "react"
-import { Chart } from "@antv/g2"
+import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
+import _ from "lodash"
 
 const Container = () => {
   const containerRef = useRef(null)
   const chartRef = useRef<Chart | null>(null)
+  const data = [
+    { year: "1991", value: 3 },
+    { year: "1992", value: 4 },
+    { year: "1993", value: 3.5 },
+    { year: "1994", value: 5 },
+    { year: "1995", value: 4.9 },
+    { year: "1996", value: 6 },
+    { year: "1997", value: 7 },
+    { year: "1998", value: 9 },
+    { year: "1999", value: 13 },
+  ]
   useEffect(() => {
     if (!containerRef.current) {
       return
@@ -176,61 +188,52 @@ const Container = () => {
     const chart = new Chart({
       container: containerRef.current,
       autoFit: true,
-      height: 500,
     })
+
     chart
-      .data([
-        { x: 808.563, y: 198.873 },
-        { x: 314.22, y: 3.12 },
-        { x: 4503.5372, y: 184.59720000000007 },
-        { x: 2808.87024, y: 635.12344 },
-        { x: 3662.3100000000004, y: 1053.3699 },
-        { x: 622.5381, y: 86.12610000000001 },
-      ])
-      .point()
-      .encode("x", "x")
-      .encode("y", "y")
-      .state("active", { fill: "#4B91FF" })
-      .state("inactive", { opacity: 0.5 })
-    chart
+      .data(data)
       .line()
-      .encode("x", "x")
-      .encode("y", "y")
-      .encode("color", "blue")
-      .data([
-        { x: 2165.3999, y: 354.7569 },
-        { x: 1208.1219999999998, y: -0.025300000000001432 },
-      ])
-      .state("active", { fill: "#4B91FF" })
-      .state("inactive", { opacity: 0.5 })
-    chart.interaction("elementHighlight", true)
-    chart.render()
+      .encode("x", "year")
+      .encode("y", "value")
+      .scale("x", {
+        range: [0, 1],
+      })
+      .scale("y", {
+        domainMin: 0,
+        nice: true,
+      })
     chartRef.current = chart
-    return () => {
-      chart.destroy()
-    }
+    chartRef.current.data(data).line().encode("x", "year").encode("y", 3)
+    // chart.data(data).point().style("fill", "white").tooltip(false)
+    chart.render()
   }, [])
+
   const handleButtonClick = () => {
     if (chartRef.current) {
-      chartRef.current.emit("element:highlight", {
-        data: {
-          data: [
-            { x: 2165.3999, y: 354.7569 },
-            { x: 1208.1219999999998, y: -0.025300000000001432 },
-          ],
-        },
-      })
+      console.log("debug inter")
+      // 添加辅助线
+      //   chartRef.current.data(data).line().encode("x", "year").encode("y", 3)
+      //   chartRef.current.render()
+
+      // 移除辅助线
+      //   const { canvas } = chartRef.current.getContext()
+      //   if (!canvas) return
+      //   const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
+      //   console.log(elements)
+      //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //   // @ts-ignore
+      //   const lines = _.filter(elements, (element) => element.markType === "line")
+      //   lines[1].remove()
     }
   }
 
   return (
     <div>
-      <div ref={containerRef} />
+      <div id="container" ref={containerRef} />
       <button type="button" onClick={handleButtonClick}>
         高亮
       </button>
     </div>
   )
 }
-
 export default Container

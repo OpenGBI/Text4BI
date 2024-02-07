@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
+import { SvgIcon } from "../../utils/NoneDataIcon"
 
 const { Option } = Select
 
@@ -13,6 +14,10 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+  const { entityIcon } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  // const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
+  // const { semanticBindingEntityType } = useSelector((state: AppState) => state.typographySetting)
+
   // ... (previous states and functions)
   const [isSemanticDrivenIconsOn, setIsSemanticDrivenIconsOn] = useState(true)
   const [semanticsAbsolutePosition, setSemanticsAbsolutePosition] = useState("begin")
@@ -22,8 +27,8 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   // 下拉框显示的值
   const [dropdownDisplay1, setDropdownDisplay1] = useState("...")
   const [dropdownDisplay2, setDropdownDisplay2] = useState("...")
-  const buttoWidth1 = 20
-  const buttoWidth2 = 20
+  const buttoWidth1 = 35
+  const buttoWidth2 = 35
   // 用于显示和隐藏基于 Semantic-driven 开关状态的组件
   const handleSemanticDrivenChange = (checked: boolean) => {
     setIsSemanticDrivenIconsOn(checked)
@@ -160,10 +165,11 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                           handleSymbol1Change(symbol)
                           setDropdownDisplay1(symbol) // 点击按钮后重置下拉框显示
                         }}
-                        style={{ width: `${buttoWidth1}px`, textAlign: "center" }} // 设置固定宽度
-                      >
-                        {symbol}
-                      </Button>
+                        icon={
+                          <SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />
+                        }
+                        style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
+                      />
                     ))}
                     <Select
                       value={dropdownDisplay1} // 下拉框显示的值
@@ -231,10 +237,9 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         handleSymbol2Change(symbol)
                         setDropdownDisplay2(symbol) // 点击按钮后重置下拉框显示
                       }}
-                      style={{ width: `${buttoWidth2}px`, textAlign: "center" }} // 设置固定宽度
-                    >
-                      {symbol}
-                    </Button>
+                      icon={<SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />}
+                      style={{ width: `${buttoWidth2}px`, textAlign: "center" }}
+                    />
                   ))}
                   <Select
                     value={dropdownDisplay2} // 下拉框显示的值

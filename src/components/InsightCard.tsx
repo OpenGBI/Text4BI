@@ -15,50 +15,12 @@ import BigChart from "./BigChart"
 import { Card, sentence, highLightMessage } from "../types"
 
 const CARD_DRAG_TYPE = "CARD"
-// interface Phrase {
-//   type: string
-//   value: string
-//   metadata?: any
-// }
 
 interface InsightCardProps extends Card {
   id: string
   onDrop: (id: string, targetId: string) => void
   cardRef: React.RefObject<HTMLDivElement>
 }
-// type RenderContent
-// const RenderContent = ({
-//   sentence,
-//   bulletPoint,
-//   fontsize,
-//   boldness,
-//   underline,
-//   lineHeight,
-//   aspectRatio,
-//   sparkLinePosition,
-//   showBigGraph,
-//   type,
-//   BigChartData,
-// }) => {
-//   if ("phrases" in sentence) {
-//     return sentence.phrases.map((phrase, index) => (
-//       <PhraseComponent
-//         key={index}
-//         {...phrase}
-//         fontsize={fontsize}
-//         boldness={boldness}
-//         underline={underline}
-//         lineHeight={lineHeight}
-//         aspectRatio={aspectRatio}
-//         sparkLinePosition={sparkLinePosition}
-//       />
-//     ))
-//   }
-//   if (showBigGraph) {
-//     return <BigChart ChartType={type} BigChartData={BigChartData} />
-//   }
-//   return null
-// }
 
 export const InsightCard: React.FC<InsightCardProps> = ({
   CardName,
@@ -67,6 +29,11 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
   cardRef,
 }) => {
+  // 给数据筛选留的若干state
+  const [startTime, setStartTime] = React.useState("")
+  const [endTime, setEndTime] = React.useState("")
+
+  //
   // 给大图交互留的 old
   const [curBigChart, setCurBigChart] = React.useState<Chart | null>(null)
   // ref = useRef() ref => React.MutableRefObject<Chart | null>
@@ -80,17 +47,12 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   // 给大图交互留的 new
   const [highlightMessage, setHighlightMessage] = React.useState<highLightMessage | null>(null)
 
-  // <insightCard>
-  //   <PhraseComponent />
-  //   <BigChart>
-  //     <Categorization />
-  //   </BigChart>
-  // </insightCard>
-  //
-
   const ref = useRef<HTMLDivElement>(null)
-  // const containerRef = useRef<HTMLDivElement>(null)
-  const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
+
+  const [cardInsightType, setCardInsightType] = useState<string>("")
+  // const [startTime, setStartTime] = useState<string>("")
+  // const [endTime, setEndTime] = useState<string>("")
+
   const {
     showBigGraph,
     textPosition,
@@ -103,12 +65,21 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType, boldness, underline, italics, contour, color, backgroundColor } =
     useSelector((state: AppState) => state.typographySetting)
-  // console.log("确认entitytype值的改变", selectedEntityType)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
 
   const [topk, setTopk] = useState<number>(-1) // 控制数据集中的哪几项用于绘图
+
+  useEffect(() => {
+    if (!paragraph[0]) {
+      return
+    }
+    if ("phrases" in paragraph[0]) {
+      if (paragraph[0].phrases[0] && !paragraph[0].phrases[0].value) return
+      setCardInsightType(paragraph[0].phrases[0].value)
+    }
+  }, [paragraph])
 
   const handleDataChange = (newData: number) => {
     setTopk(newData)
@@ -120,7 +91,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const onCopySuccess = () => {
     console.log("success")
   }
-
   const onClickCopyButton = async () => {
     if (cardRef?.current) {
       // const textExporter = new TextExporter()
@@ -133,8 +103,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
 
   const onClickExportButton = async () => {
     if (cardRef?.current) {
-      // const textExporter = new TextExporter()
-      // const textExporter = new TextExporter()
       const html = await getNarrativeHtml(cardRef.current)
       // const html = await getNarrativeHtml(cardRef.current)
       // 创建一个新窗口
@@ -267,11 +235,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           onTopkChange={handleDataChange}
           outChart={curBigChart}
           setHighlightMessage={setHighlightMessage}
+          param4Filter={{
+            startTime,
+            endTime,
+          }}
+          setParamFuncs={{
+            setStartTime,
+            setEndTime,
+          }}
         />
       ))
     }
     if (curSentence.type === "normal" || curSentence.type === "bullet") {
       return curSentence.phrases.map((phrase, index) => (
+        // if (phrase.type === "entity") {
+        //   console.log("debug parent", phrase.metadata)
+        // }
         <PhraseComponent
           key={index}
           {...phrase}
@@ -288,6 +267,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           onTopkChange={handleDataChange}
           outChart={curBigChart}
           setHighlightMessage={setHighlightMessage}
+          param4Filter={{
+            startTime,
+            endTime,
+          }}
+          setParamFuncs={{
+            setStartTime,
+            setEndTime,
+          }}
         />
       ))
     }

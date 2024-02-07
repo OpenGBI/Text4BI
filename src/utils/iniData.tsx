@@ -114,13 +114,21 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "January 01, 2011",
-            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
+            metadata: {
+              entityType: "filter_time",
+              selections: ["2011-01-01"],
+              paramFilter: "startTime",
+            },
           },
           { type: "text", value: " to " },
           {
             type: "entity",
             value: "December 31, 2014",
-            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
+            metadata: {
+              entityType: "filter_time",
+              selections: ["2014-12-31"],
+              paramFilter: "endTime",
+            },
           },
           {
             type: "text",
@@ -174,7 +182,11 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "29",
-            metadata: { entityType: "metric_value", origin: 29 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 29,
+              interactionType: "distribution outliers",
+            },
           },
           { type: "text", value: " outliers have been identified, with " },
         ],
@@ -388,13 +400,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " by " },
           {
             type: "entity",
             value: "City",
-            metadata: { entityType: "dim_cate" },
+            metadata: { entityType: "dim_cate", interactionType: "x-axis" },
           },
         ],
       },
@@ -405,7 +417,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " by " },
           {
@@ -414,6 +426,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_cate",
               selections: ["City", "Market", "Country"],
+              interactionType: "x-axis",
             },
           },
           { type: "text", value: ", there are " },
@@ -439,6 +452,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_cate",
               selections: ["3", "4", "5"],
+              interactionType: "multiHighlight",
             },
           },
           { type: "text", value: "categories are:" },
@@ -450,7 +464,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "New York City",
-            metadata: { entityType: "dim_cate" },
+            metadata: { entityType: "dim_cate", interactionType: "ByValue" },
           },
           {
             type: "text",
@@ -470,6 +484,7 @@ export const iniData: Card[] = [
               detail: Category11.data,
               tagData: 0, // 标记第几个数据高亮
               origin: 256368.161,
+              interactionType: "ByValue",
             },
           },
         ],
@@ -480,7 +495,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Los Angeles",
-            metadata: { entityType: "dim_cate" },
+            metadata: { entityType: "dim_cate", interactionType: "ByValue" },
           },
           {
             type: "text",
@@ -500,6 +515,7 @@ export const iniData: Card[] = [
               detail: Category11.data,
               tagData: 1, // 标记第几个数据高亮
               origin: 175851.34,
+              interactionType: "ByValue",
             },
           },
         ],
@@ -510,7 +526,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Manila",
-            metadata: { entityType: "dim_cate" },
+            metadata: { entityType: "dim_cate", interactionType: "ByValue" },
           },
           {
             type: "text",
@@ -530,6 +546,7 @@ export const iniData: Card[] = [
               detail: Category11.data,
               tagData: 2, // 标记第几个数据高亮
               origin: 120886.95,
+              interactionType: "ByValue",
             },
           },
         ],

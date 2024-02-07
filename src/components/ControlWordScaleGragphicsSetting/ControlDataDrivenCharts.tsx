@@ -6,6 +6,7 @@ import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 import ControlAspectRatio from "./ControlAspectRatio"
 import ControlTypeSwitch from "./ControlTypeSwitch"
+import ImportIcon from "./ImportIcon"
 
 const ControlDataDrivenCharts: React.FC = () => {
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ const ControlDataDrivenCharts: React.FC = () => {
         <ControlAspectRatio />
       </Row>
       <Row className="control-row" style={{ display: showDataDrivenCharts ? "block" : "none" }}>
-        <ControlTypeSwitch />
+        <ImportIcon />
       </Row>
     </div>
   )

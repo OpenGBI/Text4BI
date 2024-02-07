@@ -1,13 +1,15 @@
 import React from "react"
-import { Chart } from "@antv/g2"
+import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import { find } from "lodash"
 import { cateAndValue } from "../types"
+import { highlightElement, noHighlightElement } from "./HighLightElement"
 
 interface BarChartProps {
   data: cateAndValue[] // n个{category:,value:}画柱状图
   handleCurBigChart: (ref: Chart | null) => void
   message: string | number | undefined
   hoverOrNot: boolean | undefined
+  interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
 }
 
 const Categorization: React.FC<BarChartProps> = ({
@@ -15,6 +17,7 @@ const Categorization: React.FC<BarChartProps> = ({
   handleCurBigChart,
   message,
   hoverOrNot,
+  interactionType,
 }) => {
   const containerRef = React.useRef<Chart | null>(null)
   const CategorizationRef = React.useRef(null)
@@ -77,43 +80,28 @@ const Categorization: React.FC<BarChartProps> = ({
     // 同理，X?.[0]是指如果X为null或undefined，就不取第一个元素，?.是一个语法糖 zyx
 
     // let highlightData = find(data, ["category", message])
-    const isString = (value: any) => typeof value === "string" || value instanceof String
+    if (interactionType === "ByValue") {
+      const isString = (value: any) => typeof value === "string" || value instanceof String
 
-    const highlightData = find(data, (item: cateAndValue) => {
-      if (isString(message)) {
-        return item.category === message
-      }
+      const highlightData = find(data, (item: cateAndValue) => {
+        if (isString(message)) {
+          return item.category === message
+        }
 
-      const fixedItemValue = item.value.toFixed(2)
-      const fixedMessage = (message as number).toFixed(2)
-      return fixedItemValue === fixedMessage
-    })
-
-    // if (!highlightData) {
-    //   highlightData = find(data, (item) => {
-    //     if (item.value !== undefined) {
-    //       const formattedValue = item.value.toFixed(2)
-
-    //       // 然后，将数字转换为字符串
-    //       const valueStr = formattedValue.toString()
-
-    //       // 根据message长度截取字符串
-    //       const valueSubstring = valueStr.substring(0, message.length)
-
-    //       // 检查截取后的字符串是否与message相等
-    //       return valueSubstring === message
-    //     }
-    //     // 如果item没有value属性，则返回false
-    //     return false
-    //   })
-    // }
-    console.log("Categorizationdatadatadatadata1", data)
-    console.log("Categorizationdatadatadatadata2", highlightData)
-    if (highlightData) {
-      // data?.filter((item) => item.category === message)?.[0]
-      interactiveRef.current?.emit("element:highlight", {
-        data: { data: highlightData },
+        const fixedItemValue = item.value.toFixed(2)
+        const fixedMessage = (message as number).toFixed(2)
+        return fixedItemValue === fixedMessage
       })
+      // const highlightData = data.slice(0, 3)
+      if (highlightData) {
+        // data?.filter((item) => item.category === message)?.[0]
+        interactiveRef.current?.emit("element:highlight", {
+          data: { data: highlightData },
+        })
+      }
+    }
+    if (interactionType === "x-axis" || interactionType === "y-axis") {
+      highlightElement(interactiveRef.current, interactionType)
     }
   }, [message])
   React.useEffect(() => {
@@ -124,10 +112,12 @@ const Categorization: React.FC<BarChartProps> = ({
       return
     }
     if (!hoverOrNot) {
-      interactiveRef.current?.emit("element:unhighlight", {})
+      noHighlightElement(interactiveRef.current)
     }
   }, [hoverOrNot])
   return <div ref={CategorizationRef} style={{ height: 400, width: 600 }} />
 }
-
+Categorization.defaultProps = {
+  interactionType: "",
+}
 export default Categorization

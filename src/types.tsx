@@ -22,6 +22,8 @@ export type Metadata = {
   delta_value?: string
   ratio_value?: string
   tagData?: number | number[] | Point[] | cateAndValue[] | string
+  interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
+  paramFilter?: string
 }
 export type Metadata4BigGraph = {
   detail?: cateAndValue[] | Point[]
@@ -56,6 +58,36 @@ export type sentence = TopicSentence | NormalSentence | BulletSentence | PlotSen
 export type Card = {
   CardName: string
   paragraph: sentence[]
+}
+export type entitiesType = {
+  [key: string]: string
+  a: string
+  b: string
+  c: string
+  d: string
+}
+export type entityIconType = {
+  [key: string]: entitiesType // 索引签名 zyx
+  metric_value: entitiesType
+  delta_value: entitiesType
+  delta_value_ratio: entitiesType
+  insight_desc: entitiesType
+  metric_name: entitiesType
+  dim_cate: entitiesType
+  algorithm: entitiesType
+  filter_time: entitiesType
+  filter_cate: entitiesType
+}
+export type entitySelectedIconType = {
+  metric_value: string
+  delta_value: string
+  delta_value_ratio: string
+  insight_desc: string
+  metric_name: string
+  dim_cate: string
+  algorithm: string
+  filter_time: string
+  filter_cate: string
 }
 export type systemStateType = {
   dataset: Card[]
@@ -105,8 +137,10 @@ export type wordScaleGraphicsSettingStateType = {
   selectedSymbol1: string
   semanticBindingEntityType: string
   selectedSymbol2: string
+  entityIcon: entityIconType
 }
 export type highLightMessage = {
   message: string | number
   hoverOrNot: boolean
+  interactionType?: string
 }

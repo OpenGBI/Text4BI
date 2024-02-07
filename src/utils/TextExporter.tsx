@@ -70,7 +70,7 @@ async function svgToImageHtml(
   canvas: HTMLCanvasElement,
 ) {
   // const { width, height } = svgElement.getBBox() || {}
-  const { width, height } = svgElement.getBoundingClientRect() || {} // svgElement.getBoundingClientRect()会有更好的效果
+  const { width, height } = svgElement.getBoundingClientRect() || {} // svgElement.getBoundingClientRect()会有更好的效果 zyx git zyxgit
   const imageUrl = await svgToPngUrl({ width, height, svg: svgHtml }, canvas)
   const imageHtml = `<img alt="${NTV_IMG_ALT}" src="${imageUrl}" width="${width}" height="${height}"/>`
   return imageHtml

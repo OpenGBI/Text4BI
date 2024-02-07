@@ -77,7 +77,7 @@ const Association = forwardRef(({ data, tagData, message, hoverOrNot }: Associat
       return
     }
     interactiveRef.current?.emit("element:highlight", {
-      data: { data: tagData },
+      data: { data: tagData[0] },
     })
   }, [message])
   React.useEffect(() => {

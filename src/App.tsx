@@ -50,12 +50,13 @@ function App() {
             <Content>
               <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
+            {/* <Container /> */}
           </Content>
-          <Sider width={400}>
+          {/* <Sider width={400}>
             <Content>
               <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>
-          </Sider>
+          </Sider> */}
         </Layout>
       </div>
     </Provider>

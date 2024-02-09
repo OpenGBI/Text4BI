@@ -113,8 +113,8 @@ const ControlBar: React.FC = () => (
           <ControlDataDrivenCharts />
           {/* <Row className='control-row'>
             <ControlAspectRatio />
-          </Row>
-          <Row className="control-row">
+          </Row> */}
+          {/* <Row className="control-row">
             <ControlTypeSwitch />
           </Row> */}
           <Row className="control-row">
@@ -123,9 +123,9 @@ const ControlBar: React.FC = () => (
           <Row className="control-row">
             <ControlSemanticDrivenIcons />
           </Row>
-          <Row className="control-row">
+          {/* <Row className="control-row">
             <ControlIconDesign />
-          </Row>
+          </Row> */}
         </Panel>
       </Collapse>
     </div>

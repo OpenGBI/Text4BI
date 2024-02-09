@@ -65,7 +65,8 @@
       }
     ],
     "react/function-component-definition": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   },
   "settings": {
     "import/resolver": {

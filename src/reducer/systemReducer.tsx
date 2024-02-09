@@ -5,8 +5,8 @@ import { iniEntityIcon } from "../utils/iniEntityIcon"
 
 const iniSystemState: systemStateType = {
   dataset: iniData,
-  selectedCards: ["Card1", "Card2", "Card3", "Card4", "Card5"],
-  allCards: ["Card1", "Card2", "Card3", "Card4", "Card5"],
+  selectedCards: ["Card1", "Card2", "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"],
+  allCards: ["Card1", "Card2", "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"],
 }
 export const SET_DATASET = "SET_DATASET"
 

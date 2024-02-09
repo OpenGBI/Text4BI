@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react"
-import { Tooltip, Space, Button, message } from "antd"
+import { Tooltip, Space, Button, message, Modal } from "antd"
 import { DndProvider, useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
+import html2canvas from "html2canvas"
 import { useSelector, useDispatch } from "react-redux"
 // import { NarrativeTextSpec, NarrativeTextVis } from "@antv/ava-react"
 // import { copyToClipboard, NarrativeTextVis, NtvPluginManager, TextExporter } from "@antv/ava-react"
@@ -102,7 +103,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     }
   }
 
-  const onClickExportButton = async () => {
+  const onClickExportAsHtml = async () => {
     if (cardRef?.current) {
       const html = await getNarrativeHtml(cardRef.current)
       // const html = await getNarrativeHtml(cardRef.current)
@@ -117,6 +118,22 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         // 如果新窗口不存在，可以在这里处理错误，比如通知用户
         alert("Unable to open a new window. Please check your popup settings.")
       }
+    }
+  }
+  const onClickExportAsImage = async () => {
+    if (cardRef?.current) {
+      // 使用 html2canvas 将元素渲染为画布
+      const canvas = await html2canvas(cardRef.current)
+      // 创建一个图片 URL
+      const image = canvas.toDataURL("image/png", 1.0)
+      // 创建一个链接元素
+      const link = document.createElement("a")
+      // 设置下载属性和文件名
+      link.download = "insight-card.png"
+      // 将图片 URL 设置为链接的 href
+      link.href = image
+      // 触发下载
+      link.click()
     }
   }
   // 这个代码内容是可以将富文本内容作为一个html下载到本地
@@ -411,6 +428,28 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       )
     }
   }
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 })
+  const buttonRef = useRef<HTMLElement>(null) // 用于引用按钮的位置
+
+  const handleOk = () => {
+    setIsModalVisible(false)
+  }
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const showModal = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setButtonPosition({
+        top: rect.top + rect.height, // 按钮下方
+        right: window.innerWidth - rect.left - rect.width, // 保持与按钮右对齐
+      })
+    }
+    // 设置 Modal 的 visible 状态为 true
+    setIsModalVisible(true)
+  }
 
   return (
     <div ref={cardRef} style={{ position: "relative" }}>
@@ -433,13 +472,33 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         </div>
       </Tooltip>
       <Tooltip title="Export This Card">
-        <div style={{ position: "absolute", top: 20, right: 30 }}>
-          <ExportOutlined
-            onClick={onClickExportButton}
-            style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
-          />
-        </div>
+        <ExportOutlined
+          ref={buttonRef} // 将 ref 关联到按钮
+          onClick={showModal}
+          style={{ cursor: "pointer", fontSize: "20px", position: "absolute", top: 20, right: 30 }}
+        />
       </Tooltip>
+      <Modal
+        title="Export Options"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        mask={false}
+        maskClosable
+        style={{
+          position: "fixed", // 使用 fixed 保证 Modal 可以根据视口定位
+          top: `${buttonPosition.top}px`, // 使用 state 中的位置
+          right: `${buttonPosition.right}px`,
+        }}
+        getContainer={false} // 将 Modal 渲染到当前组件内
+      >
+        <p>
+          <Button onClick={onClickExportAsHtml}>Download HTML</Button>
+        </p>
+        <p>
+          <Button onClick={onClickExportAsImage}>Download Image</Button>
+        </p>
+      </Modal>
     </div>
   )
 }

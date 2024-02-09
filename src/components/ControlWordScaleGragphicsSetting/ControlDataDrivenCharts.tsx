@@ -6,10 +6,10 @@ import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 import ControlAspectRatio from "./ControlAspectRatio"
 import ControlTypeSwitch from "./ControlTypeSwitch"
-import ImportIcon from "./ImportIcon"
 
 const ControlDataDrivenCharts: React.FC = () => {
   const dispatch = useDispatch()
+  const globalSetting = useSelector((state: AppState) => state.globalSetting)
   const { showDataDrivenGraphics, showDataDrivenCharts } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -17,9 +17,9 @@ const ControlDataDrivenCharts: React.FC = () => {
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
-  const [isDataDrivenChartsOn, setIsDataDrivenChartsOn] = useState(true)
+  // const [isDataDrivenChartsOn, setIsDataDrivenChartsOn] = useState(true)
   const changeDataDrivenCharts = (checked: boolean) => {
-    setIsDataDrivenChartsOn(checked)
+    // setIsDataDrivenChartsOn(checked)
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
@@ -29,7 +29,7 @@ const ControlDataDrivenCharts: React.FC = () => {
   }
 
   return (
-    <div style={{ width: "100%", display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}>
+    <div style={{ width: "100%", display: wordScaleGraphicsSetting.showDataDrivenGraphics && globalSetting.showSparkLine ? "block" : "none" }}>
       <Row className="control-row">
         <div className="control-panel">
           <Row align="middle">
@@ -37,16 +37,16 @@ const ControlDataDrivenCharts: React.FC = () => {
               Chart
             </Col>
             <Col span={14}>
-              <Switch checked={isDataDrivenChartsOn} onChange={changeDataDrivenCharts} />
+              <Switch checked={wordScaleGraphicsSetting.showDataDrivenCharts} onChange={changeDataDrivenCharts} />
             </Col>
           </Row>
         </div>
       </Row>
-      <Row className="control-row" style={{ display: showDataDrivenCharts ? "block" : "none" }}>
+      <Row className="control-row" style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}>
         <ControlAspectRatio />
       </Row>
-      <Row className="control-row" style={{ display: showDataDrivenCharts ? "block" : "none" }}>
-        <ImportIcon />
+      <Row className="control-row" style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}>
+        <ControlTypeSwitch />
       </Row>
     </div>
   )

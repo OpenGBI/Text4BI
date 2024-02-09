@@ -690,9 +690,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 这是绘制sparkline的useeffect 把给sparkline留的span对应的ref送到rendersparkline中，在rendersparkline函数中操纵画小图，每次依赖项发生变化时，就重绘sparkline
   //
   useEffect(() => {
-    console.log(
-      `检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
-    )
+    // console.log(
+    //   `检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
+    // )
     // 如果不需要显示 SparkLine，立即隐藏
     // if (!showSparkLine || !showDataDrivenGraphics || !showDataDrivenCharts) {
     //   if (sparkLineRef.current) {
@@ -948,9 +948,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               />
             )
         }
-        {metadata?.entityType === "insight_desc" ? (
+        {/* {metadata?.entityType === "insight_desc" ? (
           <Icon assessment={metadata.assessment as string} />
-        ) : null}
+        ) : null} */}
       </span>
     )
   }

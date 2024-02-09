@@ -6,11 +6,13 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 import { SvgIcon } from "../../utils/NoneDataIcon"
+import ImportIcon from "./ImportIcon"
 
 const { Option } = Select
 
 const ControlSemanticDrivenIcons: React.FC = () => {
   const dispatch = useDispatch()
+  const globalSetting = useSelector((state: AppState) => state.globalSetting)
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -108,14 +110,17 @@ const ControlSemanticDrivenIcons: React.FC = () => {
               Semantic-driven
             </Col>
             <Col span={14}>
-              <Switch checked={isSemanticDrivenIconsOn} onChange={handleSemanticDrivenChange} />
+              <Switch checked={globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn} onChange={handleSemanticDrivenChange} />
             </Col>
           </Row>
         </div>
       </Row>
+      <Row className="control-row" style={{ display: wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none" }}>
+        <ImportIcon />
+      </Row>
 
       {/* Absolute position 按钮行 */}
-      <div style={{ width: "100%", display: isSemanticDrivenIconsOn ? "block" : "none" }}>
+      <div style={{ width: "100%", display: wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none" }}>
         <Row className="control-row">
           <div className="control-panel">
             <Row align="middle">
@@ -194,7 +199,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       </div>
 
       {/* Binding entity dropdown */}
-      <div style={{ width: "100%", display: isSemanticDrivenIconsOn ? "block" : "none" }}>
+      <div style={{ width: "100%", display: wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none" }}>
         <Row className="control-row">
           <div className="control-panel">
             <Row align="middle">

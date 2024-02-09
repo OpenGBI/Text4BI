@@ -106,8 +106,8 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
     //     return false
     //   })
     // }
-    console.log("Categorizationdatadatadatadata1", data)
-    console.log("Categorizationdatadatadatadata2", highlightData)
+    // console.log("Categorizationdatadatadatadata1", data)
+    // console.log("Categorizationdatadatadatadata2", highlightData)
     if (highlightData) {
       // data?.filter((item) => item.category === message)?.[0]
       interactiveRef.current?.emit("element:highlight", {

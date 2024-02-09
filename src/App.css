@@ -221,6 +221,11 @@
   width: 200;
   height: 300;
 }
+.ant-select-selection-overflow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px; /* 控制间距 */
+}
 
 /* #control_bar {
   flex-basis: 20%;

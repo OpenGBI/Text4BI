@@ -33,13 +33,15 @@ const ControlBoldness: React.FC = () => {
         <Col span={14}>
           <Button.Group style={{ width: "100%" }}>
             <Button
-              className={`custom-btn ${isBoldnessOn ? "active" : ""}`}
+              className="custom-btn"
+              type={isBoldnessOn ? "primary" : "default"}
               onClick={() => handleBoldnessChange(true)}
             >
               On
             </Button>
             <Button
-              className={`custom-btn ${!isBoldnessOn ? "active" : ""}`}
+              className="custom-btn"
+              type={!isBoldnessOn ? "primary" : "default"}
               onClick={() => handleBoldnessChange(false)}
             >
               Off

@@ -61,7 +61,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     if (metadata.paramFilter !== "startTime" && metadata.paramFilter !== "endTime") return
     if (metadata.paramFilter === "startTime") {
-      setParamFunc.setStartTime(dateString)
+      setParamFunc.setStartTime(dateString as string)
       fetch("http://localhost:5000/distribution", {
         method: "POST",
         headers: {
@@ -85,7 +85,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
         .catch((error) => console.error("Error:", error))
     }
     if (metadata.paramFilter === "endTime") {
-      setParamFunc.setEndTime(dateString)
+      setParamFunc.setEndTime(dateString as string)
     }
   }
   return (

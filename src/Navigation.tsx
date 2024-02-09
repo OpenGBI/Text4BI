@@ -20,7 +20,7 @@ const Navigation: React.FC<navigationProps> = ({ navigationClick, CardsIDs }) =>
           </button> */}
         <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#272643" }}>
           <Panel
-            header={<span className="panel-header">Global Design</span>}
+            header={<span className="panel-header">Icon</span>}
             key="1"
             style={{ backgroundColor: "#fff" }}
           >

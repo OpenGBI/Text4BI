@@ -972,9 +972,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               />
             )
         }
-        {metadata?.entityType === "insight_desc" ? (
+        {/* {metadata?.entityType === "insight_desc" ? (
           <Icon assessment={metadata.assessment as string} />
-        ) : null}
+        ) : null} */}
       </span>
     )
   }

@@ -113,8 +113,8 @@ const ControlBar: React.FC = () => (
           <ControlDataDrivenCharts />
           {/* <Row className='control-row'>
             <ControlAspectRatio />
-          </Row>
-          <Row className="control-row">
+          </Row> */}
+          {/* <Row className="control-row">
             <ControlTypeSwitch />
           </Row> */}
           <Row className="control-row">

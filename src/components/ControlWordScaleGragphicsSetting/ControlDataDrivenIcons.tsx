@@ -74,9 +74,9 @@ const ControlDataDrivenIcons: React.FC = () => {
       className="control-panel"
       style={{ display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}
     >
-      {renderButtonGroup("graphicsSignificance", "Significance", graphicsSignificance)}
-      {renderButtonGroup("graphicsDirection", "Direction", graphicsDirection)}
-      {renderButtonGroup("graphicsAnomaly", "Anomaly", graphicsAnomaly)}
+      {renderButtonGroup("graphicsSignificance", "Significance", wordScaleGraphicsSetting.graphicsSignificance)}
+      {renderButtonGroup("graphicsDirection", "Direction", wordScaleGraphicsSetting.graphicsDirection)}
+      {renderButtonGroup("graphicsAnomaly", "Anomaly", wordScaleGraphicsSetting.graphicsAnomaly)}
     </div>
   )
 }

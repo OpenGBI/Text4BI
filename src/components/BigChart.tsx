@@ -45,12 +45,12 @@ const BigChart: React.FC<BigChartProps> = ({
     BigChartDataRef.current = _.cloneDeep(SlicedBigChartData)
   }, [BigChartData, topk]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
   // console.log("BigChartDataRefBigChartDataRefBigChartDataRefBigChartDataRef", BigChartDataRef)
-  if (ChartType === "Categorization") {
-    console.log("BigChart中的SlicedBigChartData和topk", BigChartData)
-    console.log("BigChart中的SlicedBigChartData和topk", topk)
-    console.log("BigChart中的SlicedBigChartData和topk", SlicedBigChartData)
-    console.log("BigChart中的SlicedBigChartData和topk", BigChartDataRef)
-  }
+  // if (ChartType === "Categorization") {
+  //   console.log("BigChart中的SlicedBigChartData和topk", BigChartData)
+  //   console.log("BigChart中的SlicedBigChartData和topk", topk)
+  //   console.log("BigChart中的SlicedBigChartData和topk", SlicedBigChartData)
+  //   console.log("BigChart中的SlicedBigChartData和topk", BigChartDataRef)
+  // }
 
   const chartInstanceRef = useRef<Chart | null>(null)
   // // 使用useImperativeHandle暴露getSvg方法

@@ -78,17 +78,12 @@ export type entityIconType = {
   filter_time: entitiesType
   filter_cate: entitiesType
 }
-export type entitySelectedIconType = {
-  metric_value: string
-  delta_value: string
-  delta_value_ratio: string
-  insight_desc: string
-  metric_name: string
-  dim_cate: string
-  algorithm: string
-  filter_time: string
-  filter_cate: string
+export type absoluteIconType = {
+  [key: string]: entitiesType // 索引签名 zyx
+  sentenceStart: entitiesType
+  sentenceEnd: entitiesType
 }
+
 export type systemStateType = {
   dataset: Card[]
   selectedCards: string[]
@@ -138,6 +133,7 @@ export type wordScaleGraphicsSettingStateType = {
   semanticBindingEntityType: string
   selectedSymbol2: string
   entityIcon: entityIconType
+  absoluteIcon: absoluteIconType
 }
 export type highLightMessage = {
   message: string | number

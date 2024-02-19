@@ -3,23 +3,70 @@ import { Button, Row, Col } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
 import { AppState } from "../../store"
-import { wordScaleGraphicsSettingStateType } from "../../types"
+import { wordScaleGraphicsSettingStateType, GlobalSettingStateType } from "../../types"
+import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
 
 const ControlSparkLinePos: React.FC = () => {
   const dispatch = useDispatch()
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
-  const [selectedPosition, setSelectedPosition] = useState("right")
+  const globalSetting: GlobalSettingStateType = useSelector(
+    (state: AppState) => state.globalSetting,
+  )
 
+  const [selectedPosition, setSelectedPosition] = useState("right")
+  const [changeLineHeightFlag, setchangeLineHeightFlag] = useState(0)
+  const [rememberLineHeight, setRememberLineHeight] = useState(2)
   const handleChangeSparkLinePosition = (newPosition: string) => {
     setSelectedPosition(newPosition)
+    // setRememberLineHeight(globalSetting.lineHeight)
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         sparkLinePosition: newPosition,
       }),
     )
+    if (newPosition === "up" || newPosition === "down") {
+      if (changeLineHeightFlag === 0) {
+        setRememberLineHeight(globalSetting.lineHeight)
+        setchangeLineHeightFlag(1)
+        console.log("debug remember:", globalSetting.lineHeight)
+      }
+
+      dispatch(
+        ChangeGlobalSetting({
+          ...globalSetting,
+          lineHeight: 2.6314,
+        }),
+      )
+    } else {
+      if (globalSetting.lineHeight === 2.6314) {
+        setchangeLineHeightFlag(0)
+        console.log("debug remember ===:", rememberLineHeight)
+        dispatch(
+          ChangeGlobalSetting({
+            ...globalSetting,
+            lineHeight: rememberLineHeight,
+          }),
+        )
+      } else {
+        console.log("debug remember !==:", globalSetting.lineHeight)
+        dispatch(
+          ChangeGlobalSetting({
+            ...globalSetting,
+            lineHeight: globalSetting.lineHeight,
+          }),
+        )
+      }
+      console.log()
+      // dispatch(
+      //   ChangeGlobalSetting({
+      //     ...globalSetting,
+      //     lineHeight: rememberLineHeight,
+      //   }),
+      // )
+    }
   }
 
   const buttonIcons = {

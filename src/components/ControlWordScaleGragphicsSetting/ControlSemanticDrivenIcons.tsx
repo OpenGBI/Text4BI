@@ -6,6 +6,7 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 import { SvgIcon } from "../../utils/NoneDataIcon"
+import ImportIcon from "./ImportIcon"
 
 const { Option } = Select
 
@@ -14,13 +15,15 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
-  const { entityIcon } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const { entityIcon, absoluteIcon } = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   // const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
   // const { semanticBindingEntityType } = useSelector((state: AppState) => state.typographySetting)
 
   // ... (previous states and functions)
   const [isSemanticDrivenIconsOn, setIsSemanticDrivenIconsOn] = useState(true)
-  const [semanticsAbsolutePosition, setSemanticsAbsolutePosition] = useState("begin")
+  const [semanticsAbsolutePosition, setSemanticsAbsolutePosition] = useState("sentenceStart")
   const [selectedSymbol1, setSelectedSymbol1] = useState("a")
   const [semanticBindingEntityType, setSemanticBindingEntityType] = useState("metric_value")
   const [selectedSymbol2, setSelectedSymbol2] = useState("a")
@@ -125,14 +128,14 @@ const ControlSemanticDrivenIcons: React.FC = () => {
               <Col span={14}>
                 <Button.Group>
                   <Button
-                    type={semanticsAbsolutePosition === "begin" ? "primary" : "default"}
-                    onClick={() => handleAbsolutePositionChange("begin")}
+                    type={semanticsAbsolutePosition === "sentenceStart" ? "primary" : "default"}
+                    onClick={() => handleAbsolutePositionChange("sentenceStart")}
                   >
                     begin
                   </Button>
                   <Button
-                    type={semanticsAbsolutePosition === "end" ? "primary" : "default"}
-                    onClick={() => handleAbsolutePositionChange("end")}
+                    type={semanticsAbsolutePosition === "sentenceEnd" ? "primary" : "default"}
+                    onClick={() => handleAbsolutePositionChange("sentenceEnd")}
                   >
                     end
                   </Button>
@@ -166,12 +169,12 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                           setDropdownDisplay1(symbol) // 点击按钮后重置下拉框显示
                         }}
                         icon={
-                          <SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />
+                          <SvgIcon svgContent={absoluteIcon[semanticsAbsolutePosition][symbol]} />
                         }
                         style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
                       />
                     ))}
-                    <Select
+                    {/* <Select
                       value={dropdownDisplay1} // 下拉框显示的值
                       style={{ width: `${buttoWidth1 + 40}px` }}
                       onChange={handleSymbol1Change}
@@ -184,7 +187,8 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                           {symbol}
                         </Option>
                       ))}
-                    </Select>
+                    </Select> */}
+                    <ImportIcon IconSpecies="absolute" />
                   </Button.Group>
                 </Col>
               </Row>
@@ -241,7 +245,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                       style={{ width: `${buttoWidth2}px`, textAlign: "center" }}
                     />
                   ))}
-                  <Select
+                  {/* <Select
                     value={dropdownDisplay2} // 下拉框显示的值
                     style={{ width: `${buttoWidth2 + 40}px` }}
                     onChange={handleSymbol2Change}
@@ -254,7 +258,8 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         {symbol}
                       </Option>
                     ))}
-                  </Select>
+                  </Select> */}
+                  <ImportIcon IconSpecies="entity" />
                 </Button.Group>
               </Col>
             </Row>

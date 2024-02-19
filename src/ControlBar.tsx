@@ -123,9 +123,9 @@ const ControlBar: React.FC = () => (
           <Row className="control-row">
             <ControlSemanticDrivenIcons />
           </Row>
-          <Row className="control-row">
+          {/* <Row className="control-row">
             <ControlIconDesign />
-          </Row>
+          </Row> */}
         </Panel>
       </Collapse>
     </div>

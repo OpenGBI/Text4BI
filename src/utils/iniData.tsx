@@ -33,6 +33,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "According to the " },
           {
             type: "entity",
@@ -79,6 +80,7 @@ export const iniData: Card[] = [
             value: "significant",
             metadata: { entityType: "insight_desc", assessment: "significant" },
           },
+          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -110,6 +112,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "From " },
           {
             type: "entity",
@@ -189,11 +192,13 @@ export const iniData: Card[] = [
             },
           },
           { type: "text", value: " outliers have been identified, with " },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "Min = " },
           {
             type: "entity",
@@ -206,11 +211,13 @@ export const iniData: Card[] = [
             value: "39536.13",
             metadata: { entityType: "metric_value", origin: 39536.13 },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "Q1 = " },
           {
             type: "entity",
@@ -229,11 +236,13 @@ export const iniData: Card[] = [
             value: "12466.37",
             metadata: { entityType: "metric_value", origin: 12466.37 },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "Mean = " },
           {
             type: "entity",
@@ -255,6 +264,7 @@ export const iniData: Card[] = [
               detail: DistributionData.data,
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 
@@ -283,6 +293,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "From " },
           {
             type: "entity",
@@ -320,11 +331,13 @@ export const iniData: Card[] = [
             type: "text",
             value: " volume are as follows:",
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
             type: "entity",
             value: "United States",
@@ -349,11 +362,13 @@ export const iniData: Card[] = [
               detail: [0.1817, 1 - 0.1817],
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
             type: "entity",
             value: "Australia",
@@ -378,6 +393,7 @@ export const iniData: Card[] = [
               detail: [0.0732, 1 - 0.0732],
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -395,6 +411,7 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "CardTitle", value: "Categorization" },
           { type: "text", value: " Sum of " },
           {
@@ -408,11 +425,13 @@ export const iniData: Card[] = [
             value: "City",
             metadata: { entityType: "dim_cate", interactionType: "x-axis" },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "When looking at " },
           {
             type: "entity",
@@ -456,11 +475,13 @@ export const iniData: Card[] = [
             },
           },
           { type: "text", value: "categories are:" },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
             type: "entity",
             value: "New York City",
@@ -487,11 +508,13 @@ export const iniData: Card[] = [
               interactionType: "ByValue",
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
             type: "entity",
             value: "Los Angeles",
@@ -518,11 +541,13 @@ export const iniData: Card[] = [
               interactionType: "ByValue",
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
             type: "entity",
             value: "Manila",
@@ -549,6 +574,7 @@ export const iniData: Card[] = [
               interactionType: "ByValue",
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -579,6 +605,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "According to the " },
           {
             type: "entity",
@@ -589,11 +616,13 @@ export const iniData: Card[] = [
                 "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "In the past " },
           {
             type: "entity",
@@ -620,6 +649,7 @@ export const iniData: Card[] = [
             },
           },
           { type: "text", value: " trend." },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 
@@ -651,6 +681,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "According to the " },
           {
             type: "entity",
@@ -694,11 +725,13 @@ export const iniData: Card[] = [
             metadata: { entityType: "metric_value", origin: 365 },
           },
           { type: "text", value: "days. " },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: " 2011-01 - 2012-01: peak = " },
           {
             type: "entity",
@@ -726,11 +759,13 @@ export const iniData: Card[] = [
               tagData: PeriodicityData.tagData, // 标记第几个数据高亮
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: " 2012-01 - 2013-01: peak = " },
           {
             type: "entity",
@@ -758,6 +793,7 @@ export const iniData: Card[] = [
               tagData: PeriodicityData.tagData, // 标记第几个数据高亮
             },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 
@@ -789,6 +825,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "According to the " },
           {
             type: "entity",
@@ -830,12 +867,14 @@ export const iniData: Card[] = [
             metadata: { entityType: "metric_value", origin: 365 },
           },
           { type: "text", value: "days. " },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: " 2011-10-14, " },
           {
             type: "entity",
@@ -854,11 +893,13 @@ export const iniData: Card[] = [
             value: "6235.21",
             metadata: { entityType: "delta_value", origin: 6235.21 },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: " 2011-10-27, " },
           {
             type: "entity",
@@ -877,11 +918,13 @@ export const iniData: Card[] = [
             value: "4995.34.",
             metadata: { entityType: "delta_value", origin: 4995.34 },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
         type: "bullet",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: " 2011-10-06, " },
           {
             type: "entity",
@@ -900,6 +943,7 @@ export const iniData: Card[] = [
             value: "6732.64",
             metadata: { entityType: "delta_value", origin: 6732.64 },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -935,6 +979,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "text", value: "From " },
           {
             type: "entity",
@@ -986,6 +1031,7 @@ export const iniData: Card[] = [
             value: "2011.12.31",
             metadata: { entityType: "filter_time", selections: ["2011-12-31"] },
           },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 

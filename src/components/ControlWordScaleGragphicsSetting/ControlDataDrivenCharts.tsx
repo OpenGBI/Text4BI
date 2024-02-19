@@ -29,7 +29,9 @@ const ControlDataDrivenCharts: React.FC = () => {
   }
 
   return (
-    <div style={{ width: "100%", display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}>
+    <div
+      style={{ width: "100%", display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}
+    >
       <Row className="control-row">
         <div className="control-panel">
           <Row align="middle">
@@ -46,7 +48,8 @@ const ControlDataDrivenCharts: React.FC = () => {
         <ControlAspectRatio />
       </Row>
       <Row className="control-row" style={{ display: showDataDrivenCharts ? "block" : "none" }}>
-        <ImportIcon />
+        <ImportIcon IconSpecies="entity" />
+        <ImportIcon IconSpecies="absolute" />
       </Row>
     </div>
   )

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { entityIconType, entitySelectedIconType } from "../types"
+import { entityIconType, absoluteIconType } from "../types"
 
 const iconA =
   // eslint-disable-next-line quotes
@@ -28,14 +28,7 @@ export const iniEntityIcon: entityIconType = {
   filter_cate: { a: iconA, b: iconB, c: iconC, d: iconD },
 }
 
-// export const iniEntitySelectedIcon: entitySelectedIconType = {
-//   metric_value: "a",
-//   delta_value: "a",
-//   delta_value_ratio: "a",
-//   insight_desc: "a",
-//   metric_name: "a",
-//   dim_cate: "a",
-//   algorithm: "a",
-//   filter_time: "a",
-//   filter_cate: "a",
-// }
+export const iniAbsoluteIcon: absoluteIconType = {
+  sentenceStart: { a: iconA, b: iconB, c: iconC, d: iconD },
+  sentenceEnd: { a: iconA, b: iconB, c: iconC, d: iconD },
+}

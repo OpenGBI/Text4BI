@@ -5,13 +5,16 @@ import { useSelector, useDispatch } from "react-redux"
 import { AppState } from "../../store"
 import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
 
-const ImportIcon: React.FC = () => {
-  const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
-  const { entityIcon } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-  const wordScaleGraphicsSetting = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-  const { selectedSymbol2, semanticBindingEntityType } = useSelector(
+type ImportIconProps = {
+  IconSpecies: string
+}
+const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies }) => {
+  const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+  const wordScaleGraphicsSetting = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const { selectedSymbol1, semanticsAbsolutePosition, selectedSymbol2, semanticBindingEntityType } =
+    useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   const dispatch = useDispatch()
   const props: UploadProps = {
     name: "file",
@@ -19,6 +22,7 @@ const ImportIcon: React.FC = () => {
     headers: {
       authorization: "authorization-text",
     },
+    showUploadList: false,
     onChange(info) {
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList)
@@ -39,11 +43,17 @@ const ImportIcon: React.FC = () => {
             curSvgContent = curSvgContent
               .replace(/width="\d+"/, `width="${width}"`) // 模版字符串用反引号
               .replace(/height="\d+"/, `height="${height}"`)
-            entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
+            if (IconSpecies === "entity") {
+              entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
+            }
+            if (IconSpecies === "absolute") {
+              absoluteIcon[semanticsAbsolutePosition][selectedSymbol1] = curSvgContent
+            }
             dispatch(
               ChangeWordScaleGraphicsSetting({
                 ...wordScaleGraphicsSetting,
                 entityIcon: { ...entityIcon },
+                absoluteIcon: { ...absoluteIcon },
               }),
             )
           }
@@ -59,7 +69,7 @@ const ImportIcon: React.FC = () => {
   }
   return (
     <Upload {...props}>
-      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      <Button icon={<UploadOutlined />}>Upload</Button>
     </Upload>
   )
 }

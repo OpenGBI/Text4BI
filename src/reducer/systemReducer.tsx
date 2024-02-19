@@ -1,7 +1,6 @@
 import { systemStateType } from "../types"
 import { SystemActionType } from "../actions/systemAction"
 import { iniData } from "../utils/iniData"
-import { iniEntityIcon } from "../utils/iniEntityIcon"
 
 const iniSystemState: systemStateType = {
   dataset: iniData,

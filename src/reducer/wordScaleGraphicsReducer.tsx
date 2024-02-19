@@ -1,6 +1,6 @@
 import { wordScaleGraphicsSettingStateType } from "../types"
 import { ChangeWordScaleGraphicsSettingAction } from "../actions/wordScaleGraphicsSettingAction"
-import { iniEntityIcon } from "../utils/iniEntityIcon"
+import { iniEntityIcon, iniAbsoluteIcon } from "../utils/iniNoneDataIcon"
 
 const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   sparkLinePosition: "right",
@@ -19,11 +19,12 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   graphicsDirection: true,
   graphicsAnomaly: true,
   isSemanticDrivenIconsOn: true,
-  semanticsAbsolutePosition: "begin",
+  semanticsAbsolutePosition: "sentenceStart",
   selectedSymbol1: "a",
   semanticBindingEntityType: "metric_value",
   selectedSymbol2: "a",
   entityIcon: iniEntityIcon,
+  absoluteIcon: iniAbsoluteIcon,
 }
 
 const WordScaleGraphicsSettingReducer = (

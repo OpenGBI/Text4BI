@@ -126,7 +126,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
-  const { entityIcon } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const { entityIcon, absoluteIcon } = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   const { selectedSymbol2 } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   // if (type === "entity") {
   //   console.log("debug phrase", metadata, entityIcon)
@@ -690,9 +692,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 这是绘制sparkline的useeffect 把给sparkline留的span对应的ref送到rendersparkline中，在rendersparkline函数中操纵画小图，每次依赖项发生变化时，就重绘sparkline
   //
   useEffect(() => {
-    console.log(
-      `检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
-    )
+    // console.log(
+    //   `检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
+    // )
     // 如果不需要显示 SparkLine，立即隐藏
     // if (!showSparkLine || !showDataDrivenGraphics || !showDataDrivenCharts) {
     //   if (sparkLineRef.current) {
@@ -803,7 +805,19 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }, [type, metadata, entityIcon, sparkLinePosition, showSparkLine])
   // entityIcon是一个对象，useEffect监听的是对象的地址，所以在外部修改entityIcon["aaa"]是无效修改，需要用浅拷贝的方式才可以改变地址
   // entityIcon[selectedEntityType].a = curSvgContent entityIcon: { ...entityIcon },
-
+  if (type === "IconPadding") {
+    // 专门为开头结尾的icon留的位置
+    return (
+      <span style={{ position: "relative" }}>
+        <NoneDataIcon
+          entityIcon={entityIcon}
+          absoluteIcon={absoluteIcon}
+          curMetadata={metadata}
+          type={type}
+        />
+      </span>
+    )
+  }
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {
       return (
@@ -873,7 +887,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         }
         {metadata.entityType !== "insight" && sparkLinePosition === "left" ? (
-          <NoneDataIcon entityIcon={entityIcon} curMetadata={metadata} />
+          <NoneDataIcon
+            entityIcon={entityIcon}
+            absoluteIcon={absoluteIcon}
+            curMetadata={metadata}
+            type={type}
+          />
         ) : null}
         {metadata?.entityType === "insight_desc" &&
           showSparkLine &&
@@ -901,7 +920,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             </span>
           )}
         {metadata.entityType !== "insight" && sparkLinePosition === "right" ? (
-          <NoneDataIcon entityIcon={entityIcon} curMetadata={metadata} />
+          <NoneDataIcon
+            entityIcon={entityIcon}
+            absoluteIcon={absoluteIcon}
+            curMetadata={metadata}
+            type={type}
+          />
         ) : null}
         {/* {
           // icon的思路和sparkline的思路一致，都是在文字前后留好位置，挂上ref，如果该放icon了，就触发useeffect，然后操纵ref，然后画icon

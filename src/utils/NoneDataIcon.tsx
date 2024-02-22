@@ -22,8 +22,8 @@ export const NoneDataIcon: React.FC<NoneDataIconProps> = ({
   curMetadata,
   type,
 }) => {
-  const [curSelectedSymbol1, setCurSelectedSymbol1] = useState<string>("a") // 句子首尾的icon
-  const [curSelectedSymbol2, setCurSelectedSymbol2] = useState<string>("a") // entity的icon
+  const [curSelectedSymbol1, setCurSelectedSymbol1] = useState<string>("null") // 句子首尾的icon
+  const [curSelectedSymbol2, setCurSelectedSymbol2] = useState<string>("null") // entity的icon
   const { selectedSymbol1, semanticsAbsolutePosition, selectedSymbol2, semanticBindingEntityType } =
     useSelector((state: AppState) => state.wordScaleGraphicsSetting)
 

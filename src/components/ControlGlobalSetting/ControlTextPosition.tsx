@@ -62,13 +62,28 @@ const ControlTextPosition: React.FC = () => {
         </Col>
         <Col span={14}>
           <Button.Group style={{ display: "flex", width: "100%" }}>
+            {/* <Button
+              className={`custom-btn ${selectedPosition === "vertical" ? "primary" : "default"}`}
+              onClick={() => handleChangeTextPosition("vertical")}
+              style={{ width: calculateButtonWidth("vertical") }}
+            >
+              vertical
+            </Button>
+            <Button
+              className={`custom-btn ${selectedPosition === "parallel" ? "primary" : "default"}`}
+              onClick={() => handleChangeTextPosition("parallel")}
+              style={{ width: calculateButtonWidth("parallel") }}
+            >
+              parallel
+            </Button> */}
             {["vertical", "parallel"].map((position) => (
               <Button
                 key={position}
-                className={`custom-btn ${selectedPosition === position ? "active" : ""}`}
+                type={selectedPosition === position ? "primary" : "default"}
                 onClick={() => handleChangeTextPosition(position)}
                 style={{
                   width: calculateButtonWidth(position),
+                  display: "inline-flex",
                   // minWidth: position === 'parallel' ? '100px' : 'auto', // 设置最小宽度
                 }} // Set width based on text length
               >

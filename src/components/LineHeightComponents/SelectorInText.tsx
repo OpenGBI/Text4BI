@@ -18,7 +18,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
   const width = `${Math.max(40, fontSizeNumber * 10)}px` // 根据fontsize计算width
-  const height = `${Math.max(10, fontSizeNumber * 1.8)}px` // 根据fontsize计算width
+  const height = `${Math.max(10, fontSizeNumber * 1.6)}px` // 根据fontsize计算width
   const paddingSize = `${Math.max(5, fontSizeNumber)}px` // 根据fontsize计算padding
   const dropdownTextSize = fontsize // 设置下拉框中文本的大小与fontsize一致
 

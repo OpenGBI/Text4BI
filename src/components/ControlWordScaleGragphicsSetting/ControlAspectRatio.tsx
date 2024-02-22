@@ -46,7 +46,7 @@ const ControlAspectRatio: React.FC = () => {
             {["1:1", "2:1", "4:1"].map((ratio) => (
               <Button
                 key={ratio}
-                className={`custom-btn ${selectedAspectRatio === ratio ? "active" : ""}`}
+                type={selectedAspectRatio === ratio ? "primary" : "default"}
                 onClick={() => {
                   handleChangeAspectRatio(ratio)
                   setDropdownDisplay("...") // 点击按钮后重置下拉框显示
@@ -56,6 +56,7 @@ const ControlAspectRatio: React.FC = () => {
                   // borderRight: ratio !== 'big' ? 'none' : undefined,
                   textAlign: "center", // Ensure the text is centered
                   width: `${buttonWidth}px`, // 设置固定宽度
+                  display: "inline-flex",
                 }}
               >
                 {ratio}

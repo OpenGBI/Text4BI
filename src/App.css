@@ -126,6 +126,19 @@
 .card-container {
   margin-bottom: 100px;
 }
+/* 
+.insight-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: auto;
+  padding: 2px;
+} */
+
+.hide-border {
+  border: none !important; /* 强制覆盖任何已有的边框样式 */
+}
 
 /* 以下是design相关的样式 */
 .custom-panel-header {

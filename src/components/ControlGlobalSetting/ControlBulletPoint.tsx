@@ -52,7 +52,7 @@ const ControlGlobalBoolean: React.FC = () => {
               {["•", "#", "-"].map((style) => (
                 <Button
                   key={style}
-                  className={`custom-btn ${bulletPointStyle === style ? "active" : ""}`}
+                  type={bulletPointStyle === style ? "primary" : "default"}
                   onClick={() => handleBulletPointChange(style)}
                 >
                   {style}

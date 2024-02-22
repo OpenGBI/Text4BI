@@ -36,7 +36,7 @@ const ControlFont: React.FC = () => {
   }
 
   // 固定按钮宽度
-  const buttonWidth = 50 // 按布局需要调整
+  const buttonWidth = 52 // 按布局需要调整
 
   return (
     <div className="control-panel">
@@ -45,16 +45,16 @@ const ControlFont: React.FC = () => {
           Font size
         </Col>
         <Col span={14}>
-          <Button.Group style={{ display: "flex" }}>
+          <Button.Group style={{ display: "flex", textAlign: "center" }}>
             {["14px", "15px", "16px"].map((size) => (
               <Button
                 key={size}
-                className={`custom-btn ${selectedFontSize === size ? "active" : ""}`}
+                type={selectedFontSize === size ? "primary" : "default"}
                 onClick={() => {
                   handleFontSizeChange(size)
                   setDropdownDisplay("...") // 点击按钮后重置下拉框显示
                 }}
-                style={{ width: `${buttonWidth}px`, textAlign: "center" }} // 设置固定宽度
+                style={{ width: `${buttonWidth}px`, display: "inline-flex", textAlign: "center", justifyContent: "center", alignItems: "center" }} // 设置固定宽度
               >
                 {size}
               </Button>
@@ -64,7 +64,7 @@ const ControlFont: React.FC = () => {
               style={{ width: `${buttonWidth + 20}px` }}
               onChange={handleFontSizeChange}
               dropdownMatchSelectWidth={false}
-              onFocus={() => setDropdownDisplay("14px")} // 聚焦时显示实际选中的值
+              onFocus={() => setDropdownDisplay(selectedFontSize)} // 聚焦时显示实际选中的值
               // onBlur={() => setDropdownDisplay("....")} // 失焦时显示....
             >
               {fontSizeOptions}

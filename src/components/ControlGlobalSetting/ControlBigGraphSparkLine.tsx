@@ -33,6 +33,8 @@ const ControlBigGraphSparkLine: React.FC = () => {
         graphicsDirection: checked,
         graphicsAnomaly: checked,
         isSemanticDrivenIconsOn: checked,
+        selectedSymbol1: "null",
+        selectedSymbol2: "null",
       }),
     )
   }

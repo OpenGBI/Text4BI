@@ -23,19 +23,48 @@ function canvasToImageHtml(canvasElement: HTMLCanvasElement, imgExtra: ImageExtr
 }
 
 function selectorToTextHtml(selectorElement: HTMLDivElement, imgExtra: ImageExtra | undefined) {
-  debugger
-  let inputElement: HTMLInputElement | null = selectorElement.querySelector("input[readonly]")
-
-  // 最后提取input元素的value属性值
+  // console.log("检查是否调用selectorElement", selectorElement)
+  // 首先尝试提取只读 input 元素的值
+  const inputElement: HTMLInputElement | null = selectorElement.querySelector("input[readonly]")
   let value = inputElement ? inputElement.value : undefined
-  //   const baseImageHtml = `<img alt="${NTV_IMG_ALT}" src="${pngUrl}" width="${width}" height="${height}" />`
+  console.log("检查是否有inputElement", inputElement)
+
+  // 如果没有值，则尝试从 Ant Design Select 组件提取文本
   if (!value) {
-    inputElement = selectorElement.querySelector(".ant-select-selection-item")
-    value = inputElement?.innerText
+    // 选择 Ant Design Select 组件的显示项元素
+    const selectDisplayElement = selectorElement.querySelector(".ant-select-selection-item, .ant-select-selection-placeholder")
+    // 提取文本，确保只提取文本内容，忽略任何图标或其他元素
+    if (selectDisplayElement && selectDisplayElement.textContent) {
+      value = selectDisplayElement.textContent.trim()
+    }
+    // value = selectDisplayElement ? selectDisplayElement.textContent.trim() : undefined
   }
 
-  const imageHtml = `<span> ${value} </span>`
-  return imageHtml
+  // 创建并返回文本 HTML，如果没有找到值，则显示 '未选择'
+  const textHtml = `<span>${value || "未选择"}</span>`
+  return textHtml
+}
+
+function selectorToTextHtml2(selectorElement: HTMLDivElement, imgExtra: ImageExtra | undefined) {
+  // console.log("检查是否调用selectorElement", selectorElement)
+  // 首先尝试提取只读 input 元素的值
+  const inputElement: HTMLInputElement | null = selectorElement.querySelector("input[readonly]")
+  let value = inputElement ? inputElement.value : undefined
+  console.log("检查是否有inputElement", inputElement)
+
+  // 如果没有值，则尝试从 Ant Design Select 组件提取文本
+  if (!value) {
+    // 选择 Ant Design Select 组件的显示项元素
+    const selectDisplayElement = selectorElement.querySelector(".ant-select-selection-item, .ant-select-selection-placeholder")
+    // 提取文本，确保只提取文本内容，忽略任何图标或其他元素
+    if (selectDisplayElement && selectDisplayElement.textContent) {
+      value = selectDisplayElement.textContent.trim()
+    }
+    // value = selectDisplayElement ? selectDisplayElement.textContent.trim() : undefined
+  }
+  // 创建并返回文本 HTML，如果没有找到值，则显示 '未选择'
+  const textHtml = `<span>${value || "未选择"}</span>`
+  return textHtml
 }
 
 function isNegativeArrow(svgElement: SVGSVGElement) {
@@ -103,7 +132,7 @@ export async function transformHtml({
     originalHtml += element?.outerHTML || "" // 使用空字符串作为默认值 zyx
   }
   let newHtml = originalHtml
-  debugger
+  // debugger
 
   const canvasForCopy = document.createElement("canvas")
   for (let i = 0; i < elements.length; i += 1) {
@@ -111,15 +140,27 @@ export async function transformHtml({
     const allDivs = element.querySelectorAll("div")
     const svgElements = element.getElementsByTagName("svg")
     const canvasElements = element.getElementsByTagName("canvas")
-    // 过滤出类名以 'ant-space css-dev-only-do-not-override-2i2tap' 开头的div元素
+    // 过滤出类名以 'ant-space css-dev-only-do-not-override-2i2tap' 开头的div元素，这里是select元素
     const selectorElements = Array.from(allDivs).filter((div) =>
-      div.className.startsWith("ant-space css-dev-only-do-not-override-2i2tap"),
+      div.className.startsWith("ant-space css-dev-only-do-not-override-14cipzq"),
+    )
+    // 过滤出类名以 'ant-space css-dev-only-do-not-override-1xg9z9n' 开头的div元素，这里是datepicker元素
+    const selectorElements2 = Array.from(allDivs).filter((div) =>
+      div.className.startsWith("ant-space css-dev-only-do-not-override-1xg9z9ndsdsjds"),
     )
     for (let l = 0; l < selectorElements.length; l += 1) {
       const selectorElement = selectorElements[l]
       const selectorHtml = selectorElement.outerHTML
       if (replaceType === "image") {
         const imageHtml = selectorToTextHtml(selectorElement, imageExtra)
+        newHtml = newHtml.replace(selectorHtml, imageHtml)
+      }
+    }
+    for (let l = 0; l < selectorElements2.length; l += 1) {
+      const selectorElement = selectorElements2[l]
+      const selectorHtml = selectorElement.outerHTML
+      if (replaceType === "image") {
+        const imageHtml = selectorToTextHtml2(selectorElement, imageExtra)
         newHtml = newHtml.replace(selectorHtml, imageHtml)
       }
     }

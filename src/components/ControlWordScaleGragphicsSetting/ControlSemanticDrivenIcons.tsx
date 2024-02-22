@@ -25,21 +25,25 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   // ... (previous states and functions)
   const [isSemanticDrivenIconsOn, setIsSemanticDrivenIconsOn] = useState(true)
   const [semanticsAbsolutePosition, setSemanticsAbsolutePosition] = useState("sentenceStart")
-  const [selectedSymbol1, setSelectedSymbol1] = useState("a")
+  const [selectedSymbol1, setSelectedSymbol1] = useState("null")
   const [semanticBindingEntityType, setSemanticBindingEntityType] = useState("metric_value")
-  const [selectedSymbol2, setSelectedSymbol2] = useState("a")
+  const [selectedSymbol2, setSelectedSymbol2] = useState("null")
   // 下拉框显示的值
   const [dropdownDisplay1, setDropdownDisplay1] = useState("...")
   const [dropdownDisplay2, setDropdownDisplay2] = useState("...")
-  const buttoWidth1 = 35
+  const buttoWidth1 = 40
   const buttoWidth2 = 35
   // 用于显示和隐藏基于 Semantic-driven 开关状态的组件
   const handleSemanticDrivenChange = (checked: boolean) => {
     setIsSemanticDrivenIconsOn(checked)
+    setSelectedSymbol1("null")
+    setSelectedSymbol2("null")
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         isSemanticDrivenIconsOn: checked,
+        selectedSymbol1: "null",
+        selectedSymbol2: "null",
       }),
     )
   }
@@ -133,7 +137,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       <div
         style={{
           width: "100%",
-          display: wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
+          display: globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
         }}
       >
         <Row className="control-row">
@@ -156,12 +160,12 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                   >
                     end
                   </Button>
-                  <Button
+                  {/* <Button
                     type={semanticsAbsolutePosition === "no" ? "primary" : "default"}
                     onClick={() => handleAbsolutePositionChange("no")}
                   >
                     no
-                  </Button>
+                  </Button> */}
                 </Button.Group>
               </Col>
             </Row>
@@ -177,10 +181,17 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                 </Col>
                 <Col span={14} style={{ display: "flex" }}>
                   <Button.Group>
-                    {["a", "b", "c", "d"].map((symbol) => (
+                  {/* <Button
+                    className={`custom-btn ${selectedSymbol1 === "null" ? "active" : ""}`}
+                    onClick={() => handleSymbol1Change("null")}
+                    style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
+                  >
+                    null
+                  </Button> */}
+                    {["null", "a", "b", "c", "d"].map((symbol) => (
                       <Button
                         key={symbol} // 用 symbol 作为 key
-                        className={`custom-btn ${selectedSymbol1 === symbol ? "active" : ""}`}
+                        type={selectedSymbol1 === symbol ? "primary" : "default"}
                         onClick={() => {
                           handleSymbol1Change(symbol)
                           setDropdownDisplay1(symbol) // 点击按钮后重置下拉框显示
@@ -188,8 +199,10 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         icon={
                           <SvgIcon svgContent={absoluteIcon[semanticsAbsolutePosition][symbol]} />
                         }
-                        style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
-                      />
+                        style={{ width: `${buttoWidth1}px`, display: "inline-flex", textAlign: "left", justifyContent: "center", alignItems: "center" }}
+                      >
+                        {symbol === "null" ? "null" : null}
+                      </Button>
                     ))}
                     {/* <Select
                       value={dropdownDisplay1} // 下拉框显示的值
@@ -218,7 +231,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       <div
         style={{
           width: "100%",
-          display: wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
+          display: globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
         }}
       >
         <Row className="control-row">
@@ -255,17 +268,26 @@ const ControlSemanticDrivenIcons: React.FC = () => {
               </Col>
               <Col span={14} style={{ display: "flex" }}>
                 <Button.Group>
-                  {["a", "b", "c", "d"].map((symbol) => (
+                  {/* <Button
+                    className={`custom-btn ${selectedSymbol2 === "null" ? "active" : ""}`}
+                    onClick={() => handleSymbol2Change("null")}
+                    style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
+                  >
+                    null
+                  </Button> */}
+                  {["null", "a", "b", "c", "d"].map((symbol) => (
                     <Button
                       key={symbol} // 用 symbol 作为 key
-                      className={`custom-btn ${selectedSymbol2 === symbol ? "active" : ""}`}
+                      type={selectedSymbol2 === symbol ? "primary" : "default"}
                       onClick={() => {
                         handleSymbol2Change(symbol)
                         setDropdownDisplay2(symbol) // 点击按钮后重置下拉框显示
                       }}
                       icon={<SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />}
-                      style={{ width: `${buttoWidth2}px`, textAlign: "center" }}
-                    />
+                      style={{ width: `${buttoWidth1}px`, display: "inline-flex", textAlign: "left", justifyContent: "center", alignItems: "center" }}
+                    >
+                      {symbol === "null" ? "null" : null}
+                    </Button>
                   ))}
                   {/* <Select
                     value={dropdownDisplay2} // 下拉框显示的值

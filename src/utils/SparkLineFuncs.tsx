@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react"
 import * as d3 from "d3"
 // import { useDispatch, useSelector } from "react-redux"
-import { Point, cateAndValue } from "../types"
+import { Point, cateAndValue, highLightMessage, Metadata } from "../types"
 // import { AppState } from "../store"
 
 // const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
@@ -14,20 +14,25 @@ export const renderDistribution1 = (
   data: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
-  // shouldRenderSparkLine?: boolean,
 ) => {
-  // console.log("确认小图函数是否调用 分布1", sparkLineElement)
-  // 判断是否应该渲染小图
-  // if (!shouldRenderSparkLine && wordElement) {
-  //   // 如果不应该渲染小图，但之前已经渲染过，现在需要移除它们
-  //   const sparklines = wordElement.querySelectorAll(".sparklines")
-  //   sparklines.forEach((sparkline) => {
-  //     sparkline.remove() // 移除所有的小图元素
-  //   })
-  //   return // 不继续执行后面的代码
-  // }
+  const handleHover = () => {
+    const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+    if (curMetadata.origin) {
+      highlightMessage.message = curMetadata.origin
+    } else if (value !== undefined) highlightMessage.message = value
+    if (curMetadata.interactionType) {
+      highlightMessage.interactionType = curMetadata.interactionType
+    }
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -74,6 +79,8 @@ export const renderDistribution1 = (
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+    wordElement.addEventListener("mouseenter", handleHover)
+    wordElement.addEventListener("mouseleave", handleLeave)
     const rect = wordElement.getBoundingClientRect()
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
@@ -149,6 +156,8 @@ export const renderDistribution1 = (
   }
   // 左右放小图
   if (sparkLineElement) {
+    sparkLineElement.addEventListener("mouseenter", handleHover)
+    sparkLineElement.addEventListener("mouseleave", handleLeave)
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
@@ -203,6 +212,16 @@ export const renderDistribution1 = (
       .attr("y2", height)
       .attr("stroke", "black")
       .attr("stroke-width", "1")
+  }
+  return () => {
+    if (wordElement) {
+      wordElement.removeEventListener("mouseenter", handleHover)
+      wordElement.removeEventListener("mouseleave", handleLeave)
+    }
+    if (sparkLineElement) {
+      sparkLineElement?.removeEventListener("mouseenter", handleHover)
+      sparkLineElement?.removeEventListener("mouseleave", handleLeave)
+    }
   }
 }
 export const renderDistribution2 = (
@@ -356,9 +375,25 @@ export const renderCategorization1 = (
   tagData: number,
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = () => {
+    const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+    if (curMetadata.origin) {
+      highlightMessage.message = curMetadata.origin
+    } else if (value !== undefined) highlightMessage.message = value
+    if (curMetadata.interactionType) {
+      highlightMessage.interactionType = curMetadata.interactionType
+    }
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height: number
   const padding = 1
@@ -408,6 +443,8 @@ export const renderCategorization1 = (
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+    wordElement.addEventListener("mouseenter", handleHover)
+    wordElement.addEventListener("mouseleave", handleLeave)
     const rect = wordElement.getBoundingClientRect()
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
@@ -454,6 +491,8 @@ export const renderCategorization1 = (
   }
   // 左右放小图
   if (sparkLineElement) {
+    sparkLineElement.addEventListener("mouseenter", handleHover)
+    sparkLineElement.addEventListener("mouseleave", handleLeave)
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
@@ -477,6 +516,16 @@ export const renderCategorization1 = (
         }
         return i === tagData ? "#3769b1" : "#cbd7ed"
       })
+  }
+  return () => {
+    if (wordElement) {
+      wordElement.removeEventListener("mouseenter", handleHover)
+      wordElement.removeEventListener("mouseleave", handleLeave)
+    }
+    if (sparkLineElement) {
+      sparkLineElement?.removeEventListener("mouseenter", handleHover)
+      sparkLineElement?.removeEventListener("mouseleave", handleLeave)
+    }
   }
 }
 
@@ -1319,9 +1368,24 @@ export const renderTemporalityTrend1 = (
   data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -1417,7 +1481,7 @@ export const renderTemporalityTrend1 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1.5) // size of circle for "hit area"
+      .attr("r", 1) // size of circle for "hit area"
       .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
@@ -1425,6 +1489,13 @@ export const renderTemporalityTrend1 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        console.log("debug-TemporalTrend-circle")
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1456,7 +1527,7 @@ export const renderTemporalityTrend1 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1.5) // size of circle for "hit area"
+      .attr("r", 1) // size of circle for "hit area"
       .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
@@ -1464,6 +1535,14 @@ export const renderTemporalityTrend1 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseover", (event, d) => {
+        console.log("debug-TemporalTrend-over", d)
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        console.log("debug-TemporalTrend-leave")
+        handleLeave()
+      })
   }
 }
 export const renderTemporalityTrend2 = (
@@ -2028,9 +2107,24 @@ export const renderTemporalityAnomaly1 = (
   iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message,
+    }
+    highlightMessage.interactionType = "ByIndex"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -2113,10 +2207,9 @@ export const renderTemporalityAnomaly1 = (
       .attr("stroke", "black")
       .attr("stroke-width", 2)
 
-    // 标记第3个和第5个点
     svgD3
       .selectAll(".marked-point")
-      .data(data) // 选取第3个和第5个元素
+      .data(data)
       .enter()
       .append("circle")
       .attr("class", "marked-point")
@@ -2125,6 +2218,12 @@ export const renderTemporalityAnomaly1 = (
       .attr("r", 2)
       .attr("fill", "red")
       .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2144,10 +2243,9 @@ export const renderTemporalityAnomaly1 = (
       .attr("stroke", "black")
       .attr("stroke-width", 2)
 
-    // 标记第3个和第5个点
     svgD3
       .selectAll(".marked-point")
-      .data(data) // 选取第3个和第5个元素
+      .data(data)
       .enter()
       .append("circle")
       .attr("class", "marked-point")
@@ -2156,6 +2254,12 @@ export const renderTemporalityAnomaly1 = (
       .attr("r", 2)
       .attr("fill", "red")
       .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
 }
 export const renderTemporalityAnomaly2 = (
@@ -2280,7 +2384,6 @@ export const renderTemporalityAnomaly2 = (
       .attr("stroke", "black")
       .attr("stroke-width", 2)
 
-    // 标记第3个和第5个点
     svgD3
       .selectAll("line.vertical")
       .data(data)

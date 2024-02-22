@@ -51,8 +51,6 @@ export const NoneDataIcon: React.FC<NoneDataIconProps> = ({
     } else {
       svgContent = absoluteIcon[curMetadata.entityType][curSelectedSymbol1]
     }
-    console.log(curMetadata.entityType)
-    console.log(svgContent)
   } else {
     if (!curMetadata.entityType) return null
     if (!entityIcon[curMetadata.entityType]) return null

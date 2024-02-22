@@ -118,13 +118,21 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "2.69",
-            metadata: { entityType: "metric_value", origin: 2.69 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 2.69,
+              interactionType: "distribution Min",
+            },
           },
           { type: "text", value: " , Max = " },
           {
             type: "entity",
             value: "39536.13",
-            metadata: { entityType: "metric_value", origin: 39536.13 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 39536.13,
+              interactionType: "distribution Max",
+            },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -137,19 +145,31 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "3794.66",
-            metadata: { entityType: "metric_value", origin: 3794.66 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 3794.66,
+              interactionType: "distribution Q1",
+            },
           },
           { type: "text", value: " , Q2 (Median) = " },
           {
             type: "entity",
             value: "7700.14",
-            metadata: { entityType: "metric_value", origin: 7700.14 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 7700.14,
+              interactionType: "distribution Median",
+            },
           },
           { type: "text", value: " , Q3 = " },
           {
             type: "entity",
             value: "12466.37",
-            metadata: { entityType: "metric_value", origin: 12466.37 },
+            metadata: {
+              entityType: "metric_value",
+              origin: 12466.37,
+              interactionType: "distribution Q3",
+            },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -740,11 +760,55 @@ export const iniData: Card[] = [
               tagData: TrendData11.predictData as cateAndValue[],
             },
           },
-          { type: "text", value: " trend." },
+          { type: "text", value: " trend in " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
-
+      {
+        type: "normal",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: "According to " },
+          {
+            type: "entity",
+            value: "PROPHET algorithm",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "The Prophet Algorithm is an open-source forecasting algorithm used for time series prediction. Its working principle is based on decom" +
+                "posing time series data into a combination of trend, seasonality, and holiday effects. By adding these components together, it can generate forecasts for future time points.",
+            },
+          },
+          { type: "text", value: ", the trend will be " },
+          {
+            type: "entity",
+            value: "increasing",
+            metadata: { entityType: "insight_desc", assessment: "increase" },
+          },
+          { type: "text", value: ". With a predicted value of " },
+          {
+            type: "entity",
+            value: "11219.24 ",
+            metadata: { entityType: "metric_value", origin: 11219.24, interactionType: "ByValue" },
+          },
+          { type: "text", value: "until " },
+          {
+            type: "entity",
+            value: "January 01, 2012",
+            metadata: {
+              entityType: "filter_time",
+              selections: ["2012-01-01"],
+              paramFilter: "startTime",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
       {
         type: "plot",
         chartType: "TemporalTrend",
@@ -833,13 +897,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "14453.23 ",
-            metadata: { entityType: "metric_value", origin: 14453.23 },
+            metadata: { entityType: "metric_value", origin: 14453.23, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
             value: "6235.21",
-            metadata: { entityType: "delta_value", origin: 6235.21 },
+            metadata: { entityType: "delta_value", origin: 6235.21, interactionType: "ByValue" },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -858,13 +922,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "17289.69 ",
-            metadata: { entityType: "metric_value", origin: 17289.69 },
+            metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
             value: "4995.34.",
-            metadata: { entityType: "delta_value", origin: 4995.34 },
+            metadata: { entityType: "delta_value", origin: 4995.34, interactionType: "ByValue" },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -883,13 +947,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "17289.69 ",
-            metadata: { entityType: "metric_value", origin: 17289.69 },
+            metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
             value: "6732.64",
-            metadata: { entityType: "delta_value", origin: 6732.64 },
+            metadata: { entityType: "delta_value", origin: 6732.64, interactionType: "ByValue" },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],

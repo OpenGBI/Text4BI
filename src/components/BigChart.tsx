@@ -159,6 +159,9 @@ const BigChart: React.FC<BigChartProps> = ({
         <TemporalAnomaly
           data={BigChartDataRef.current.detail as cateAndValue[]}
           tagData={BigChartDataRef.current.tagData as number[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     case "TemporalTrend":
@@ -166,6 +169,9 @@ const BigChart: React.FC<BigChartProps> = ({
         <TemporalTrend
           data={BigChartDataRef.current.detail as cateAndValue[]}
           tagData={BigChartDataRef.current.tagData as cateAndValue[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     default:

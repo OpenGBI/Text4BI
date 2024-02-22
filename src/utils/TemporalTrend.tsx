@@ -1,10 +1,15 @@
 import React from "react"
-import { Chart } from "@antv/g2"
+import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
+import { find } from "lodash"
 import { cateAndValue } from "../types"
+import { highlightElement, noHighlightElement } from "./HighLightElement"
 
 interface TemporalTrendProps {
   data: cateAndValue[] // n个AAAA
   tagData: cateAndValue[] // 4个AAAA,这四个点可以形成弯折的回归线，这四个点的date必须是真实值和预测值的边界
+  message: string | number | undefined
+  hoverOrNot: boolean | undefined
+  interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
 }
 // AAAA={
 //   date: 'Jan 10 2000',
@@ -12,12 +17,18 @@ interface TemporalTrendProps {
 //   category: 'predict'或者是'real',表明这是否是预测值
 // },
 
-const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
+const TemporalTrend: React.FC<TemporalTrendProps> = ({
+  data,
+  tagData,
+  message,
+  hoverOrNot,
+  interactionType,
+}) => {
   const containerRef = React.useRef(null)
 
   // console.log("SlicedBigChartData.detailSlicedBigChartData.detail", data)
   // console.log("tagDatatagDatatagDatatagData", tagData)
-
+  const interactiveRef = React.useRef<Chart | null>(null)
   React.useEffect(() => {
     if (!containerRef.current) return
 
@@ -44,7 +55,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
     chart
       .line()
       .data(realValue)
-      .encode("x", (d: cateAndValue) => d.date)
+      .encode("x", "date")
       .encode("y", "value")
       .encode("color", "#5a85c4")
       .encode("shape", "smooth")
@@ -52,7 +63,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
     chart
       .line()
       .data(predictValue)
-      .encode("x", (d: cateAndValue) => d.date)
+      .encode("x", "date")
       .encode("y", "value")
       .encode("color", "#5a85c4")
       .encode("shape", "smooth")
@@ -63,19 +74,68 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({ data, tagData }) => {
     chart
       .line()
       .data(tagData)
-      .encode("x", (d: cateAndValue) => d.date)
+      .encode("x", "date")
+      // .encode("x", (d: cateAndValue) => d.date)
       .encode("y", "value")
       .encode("color", "gray")
       .style("lineDash", [3, 3])
-
+    interactiveRef.current = chart
     chart.render()
 
     return () => {
       chart.destroy()
     }
   }, [data])
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
 
+    if (message === undefined) {
+      return
+    }
+    if (interactionType === "ByValue") {
+      const lineY = message
+      const lineX = data.find((item) => parseFloat(item.value.toFixed(2)) === message)?.date
+      if (lineX && lineY) {
+        for (let i = interactiveRef.current.children.length - 1; i > 2; i -= 1) {
+          interactiveRef.current.children[i].remove()
+        }
+        // interactiveRef.current.render()
+        interactiveRef.current.line().data(data).encode("x", "date").encode("y", lineY)
+        interactiveRef.current.line().data(data).encode("x", lineX).encode("y", "value")
+        interactiveRef.current.render()
+      }
+    }
+    if (interactionType === "x-axis" || interactionType === "y-axis") {
+      highlightElement(interactiveRef.current, interactionType)
+    }
+  }, [message])
+  React.useEffect(() => {
+    if (!interactiveRef.current) {
+      return
+    }
+    if (hoverOrNot === undefined) {
+      return
+    }
+    if (!hoverOrNot) {
+      noHighlightElement(interactiveRef.current)
+      const { canvas } = interactiveRef.current.getContext()
+      if (!canvas) return
+      const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const lines = _.filter(elements, (element) => element.markType === "line")
+      for (let i = lines.length - 1; i > 2; i -= 1) {
+        lines[i].remove()
+      }
+      console.log("debug-clear", lines)
+    }
+  }, [hoverOrNot])
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />
 }
-
+TemporalTrend.defaultProps = {
+  interactionType: "",
+}
 export default TemporalTrend

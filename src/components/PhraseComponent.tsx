@@ -348,6 +348,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       if (curMetadata.interactionType) {
         highlightMessage.interactionType = curMetadata.interactionType
       }
+      console.log("debug:", highlightMessage)
       setHighlightMessage(highlightMessage)
 
       // 使用setHighlightMessage(hoverState)是不对的，因为setHoverState({ message: curValue, hoverOrNot: true })是异步的，执行setHighlightMessage时，hoverState还没被修改 zyx
@@ -434,6 +435,27 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     seasonalityTypeOn: boolean,
     curShouldShowSparkLine: boolean,
   ) => {
+    // const handleHover = () => {
+    //   const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+    //   if (curMetadata.origin) {
+    //     highlightMessage.message = curMetadata.origin
+    //   } else {
+    //     highlightMessage.message = value
+    //   }
+    //   if (curMetadata.interactionType) {
+    //     highlightMessage.interactionType = curMetadata.interactionType
+    //   }
+    //   setHighlightMessage(highlightMessage)
+    // }
+    // const handleLeave = () => {
+    //   setHighlightMessage({ message: "", hoverOrNot: false })
+    // }
+    // curWordSpan.addEventListener("mouseenter", handleHover)
+    // curWordSpan.addEventListener("mouseleave", handleLeave)
+    // if (curSparkLineSpan) {
+    //   curSparkLineSpan.addEventListener("mouseenter", handleHover)
+    //   curSparkLineSpan.addEventListener("mouseleave", handleLeave)
+    // }
     if (!curMetadata.detail) {
       throw new Error("no curMetadata")
     }
@@ -449,6 +471,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -479,6 +504,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.tagData as number,
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -569,6 +597,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           combinedValues as number[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -638,6 +669,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -687,6 +721,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         )
       }
     }
+    // return () => {
+    //   curWordSpan.removeEventListener("mouseenter", handleHover)
+    //   curWordSpan.removeEventListener("mouseleave", handleLeave)
+    //   curSparkLineSpan?.removeEventListener("mouseenter", handleHover)
+    //   curSparkLineSpan?.removeEventListener("mouseleave", handleLeave)
+    // }
   }
   //
   // 这是绘制sparkline的useeffect 把给sparkline留的span对应的ref送到rendersparkline中，在rendersparkline函数中操纵画小图，每次依赖项发生变化时，就重绘sparkline
@@ -820,12 +860,31 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {
+      const handleHover = () => {
+        const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+        if (metadata.origin) {
+          highlightMessage.message = metadata.origin
+          // setHighlightMessage({ message: curMetadata.origin, hoverOrNot: true })
+        } else {
+          highlightMessage.message = value
+        }
+        if (metadata.interactionType) {
+          highlightMessage.interactionType = metadata.interactionType
+        }
+        console.log("debug:", highlightMessage)
+        setHighlightMessage(highlightMessage)
+      }
+      const handleLeave = () => {
+        setHighlightMessage({ message: "", hoverOrNot: false })
+      }
       return (
-        <SelectorInText
-          selections={metadata.selections}
-          defaultSelection={metadata.selections[0]}
-          onTopkChange={onTopkChange}
-        />
+        <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+          <SelectorInText
+            selections={metadata.selections}
+            defaultSelection={metadata.selections[0]}
+            onTopkChange={onTopkChange}
+          />
+        </span>
       )
     }
     if (metadata.entityType === "filter_time" && metadata.selections) {
@@ -972,9 +1031,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               />
             )
         }
-        {/* {metadata?.entityType === "insight_desc" ? (
-          <Icon assessment={metadata.assessment as string} />
-        ) : null} */}
       </span>
     )
   }

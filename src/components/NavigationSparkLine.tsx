@@ -49,6 +49,7 @@ const renderSparkLine = (
   curWordSpan: HTMLSpanElement,
   curSparkLineSpan: HTMLSpanElement | undefined,
   defaultChoice: boolean, // 是否选择函数1
+  value: string | number,
 ) => {
   if (!curMetadata.detail) {
     throw new Error("no curMetadata")
@@ -59,6 +60,9 @@ const renderSparkLine = (
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -79,6 +83,9 @@ const renderSparkLine = (
         curMetadata.tagData as number,
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -148,6 +155,9 @@ const renderSparkLine = (
         combinedValues as number[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -196,6 +206,9 @@ const renderSparkLine = (
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -238,6 +251,7 @@ type NavigationSparkLineProp = {
   globalBoolean: boolean
   navigationClick: (cardID: number) => void
   cardIndex: number
+  value: string | number
 }
 const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
   metadata,
@@ -246,6 +260,7 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
   globalBoolean,
   navigationClick,
   cardIndex,
+  value,
 }) => {
   // const stringID = CardID.match(/\d+/)?.[0]
   // let id = 0
@@ -263,6 +278,7 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
         wordRef.current,
         wordRef.current,
         globalBoolean,
+        value,
       )
     }
   }, [metadata, aspectRatio, sparkLinePosition, globalBoolean])

@@ -40,6 +40,7 @@ const NavigationCard: React.FC<NavigationCardProp> = ({ navigationClick, CardID,
                     globalBoolean
                     navigationClick={navigationClick}
                     cardIndex={cardIndex}
+                    value={phrase.value}
                   />
                 </Row>
               )

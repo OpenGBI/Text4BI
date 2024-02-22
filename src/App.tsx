@@ -50,7 +50,7 @@ function App() {
             <Content>
               <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
-            {/* <Container /> */}
+            <Container />
           </Content>
           <Sider width={130}>
             <Content>

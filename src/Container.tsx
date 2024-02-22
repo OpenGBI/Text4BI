@@ -212,18 +212,18 @@ const Container = () => {
     if (chartRef.current) {
       console.log("debug inter")
       // 添加辅助线
-      //   chartRef.current.data(data).line().encode("x", "year").encode("y", 3)
-      //   chartRef.current.render()
+      // chartRef.current.data(data).line().encode("x", "year").encode("y", 3)
+      // chartRef.current.render()
 
       // 移除辅助线
-      //   const { canvas } = chartRef.current.getContext()
-      //   if (!canvas) return
-      //   const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
-      //   console.log(elements)
-      //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //   // @ts-ignore
-      //   const lines = _.filter(elements, (element) => element.markType === "line")
-      //   lines[1].remove()
+      const { canvas } = chartRef.current.getContext()
+      if (!canvas) return
+      const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
+      console.log(elements)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const lines = _.filter(elements, (element) => element.markType === "line")
+      lines[1].remove()
     }
   }
 

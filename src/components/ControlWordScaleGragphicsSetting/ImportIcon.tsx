@@ -69,7 +69,7 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies }) => {
   }
   return (
     <Upload {...props}>
-      <Button icon={<UploadOutlined />}>Upload</Button>
+      <Button icon={<UploadOutlined />} />
     </Upload>
   )
 }

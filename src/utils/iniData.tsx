@@ -361,7 +361,7 @@ export const iniData: Card[] = [
               tagData: -1,
             },
           },
-          { type: "text", value: ", and the top" },
+          { type: "text", value: ", and the top " },
           {
             type: "entity",
             value: "3",
@@ -371,7 +371,7 @@ export const iniData: Card[] = [
               interactionType: "multiHighlight",
             },
           },
-          { type: "text", value: "categories are:" },
+          { type: "text", value: " categories are:" },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },

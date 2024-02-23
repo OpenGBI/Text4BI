@@ -20,9 +20,9 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   graphicsAnomaly: true,
   isSemanticDrivenIconsOn: true,
   semanticsAbsolutePosition: "sentenceStart",
-  selectedSymbol1: "a",
+  selectedSymbol1: "null",
   semanticBindingEntityType: "metric_value",
-  selectedSymbol2: "a",
+  selectedSymbol2: "null",
   entityIcon: iniEntityIcon,
   absoluteIcon: iniAbsoluteIcon,
 }

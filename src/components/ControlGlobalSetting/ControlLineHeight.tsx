@@ -29,7 +29,7 @@ const ControlLineHeight: React.FC = () => {
   }
 
   // 固定按钮宽度
-  const buttonWidth = 40 // 根据实际布局调整宽度
+  const buttonWidth = 45 // 根据实际布局调整宽度
 
   return (
     <div className="control-panel">
@@ -42,11 +42,9 @@ const ControlLineHeight: React.FC = () => {
             {["1", "1.5", "2"].map((lineHeight) => (
               <Button
                 key={lineHeight}
-                className={`custom-btn ${
-                  selectedLineHeight === parseFloat(lineHeight) ? "active" : ""
-                }`}
+                type={selectedLineHeight === parseFloat(lineHeight) ? "primary" : "default"}
                 onClick={() => handleLineHeightChange(parseFloat(lineHeight))}
-                style={{ width: `${buttonWidth}px` }}
+                style={{ width: `${buttonWidth}px`, display: "inline-flex" }}
               >
                 {lineHeight}
               </Button>

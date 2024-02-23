@@ -87,7 +87,7 @@ const ControlSparkLinePos: React.FC = () => {
             {Object.entries(buttonIcons).map(([position, icon]) => (
               <Button
                 key={position}
-                className={`custom-btn ${selectedPosition === position ? "active" : ""}`}
+                type={selectedPosition === position ? "primary" : "default"}
                 onClick={() => handleChangeSparkLinePosition(position)}
                 style={{
                   flex: 1,

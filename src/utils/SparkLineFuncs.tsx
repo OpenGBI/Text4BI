@@ -726,7 +726,7 @@ export const renderProportion1 = (
   //   .line<number>()
   //   .x((d, i) => xScale(i))
   //   .y((d) => yScale(d))
-  console.log("sparkLinePositionsparkLinePositionsparkLinePosition", sparkLinePosition)
+  // console.log("sparkLinePositionsparkLinePositionsparkLinePosition", sparkLinePosition)
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()

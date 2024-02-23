@@ -90,7 +90,12 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
   }
   return (
     <Space direction="vertical">
-      <DatePicker defaultValue={dayjs(defaultSelection, dateFormat)} onChange={handleOnChange} />
+      <DatePicker
+        className="date-picker"
+        defaultValue={dayjs(defaultSelection, dateFormat)}
+        onChange={handleOnChange}
+        style={{ height }}
+      />
     </Space>
   )
 }

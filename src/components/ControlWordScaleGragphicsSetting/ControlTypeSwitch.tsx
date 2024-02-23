@@ -78,14 +78,14 @@ const ControlTypeSwitch: React.FC = () => {
           <Button
             type={value === "a" ? "primary" : "default"}
             onClick={() => handleTypeChange(typeKey, "a")}
-            style={{ width: "50%" }}
+            style={{ width: "40%" }}
           >
             A
           </Button>
           <Button
             type={value === "b" ? "primary" : "default"}
             onClick={() => handleTypeChange(typeKey, "b")}
-            style={{ width: "50%" }}
+            style={{ width: "40%" }}
           >
             B
           </Button>

@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import { entityIconType, absoluteIconType } from "../types"
 
+const iconN = "<svg width=\"0\" height=\"0\" xmlns=\"http://www.w3.org/2000/svg\"></svg>"
+
 const iconA =
   // eslint-disable-next-line quotes
   '<svg t="1706693018405" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11912" width="20" height="20"><path d="M297.928789 131.672024l455.643541 202.091557-7.916989 17.917396 7.916989-17.917396c10.000407 4.375178 14.375585 16.042319 10.000407 26.042726-2.083418 4.791862-5.833571 8.333672-10.417091 10.208749L297.928789 600.64944V131.672024z m-39.376602 457.101933v-0.625025 0.625025z" fill="#d81e06" p-id="11913"></path><path d="M297.928789 131.672024v760.655952h-39.376602V131.672024z" fill="#2c2c2c" p-id="11914"></path></svg>'
@@ -17,18 +19,18 @@ const iconD =
   // eslint-disable-next-line quotes
   '<svg t="1706693709331" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="34560" width="20" height="20"><path d="M448.981333 21.973333H133.845333l221.866667 434.261334h315.093333z" fill="#E34B23" p-id="34561"></path><path d="M575.018667 21.973333l-221.866667 434.261334h315.178667L890.154667 21.973333z" fill="#FE8160" p-id="34562"></path><path d="M512 241.92a383.232 383.232 0 1 0 0 766.506667A383.232 383.232 0 0 0 512 241.92z m0 700.586667A317.397333 317.397333 0 1 1 512 307.84 317.397333 317.397333 0 0 1 512 942.506667z" fill="#FFCF3D" p-id="34563"></path><path d="M512 307.797333A317.397333 317.397333 0 1 0 512 942.506667 317.397333 317.397333 0 0 0 512 307.797333z m0 586.837334a269.44 269.44 0 0 1-269.482667-269.482667 269.44 269.44 0 1 1 538.922667 0A269.44 269.44 0 0 1 512 894.634667z" fill="#D39136" p-id="34564"></path><path d="M512 355.669333a269.44 269.44 0 0 0-269.482667 269.482667A269.44 269.44 0 0 0 512 894.634667a269.44 269.44 0 0 0 269.44-269.482667A269.44 269.44 0 0 0 512 355.669333z" fill="#F7A738" p-id="34565"></path><path d="M522.368 477.653333h37.546667v304.64h-49.92v-244.48c-18.346667 16.64-41.386667 29.013333-69.546667 37.12v-49.493333c13.653333-3.413333 28.16-9.386667 43.52-17.92 15.36-9.386667 28.16-19.2 38.4-29.866667z" fill="#FFFFFF" p-id="34566"></path></svg>'
 export const iniEntityIcon: entityIconType = {
-  metric_value: { a: iconA, b: iconB, c: iconC, d: iconD },
-  delta_value: { a: iconA, b: iconB, c: iconC, d: iconD },
-  delta_value_ratio: { a: iconA, b: iconB, c: iconC, d: iconD },
-  insight_desc: { a: iconA, b: iconB, c: iconC, d: iconD },
-  metric_name: { a: iconA, b: iconB, c: iconC, d: iconD },
-  dim_cate: { a: iconA, b: iconB, c: iconC, d: iconD },
-  algorithm: { a: iconA, b: iconB, c: iconC, d: iconD },
-  filter_time: { a: iconA, b: iconB, c: iconC, d: iconD },
-  filter_cate: { a: iconA, b: iconB, c: iconC, d: iconD },
+  metric_value: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  delta_value: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  delta_value_ratio: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  insight_desc: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  metric_name: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  dim_cate: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  algorithm: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  filter_time: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  filter_cate: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
 }
 
 export const iniAbsoluteIcon: absoluteIconType = {
-  sentenceStart: { a: iconA, b: iconB, c: iconC, d: iconD },
-  sentenceEnd: { a: iconA, b: iconB, c: iconC, d: iconD },
+  sentenceStart: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
+  sentenceEnd: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN },
 }

@@ -59,8 +59,26 @@ export type Card = {
   CardName: string
   paragraph: sentence[]
 }
+// actions.js
+
+// Action Types
+export const SET_START_DATE = 'SET_START_DATE'
+export const SET_END_DATE = 'SET_END_DATE'
+
+// Action Creators
+export const setStartDate = (date: string) => ({
+  type: SET_START_DATE,
+  payload: date,
+});
+
+export const setEndDate = (date: string) => ({
+  type: SET_END_DATE,
+  payload: date,
+});
+
 export type entitiesType = {
   [key: string]: string
+  null: string
   a: string
   b: string
   c: string

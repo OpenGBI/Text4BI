@@ -649,6 +649,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curAspectRatio,
           curSparkLinePosition,
           curMetadata.tagData as number[],
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -663,6 +666,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curAspectRatio,
           curSparkLinePosition,
           curMetadata.tagData as number[],
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )

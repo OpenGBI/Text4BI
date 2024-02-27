@@ -145,7 +145,15 @@ const BigChart: React.FC<BigChartProps> = ({
         />
       )
     case "TemporalDifference":
-      return <Difference iniData={BigChartDataRef.current.detail as cateAndValue[]} />
+      return (
+        <Difference
+          iniData={BigChartDataRef.current.detail as cateAndValue[]}
+          tagData={BigChartDataRef.current.tagData as number[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
+        />
+      )
     case "TemporalPeriodicity": {
       return (
         <TemporalPeriodicity

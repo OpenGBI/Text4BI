@@ -195,6 +195,9 @@ const renderSparkLine = (
         curAspectRatio,
         curSparkLinePosition,
         curMetadata.tagData as number[],
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -204,6 +207,9 @@ const renderSparkLine = (
         curAspectRatio,
         curSparkLinePosition,
         curMetadata.tagData as number[],
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )

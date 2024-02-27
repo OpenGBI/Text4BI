@@ -253,7 +253,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "profit ",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           {
             type: "entity",

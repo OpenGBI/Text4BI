@@ -1850,9 +1850,24 @@ export const renderTemporalityDifference1 = (
   aspectRatio: string,
   sparkLinePosition: string,
   tagData: number[],
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height: number
 
@@ -1968,6 +1983,12 @@ export const renderTemporalityDifference1 = (
       .attr("y", (d) => yScale(d))
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
 
     // 画趋势线
     const line = d3
@@ -2019,6 +2040,13 @@ export const renderTemporalityDifference1 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
       .attr("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        // console.log("debug-TemporalTrend-circle")
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
 
     // 画趋势线
     const line = d3
@@ -2041,9 +2069,24 @@ export const renderTemporalityDifference2 = (
   aspectRatio: string,
   sparkLinePosition: string,
   tagData: number[],
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -2153,6 +2196,12 @@ export const renderTemporalityDifference2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2192,6 +2241,13 @@ export const renderTemporalityDifference2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        console.log("debug-diff2", d)
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
 }
 export const renderTemporalityAnomaly1 = (

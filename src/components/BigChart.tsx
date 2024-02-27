@@ -132,6 +132,7 @@ const BigChart: React.FC<BigChartProps> = ({
           ref={chartRef}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     case "Distribution":
@@ -150,6 +151,9 @@ const BigChart: React.FC<BigChartProps> = ({
         <TemporalPeriodicity
           data={BigChartDataRef.current.detail as cateAndValue[]}
           tagData={BigChartDataRef.current.tagData as cateAndValue[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     }

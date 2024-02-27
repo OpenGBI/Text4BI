@@ -103,7 +103,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "metric_value",
               origin: 29,
-              interactionType: "distribution outliers",
+              interactionType: "distribution Outliers",
             },
           },
           { type: "text", value: " outliers have been identified, with " },
@@ -567,6 +567,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "insight",
               insightType: "Proportion",
+              origin: 0.1817,
               detail: [0.1817, 1 - 0.1817],
             },
           },
@@ -599,6 +600,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "insight",
               insightType: "Proportion",
+              origin: 0.0732,
               detail: [0.0732, 1 - 0.0732],
             },
           },
@@ -625,13 +627,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "x-axis" },
           },
           { type: "text", value: " and " },
           {
             type: "entity",
             value: "Profit",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
         ],
       },
@@ -655,13 +657,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "x-axis" },
           },
           { type: "text", value: " and " },
           {
             type: "entity",
             value: "Profit",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " equals " },
           {
@@ -684,7 +686,11 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "significant",
-            metadata: { entityType: "insight_desc", assessment: "significant" },
+            metadata: {
+              entityType: "insight_desc",
+              assessment: "significant",
+              interactionType: "Association Regression",
+            },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -710,7 +716,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
         ],
       },
@@ -764,7 +770,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -788,7 +794,11 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "increasing",
-            metadata: { entityType: "insight_desc", assessment: "increase" },
+            metadata: {
+              entityType: "insight_desc",
+              assessment: "increase",
+              interactionType: "Temporal Trend Regression",
+            },
           },
           { type: "text", value: ". With a predicted value of " },
           {
@@ -830,7 +840,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
         ],
       },
@@ -891,7 +901,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " = " },
           {
@@ -916,7 +926,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " = " },
           {
@@ -941,7 +951,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "text", value: " = " },
           {
@@ -978,7 +988,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
         ],
       },

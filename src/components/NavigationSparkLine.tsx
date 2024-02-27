@@ -106,6 +106,9 @@ const renderSparkLine = (
         curMetadata.detail as number[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -114,6 +117,9 @@ const renderSparkLine = (
         curMetadata.detail as number[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -174,6 +180,9 @@ const renderSparkLine = (
         combinedValues as number[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -217,6 +226,9 @@ const renderSparkLine = (
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
@@ -229,15 +241,18 @@ const renderSparkLine = (
         curMetadata.tagData as cateAndValue[],
         curAspectRatio,
         curSparkLinePosition,
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
     } else if (!defaultChoice) {
       renderTemporalitySeasonality2(
-        curMetadata.detail as number[],
+        curMetadata.detail as cateAndValue[],
+        curMetadata.tagData as cateAndValue[],
         curAspectRatio,
         curSparkLinePosition,
-        curMetadata.tagData as number[],
         curWordSpan,
         curSparkLineSpan,
       )

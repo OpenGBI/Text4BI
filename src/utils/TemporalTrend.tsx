@@ -2,7 +2,7 @@ import React from "react"
 import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import { find } from "lodash"
 import { cateAndValue } from "../types"
-import { highlightElement, noHighlightElement } from "./HighLightElement"
+import { highlightAxis, noHighlightElement } from "./HighLightElement"
 
 interface TemporalTrendProps {
   data: cateAndValue[] // n个AAAA
@@ -79,6 +79,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       .encode("y", "value")
       .encode("color", "gray")
       .style("lineDash", [3, 3])
+    chart.interaction("elementHighlight", true)
     interactiveRef.current = chart
     chart.render()
 
@@ -108,7 +109,12 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       }
     }
     if (interactionType === "x-axis" || interactionType === "y-axis") {
-      highlightElement(interactiveRef.current, interactionType)
+      highlightAxis(interactiveRef.current, interactionType)
+    }
+    if (interactionType === "Temporal Trend Regression") {
+      interactiveRef.current?.emit("element:highlight", {
+        data: { data: tagData[0] },
+      })
     }
   }, [message])
   React.useEffect(() => {
@@ -130,7 +136,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       for (let i = lines.length - 1; i > 2; i -= 1) {
         lines[i].remove()
       }
-      console.log("debug-clear", lines)
+      // console.log("debug-clear", lines)
     }
   }, [hoverOrNot])
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />

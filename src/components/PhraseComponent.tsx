@@ -182,6 +182,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     algorithm: { textDecoration: "underline dashed" },
     // ... 其他实体类型
   }
+  const [currentTopK, setCurrentTopK] = useState("-1")
   const [currentStyles, setCurrentStyles] = useState(initialStyles)
   // const [entityTypeStyles, setCustomStyles] = useState(initialEntityStyles)
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
@@ -537,6 +538,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as number[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -550,6 +554,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as number[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -622,6 +629,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           combinedValues as number[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -685,6 +695,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.detail as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -702,6 +715,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.tagData as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -712,10 +728,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // curMetadata.detail.every((element) => typeof element === "number")
       ) {
         renderTemporalitySeasonality2(
-          curMetadata.detail as number[],
+          curMetadata.detail as cateAndValue[],
+          curMetadata.tagData as cateAndValue[],
           curAspectRatio,
           curSparkLinePosition,
-          curMetadata.tagData as number[],
           curWordSpan,
           curSparkLineSpan,
         )
@@ -845,6 +861,16 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   }, [type, metadata, entityIcon, sparkLinePosition, showSparkLine])
   // entityIcon是一个对象，useEffect监听的是对象的地址，所以在外部修改entityIcon["aaa"]是无效修改，需要用浅拷贝的方式才可以改变地址
   // entityIcon[selectedEntityType].a = curSvgContent entityIcon: { ...entityIcon },
+  // useEffect(()=>{},[])
+  // if (metadata?.selections?.[0]) {
+  //   setCurrentTopK(metadata?.selections?.[0])
+  // }
+  useEffect(() => {
+    if (metadata?.selections?.[0]) {
+      setCurrentTopK(metadata?.selections?.[0])
+    }
+  }, [metadata])
+
   if (type === "IconPadding") {
     // 专门为开头结尾的icon留的位置
     return (
@@ -861,28 +887,29 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   if (type === "entity") {
     if (metadata.entityType === "filter_cate" && metadata.selections) {
       const handleHover = () => {
-        const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
-        if (metadata.origin) {
-          highlightMessage.message = metadata.origin
-          // setHighlightMessage({ message: curMetadata.origin, hoverOrNot: true })
-        } else {
-          highlightMessage.message = value
-        }
+        const highlightMessage: highLightMessage = { hoverOrNot: true, message: currentTopK }
+
         if (metadata.interactionType) {
           highlightMessage.interactionType = metadata.interactionType
         }
-        console.log("debug:", highlightMessage)
+        console.log("debug:文字传上去的message", highlightMessage)
         setHighlightMessage(highlightMessage)
       }
       const handleLeave = () => {
         setHighlightMessage({ message: "", hoverOrNot: false })
       }
+      const handleTopKChange = (curTopK: string) => {
+        setCurrentTopK(curTopK)
+      }
       return (
         <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+          {/* <span> */}
           <SelectorInText
             selections={metadata.selections}
             defaultSelection={metadata.selections[0]}
-            onTopkChange={onTopkChange}
+            handleTopKChange={handleTopKChange}
+            handleHover={handleHover}
+            handleLeave={handleLeave}
           />
         </span>
       )

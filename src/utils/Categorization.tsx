@@ -2,7 +2,7 @@ import React from "react"
 import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import { find } from "lodash"
 import { cateAndValue } from "../types"
-import { highlightElement, noHighlightElement } from "./HighLightElement"
+import { highlightAxis, noHighlightElement, multiHighlightElements } from "./HighLightElement"
 
 interface BarChartProps {
   data: cateAndValue[] // n个{category:,value:}画柱状图
@@ -80,6 +80,15 @@ const Categorization: React.FC<BarChartProps> = ({
     // 同理，X?.[0]是指如果X为null或undefined，就不取第一个元素，?.是一个语法糖 zyx
 
     // let highlightData = find(data, ["category", message])
+    if (interactionType === "multiHighlight") {
+      if (typeof message === "string") {
+        const numericValue = parseFloat(message)
+        if (!Number.isNaN(numericValue)) {
+          multiHighlightElements(interactiveRef.current, interactionType, numericValue)
+        }
+      }
+    }
+
     if (interactionType === "ByValue") {
       const isString = (value: any) => typeof value === "string" || value instanceof String
 
@@ -101,7 +110,7 @@ const Categorization: React.FC<BarChartProps> = ({
       }
     }
     if (interactionType === "x-axis" || interactionType === "y-axis") {
-      highlightElement(interactiveRef.current, interactionType)
+      highlightAxis(interactiveRef.current, interactionType)
     }
   }, [message])
   React.useEffect(() => {

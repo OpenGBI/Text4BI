@@ -7,13 +7,17 @@ import styles from "./SelectorInText.module.css"
 interface SelectorProps {
   defaultSelection: string
   selections: string[]
-  onTopkChange: (value: number) => void
+  handleTopKChange: (value: string) => void
+  handleHover: () => void
+  handleLeave: () => void
 }
 
 const SelectorInText: React.FC<SelectorProps> = ({
   defaultSelection,
   selections,
-  onTopkChange,
+  handleTopKChange,
+  handleHover,
+  handleLeave,
 }) => {
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
@@ -40,10 +44,11 @@ const SelectorInText: React.FC<SelectorProps> = ({
   }, [fontsize])
 
   const handleChange = (value: string) => {
-    const numericValue = parseFloat(value)
-    if (!Number.isNaN(numericValue)) {
-      onTopkChange(numericValue)
-    }
+    handleTopKChange(value)
+    // const numericValue = parseFloat(value)
+    // if (!Number.isNaN(numericValue)) {
+    //   onTopkChange(numericValue)
+    // }
   }
 
   return (

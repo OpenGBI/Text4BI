@@ -35,7 +35,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_time",
               selections: ["2011-01-01"],
-              paramFilter: "startTime",
+              paramIndex: 0,
             },
           },
           { type: "text", value: " to " },
@@ -45,7 +45,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_time",
               selections: ["2014-12-31"],
-              paramFilter: "endTime",
+              paramIndex: 1,
             },
           },
           {
@@ -210,6 +210,13 @@ export const iniData: Card[] = [
           detail: DistributionData.data,
         },
       },
+      {
+        type: "configuration",
+        chartType: "Distribution",
+        metadata: {
+          timeSelection: ["2011-01-01", "2014-12-31"],
+        },
+      },
     ],
   },
   {
@@ -241,13 +248,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "2012.01.01",
-            metadata: { entityType: "filter_time", selections: ["2012-01-01"] },
+            metadata: { entityType: "filter_time", selections: ["2012-01-01"], paramIndex: 2 },
           },
           { type: "text", value: "to " },
           {
             type: "entity",
             value: "2012.12.31",
-            metadata: { entityType: "filter_time", selections: ["2012-12-31"] },
+            metadata: { entityType: "filter_time", selections: ["2012-12-31"], paramIndex: 3 },
           },
           { type: "text", value: ", total " },
           {
@@ -279,14 +286,14 @@ export const iniData: Card[] = [
           { type: "text", value: "from " },
           {
             type: "entity",
-            value: "2011.01.01",
-            metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
+            value: "2011-01-01",
+            metadata: { entityType: "filter_time", selections: ["2011-01-01"], paramIndex: 0 },
           },
           { type: "text", value: "to " },
           {
             type: "entity",
-            value: "2011.12.31",
-            metadata: { entityType: "filter_time", selections: ["2011-12-31"] },
+            value: "2011-12-31",
+            metadata: { entityType: "filter_time", selections: ["2011-12-31"], paramIndex: 1 },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
@@ -298,6 +305,13 @@ export const iniData: Card[] = [
         metadata: {
           detail: DifferenceData.data,
           tagData: DifferenceData.tagData,
+        },
+      },
+      {
+        type: "configuration",
+        chartType: "TemporalDifference",
+        metadata: {
+          timeSelection: ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
         },
       },
     ],
@@ -343,6 +357,7 @@ export const iniData: Card[] = [
               entityType: "filter_cate",
               selections: ["City", "Market", "Country"],
               interactionType: "x-axis",
+              backEndType: "drillDownGroup",
             },
           },
           { type: "text", value: ", there are " },
@@ -369,6 +384,7 @@ export const iniData: Card[] = [
               entityType: "filter_cate",
               selections: ["3", "4", "5"],
               interactionType: "multiHighlight",
+              backEndType: "topK",
             },
           },
           { type: "text", value: " categories are:" },
@@ -481,6 +497,14 @@ export const iniData: Card[] = [
           detail: Category11.data,
         },
       },
+      {
+        type: "configuration",
+        chartType: "Categorization",
+        metadata: {
+          drillDownGroup: "City",
+          topK: "3",
+        },
+      },
     ],
   },
   {
@@ -505,13 +529,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "January 1, 2011",
-            metadata: { entityType: "filter_time", selections: ["2011-1-1"] },
+            metadata: { entityType: "filter_time", selections: ["2011-01-01"], paramIndex: 0 },
           },
           { type: "text", value: " to " },
           {
             type: "entity",
             value: "December 31, 2014",
-            metadata: { entityType: "filter_time", selections: ["2014-12-31"] },
+            metadata: { entityType: "filter_time", selections: ["2014-12-31"], paramIndex: 1 },
           },
           {
             type: "text",
@@ -519,10 +543,11 @@ export const iniData: Card[] = [
           },
           {
             type: "entity",
-            value: "中国",
+            value: "City",
             metadata: {
               entityType: "filter_cate",
-              selections: ["中国", "美国", "英国", "日本", "西班牙"],
+              selections: ["City", "Market", "Country"],
+              backEndType: "drillDownGroup",
             },
           },
           {
@@ -614,6 +639,14 @@ export const iniData: Card[] = [
           detail: ProportionData.data,
         },
       },
+      {
+        type: "configuration",
+        chartType: "Proportion",
+        metadata: {
+          timeSelection: ["2011-01-01", "2014-12-31"],
+          drillDownGroup: "Country",
+        },
+      },
     ],
   },
   {
@@ -703,6 +736,11 @@ export const iniData: Card[] = [
           tagData: AssociationData.tagData,
         },
       },
+      {
+        type: "configuration",
+        chartType: "Association",
+        metadata: {},
+      },
     ],
   },
   {
@@ -748,6 +786,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_cate",
               selections: ["365 days", "30 days", "7 days"],
+              backEndType: "timeSegmentationCondition",
             },
           },
           { type: "text", value: " there is an " },
@@ -813,7 +852,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_time",
               selections: ["2012-01-01"],
-              paramFilter: "startTime",
+              paramIndex: 0,
             },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
@@ -825,6 +864,14 @@ export const iniData: Card[] = [
         metadata: {
           detail: [...TrendData11.data, ...TrendData11.predictData] as cateAndValue[],
           tagData: TrendData11.tagData as cateAndValue[],
+        },
+      },
+      {
+        type: "configuration",
+        chartType: "TemporalTrend",
+        metadata: {
+          timeSelection: ["2012-01-01"],
+          timeSegmentationCondition: "365 days",
         },
       },
     ],
@@ -864,7 +911,8 @@ export const iniData: Card[] = [
             value: "365 days",
             metadata: {
               entityType: "filter_cate",
-              selections: ["4 years", "3 years", "2 years", "365 days"],
+              selections: ["365 days", "2 years", "3 years", "4 years"],
+              backEndType: "timeSegmentationCondition",
             },
           },
           { type: "text", value: " , there are " },
@@ -975,6 +1023,13 @@ export const iniData: Card[] = [
           detail: AnomalyData.data,
         },
       },
+      {
+        type: "configuration",
+        chartType: "TemporalAnomaly",
+        metadata: {
+          timeSegmentationCondition: "4 years",
+        },
+      },
     ],
   },
   {
@@ -1015,6 +1070,7 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "filter_cate",
               selections: ["4 years", "3 years", "2 years", "365 days"],
+              backEndType: "timeSegmentationCondition",
             },
           },
           { type: "text", value: " ,the seasonality of the trend is " },
@@ -1120,6 +1176,13 @@ export const iniData: Card[] = [
         metadata: {
           detail: PeriodicityData.data,
           tagData: PeriodicityData.tagData,
+        },
+      },
+      {
+        type: "configuration",
+        chartType: "TemporalPeriodicity",
+        metadata: {
+          timeSegmentationCondition: "4 years",
         },
       },
     ],

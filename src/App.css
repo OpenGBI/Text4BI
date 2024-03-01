@@ -3,19 +3,23 @@
   background-color: #fff;
 }
 
-.full-height {
-  height: 100%; /* 设置Layout的高度为100% */
+.app-container :where(.css-dev-only-do-not-override-2i2tap).ant-layout-content {
+  flex: unset;
 }
 
-.sider {
-  height: 100%;
-  overflow: auto; /* 如果内容过多，显示滚动条 */
-}
+/* .full-height {
+  height: 100%; 
+} */
 
-.content {
+/* .sider {
   height: 100%;
-  overflow: auto; /* 如果内容过多，显示滚动条 */
-}
+  overflow: auto; 
+} */
+
+/* .content {
+  height: 100%;
+  overflow: auto; 
+} */
 
 .panel1 {
   background: #272643;
@@ -47,30 +51,15 @@
   font-weight: bold; 这行会使得文本加粗 */
 }
 
-.panel2 {
+/* .panel2 {
   background: #badde8;
   color: #050404;
-  /* border-style: solid;
-  border-color: #fff;
-  border-width: 1px;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px; */
-  /* border-radius: 5px;
-  box-shadow: 2px 2px 2px #dddddd; */
-}
+} */
 
-.panel3 {
+/* .panel3 {
   background: #fff;
-  /* border-style: solid;
-  border-color: #fff;
-  border-width: 1px;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px; */
-  /* border-radius: 5px;
-  box-shadow: 2px 2px 2px #dddddd; */
-}
+  height: 100%;
+} */
 
 .control-row {
   margin-bottom: 10px; /* 设置control和designer的每一个设置框之间的距离 */

@@ -17,6 +17,7 @@ import {
   cateAndValue,
   GlobalSettingStateType,
   entityIconType,
+  Metadata4Configuration,
 } from "../types"
 import {
   renderAssociation1,
@@ -69,13 +70,13 @@ function isPointArray(value: any): value is Point[] {
       typeof point.y === "number",
   )
 }
-type param4FilterType = {
-  startTime: string
-  endTime: string
-}
+
 type setParamFunc4FilterType = {
-  setStartTime: (time: string) => void
-  setEndTime: (time: string) => void
+  setTimeSelection: (timeSelection: string[]) => void
+  setDrillDownSelect: (drillDownSelect: string) => void
+  setDrillDownGroup: (drillDownGroup: string) => void
+  setTimeSegmentationCondition: (timeSegmentationCondition: string) => void
+  setTopK: (topK: string) => void
 }
 interface PhraseComponentProps extends Phrase {
   color: string
@@ -91,8 +92,9 @@ interface PhraseComponentProps extends Phrase {
   onTopkChange: (newData: number) => void // 往子组件传递回调函数
   outChart: Chart | null
   setHighlightMessage: (message: highLightMessage) => void
-  param4Filter: param4FilterType
-  setParamFuncs: setParamFunc4FilterType
+  chartType: string
+  params4BackEnd: Metadata4Configuration
+  paramsFuncs4BackEnd: setParamFunc4FilterType
   // React.MutableRefObject<Chart | null> ref
 }
 interface Style {
@@ -121,8 +123,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   onTopkChange,
   outChart,
   setHighlightMessage,
-  param4Filter,
-  setParamFuncs,
+  chartType,
+  params4BackEnd,
+  paramsFuncs4BackEnd,
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
@@ -130,9 +133,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
   const { selectedSymbol2 } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-  // if (type === "entity") {
-  //   console.log("debug phrase", metadata, entityIcon)
-  // }
+
   const {
     showDataDrivenGraphics,
     showDataDrivenCharts,
@@ -182,7 +183,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     algorithm: { textDecoration: "underline dashed" },
     // ... 其他实体类型
   }
-  const [currentTopK, setCurrentTopK] = useState("-1")
+  // const [currentTopK, setCurrentTopK] = useState("-1")
   const [currentStyles, setCurrentStyles] = useState(initialStyles)
   // const [entityTypeStyles, setCustomStyles] = useState(initialEntityStyles)
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
@@ -349,7 +350,6 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       if (curMetadata.interactionType) {
         highlightMessage.interactionType = curMetadata.interactionType
       }
-      console.log("debug:", highlightMessage)
       setHighlightMessage(highlightMessage)
 
       // 使用setHighlightMessage(hoverState)是不对的，因为setHoverState({ message: curValue, hoverOrNot: true })是异步的，执行setHighlightMessage时，hoverState还没被修改 zyx
@@ -871,11 +871,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // if (metadata?.selections?.[0]) {
   //   setCurrentTopK(metadata?.selections?.[0])
   // }
-  useEffect(() => {
-    if (metadata?.selections?.[0]) {
-      setCurrentTopK(metadata?.selections?.[0])
-    }
-  }, [metadata])
+  // useEffect(() => {
+  //   if (metadata?.selections?.[0]) {
+  //     setCurrentTopK(metadata?.selections?.[0])
+  //   }
+  // }, [metadata])
 
   if (type === "IconPadding") {
     // 专门为开头结尾的icon留的位置
@@ -891,44 +891,43 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     )
   }
   if (type === "entity") {
-    if (metadata.entityType === "filter_cate" && metadata.selections) {
-      const handleHover = () => {
-        const highlightMessage: highLightMessage = { hoverOrNot: true, message: currentTopK }
+    if (metadata.entityType === "filter_cate" && metadata.selections && metadata.backEndType) {
+      // const handleHover = () => {
+      //   const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+      //   if (params4BackEnd.topK) {
+      //     highlightMessage.message = params4BackEnd.topK
+      //   }
 
-        if (metadata.interactionType) {
-          highlightMessage.interactionType = metadata.interactionType
-        }
-        console.log("debug:文字传上去的message", highlightMessage)
-        setHighlightMessage(highlightMessage)
-      }
-      const handleLeave = () => {
-        setHighlightMessage({ message: "", hoverOrNot: false })
-      }
-      const handleTopKChange = (curTopK: string) => {
-        setCurrentTopK(curTopK)
-      }
+      //   if (metadata.interactionType) {
+      //     highlightMessage.interactionType = metadata.interactionType
+      //   }
+      //   setHighlightMessage(highlightMessage)
+      // }
+      // const handleLeave = () => {
+      //   setHighlightMessage({ message: "", hoverOrNot: false })
+      // }
+      // const handleTopKChange = (curTopK: string) => {
+      //   setCurrentTopK(curTopK)
+      // }
+      // console.log("PhraseComponent", params4BackEnd)
       return (
-        <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-          {/* <span> */}
-          <SelectorInText
-            selections={metadata.selections}
-            defaultSelection={metadata.selections[0]}
-            handleTopKChange={handleTopKChange}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-          />
-        </span>
+        // <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+
+        <SelectorInText
+          selections={metadata.selections}
+          defaultSelection={metadata.selections[0]}
+          metadata={metadata}
+          setHighlightMessage={setHighlightMessage}
+          chartType={chartType}
+          backEndType={metadata.backEndType}
+          params4BackEnd={params4BackEnd}
+          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+        />
+        // </span>
       )
     }
     if (metadata.entityType === "filter_time" && metadata.selections) {
-      return (
-        <SelectorTime
-          defaultSelection={metadata.selections[0]}
-          param4Filter={param4Filter}
-          setParamFunc={setParamFuncs}
-          metadata={metadata}
-        />
-      )
+      return <SelectorTime defaultSelection={metadata.selections[0]} metadata={metadata} />
     }
     // // 下面是对颜色进行设置
     // // 确保 entityType 不是 undefined

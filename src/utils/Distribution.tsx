@@ -245,7 +245,6 @@ const Distribution: React.FC<DistributionProps> = ({
     })
   }, [data])
   React.useEffect(() => {
-    // console.log("debug-distribution-inter", interactionType)
     if (!message === undefined || !interactionType) return
     if (interactionType === "distribution Median") {
       d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements

@@ -79,10 +79,6 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
     if (message === undefined) {
       return
     }
-    // const highlightData = data.filter((item) => item.category === message).[0]
-    // const highlightData = data?.filter((item) => item.category === message)?.[0]
-    // ?.是猜疑链 data?.filter是指，如果data是null或undefined，就不调用filter，而是直接返回undefined，
-    // 同理，X?.[0]是指如果X为null或undefined，就不取第一个元素，?.是一个语法糖 zyx
 
     const highlightData = find(
       data,

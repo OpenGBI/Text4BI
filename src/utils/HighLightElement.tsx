@@ -21,7 +21,6 @@ export const highlightAxis = (chart: Chart, interactionType: string) => {
     })
 
     const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
-    console.log("debug-look-elements", elements)
     elements.forEach((element) => {
       element.style.opacity = 0.2
     })
@@ -86,7 +85,7 @@ export const multiHighlightElements = (chart: Chart, interactionType: string, nu
   //   })
 
   //   const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
-  //   console.log("debug-look-elements", elements)
+
   //   elements.forEach((element) => {
   //     element.style.opacity = 0.2
   //   })

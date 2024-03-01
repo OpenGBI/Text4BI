@@ -15,6 +15,33 @@ import { iniData } from "./utils/iniData"
 const { Sider, Content } = Layout
 
 function App() {
+  const layoutStyle: React.CSSProperties = {
+    height: "100%",
+  }
+  const leftSiderStyle: React.CSSProperties = {
+    height: "100%",
+    overflow: "auto",
+  }
+  const rightSiderStyle: React.CSSProperties = {
+    height: "100%",
+    overflow: "auto",
+  }
+  const contentMiddleStyle: React.CSSProperties = {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  }
+  const contentMiddleHeaderStyle: React.CSSProperties = {
+    height: "54px",
+    background: "#badde8",
+  }
+  const contentMiddleContentStyle: React.CSSProperties = {
+    flexGrow: 1,
+    overflow: "auto",
+    background: "#fff",
+    height: 0,
+  }
   // const { dataset, selectedCards } = useSelector((state: AppState) => state.system)
   const [CardsIDs, setCardsIDs] = useState<string[]>(iniData.map((card) => card.CardName))
   // let CardsIDs: string[] = iniData.map((card) => card.CardName)
@@ -34,8 +61,8 @@ function App() {
   return (
     <Provider store={store}>
       <div id="APP" className="app-container">
-        <Layout className="full-height">
-          <Sider width={400}>
+        <Layout style={layoutStyle} className="full-height">
+          <Sider width={420} style={leftSiderStyle}>
             {/* <Content>
             <ControlSelectedData />
           </Content> */}
@@ -43,16 +70,16 @@ function App() {
               <ControlBar />
             </Content>
           </Sider>
-          <Content>
-            <Content>
+          <Content style={contentMiddleStyle}>
+            <Content style={contentMiddleHeaderStyle}>
               <ImportBar />
             </Content>
-            <Content>
+            <Content style={contentMiddleContentStyle}>
               <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
             {/* <Container /> */}
           </Content>
-          <Sider width={130}>
+          <Sider width={150} style={rightSiderStyle}>
             <Content>
               <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>

@@ -81,6 +81,7 @@ const Categorization: React.FC<BarChartProps> = ({
 
     // let highlightData = find(data, ["category", message])
     if (interactionType === "multiHighlight") {
+      console.log("debug-Categorization-multi", message)
       if (typeof message === "string") {
         const numericValue = parseFloat(message)
         if (!Number.isNaN(numericValue)) {

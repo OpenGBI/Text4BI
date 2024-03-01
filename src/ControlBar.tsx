@@ -42,7 +42,8 @@ const ControlBar: React.FC = () => (
     >
       Design Panel
     </div>
-    <div style={{ height: 820, overflow: "auto" }}>
+    {/* <div style={{ height: "100%", overflow: "auto" }}> */}
+    <div>
       <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }}>
         <Panel
           header={<span className="panel-header">Global Design</span>}

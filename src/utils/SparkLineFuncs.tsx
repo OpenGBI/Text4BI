@@ -2242,7 +2242,6 @@ export const renderTemporalityDifference2 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        console.log("debug-diff2", d)
         handleHover(d)
       })
       .on("mouseleave", () => {
@@ -2766,7 +2765,6 @@ export const renderTemporalitySeasonality1 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        console.log("debug-TemporalSeasonality-circle", d)
         handleHover(d)
       })
       .on("mouseleave", () => {

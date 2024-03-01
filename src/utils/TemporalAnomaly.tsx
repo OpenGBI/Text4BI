@@ -97,7 +97,6 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
     if (message === undefined) {
       return
     }
-    console.log("debug-TemporalAnomaly", interactionType)
     if (interactionType === "ByIndex") {
       const lineY = data[message as number].value
       const lineX = data[message as number].date

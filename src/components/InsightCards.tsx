@@ -96,14 +96,20 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     setTimeout(async () => {
       // 你的截图逻辑...
       // 创建卡片元素数组
-      const cardElements = selectedCards.map((cardId) => document.getElementById(cardId)).filter(Boolean) as HTMLElement[]
+      const cardElements = selectedCards
+        .map((cardId) => document.getElementById(cardId))
+        .filter(Boolean) as HTMLElement[]
 
       // 并行获取每个卡片的高度，并计算总高度
-      const heights = await Promise.all(cardElements.map((cardElement) => html2canvas(cardElement).then((canvas) => canvas.height)))
+      const heights = await Promise.all(
+        cardElements.map((cardElement) => html2canvas(cardElement).then((canvas) => canvas.height)),
+      )
       const totalHeight = heights.reduce((sum, height) => sum + height, 0)
 
       // 并行获取每个卡片的宽度，并计算最大宽度
-      const widths = await Promise.all(cardElements.map((cardElement) => html2canvas(cardElement).then((canvas) => canvas.width)))
+      const widths = await Promise.all(
+        cardElements.map((cardElement) => html2canvas(cardElement).then((canvas) => canvas.width)),
+      )
       const maxWidth = Math.max(...widths)
 
       // 创建单个画布元素
@@ -167,39 +173,46 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   return (
     <div className="panel3">
       <div className="header">
-      <Tooltip title="Copy Rich Text">
-        <div style={{ position: "absolute", top: 20, right: 190, display: showButtons ? "block" : "none" }}>
-          <CopyOutlined
-            onClick={copySelectedCardsAsRichText}
-            style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
-          />
-        </div>
-      </Tooltip>
-      <Tooltip title="Export This Card">
-        <div style={{ position: "absolute", top: 20, right: 165 }}>
-          <ExportOutlined onClick={showModal} style={{ cursor: "pointer", fontSize: "20px" }} />
-          <Modal
-            title="Export Options"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            mask={false}
-            maskClosable
-            style={{ position: "absolute", top: 50, right: 180 }} // Adjust the position of the modal here
-            getContainer={false} // This makes the modal render inline without a portal
+        <Tooltip title="Copy Rich Text">
+          <div
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 190,
+              display: showButtons ? "block" : "none",
+            }}
           >
-            <p>
-              <Button onClick={exportSelectedCardsAsHtml}>Download HTML</Button>
-            </p>
-            <p>
-              <Button onClick={exportSelectedCardsAsImage}>Download Image</Button> {/* Corrected function name */}
-            </p>
-          </Modal>
-        </div>
-      </Tooltip>
-
+            <CopyOutlined
+              onClick={copySelectedCardsAsRichText}
+              style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
+            />
+          </div>
+        </Tooltip>
+        <Tooltip title="Export This Card">
+          <div style={{ position: "absolute", top: 20, right: 165 }}>
+            <ExportOutlined onClick={showModal} style={{ cursor: "pointer", fontSize: "20px" }} />
+            <Modal
+              title="Export Options"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              mask={false}
+              maskClosable
+              style={{ position: "absolute", top: 50, right: 180 }} // Adjust the position of the modal here
+              getContainer={false} // This makes the modal render inline without a portal
+            >
+              <p>
+                <Button onClick={exportSelectedCardsAsHtml}>Download HTML</Button>
+              </p>
+              <p>
+                <Button onClick={exportSelectedCardsAsImage}>Download Image</Button>{" "}
+                {/* Corrected function name */}
+              </p>
+            </Modal>
+          </div>
+        </Tooltip>
       </div>
-      <div style={{ height: 800, overflow: "auto" }}>
+      <div style={{ height: "100%", overflow: "auto" }}>
         <DndProvider backend={HTML5Backend}>
           <div className="card-container">
             {Cards.map((curDataset, index) => (

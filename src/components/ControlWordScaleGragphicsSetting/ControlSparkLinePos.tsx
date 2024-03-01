@@ -31,7 +31,6 @@ const ControlSparkLinePos: React.FC = () => {
       if (changeLineHeightFlag === 0) {
         setRememberLineHeight(globalSetting.lineHeight)
         setchangeLineHeightFlag(1)
-        console.log("debug remember:", globalSetting.lineHeight)
       }
 
       dispatch(
@@ -43,7 +42,6 @@ const ControlSparkLinePos: React.FC = () => {
     } else {
       if (globalSetting.lineHeight === 2.6314) {
         setchangeLineHeightFlag(0)
-        console.log("debug remember ===:", rememberLineHeight)
         dispatch(
           ChangeGlobalSetting({
             ...globalSetting,
@@ -51,7 +49,6 @@ const ControlSparkLinePos: React.FC = () => {
           }),
         )
       } else {
-        console.log("debug remember !==:", globalSetting.lineHeight)
         dispatch(
           ChangeGlobalSetting({
             ...globalSetting,

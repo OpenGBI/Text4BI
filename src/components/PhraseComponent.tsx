@@ -534,6 +534,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // Array.isArray(curMetadata.detail) &&
         // curMetadata.detail.every((element) => typeof element === "number")
       ) {
+        // console.log("wordRef.current&&metadata", curWordSpan, curSparkLineSpan)
         renderProportion1(
           curMetadata.detail as number[],
           curAspectRatio,
@@ -771,6 +772,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       if (sparkLineRef.current) {
         sparkLineRef.current.style.display = "" // 或者 "block", 取决于你的布局需求
       }
+
       // 以下是原有的逻辑，用于创建小图
       if (
         wordRef.current &&
@@ -846,25 +848,27 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //
   // 这是绘制nonedataIcon的useeffect 把给nonedataIcon留的span对应的ref送到rendernonedataIcon中，在rendernonedataIcon函数中操纵画icon，每次依赖项发生变化时，就重绘icon
   //
-  useEffect(() => {
-    // showSparkLine 为 true 时，重新显示或创建小图
-    if (!wordRef.current) return
 
-    if (showSparkLine && metadata.entityType !== "insight") {
-      // 如果之前隐藏了小图，现在重新显示它
-      const lastChild = wordRef.current.lastElementChild
-      if (lastChild && lastChild.nodeName === "SPAN") {
-        wordRef.current.removeChild(lastChild) // 如果是，移除这个span
-      }
-      if (wordRef.current) {
-        wordRef.current.style.display = "" // 或者 "block", 取决于你的布局需求
-      }
-      if (wordRef.current && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
-        console.log("useEffect进入了！！！！！！")
-        renderNoneDataIcon4UpDown(metadata, wordRef.current, sparkLinePosition)
-      }
-    }
-  }, [type, metadata, entityIcon, sparkLinePosition, showSparkLine])
+  // 画上下NoneDataIcon
+  // useEffect(() => {
+  //   // showSparkLine 为 true 时，重新显示或创建小图
+  //   if (!wordRef.current) return
+
+  //   if (showSparkLine && metadata.entityType !== "insight" && !metadata.insightType) {
+  //     const lastChild = wordRef.current.lastElementChild
+  //     if (lastChild && lastChild.nodeName === "SPAN") {
+  //       wordRef.current.removeChild(lastChild)
+  //     }
+  //     if (wordRef.current) {
+  //       wordRef.current.style.display = ""
+  //     }
+  //     if (wordRef.current && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+  //       console.log("useEffect进入了！！！！！！")
+  //       renderNoneDataIcon4UpDown(metadata, wordRef.current, sparkLinePosition)
+  //     }
+  //   }
+  // }, [type, metadata, entityIcon, sparkLinePosition, showSparkLine])
+
   // entityIcon是一个对象，useEffect监听的是对象的地址，所以在外部修改entityIcon["aaa"]是无效修改，需要用浅拷贝的方式才可以改变地址
   // entityIcon[selectedEntityType].a = curSvgContent entityIcon: { ...entityIcon },
   // useEffect(()=>{},[])
@@ -969,7 +973,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {" "}
         {/* 确保父元素具有相对定位 */}
         {
-          metadata?.entityType === "insight" && sparkLinePosition === "left" ? (
+          (metadata?.entityType === "insight" || metadata?.insightType) &&
+          sparkLinePosition === "left" ? (
             <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan">
               {/* <svg ref={svgRef} width={getSvgWidth(aspectRatio)} height="20" /> */}
               {/* 在此处把变量svgRef和真实的dom元素绑定起来，当组件被渲染后，svgRef.current将会指向这个SVG元素 */}
@@ -1003,14 +1008,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {metadata?.entityType === "insight_desc" &&
           showSparkLine &&
           showDataDrivenGraphics &&
-          sparkLinePosition === "right" && (
+          sparkLinePosition !== "left" && (
             <span style={{ marginLeft: "-1px" }}>
               {" "}
               {/* 添加外边距以避免重叠 */}
               <Icon assessment={metadata.assessment as string} />
             </span>
           )}
-        {metadata.entityType !== "insight" && sparkLinePosition === "right" ? (
+        {metadata.entityType !== "insight" && sparkLinePosition !== "left" ? (
           <NoneDataIcon
             entityIcon={entityIcon}
             absoluteIcon={absoluteIcon}
@@ -1025,11 +1030,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         } */}
         {
-          metadata?.entityType === "insight" && sparkLinePosition === "right" ? (
+          (metadata?.entityType === "insight" || metadata?.insightType) &&
+          sparkLinePosition === "right" ? (
             <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan" />
           ) : null // 这是一个三目运算符 ？：
         }
-        {
+        {/* {
           // 如果 sparkLinePosition 是 "up"，则在文本上方渲染 Icon
           metadata?.entityType === "insight_desc" &&
             showSparkLine &&
@@ -1063,6 +1069,40 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
               />
             )
         }
+        {metadata.entityType !== "insight" && sparkLinePosition === "up" ? (
+          <span
+            style={{
+              position: "absolute",
+              bottom: "15px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          </span>
+        ) : null}
+        {metadata.entityType !== "insight" && sparkLinePosition === "down" ? (
+          <span
+            style={{
+              position: "absolute",
+              bottom: "-20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          </span>
+        ) : null} */}
       </span>
     )
   }

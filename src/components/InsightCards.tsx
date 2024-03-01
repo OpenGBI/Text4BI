@@ -25,7 +25,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   const { dataset, selectedCards, allCards } = useSelector((state: AppState) => state.system)
   // console.log("检查第二处的cardids", selectedCards)
   const { showBigGraph, showSparkLine } = useSelector((state: AppState) => state.globalSetting)
-  // console.log("datasetttttttttttttt", selectedCards)
+  // console.log("debug-InsightCards", dataset)
   const CardNum: number = dataset.length
   const CardsId: string[] = dataset.map((card) => card.CardName)
   // cards是卡片id的列表，是[Card1,Card2]
@@ -159,7 +159,8 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       }
     })
     .filter((card) => allCards.includes(card.id))
-  // console.log("Cards", Cards)
+    .filter((card) => card.CardName)
+  console.log("Cards", Cards)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const showModal = () => {
     setIsModalVisible(true)

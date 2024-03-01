@@ -680,6 +680,7 @@ export const renderProportion1 = (
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  // console.log("wordRef.current&&metadata", wordElement, sparkLineElement)
   const handleHover = () => {
     const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
     if (curMetadata.origin) {
@@ -694,29 +695,29 @@ export const renderProportion1 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
-  let height
+  const width = 20
+  const height = 20
   const padding = 0.5
   // 1:1 2.75:1 4:1
-  if (aspectRatio === "1:1") {
-    width = 20
-    height = 20
-  } else if (aspectRatio === "2:1") {
-    width = 50
-    height = 20
-  } else if (aspectRatio === "4:1") {
-    width = 100
-    height = 20
-  } else if (aspectRatio === "4:3") {
-    width = 27
-    height = 20
-  } else if (aspectRatio === "16:9") {
-    width = 36
-    height = 20
-  } else {
-    width = 100
-    height = 20
-  }
+  // if (aspectRatio === "1:1") {
+  //   width = 20
+  //   height = 20
+  // } else if (aspectRatio === "2:1") {
+  //   width = 50
+  //   height = 20
+  // } else if (aspectRatio === "4:1") {
+  //   width = 100
+  //   height = 20
+  // } else if (aspectRatio === "4:3") {
+  //   width = 27
+  //   height = 20
+  // } else if (aspectRatio === "16:9") {
+  //   width = 36
+  //   height = 20
+  // } else {
+  //   width = 100
+  //   height = 20
+  // }
 
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
@@ -770,8 +771,9 @@ export const renderProportion1 = (
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+      .attr("transform", `translate(${rect.width / 2}, ${rect.height / 2})`) // Center the pie chart
       .append("g")
-      .attr("transform", `translate(${width / 2}, ${height / 2})`) // Center the pie chart
+      .attr("transform", `translate(${width / 2}, ${height / 2})`)
 
     const pieData = pie(data)
 
@@ -795,9 +797,9 @@ export const renderProportion1 = (
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`) // Center the pie chart
-
     const pieData = pie(data)
 
     svgD3
@@ -1983,6 +1985,7 @@ export const renderTemporalityDifference1 = (
       .attr("y", (d) => yScale(d))
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
+      .attr("fill", "steelblue")
       .on("mouseenter", (event, d) => {
         handleHover(d)
       })

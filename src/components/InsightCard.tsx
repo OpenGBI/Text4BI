@@ -142,6 +142,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   }
 
   if (!CardName || !paragraph || !id || !onDrop) {
+    console.log("No data found for the date", CardName, paragraph, id)
     throw new Error("No data found for the date")
   }
   const onCopySuccess = () => {

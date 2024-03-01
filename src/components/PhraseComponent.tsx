@@ -133,6 +133,15 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // if (type === "entity") {
   //   console.log("debug phrase", metadata, entityIcon)
   // }
+  // 在父组件的状态中添加一个新的状态来管理日期值
+  const [dateValues, setDateValues] = useState({})
+  // // 更新日期选择的回调函数
+  // const handleDateChange = (id, dates) => {
+  //   setDateValues(prevDates => ({
+  //     ...prevDates,
+  //     [id]: dates // 使用元数据的id作为键存储日期
+  //   }))
+  // }
   const {
     showDataDrivenGraphics,
     showDataDrivenCharts,
@@ -887,7 +896,28 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         </span>
       )
     }
+    // {props.metadata.map((meta, index) => {
+    //   if (meta.entityType === "filter_time" && meta.selections) {
+    //     // 使用元数据的某个唯一属性作为键
+    //     const id = meta.id
+    //     return (
+    //       <SelectorTime
+    //         id={id}
+    //         onDateChange={(newValue) => handleDateChange(id, newValue)}
+    //         value={dateValues[identifier] || meta.selections[0]}
+    //         defaultSelection={metadata.selections[0]}
+    //         param4Filter={param4Filter}
+    //         setParamFunc={setParamFuncs}
+    //         metadata={metadata}
+    //         // ...其他需要传递的props...
+    //       />
+    //     );
+    //   }
+    //   // ...其他可能的情况...
+    // })}
     if (metadata.entityType === "filter_time" && metadata.selections) {
+      // const id = metadata.index
+      // console.log("检查当前meatadata的id:", id)
       return (
         <SelectorTime
           defaultSelection={metadata.selections[0]}

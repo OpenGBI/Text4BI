@@ -243,7 +243,7 @@ export const iniData: Card[] = [
             value: "2012.01.01",
             metadata: { entityType: "filter_time", selections: ["2012-01-01"] },
           },
-          { type: "text", value: "to " },
+          { type: "text", value: " to " },
           {
             type: "entity",
             value: "2012.12.31",
@@ -282,7 +282,7 @@ export const iniData: Card[] = [
             value: "2011.01.01",
             metadata: { entityType: "filter_time", selections: ["2011-01-01"] },
           },
-          { type: "text", value: "to " },
+          { type: "text", value: " to " },
           {
             type: "entity",
             value: "2011.12.31",

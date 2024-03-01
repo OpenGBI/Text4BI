@@ -71,14 +71,14 @@ const ControlSelectedInsights: React.FC = () => {
 
   const [selectedValues, setSelectedValues] = React.useState<string[]>([])
   const handleChange = (selectedItems: string[]) => {
-    console.log("检查第一次的selectedItems", selectedItems)
+    // console.log("检查第一次的selectedItems", selectedItems)
     setSelectedValues(selectedItems)
     // 将对应的cardid存起来
     const selectedIds = selectedItems.map(
       (value) => options.find((option) => option.value === value)?.cardid,
     ).filter((cardid): cardid is string => !!cardid) // 过滤掉undefined
     // console.log("检查第一次的selectedvalues", selectedValues)
-    console.log("检查第一次的selectedIds", selectedIds)
+    // console.log("检查第一次的selectedIds", selectedIds)
     setSelectedCards(selectedIds)
     dispatch(
       ChangeSystemSetting({

@@ -106,6 +106,7 @@ export type systemStateType = {
   dataset: Card[]
   selectedCards: string[]
   allCards: string[]
+  generateKey: string
 }
 export type GlobalSettingStateType = {
   showBigGraph: boolean

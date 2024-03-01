@@ -31,7 +31,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
   setParamFunc,
   metadata,
 }) => {
-  console.log()
+  // console.log("检查时间值", param4Filter)
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   // 提取 fontsize 中的数字部分，并确保它在 5 到 25 的范围内
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))

@@ -5,8 +5,19 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType, GlobalSettingStateType } from "../../types"
 import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
+import RightIcon from "../../icons/right.svg"
+import LeftIcon from "../../icons/left.svg"
+import UpIcon from "../../icons/up.svg"
+import DownIcon from "../../icons/down.svg"
 
 const ControlSparkLinePos: React.FC = () => {
+  const buttonIcons = {
+    right: <img src={RightIcon} alt="Right" width="24" height="24" />,
+    left: <img src={LeftIcon} alt="Left" width="24" height="24" />,
+    up: <img src={UpIcon} alt="Up" width="24" height="24" />,
+    down: <img src={DownIcon} alt="Down" width="24" height="24" />,
+  }
+  // console.log("检查debug ControlSparkLinePos", RightIcon)
   const dispatch = useDispatch()
   const wordScaleGraphicsSetting: wordScaleGraphicsSettingStateType = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
@@ -69,13 +80,6 @@ const ControlSparkLinePos: React.FC = () => {
     }
   }
 
-  const buttonIcons = {
-    right: "➡️",
-    left: "⬅️",
-    up: "⬆️",
-    down: "⬇️",
-  }
-
   return (
     <div className="control-panel">
       <Row align="middle">
@@ -89,6 +93,7 @@ const ControlSparkLinePos: React.FC = () => {
                 key={position}
                 type={selectedPosition === position ? "primary" : "default"}
                 onClick={() => handleChangeSparkLinePosition(position)}
+                // icon={buttonIcons[position as keyof typeof buttonIcons]}
                 style={{
                   flex: 1,
                   borderRight: position !== "right" ? "none" : undefined,

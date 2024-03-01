@@ -33,6 +33,7 @@ const ControlBar: React.FC = () => (
     <div
       className="contro-label"
       style={{
+        height: 50,
         paddingBottom: 16,
         paddingLeft: 14,
         paddingTop: 14,

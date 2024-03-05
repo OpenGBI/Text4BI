@@ -13,7 +13,7 @@ import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter
 import { AppState, store } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
-import { Card, sentence, highLightMessage } from "../types"
+import { Card, sentence, highLightMessage, ConfigurationSentence } from "../types"
 import { ReactComponent as ShareSvg } from "../icons/share.svg"
 
 const CARD_DRAG_TYPE = "CARD"
@@ -31,13 +31,63 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
   cardRef,
 }) => {
-  // 给数据筛选留的若干state
-  const [startTime, setStartTime] = React.useState("")
-  const [endTime, setEndTime] = React.useState("")
   const [trigger, setTrigger] = useState(false)
+  // 给数据筛选留的若干state
+  const [timeSelection, setTimeSelection] = useState([""]) // Difference需要四个时刻来确定
+  const [drillDownSelect, setDrillDownSelect] = useState("")
+  const [drillDownGroup, setDrillDownGroup] = useState("")
+  const [timeSegmentationCondition, setTimeSegmentationCondition] = useState("")
+  const [topK, setTopK] = useState("-1")
+  const [chartType, setChartType] = useState("")
+  const [params4BackEnd, setParams4BackEnd] = useState({}) // 这样，在InsightCard中修改params4BackEnd才能传下去
+  // let params4BackEnd = {} // 把参数打包起来
+  const paramsFuncs4BackEnd = {
+    setTimeSelection,
+    setDrillDownSelect,
+    setDrillDownGroup,
+    setTimeSegmentationCondition,
+    setTopK,
+  }
+  useEffect(() => {
+    // 从paragraph中找到类型为'configuration'的对象，对当前状态进行初始化
 
+    const configuration = paragraph.find((p) => p.type === "configuration")
+
+    if (configuration && "metadata" in configuration) {
+      if ("chartType" in configuration) {
+        setChartType(configuration.chartType)
+      }
+      if ("timeSelection" in configuration.metadata) {
+        setTimeSelection(configuration.metadata.timeSelection as string[])
+      }
+      if ("drillDownSelect" in configuration.metadata) {
+        setDrillDownSelect(configuration.metadata.drillDownSelect as string)
+      }
+      if ("drillDownGroup" in configuration.metadata) {
+        setDrillDownGroup(configuration.metadata.drillDownGroup as string)
+      }
+      if ("timeSegmentationCondition" in configuration.metadata) {
+        setTimeSegmentationCondition(configuration.metadata.timeSegmentationCondition as string)
+      }
+      if ("topK" in configuration.metadata) {
+        setTopK(configuration.metadata.topK as string)
+      }
+    }
+  }, [paragraph])
+  useEffect(() => {
+    // 这个 useEffect 会在 timeSelection 等状态更新后运行
+    setParams4BackEnd({
+      timeSelection,
+      drillDownSelect,
+      drillDownGroup,
+      timeSegmentationCondition,
+      topK,
+    })
+    // 假设你需要在这里将 params4BackEnd 发送给后端
+  }, [timeSelection, drillDownSelect, drillDownGroup, timeSegmentationCondition, topK])
+  //
   // 给大图交互留的 old
-  const [curBigChart, setCurBigChart] = React.useState<Chart | null>(null)
+  const [curBigChart, setCurBigChart] = useState<Chart | null>(null)
   // ref = useRef() ref => React.MutableRefObject<Chart | null>
   // ref.current -> Chart | null
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -139,7 +189,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
 
-  const [topk, setTopk] = useState<number>(-1) // 控制数据集中的哪几项用于绘图
+  // const [topk, setTopk] = useState<number>(-1) // 控制数据集中的哪几项用于绘图
   let bulletPointIndex = 0 // 记录当前的bulletPoint的位置
 
   useEffect(() => {
@@ -153,7 +203,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   }, [paragraph])
 
   const handleDataChange = (newData: number) => {
-    setTopk(newData)
+    // setTopK(newData)
+    console.log()
   }
 
   if (!CardName || !paragraph || !id || !onDrop) {
@@ -366,7 +417,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         link.click()
         // 恢复显示按钮
         setShowButtons(true)
-              // 恢复按钮的显示
+        // 恢复按钮的显示
         // if (buttonRef.current) {
         //   buttonRef.current.style.display = "block"
         // }
@@ -497,22 +548,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           onTopkChange={handleDataChange}
           outChart={curBigChart}
           setHighlightMessage={setHighlightMessage}
-          param4Filter={{
-            startTime,
-            endTime,
-          }}
-          setParamFuncs={{
-            setStartTime,
-            setEndTime,
-          }}
+          chartType={chartType}
+          params4BackEnd={params4BackEnd}
+          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
         />
       ))
     }
     if (curSentence.type === "normal" || curSentence.type === "bullet") {
       return curSentence.phrases.map((phrase, index) => (
-        // if (phrase.type === "entity") {
-        //   console.log("debug parent", phrase.metadata)
-        // }
         <PhraseComponent
           key={index}
           {...phrase}
@@ -529,14 +572,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           onTopkChange={handleDataChange}
           outChart={curBigChart}
           setHighlightMessage={setHighlightMessage}
-          param4Filter={{
-            startTime,
-            endTime,
-          }}
-          setParamFuncs={{
-            setStartTime,
-            setEndTime,
-          }}
+          chartType={chartType}
+          params4BackEnd={params4BackEnd}
+          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
         />
       ))
     }
@@ -594,12 +632,12 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           <div style={{ flex: 1 }}>
             {/* 渲染图表 */}
             {paragraph.map((curSentence, outIndex) => {
-              if (showBigGraph && "chartType" in curSentence) {
+              if (showBigGraph && curSentence.type === "plot") {
                 return (
                   <BigChart
                     ChartType={curSentence.chartType}
                     BigChartData={curSentence.metadata}
-                    topk={topk}
+                    // topk={topK}
                     handleCurBigChart={handleCurBigChart}
                     highlightMessage={highlightMessage}
                   />
@@ -648,12 +686,12 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           })}
           {/* 渲染图表 */}
           {paragraph.map((curSentence, outIndex) => {
-            if (showBigGraph && "chartType" in curSentence) {
+            if (showBigGraph && curSentence.type === "plot") {
               return (
                 <BigChart
                   ChartType={curSentence.chartType}
                   BigChartData={curSentence.metadata}
-                  topk={topk}
+                  // topk={topK}
                   handleCurBigChart={handleCurBigChart}
                   highlightMessage={highlightMessage}
                 />
@@ -698,7 +736,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       {renderContent()}
       {/* 将 CopyOutlined 图标放在绝对定位的容器中 */}
       <Tooltip title="Copy Rich Text">
-        <div style={{ position: "absolute", top: 10, right: 60, display: showButtons ? "block" : "none" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 60,
+            display: showButtons ? "block" : "none",
+          }}
+        >
           <CopyOutlined
             onClick={onClickCopyButton}
             style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小

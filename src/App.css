@@ -1,5 +1,8 @@
 .app-container {
-  height: 100vh; /* 设置App容器的高度为视口高度 */
+  display: flex;
+  flex-direction: column; /* 如果您希望子元素垂直堆叠 */
+  height: 100vh;
+  overflow: hidden; /* 避免在app容器级别出现滚动 */
   background-color: #fff;
 }
 
@@ -18,6 +21,7 @@
 }
 
 .panel1 {
+  height: 100%;
   background: #272643;
   /* border-style: solid; */
   /* border-color: #fff; */
@@ -39,12 +43,18 @@
 .panel-header {
   background-color: #fff;
   font-family: "Roboto", sans-serif;
+  display: flex;
+  align-items: center;
   /* margin: 5px;
   padding-left: 10px;
   padding-top: 4px;
   /* border-radius: 5px; */
   /* height: 30px;
   font-weight: bold; 这行会使得文本加粗 */
+}
+
+.panel-icon {
+  margin-right: 8px; /* Adjust as needed */
 }
 
 .panel2 {
@@ -138,6 +148,25 @@
 
 .hide-border {
   border: none !important; /* 强制覆盖任何已有的边框样式 */
+}
+
+.custom-dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-dropdown-menu-item span {
+  flex-shrink: 0; /* 防止圆点被压缩 */
+  margin-right: 8px; /* 为圆点和文本添加间隙 */
+}
+
+.custom-dropdown-menu-item div {
+  flex-grow: 1; /* 允许文本占据剩余空间 */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 以下是design相关的样式 */

@@ -1,8 +1,10 @@
 import { typographySettingStateType } from "../types"
 import { ChangeTypographySettingAction } from "../actions/typographySettingAction"
+import { iniEntityStyles } from "../utils/entityStyles"
 
 const iniTypographySettingState: typographySettingStateType = {
   selectedEntityType: "metric_value",
+  entityStyles: iniEntityStyles,
   boldness: false,
   underline: false,
   italics: false,
@@ -20,4 +22,5 @@ const TypographySettingReducer = (
   }
   return state
 }
+
 export default TypographySettingReducer

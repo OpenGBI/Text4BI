@@ -155,7 +155,26 @@ const Distribution: React.FC<DistributionProps> = ({
       .attr("y2", 300)
       .style("stroke", "black")
       .style("stroke-width", 2)
-      .classed("median-line", true) // Class added for unique selection
+      .classed("median-line", true)
+      .classed("boxplot-element", true)
+
+    g.append("line")
+      .attr("x1", x(q1))
+      .attr("y1", 100)
+      .attr("x2", x(q1))
+      .attr("y2", 300)
+      .style("stroke", "black")
+      .style("stroke-width", 2)
+      .classed("q1-line", true)
+      .classed("boxplot-element", true)
+    g.append("line")
+      .attr("x1", x(q3))
+      .attr("y1", 100)
+      .attr("x2", x(q3))
+      .attr("y2", 300)
+      .style("stroke", "black")
+      .style("stroke-width", 2)
+      .classed("q3-line", true)
       .classed("boxplot-element", true)
 
     g.append("line")
@@ -165,7 +184,7 @@ const Distribution: React.FC<DistributionProps> = ({
       .attr("y2", 300)
       .style("stroke", "black")
       .style("stroke-width", 2)
-      .classed("min-line", true) // Class added for unique selection
+      .classed("min-line", true)
       .classed("boxplot-element", true)
     g.append("line")
       .attr("x1", x(max))
@@ -174,7 +193,7 @@ const Distribution: React.FC<DistributionProps> = ({
       .attr("y2", 300)
       .style("stroke", "black")
       .style("stroke-width", 2)
-      .classed("max-line", true) // Class added for unique selection
+      .classed("max-line", true)
       .classed("boxplot-element", true)
     // Whiskers
     // g.selectAll(".whisker") // Class added for selection
@@ -194,6 +213,22 @@ const Distribution: React.FC<DistributionProps> = ({
       .attr("x2", x(max))
       .attr("y1", 200)
       .attr("y2", 200)
+      .style("stroke", "black")
+      .style("stroke-width", 2)
+      .classed("boxplot-element", true)
+    g.append("line")
+      .attr("x1", x(q1))
+      .attr("x2", x(q3))
+      .attr("y1", 100)
+      .attr("y2", 100)
+      .style("stroke", "black")
+      .style("stroke-width", 2)
+      .classed("boxplot-element", true)
+    g.append("line")
+      .attr("x1", x(q1))
+      .attr("x2", x(q3))
+      .attr("y1", 300)
+      .attr("y2", 300)
       .style("stroke", "black")
       .style("stroke-width", 2)
       .classed("boxplot-element", true)
@@ -223,9 +258,17 @@ const Distribution: React.FC<DistributionProps> = ({
       d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements
       d3.select(".max-line").style("opacity", 1)
     }
-    if (interactionType === "distribution outliers") {
+    if (interactionType === "distribution Outliers") {
       d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements
       d3.select(".outliers").style("opacity", 1)
+    }
+    if (interactionType === "distribution Q1") {
+      d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements
+      d3.select(".q1-line").style("opacity", 1)
+    }
+    if (interactionType === "distribution Q3") {
+      d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements
+      d3.select(".q3-line").style("opacity", 1)
     }
   }, [message])
   React.useEffect(() => {

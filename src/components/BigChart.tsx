@@ -20,30 +20,29 @@ export interface IPopupRef {
 type BigChartProps = {
   ChartType: string
   BigChartData: Metadata4BigGraph
-  topk: number
+  // topk: number
   handleCurBigChart: (ref: Chart | null) => void // 父组件传到子组件的回调函数的定义方法 zyx
   highlightMessage: highLightMessage | null
 }
 const BigChart: React.FC<BigChartProps> = ({
   ChartType,
   BigChartData,
-  topk,
+  // topk,
   handleCurBigChart,
   highlightMessage,
 }) => {
   // (ChartType,BigChartData)会报错
-
   // 用usememo创建SlicedBigChartData，只监听BigChartData和topk的变化 未解决
   const SlicedBigChartData = _.cloneDeep(BigChartData) // 深拷贝
 
-  SlicedBigChartData.detail =
-    topk !== -1 ? SlicedBigChartData.detail?.slice(0, topk) : SlicedBigChartData.detail
+  // SlicedBigChartData.detail =
+  //   topk !== -1 ? SlicedBigChartData.detail?.slice(0, topk) : SlicedBigChartData.detail
   const BigChartDataRef = useRef(SlicedBigChartData)
 
   // // 使用useEffect来更新BigChartDataRef.current，以便它总是反映最新的BigChartData
   useEffect(() => {
     BigChartDataRef.current = _.cloneDeep(SlicedBigChartData)
-  }, [BigChartData, topk]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
+  }, [BigChartData]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
   // console.log("BigChartDataRefBigChartDataRefBigChartDataRefBigChartDataRef", BigChartDataRef)
   // if (ChartType === "Categorization") {
   //   console.log("BigChart中的SlicedBigChartData和topk", BigChartData)
@@ -132,6 +131,7 @@ const BigChart: React.FC<BigChartProps> = ({
           ref={chartRef}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     case "Distribution":
@@ -144,12 +144,23 @@ const BigChart: React.FC<BigChartProps> = ({
         />
       )
     case "TemporalDifference":
-      return <Difference iniData={BigChartDataRef.current.detail as cateAndValue[]} />
+      return (
+        <Difference
+          iniData={BigChartDataRef.current.detail as cateAndValue[]}
+          tagData={BigChartDataRef.current.tagData as number[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
+        />
+      )
     case "TemporalPeriodicity": {
       return (
         <TemporalPeriodicity
           data={BigChartDataRef.current.detail as cateAndValue[]}
           tagData={BigChartDataRef.current.tagData as cateAndValue[]}
+          message={highlightMessage?.message}
+          hoverOrNot={highlightMessage?.hoverOrNot}
+          interactionType={highlightMessage?.interactionType}
         />
       )
     }

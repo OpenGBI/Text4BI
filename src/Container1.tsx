@@ -321,7 +321,6 @@ const Container = () => {
       // const { canvas } = chartRef.current.getContext()
       // // chartRef.current.render()
       // if (!canvas) return
-      // console.log("debug chartRef.current")
       // console.log(chartRef.current)
       // chartRef.current.remove()
       // chartRef.current.line().data(data).encode("x", "month").encode("y", 11)

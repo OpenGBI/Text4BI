@@ -710,9 +710,26 @@ export const renderProportion1 = (
   data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = () => {
+    const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+    if (curMetadata.origin) {
+      highlightMessage.message = curMetadata.origin
+    } else if (value !== undefined) highlightMessage.message = value
+    if (curMetadata.interactionType) {
+      highlightMessage.interactionType = curMetadata.interactionType
+    }
+    console.log(highlightMessage)
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 0.5
@@ -774,6 +791,8 @@ export const renderProportion1 = (
   // console.log("sparkLinePositionsparkLinePositionsparkLinePosition", sparkLinePosition)
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+    wordElement.addEventListener("mouseenter", handleHover)
+    wordElement.addEventListener("mouseleave", handleLeave)
     const rect = wordElement.getBoundingClientRect()
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
@@ -811,6 +830,8 @@ export const renderProportion1 = (
   }
   // 左右放小图
   if (sparkLineElement) {
+    sparkLineElement.addEventListener("mouseenter", handleHover)
+    sparkLineElement.addEventListener("mouseleave", handleLeave)
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
@@ -832,17 +853,44 @@ export const renderProportion1 = (
       .attr("d", arc) // Cast required due to typings mismatch
       .attr("fill", (d, i) => color(i.toString()))
   }
+  return () => {
+    if (wordElement) {
+      wordElement.removeEventListener("mouseenter", handleHover)
+      wordElement.removeEventListener("mouseleave", handleLeave)
+    }
+    if (sparkLineElement) {
+      sparkLineElement?.removeEventListener("mouseenter", handleHover)
+      sparkLineElement?.removeEventListener("mouseleave", handleLeave)
+    }
+  }
 }
 export const renderProportion2 = (
   data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = () => {
+    const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
+    if (curMetadata.origin) {
+      highlightMessage.message = curMetadata.origin
+    } else if (value !== undefined) highlightMessage.message = value
+    if (curMetadata.interactionType) {
+      highlightMessage.interactionType = curMetadata.interactionType
+    }
+    console.log(highlightMessage)
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height: number
-  const padding: number = 0.5
+  // const padding: number = 0.5
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20
@@ -876,7 +924,6 @@ export const renderProportion2 = (
     let res: number = 0
     for (let i: number = 0; i < index; i += 1) {
       res += data[i]
-      res += padding
     }
     return xScale(res)
   }
@@ -885,7 +932,7 @@ export const renderProportion2 = (
     let res: number = 0
     for (let i: number = 0; i < data.length; i += 1) {
       res += data[i]
-      res += padding
+      // res += padding
     }
     return res
   }
@@ -915,6 +962,8 @@ export const renderProportion2 = (
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+    wordElement.addEventListener("mouseenter", handleHover)
+    wordElement.addEventListener("mouseleave", handleLeave)
     const rect = wordElement.getBoundingClientRect()
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
@@ -964,6 +1013,8 @@ export const renderProportion2 = (
   }
   // 左右放小图
   if (sparkLineElement) {
+    sparkLineElement.addEventListener("mouseenter", handleHover)
+    sparkLineElement.addEventListener("mouseleave", handleLeave)
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
@@ -990,6 +1041,16 @@ export const renderProportion2 = (
       .attr("width", (d: number) => xScale(d)) // 宽度为比例尺计算的带宽
       .attr("height", 10) // 高度为面积的平方根
       .attr("fill", (d: number, i: number) => colorScale(i)) // 使用颜色比例尺设置填充色
+  }
+  return () => {
+    if (wordElement) {
+      wordElement.removeEventListener("mouseenter", handleHover)
+      wordElement.removeEventListener("mouseleave", handleLeave)
+    }
+    if (sparkLineElement) {
+      sparkLineElement?.removeEventListener("mouseenter", handleHover)
+      sparkLineElement?.removeEventListener("mouseleave", handleLeave)
+    }
   }
 }
 export const renderAssociation1 = (
@@ -1571,7 +1632,7 @@ export const renderTemporalityTrend1 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        console.log("debug-TemporalTrend-circle")
+        // console.log("debug-TemporalTrend-circle")
         handleHover(d)
       })
       .on("mouseleave", () => {
@@ -1617,11 +1678,11 @@ export const renderTemporalityTrend1 = (
       })
       .style("fill", "steelblue")
       .on("mouseover", (event, d) => {
-        console.log("debug-TemporalTrend-over", d)
+        // console.log("debug-TemporalTrend-over", d)
         handleHover(d)
       })
       .on("mouseleave", () => {
-        console.log("debug-TemporalTrend-leave")
+        // console.log("debug-TemporalTrend-leave")
         handleLeave()
       })
   }
@@ -1630,9 +1691,24 @@ export const renderTemporalityTrend2 = (
   data: number[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -1773,6 +1849,13 @@ export const renderTemporalityTrend2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        // console.log("debug-TemporalTrend-circle")
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1842,6 +1925,14 @@ export const renderTemporalityTrend2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseover", (event, d) => {
+        // console.log("debug-TemporalTrend-over", d)
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        // console.log("debug-TemporalTrend-leave")
+        handleLeave()
+      })
   }
 }
 export const renderTemporalityDifference1 = (
@@ -1849,9 +1940,24 @@ export const renderTemporalityDifference1 = (
   aspectRatio: string,
   sparkLinePosition: string,
   tagData: number[],
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height: number
 
@@ -1976,6 +2082,12 @@ export const renderTemporalityDifference1 = (
       .attr("y", (d) => yScale(d))
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
 
     // 画趋势线
     const line = d3
@@ -2027,6 +2139,13 @@ export const renderTemporalityDifference1 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
       .attr("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        // console.log("debug-TemporalTrend-circle")
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
 
     // 画趋势线
     const line = d3
@@ -2049,9 +2168,24 @@ export const renderTemporalityDifference2 = (
   aspectRatio: string,
   sparkLinePosition: string,
   tagData: number[],
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -2170,6 +2304,12 @@ export const renderTemporalityDifference2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2209,6 +2349,12 @@ export const renderTemporalityDifference2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
 }
 export const renderTemporalityAnomaly1 = (
@@ -2383,9 +2529,24 @@ export const renderTemporalityAnomaly2 = (
   iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message,
+    }
+    highlightMessage.interactionType = "ByIndex"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
@@ -2491,6 +2652,12 @@ export const renderTemporalityAnomaly2 = (
       .attr("stroke", "red")
       .attr("stroke-width", 2)
       .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2522,6 +2689,12 @@ export const renderTemporalityAnomaly2 = (
       .attr("stroke", "red")
       .attr("stroke-width", 2)
       .attr("opacity", (d, i) => (tagData.includes(i) ? 1 : 0))
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
 }
 export const renderTemporalitySeasonality1 = (
@@ -2529,14 +2702,30 @@ export const renderTemporalitySeasonality1 = (
   iniTagData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
+  curMetadata: Metadata,
+  value: string | number | undefined,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
   let width
   let height
   const padding = 1.5
   const data: number[] = iniData.map((item) => item.value)
-  const tagData: number[] = iniTagData.map((item) => item.value)
+  const allDate: string[] = iniData.map((item) => item.date as string)
+  const tagData: number[] = iniTagData.map((item) => allDate.indexOf(item.date as string))
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20
@@ -2616,7 +2805,16 @@ export const renderTemporalitySeasonality1 = (
     } else {
       svgD3.style("bottom", "0").style("left", "0")
     }
-
+    for (let i = 0; i < tagData.length; i += 2) {
+      svgD3
+        .append("rect")
+        .attr("x", xScale(tagData[i]))
+        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr("y", 0)
+        .attr("height", height)
+        .attr("fill", "#f7e3df")
+        .attr("opacity", 0.8)
+    }
     svgD3
       .append("path")
       .datum(data)
@@ -2645,16 +2843,13 @@ export const renderTemporalitySeasonality1 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
-    for (let i = 0; i < tagData.length; i += 2) {
-      svgD3
-        .append("rect")
-        .attr("x", xScale(tagData[i]))
-        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
-        .attr("y", 0)
-        .attr("height", height)
-        .attr("fill", "#f7e3df")
-        .attr("opacity", 0.8)
-    }
+      .on("mouseenter", (event, d) => {
+        // console.log("debug-TemporalTrend-circle")
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2673,6 +2868,16 @@ export const renderTemporalitySeasonality1 = (
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1)
       .attr("d", line)
+    for (let i = 0; i < tagData.length; i += 2) {
+      svgD3
+        .append("rect")
+        .attr("x", xScale(tagData[i]))
+        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
+        .attr("y", 0)
+        .attr("height", height)
+        .attr("fill", "#f7e3df")
+        .attr("opacity", 0.8)
+    }
 
     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
@@ -2694,30 +2899,29 @@ export const renderTemporalitySeasonality1 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
-    for (let i = 0; i < tagData.length; i += 2) {
-      svgD3
-        .append("rect")
-        .attr("x", xScale(tagData[i]))
-        .attr("width", xScale(tagData[i + 1]) - xScale(tagData[i]))
-        .attr("y", 0)
-        .attr("height", height)
-        .attr("fill", "#f7e3df")
-        .attr("opacity", 0.8)
-    }
+      .on("mouseenter", (event, d) => {
+        handleHover(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
 }
 
 export const renderTemporalitySeasonality2 = (
-  data: number[],
+  iniData: cateAndValue[],
+  iniTagData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
-  tagData: number[],
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
   let width
   let height
   const padding = 1.5
+  const data: number[] = iniData.map((item) => item.value)
+  const allDate: string[] = iniData.map((item) => item.date as string)
+  const tagData: number[] = iniTagData.map((item) => allDate.indexOf(item.date as string))
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20

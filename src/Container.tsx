@@ -210,7 +210,6 @@ const Container = () => {
 
   const handleButtonClick = () => {
     if (chartRef.current) {
-      console.log("debug inter")
       // 添加辅助线
       // chartRef.current.data(data).line().encode("x", "year").encode("y", 3)
       // chartRef.current.render()

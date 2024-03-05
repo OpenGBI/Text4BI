@@ -1,7 +1,7 @@
 import React from "react"
 import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import { cateAndValue } from "../types"
-import { highlightElement, noHighlightElement } from "./HighLightElement"
+import { highlightAxis, noHighlightElement } from "./HighLightElement"
 
 interface TemporalAnomalyProps {
   data: cateAndValue[] // n个AAAA
@@ -133,7 +133,7 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
       }
     }
     if (interactionType === "x-axis" || interactionType === "y-axis") {
-      highlightElement(interactiveRef.current, interactionType)
+      highlightAxis(interactiveRef.current, interactionType)
     }
   }, [message])
   React.useEffect(() => {

@@ -19,7 +19,7 @@ const { Header, Sider, Content } = Layout
 function MainApp() {
   const [CardsIDs, setCardsIDs] = useState<string[]>(iniData.map((card) => card.CardName))
   // let CardsIDs: string[] = iniData.map((card) => card.CardName)
-  const cardRefs = iniData.map(() => useRef<HTMLDivElement>(null))
+  const cardRefs = iniData.map(() => React.createRef<HTMLDivElement>())
   // console.log("cardRefs", cardRefs)
   const navigationClick = (squareNumber: number) => {
     const cardRef = cardRefs[squareNumber]
@@ -66,6 +66,34 @@ function MainApp() {
     })
   }, []) // 将reducer中的初始状态传给后端
 
+  const layoutStyle: React.CSSProperties = {
+    height: "100%",
+  }
+  const leftSiderStyle: React.CSSProperties = {
+    height: "100%",
+    // overflow: "auto",
+  }
+  const rightSiderStyle: React.CSSProperties = {
+    height: "100%",
+    overflow: "auto",
+  }
+  const contentMiddleStyle: React.CSSProperties = {
+    height: "100%",
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+    flex: 1,
+  }
+  const contentMiddleHeaderStyle: React.CSSProperties = {
+    height: "54px",
+    background: "#badde8",
+  }
+  const contentMiddleContentStyle: React.CSSProperties = {
+    flexGrow: 1,
+    overflow: "auto",
+    background: "#fff",
+    height: 0,
+  }
   return (
     <div id="APP" className="app-container">
       <Layout>
@@ -74,9 +102,9 @@ function MainApp() {
           {/* h1的外边距设置为0，并对齐到左边 */}
           <h1 style={{ margin: "0", color: "#035c94", textAlign: "left", paddingLeft: "14px", paddingTop: "10px" }}>Text4BI Prototype System</h1>
         </Header>
-        <Layout className="full-height">
+        <Layout className="full-height" style={layoutStyle}>
         <Sider width={400}>
-            <Content>
+            <Content style={leftSiderStyle}>
             <ControlBar />
             </Content>
         </Sider>
@@ -84,11 +112,11 @@ function MainApp() {
             <Content>
             <ImportBar />
             </Content>
-            <Content>
+            <Content style={contentMiddleStyle}>
             <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
         </Content>
-        <Sider width={130}>
+        <Sider width={120} style={rightSiderStyle}>
             <Content>
             <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>

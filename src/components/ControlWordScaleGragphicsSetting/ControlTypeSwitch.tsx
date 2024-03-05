@@ -128,13 +128,13 @@ const ControlTypeSwitch: React.FC = () => {
         <Col span={14}>
           <Button.Group style={{ width: "80%" }}>
             <Button
-              // type={value === "a" ? "primary" : "default"}
+              type={value === "a" ? "primary" : "default"}
               onClick={() => handleTypeChange(typeKey, "a")}
               style={{ width: "70%", paddingTop: "0", paddingBottom: "0" }}
               icon={<SVGComponentA width="70" height="30" />} // 使用组件而非 createElement
             />
             <Button
-              // type={value === "b" ? "primary" : "default"}
+              type={value === "b" ? "primary" : "default"}
               onClick={() => handleTypeChange(typeKey, "b")}
               style={{ width: "70%", paddingTop: "0", paddingBottom: "0" }}
               icon={<SVGComponentB width="70" height="30" />} // 使用组件而非 createElement

@@ -4,8 +4,10 @@ import { iniEntityStyles } from "../utils/entityStyles"
 
 const iniTypographySettingState: typographySettingStateType = {
   selectedEntityType: "metric_value",
+  secondEntityType: "metric_value",
+  thirdEntityType: "metric_value",
   entityStyles: iniEntityStyles,
-  boldness: false,
+  boldness: true,
   underline: false,
   italics: false,
   contour: false,

@@ -4,23 +4,23 @@ import { useDispatch, useSelector } from "react-redux"
 import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
-// 首先，导入所有的SVG图标作为React组件
-import { ReactComponent as AnomalyA } from "../../icons/Anomaly_A.svg"
-import { ReactComponent as AnomalyB } from "../../icons/Anomaly_B.svg"
-import { ReactComponent as AssociationA } from "../../icons/Association_A.svg"
-import { ReactComponent as AssociationB } from "../../icons/Association_B.svg"
-import { ReactComponent as DifferenceA } from "../../icons/Difference_A.svg"
-import { ReactComponent as DifferenceB } from "../../icons/Difference_B.svg"
-import { ReactComponent as DistributionA } from "../../icons/Distribution_A.svg"
-import { ReactComponent as DistributionB } from "../../icons/Distribution_B.svg"
-import { ReactComponent as ProportionA } from "../../icons/Proportion_A.svg"
-import { ReactComponent as ProportionB } from "../../icons/Proportion_B.svg"
-import { ReactComponent as RankA } from "../../icons/Rank_A.svg"
-import { ReactComponent as RankB } from "../../icons/Rank_B.svg"
-import { ReactComponent as SeasonalityA } from "../../icons/Seasonality_A.svg"
-import { ReactComponent as SeasonalityB } from "../../icons/Seasonality_B.svg"
-import { ReactComponent as TrendA } from "../../icons/Trend_A.svg"
-import { ReactComponent as TrendB } from "../../icons/Trend_B.svg"
+
+import AnomalyA from "../../icons/Anomaly_A.svg"
+import AnomalyB from "../../icons/Anomaly_B.svg"
+import AssociationA from "../../icons/Association_A.svg"
+import AssociationB from "../../icons/Association_B.svg"
+import DifferenceA from "../../icons/Difference_A.svg"
+import DifferenceB from "../../icons/Difference_B.svg"
+import DistributionA from "../../icons/Distribution_A.svg"
+import DistributionB from "../../icons/Distribution_B.svg"
+import ProportionA from "../../icons/Proportion_A.svg"
+import ProportionB from "../../icons/Proportion_B.svg"
+import RankA from "../../icons/Rank_A.svg"
+import RankB from "../../icons/Rank_B.svg"
+import SeasonalityA from "../../icons/Seasonality_A.svg"
+import SeasonalityB from "../../icons/Seasonality_B.svg"
+import TrendA from "../../icons/Trend_A.svg"
+import TrendB from "../../icons/Trend_B.svg"
 
 // 定义一个接口来描述SVG图标对象的结构
 interface SVGIcons {
@@ -33,6 +33,12 @@ interface SVGIcons {
   anomalyType: { "a": typeof AnomalyA; "b": typeof AnomalyB }
   seasonalityType: { "a": typeof SeasonalityA; "b": typeof SeasonalityB }
 }
+type svgIconProps = {
+  svgContent: string
+}
+export const SvgIcon: React.FC<svgIconProps> = ({ svgContent }) => (
+  <span dangerouslySetInnerHTML={{ __html: svgContent }} />
+)
 
 const types = [
   { key: "distributionType", label: "Distribution" },
@@ -107,19 +113,19 @@ const ControlTypeSwitch: React.FC = () => {
     anomalyType: { a: AnomalyA, b: AnomalyB },
     seasonalityType: { a: SeasonalityA, b: SeasonalityB },
   }
-
-  // 根据typeKey和value决定使用哪个SVG图标
-  const getSVG = (typeKey: keyof SVGIcons, value: "a" | "b"): React.ReactElement => {
-    const SVGComponent = svgs[typeKey][value]
-    // console.log("检查debug SVGComponent", SVGComponent)
-    // 使用React.createElement来创建带有特定属性的SVG元素
-    return React.createElement(SVGComponent)
-  }
+  // // 根据typeKey和value决定使用哪个SVG图标
+  // const getSVG = (typeKey: keyof SVGIcons, value: "a" | "b"): React.ReactElement => {
+  //   const SVGComponent = svgs[typeKey][value]
+  //   // console.log("检查debug SVGComponent", SVGComponent)
+  //   // 使用React.createElement来创建带有特定属性的SVG元素
+  //   return React.createElement(SVGComponent)
+  // }
 
   // 修改renderButtonGroup函数来包含SVG图标
   const renderButtonGroup = (typeKey: keyof SVGIcons, label: string, value: "a" | "b") => {
-    const SVGComponentA = svgs[typeKey].a
-    const SVGComponentB = svgs[typeKey].b
+    // 根据typeKey获取对应的SVG内容字符串
+    const SVGUrlA = svgs[typeKey].a
+    const SVGUrlB = svgs[typeKey].b
     return (
       <Row style={{ paddingTop: 6 }}>
         <Col span={10}>
@@ -131,14 +137,18 @@ const ControlTypeSwitch: React.FC = () => {
               type={value === "a" ? "primary" : "default"}
               onClick={() => handleTypeChange(typeKey, "a")}
               style={{ width: "70%", paddingTop: "0", paddingBottom: "0" }}
-              icon={<SVGComponentA width="70" height="30" />} // 使用组件而非 createElement
-            />
+              // icon={<SVGComponentA width="70" height="30" />} // 使用组件而非 createElement
+            >
+              <img src={SVGUrlA} alt={`${label} type A`} style={{ width: "70px", height: "30px" }} />
+            </Button>
             <Button
               type={value === "b" ? "primary" : "default"}
               onClick={() => handleTypeChange(typeKey, "b")}
               style={{ width: "70%", paddingTop: "0", paddingBottom: "0" }}
-              icon={<SVGComponentB width="70" height="30" />} // 使用组件而非 createElement
-            />
+              // icon={<SVGComponentB width="70" height="30" />} // 使用组件而非 createElement
+            >
+              <img src={SVGUrlB} alt={`${label} type B`} style={{ width: "70px", height: "30px" }} />
+            </Button>
           </Button.Group>
         </Col>
       </Row>

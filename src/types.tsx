@@ -163,6 +163,8 @@ export type entityStylesType = {
 }
 export type typographySettingStateType = {
   selectedEntityType: string
+  secondEntityType: string
+  thirdEntityType: string
   entityStyles: entityStylesType
   boldness: boolean
   underline: boolean

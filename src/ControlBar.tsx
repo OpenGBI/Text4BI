@@ -23,7 +23,7 @@ import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/C
 import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/ControlTypeSwitch"
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
-import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
+// import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
 import Navigation from "./Navigation"
 import { ReactComponent as SettingsSvg } from "./icons/settings.svg"
 
@@ -133,9 +133,9 @@ const ControlBar: React.FC = () => (
           key="1"
           style={{ backgroundColor: "#fff" }}
         >
-          <Row className="control-row">
+          {/* <Row className="control-row">
             <ControlSparkLinePos />
-          </Row>
+          </Row> */}
           <Row className="control-row">
             <ControlDataDrivenGraphics />
           </Row>

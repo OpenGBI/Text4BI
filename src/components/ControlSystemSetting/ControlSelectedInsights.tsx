@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Select, Tag } from "antd"
+import React, { useState, useEffect, FC } from "react"
+import { Select, Tag, Space } from "antd"
 import { SelectProps } from "antd/lib/select"
 import { useDispatch, useSelector } from "react-redux"
 import { systemStateType } from "../../types"
@@ -18,9 +18,20 @@ interface OptionType {
   value: string
 }
 
+interface DropdownMenuProps {
+  menu: React.ReactElement
+}
+
+const DropdownMenu: FC<DropdownMenuProps> = ({ menu }) => (
+  <div style={{ overflowY: "auto" }}>
+    {menu}
+  </div>
+)
+
 const ControlSelectedInsights: React.FC = () => {
   const dispatch = useDispatch()
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
+  const [selectedValues, setSelectedValues] = React.useState<string[]>([])
   const [curSelectedCards, setSelectedCards] = useState([
     "Card1",
     "Card2",
@@ -46,17 +57,16 @@ const ControlSelectedInsights: React.FC = () => {
 
   const options = [
     { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card1" },
-    { value: COLOR_PALETTE[1], label: "Difference of total Profit by Year", cardid: "Card2" },
-    { value: COLOR_PALETTE[2], label: "Sum of Sales by City", cardid: "Card3" },
-    { value: COLOR_PALETTE[3], label: "Proportion Analysis of Sales Volume by Different Countries", cardid: "Card4" },
+    { value: COLOR_PALETTE[1], label: "Difference of Total Profit by Year", cardid: "Card2" },
+    { value: COLOR_PALETTE[2], label: "Rank of Sales by City", cardid: "Card3" },
+    { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card4" },
     { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card5" },
     { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card6" },
-    { value: COLOR_PALETTE[6], label: "Anomaly detection of Sales", cardid: "Card7" },
+    { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card7" },
     { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card8" },
   ]
-  const formatOptionLabel = ({ label, value }: OptionType) => {
-    console.log("检查formatOptionLabel的参数", label, value)
-    return (
+  const formatOptionLabel = ({ label, value }: OptionType) => (
+    // console.log("检查formatOptionLabel的参数", label, value)
       <div style={{ display: "flex", alignItems: "center" }}>
         {/* <span
           style={{ color: value, fontSize: "20px", fontWeight: "bold" }}
@@ -77,42 +87,10 @@ const ControlSelectedInsights: React.FC = () => {
         <span style={{ color: "black" }}>{label}</span>
       </div>
     )
-  }
+  // const defaultValuesLabels = defaultValue.map(
+  //   (val) => options.find((option) => option.value === val)?.label,
+  // )
 
-  const tagRender = ({ label, value, closable, onClose }: TagRenderProps) => {
-    const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
-      event.preventDefault()
-      event.stopPropagation()
-    }
-
-    return (
-      <Tag
-        color={value} // 这里设置 Tag 的颜色，如果你想保留背景色的话
-        onMouseDown={onPreventMouseDown}
-        closable={closable}
-        onClose={onClose}
-        style={{
-          marginRight: 3,
-          maxWidth: 200,
-          maxHeight: 30,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-          lineHeight: "30px",
-          // 这里移除了 backgroundColor，因为我们不显示颜色圆点
-          // 如果你不希望 Tag 有任何颜色，也可以移除 color 属性
-        }}
-      >
-        {label}
-      </Tag>
-    )
-  }
-
-  const defaultValuesLabels = defaultValue.map(
-    (val) => options.find((option) => option.value === val)?.label,
-  )
-
-  const [selectedValues, setSelectedValues] = React.useState<string[]>([])
   const handleChange = (selectedItems: string[]) => {
     // console.log("检查第一次的selectedItems", selectedItems)
     setSelectedValues(selectedItems)
@@ -130,20 +108,64 @@ const ControlSelectedInsights: React.FC = () => {
       }),
     )
   }
+  // 在组件加载时，设置所有选项为选中状态
+  useEffect(() => {
+    const allValues = options.map((option) => option.value)
+    setSelectedValues(allValues)
+  }, [])
+
+  // 使用useEffect更新默认选中的值，这会在组件首次渲染时运行
+  useEffect(() => {
+    const defaultSelected = options.map((option) => option.value) // 假设你想默认选中所有选项
+    setSelectedValues(defaultSelected)
+    handleChange(defaultSelected)
+  }, []) // 空数组保证这个effect只会运行一次
+
+  const tagRender = ({ label, value, closable, onClose }: TagRenderProps) => {
+    const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    return (
+      <Tag
+        color={value} // 这里设置 Tag 的颜色，如果你想保留背景色的话
+        onMouseDown={onPreventMouseDown}
+        closable={closable}
+        onClose={onClose}
+        style={{
+          marginRight: 3,
+          maxWidth: "100%",
+          maxHeight: 30,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          lineHeight: "30px",
+          // 这里移除了 backgroundColor，因为我们不显示颜色圆点
+          // 如果你不希望 Tag 有任何颜色，也可以移除 color 属性
+        }}
+      >
+        {label}
+      </Tag>
+    )
+  }
 
   return (
-    <div className="custom-select-dropdown" style={{ width: 300, display: "inline-block" }}> {/* 设置外部容器的固定宽度 */}
+    <Space style={{ width: "100%" }} direction="vertical"> {/* 设置外部容器的固定宽度 */}
       <Select
+        className="custom-select-multiple"
         // dropdownClassName="custom-dropdown"
         mode="multiple"
-        showArrow
-        tagRender={tagRender}
+        // showArrow
+        // tagRender={tagRender}
+        style={{ width: "100%" }} // 设置Select组件的宽度为100%
         value={selectedValues}
         onChange={handleChange}
-        style={{ width: "100%" }} // 设置Select组件的宽度为100%
-        dropdownMatchSelectWidth={false} // 确保下拉菜单的宽度不会改变
-        dropdownStyle={{ width: 300 }} // 设置下拉菜单的固定宽度
+        defaultValue={options.map((option) => option.value)}
+        // dropdownMatchSelectWidth={false} // 确保下拉菜单的宽度不会改变
+        // dropdownStyle={{ width: 300, maxHeight: "300px", overflowY: "auto" }} // 设置下拉菜单的固定宽度
         // 移除 options={options}
+        dropdownRender={(menu) => <DropdownMenu menu={menu} />}
       >
         {options.map((option) => (
           <Select.Option key={option.value} value={option.value}>
@@ -151,7 +173,7 @@ const ControlSelectedInsights: React.FC = () => {
           </Select.Option>
         ))}
       </Select>
-    </div>
+    </Space>
   )
 }
 

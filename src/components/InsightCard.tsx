@@ -183,7 +183,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     isLineBreakOn,
     bulletPointStyle,
   } = useSelector((state: AppState) => state.globalSetting)
-  const { selectedEntityType, boldness, underline, italics, contour, color, backgroundColor } =
+  const { boldness, underline, italics, contour, color, backgroundColor } =
     useSelector((state: AppState) => state.typographySetting)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,

@@ -80,11 +80,11 @@ const ControlSparkLinePos: React.FC = () => {
   return (
     <div className="control-panel">
       <Row align="middle">
-        <Col span={10} className="control-label">
+        <Col span={10} className="control-label-layer3">
           Position
         </Col>
-        <Col span={14}>
-          <Button.Group style={{ display: "flex", width: "60%" }}>
+        <Col span={14} style={{ width: "55%" }}>
+          <Button.Group style={{ display: "flex" }}>
             {Object.entries(buttonIcons).map(([position, icon]) => (
               <Button
                 key={position}

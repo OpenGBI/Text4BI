@@ -21,9 +21,25 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
   // 根据 fontsize 计算 padding 和 border 的大小
   const paddingSize = `${Math.max(0, fontSizeNumber / 10)}px` // 示例：padding 为 fontsize 的一半，但至少 3px
-  const height = `${Math.max(10, fontSizeNumber * 1.6)}px` // 根据fontsize计算width
+  const height = `${Math.max(10, fontSizeNumber * 1.7)}px` // 根据fontsize计算width
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  // console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness)
+  const fontWeightValue = entityStyles.filter_time.boldness ? "bold" : "normal"
+  const fontStyleValue = entityStyles.filter_time.italics ? "italic" : "normal"
+  const textDecorationValue = entityStyles.filter_time.underline ? "underline" : "none"
+  const colorValue = entityStyles.filter_time.color
+  const backgroundColorValue = entityStyles.filter_time.backgroundColor
+  const textContourValue = entityStyles.filter_time.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
 
   useEffect(() => {
+    // 设置 CSS 变量
+    document.documentElement.style.setProperty("--dynamic-font-size", `${fontSizeNumber}px`)
+    document.documentElement.style.setProperty("--dynamic-font-weight", fontWeightValue)
+    document.documentElement.style.setProperty("--dynamic-font-style", fontStyleValue)
+    // document.documentElement.style.setProperty("--dynamic-text-decoration", textDecorationValue)
+    // document.documentElement.style.setProperty("--dynamic-font-color", colorValue)
+    // document.documentElement.style.setProperty("--dynamic-background-color", backgroundColorValue)
+    document.documentElement.style.setProperty("--dynamic-text-contour", textContourValue)
     // 设置 CSS 变量
     document.documentElement.style.setProperty("--dynamic-font-size", fontsize)
     // 覆盖 Ant Design DatePicker 下拉部分的字体大小
@@ -39,7 +55,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
     return () => {
       document.head.removeChild(styleTag)
     }
-  }, [fontsize])
+  }, [fontsize, fontWeightValue, fontStyleValue, textDecorationValue, colorValue, backgroundColorValue, textContourValue])
   const dispatch = useDispatch()
   const systemStateSetting: systemStateType = useSelector((state: AppState) => state.system)
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
@@ -78,7 +94,15 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
         className="date-picker"
         defaultValue={dayjs(defaultSelection, dateFormat)}
         onChange={handleOnChange}
-        style={{ height }}
+        style={{
+          height,
+          fontWeight: fontWeightValue,
+          fontStyle: fontStyleValue,
+          textDecoration: textDecorationValue,
+          color: colorValue,
+          backgroundColor: backgroundColorValue,
+          padding: `0 ${paddingSize}`, // 应用计算后的padding
+        }}
       />
     </Space>
   )

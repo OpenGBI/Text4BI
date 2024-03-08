@@ -169,6 +169,11 @@
   text-overflow: ellipsis;
 }
 
+.custom-select-multiple .ant-select-selection--multiple {
+  overflow: auto; /* 允许滚动 */
+  max-height: 100px; /* 一个合适的最大高度 */
+}
+
 /* 以下是design相关的样式 */
 .custom-panel-header {
   font-weight: bold; /* 加粗字体 */
@@ -248,6 +253,22 @@
   margin-right: 0; /* 调整或移除外边距 */
   flex-shrink: 0; /* 防止项目在溢出容器时缩小 */
   text-align: left;
+}
+
+/* 在全局样式文件中 */
+.date-picker .ant-picker-input > input {
+  /* font-weight: var(--dynamic-font-weight); */
+  /* font-style: var(--dynamic-font-style);
+  text-decoration: var(--dynamic-text-decoration);
+  color: var(--dynamic-font-color);
+  background-color: var(--dynamic-background-color); */
+  /* 模拟边框，实际上为内部input添加了一个外边框 */
+  border: var(--dynamic-text-contour);
+}
+/* Add this to your CSS file */
+.date-picker input {
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
 }
 
 /* 在您的全局样式文件中，例如 styles.css

@@ -182,10 +182,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 现在 currentStyles 有了明确的索引签名
   // 初始样式对象
   const initialStyles: { [key: string]: Style } = {
-    metric_value: { color: "#4B91FF" },
-    delta_value: { color: "#13A8A8" },
-    delta_value_ratio: { color: "#13A8A8" },
+    metric_value: { color: "#4B91FF", fontWeight: "bold" },
+    delta_value: { color: "#13A8A8", fontWeight: "bold" },
+    delta_value_ratio: { color: "#13A8A8", fontWeight: "bold" },
     insight_desc: {
+      fontWeight: "bold",
       color:
         metadata.assessment === "positive" ||
         metadata.assessment === "increase" ||
@@ -205,7 +206,17 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
 
   // const [hoverState, setHoverState] = useState({ message: "", hoverOrNot: false })
-
+  // Mapping of terms to their corresponding index in COLOR_PALETTE
+  const valueToColorIndex: { [key: string]: number } = {
+    Distribution: 0,
+    Difference: 1,
+    Categorization: 2,
+    Proportion: 3,
+    Association: 4,
+    "Temporal Trend": 5,
+    "Temporal Anomaly": 6,
+    "Temporal Periodicity": 7,
+  }
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // const noneDataIconRef = useRef<HTMLSpanElement | null>(null)
   // useEffect(() => {
@@ -1020,14 +1031,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             type={type}
           />
         ) : null}
-        {metadata?.entityType === "insight_desc" &&
+        {/* {metadata?.entityType === "insight_desc" &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition === "left" && (
             <span style={{ marginRight: "0px" }}>
               <Icon assessment={metadata.assessment as string} />
             </span>
-          )}
+          )} */}
         {/* {
           // icon的思路和sparkline的思路一致，都是在文字前后留好位置，挂上ref，如果该放icon了，就触发useeffect，然后操纵ref，然后画icon
           metadata?.entityType !== "insight" && sparkLinePosition === "left" ? (
@@ -1037,8 +1048,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {renderWord(metadata)}
         {metadata?.entityType === "insight_desc" &&
           showSparkLine &&
-          showDataDrivenGraphics &&
-          sparkLinePosition === "right" && (
+          showDataDrivenGraphics && (
             <span style={{ marginLeft: "-1px" }}>
               {" "}
               {/* 添加外边距以避免重叠 */}
@@ -1064,7 +1074,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             <span id="sparkLineElement" ref={sparkLineRef} className="sparkLineSpan" />
           ) : null // 这是一个三目运算符 ？：
         }
-        {
+        {/* {
           // 如果 sparkLinePosition 是 "up"，则在文本上方渲染 Icon
           metadata?.entityType === "insight_desc" &&
             showSparkLine &&
@@ -1097,11 +1107,12 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
                 }}
               />
             )
-        }
+        } */}
       </span>
     )
   }
   if (type === "CardTitle") {
+    const bgColor = COLOR_PALETTE[valueToColorIndex[value]] || "defaultBackgroundColor"
     // 生成随机颜色
     return (
       <span
@@ -1110,7 +1121,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           lineHeight,
           position: "relative",
           fontWeight: "bold",
-          backgroundColor: cardTitleBackgroundColor, // 使用存储的颜色
+          backgroundColor: bgColor, // 使用存储的颜色
           padding: "5px",
           borderRadius: "5px",
         }}

@@ -38,7 +38,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
 }) => {
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
-  const width = `${Math.max(40, fontSizeNumber * 10)}px` // 根据fontsize计算width
+  const width = `${Math.max(30, fontSizeNumber * 10)}px` // 根据fontsize计算width
   const height = `${Math.max(10, fontSizeNumber * 1.6)}px` // 根据fontsize计算width
   const paddingSize = `${Math.max(5, fontSizeNumber)}px` // 根据fontsize计算padding
   const dropdownTextSize = fontsize // 设置下拉框中文本的大小与fontsize一致
@@ -80,6 +80,9 @@ const SelectorInText: React.FC<SelectorProps> = ({
     // 更新 CSS 变量以匹配 fontsize
     document.documentElement.style.setProperty("--dynamic-font-size", fontsize)
   }, [fontsize])
+  useEffect(() => {
+    document.documentElement.style.setProperty("--dynamic-font-weight", fontWeightValue)
+  }, [fontWeightValue])
 
   useEffect(() => {
     // 设置初始的 CSS 变量值为 "bold"
@@ -104,6 +107,24 @@ const SelectorInText: React.FC<SelectorProps> = ({
     document.documentElement.style.setProperty("--dynamic-font-color", colorValue1)
     document.documentElement.style.setProperty("--dynamic-background-color", backgroundColorValue1)
   }, [selectedEntityType, entityStyles])
+
+  useEffect(() => {
+    // 创建一个 style 元素
+    const style = document.createElement("style")
+    // 设置 style 内容
+    style.innerHTML = `
+        .ant-select .ant-select-arrow {
+        inset-inline-end: 20px !important
+      }
+    `
+    // 将 style 元素添加到 head 中
+    document.head.appendChild(style)
+
+    // 在组件卸载时，清理添加的 style 元素
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, []) // 空依赖数组确保这段代码只在组件首次渲染时运行
 
   useEffect(() => {
     // 计算 padding-top 和 padding-bottom

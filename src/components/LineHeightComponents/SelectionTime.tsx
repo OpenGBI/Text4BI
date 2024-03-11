@@ -25,6 +25,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
   const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
   // console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness)
   const fontWeightValue = entityStyles.filter_time.boldness ? "bold" : "normal"
+  // console.log("检查fontWeightValue", fontWeightValue)
   const fontStyleValue = entityStyles.filter_time.italics ? "italic" : "normal"
   const textDecorationValue = entityStyles.filter_time.underline ? "underline" : "none"
   const colorValue = entityStyles.filter_time.color
@@ -35,6 +36,7 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
     // 设置 CSS 变量
     document.documentElement.style.setProperty("--dynamic-font-size", `${fontSizeNumber}px`)
     document.documentElement.style.setProperty("--dynamic-font-weight", fontWeightValue)
+    // console.log("检查fontWeightValue", fontWeightValue)
     document.documentElement.style.setProperty("--dynamic-font-style", fontStyleValue)
     // document.documentElement.style.setProperty("--dynamic-text-decoration", textDecorationValue)
     // document.documentElement.style.setProperty("--dynamic-font-color", colorValue)
@@ -47,14 +49,15 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
     styleTag.innerHTML = `
       .ant-picker-dropdown {
         font-size: var(--dynamic-font-size) !important
+        font-weight: var(--dynamic-font-weight) !important
       }
     `
     document.head.appendChild(styleTag)
 
-    // 在组件卸载时移除添加的样式
-    return () => {
-      document.head.removeChild(styleTag)
-    }
+    // // 在组件卸载时移除添加的样式
+    // return () => {
+    //   document.head.removeChild(styleTag)
+    // }
   }, [fontsize, fontWeightValue, fontStyleValue, textDecorationValue, colorValue, backgroundColorValue, textContourValue])
   const dispatch = useDispatch()
   const systemStateSetting: systemStateType = useSelector((state: AppState) => state.system)
@@ -96,8 +99,8 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
         onChange={handleOnChange}
         style={{
           height,
-          fontWeight: fontWeightValue,
-          fontStyle: fontStyleValue,
+          // fontWeight: fontWeightValue,
+          // fontStyle: fontStyleValue,
           textDecoration: textDecorationValue,
           color: colorValue,
           backgroundColor: backgroundColorValue,

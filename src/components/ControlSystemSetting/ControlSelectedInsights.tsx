@@ -95,11 +95,11 @@ const ControlSelectedInsights: React.FC = () => {
     // console.log("检查第一次的selectedItems", selectedItems)
     setSelectedValues(selectedItems)
     // 将对应的cardid存起来
-    const selectedIds = selectedItems.map(
-      (value) => options.find((option) => option.value === value)?.cardid,
-    ).filter((cardid): cardid is string => !!cardid) // 过滤掉undefined
+    const selectedIds = options
+    .filter((option) => selectedItems.includes(option.value)) // 先过滤出选中的项
+    .map((option) => option.cardid) // 然后映射到它们的 cardid
     // console.log("检查第一次的selectedvalues", selectedValues)
-    // console.log("检查第一次的selectedIds", selectedIds)
+    console.log("检查第一次的selectedIds", selectedIds)
     setSelectedCards(selectedIds)
     dispatch(
       ChangeSystemSetting({

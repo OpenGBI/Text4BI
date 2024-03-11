@@ -52,7 +52,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router basename="/bi4an"> {/* 使用 BrowserRouter */}
+      <Router> {/* 使用 BrowserRouter */}
         <Routes>
           <Route path="/" element={<MainApp />} />
           <Route path="/export" element={<ExportedCardsAsPage />} />

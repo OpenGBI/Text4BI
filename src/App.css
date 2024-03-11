@@ -217,15 +217,6 @@
 .ant-collapse-item-collapsed > .ant-collapse-header {
   border-radius: 0px !important;
 }
-/* styles.css */
-.ant-picker input {
-  font-size: var(--dynamic-font-size) !important; /* 使用 CSS 变量 */
-}
-
-/* 在您的全局CSS文件中 */
-.ant-picker {
-  font-size: var(--dynamic-font-size) !important; /* 使用!important来确保覆盖默认样式 */
-}
 
 .ant-select .ant-select-selector {
   width: 100%; /* 确保selector占满整个Select组件的宽度 */
@@ -255,22 +246,48 @@
   text-align: left;
 }
 
+/* 在您的全局CSS文件中 */
+.ant-picker {
+  font-size: var(--dynamic-font-size) !important; /* 使用!important来确保覆盖默认样式 */
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
+}
+
+/* styles.css */
+.ant-picker input {
+  font-size: var(--dynamic-font-size) !important; /* 使用 CSS 变量 */
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
+}
+
 /* 在全局样式文件中 */
-.date-picker .ant-picker-input > input {
-  /* font-weight: var(--dynamic-font-weight); */
-  /* font-style: var(--dynamic-font-style);
-  text-decoration: var(--dynamic-text-decoration);
+.ant-picker .ant-picker-input > input {
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
+  /* text-decoration: var(--dynamic-text-decoration);
   color: var(--dynamic-font-color);
   background-color: var(--dynamic-background-color); */
   /* 模拟边框，实际上为内部input添加了一个外边框 */
   border: var(--dynamic-text-contour);
 }
+
+/* 更具特异性的CSS选择器来覆盖Ant Design的DatePicker样式 */
+.ant-picker.ant-picker-outlined.date-picker .ant-picker-input input {
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
+}
+
 /* Add this to your CSS file */
 .date-picker input {
   font-weight: var(--dynamic-font-weight);
   font-style: var(--dynamic-font-style);
 }
 
+/* Add this to your CSS file */
+.date-picker {
+  font-weight: var(--dynamic-font-weight);
+  font-style: var(--dynamic-font-style);
+}
 /* 在您的全局样式文件中，例如 styles.css
 .ant-select-single .ant-select-selector .ant-select-selection-item,
 .ant-select-single .ant-select-selector .ant-select-selection-placeholder {

@@ -140,7 +140,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     setCards(newCards)
     cardsExchange(newCards)
   }
-  const Cards = allCards
+  const Cards = selectedCards
   .map((cardId) => {
     const card = dataset.find((d) => d.CardName === cardId)
     return {

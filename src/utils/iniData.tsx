@@ -551,10 +551,10 @@ export const iniData: Card[] = [
           },
           {
             type: "entity",
-            value: "City",
+            value: "Country",
             metadata: {
               entityType: "filter_cate",
-              selections: ["City", "Market", "Country"],
+              selections: ["Country", "City", "Market"],
               backEndType: "drillDownGroup",
             },
           },
@@ -592,18 +592,14 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "18.17%",
-            metadata: { entityType: "metric_value", origin: 0.1817 },
-          },
-          {
-            type: "entity",
-            value: "",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Proportion",
               origin: 0.1817,
               detail: [0.1817, 1 - 0.1817],
             },
           },
+
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
@@ -625,18 +621,23 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "7.32%",
-            metadata: { entityType: "metric_value", origin: 0.0732 },
-          },
-          {
-            type: "entity",
-            value: "",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Proportion",
               origin: 0.0732,
               detail: [0.0732, 1 - 0.0732],
             },
           },
+          // {
+          //   type: "entity",
+          //   value: "",
+          //   metadata: {
+          //     entityType: "insight",
+          //     insightType: "Proportion",
+          //     origin: 0.0732,
+          //     detail: [0.0732, 1 - 0.0732],
+          //   },
+          // },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },

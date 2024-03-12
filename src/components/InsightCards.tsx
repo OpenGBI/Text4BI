@@ -61,7 +61,9 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   const systemState = useSelector((state: AppState) => state.system)
   const globalSettingState = useSelector((state: AppState) => state.globalSetting)
   const typographySettingState = useSelector((state: AppState) => state.typographySetting)
-  const wordScaleGraphicsSettingState = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const wordScaleGraphicsSettingState = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
 
   // 进行和后端的通信
   // Function to compile the state slices and send them to the backend
@@ -89,7 +91,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log("返回setting修改数据", data)
+      // console.log("返回setting修改数据", data)
       // alert("Settings saved successfully.")
     })
     .catch((error) => {
@@ -122,7 +124,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   // console.log("检查cardNumbers", cardNumbers)
 
   const { showBigGraph, showSparkLine } = useSelector((state: AppState) => state.globalSetting)
-  // console.log("datasetttttttttttttt", selectedCards)
+  // console.log("debug-InsightCards", dataset)
   const CardNum: number = dataset.length
   const CardsId: string[] = dataset.map((card) => card.CardName)
   // cards是卡片id的列表，是[Card1,Card2]
@@ -141,15 +143,15 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     cardsExchange(newCards)
   }
   const Cards = selectedCards
-  .map((cardId) => {
-    const card = dataset.find((d) => d.CardName === cardId)
-    return {
-      ...card,
-      id: cardId,
-    }
-  })
-  .filter((card) => allCards.includes(card.id))
-// console.log("Cards", Cards)
+    .map((cardId) => {
+      const card = dataset.find((d) => d.CardName === cardId)
+      return {
+        ...card,
+        id: cardId,
+      }
+    })
+    .filter((card) => allCards.includes(card.id))
+  // console.log("Cards", Cards)
   // 这个函数返回当前应用的状态
   const getAppState = () => {
     // 从store获取当前状态
@@ -280,16 +282,18 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
 
     // 使用 Promise.all 等待所有卡片的 HTML Promise 完成
-    Promise.all(htmlPromises).then((htmls) => {
-      // 使用 join 将所有 HTML 拼接成一个字符串
-      const htmlContent = htmls.join("")
-      const plainText = htmlContent.replace(/<[^>]+>/g, "") // 将 HTML 标签去除，得到纯文本
+    Promise.all(htmlPromises)
+      .then((htmls) => {
+        // 使用 join 将所有 HTML 拼接成一个字符串
+        const htmlContent = htmls.join("")
+        const plainText = htmlContent.replace(/<[^>]+>/g, "") // 将 HTML 标签去除，得到纯文本
 
-      // 使用 copyToClipboard 函数复制到剪贴板
-      copyToClipboard(htmlContent, plainText, onCopySuccess)
-    }).catch((err) => {
-      console.error("复制富文本内容失败: ", err)
-    })
+        // 使用 copyToClipboard 函数复制到剪贴板
+        copyToClipboard(htmlContent, plainText, onCopySuccess)
+      })
+      .catch((err) => {
+        console.error("复制富文本内容失败: ", err)
+      })
   }
 
   const exportSelectedCardsAsImage = async () => {
@@ -366,37 +370,44 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   return (
     <div className="panel3">
       <div className="header">
-      <Tooltip title="Copy Rich Text">
-        <div style={{ position: "absolute", top: 65, right: 180, display: showButtons ? "block" : "none" }}>
-          <CopyOutlined
-            onClick={copySelectedCardsAsRichText}
-            style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
-          />
-        </div>
-      </Tooltip>
-      <Tooltip title="Export This Card">
-        <div style={{ position: "absolute", top: 64, right: 150 }}>
-          <ShareSvg onClick={showModal} style={{ cursor: "pointer", fontSize: "20px" }} />
-          <Modal
-            title="Export Options"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            mask={false}
-            maskClosable
-            style={{ position: "absolute", top: 65, right: 180 }} // Adjust the position of the modal here
-            getContainer={false} // This makes the modal render inline without a portal
+        <Tooltip title="Copy Rich Text">
+          <div
+            style={{
+              position: "absolute",
+              top: 65,
+              right: 180,
+              display: showButtons ? "block" : "none",
+            }}
           >
-            <p>
-              <Button onClick={handleButtonClick}>Download HTML</Button>
-            </p>
-            <p>
-              <Button onClick={exportSelectedCardsAsImage}>Download Image</Button> {/* Corrected function name */}
-            </p>
-          </Modal>
-        </div>
-      </Tooltip>
-
+            <CopyOutlined
+              onClick={copySelectedCardsAsRichText}
+              style={{ cursor: "pointer", fontSize: "20px" }} // 调整图标的大小
+            />
+          </div>
+        </Tooltip>
+        <Tooltip title="Export This Card">
+          <div style={{ position: "absolute", top: 64, right: 150 }}>
+            <ShareSvg onClick={showModal} style={{ cursor: "pointer", fontSize: "20px" }} />
+            <Modal
+              title="Export Options"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              mask={false}
+              maskClosable
+              style={{ position: "absolute", top: 65, right: 180 }} // Adjust the position of the modal here
+              getContainer={false} // This makes the modal render inline without a portal
+            >
+              <p>
+                <Button onClick={handleButtonClick}>Download HTML</Button>
+              </p>
+              <p>
+                <Button onClick={exportSelectedCardsAsImage}>Download Image</Button>{" "}
+                {/* Corrected function name */}
+              </p>
+            </Modal>
+          </div>
+        </Tooltip>
       </div>
       <div style={{ height: "100%", overflow: "auto" }}>
         <DndProvider backend={HTML5Backend}>

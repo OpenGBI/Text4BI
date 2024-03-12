@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react"
 import { ConfigProvider, Select, Space } from "antd"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { setState } from "@antv/s2"
 import { AppState } from "../../store" // 确保路径正确
 import styles from "./SelectorInText.module.css"
-import { Metadata4Configuration, highLightMessage, Metadata } from "../../types"
-// import { fontWeight } from "html2canvas/dist/types/css/property-descriptors/font-weight"
-// import { doc } from "prettier"
+import { Metadata4Configuration, highLightMessage, Metadata, systemStateType } from "../../types"
+import { ChangeSystemSetting } from "../../actions/systemAction"
 
 type setParamFunc4FilterType = {
   setTimeSelection: (timeSelection: string[]) => void
@@ -43,6 +42,8 @@ const SelectorInText: React.FC<SelectorProps> = ({
   const paddingSize = `${Math.max(5, fontSizeNumber)}px` // 根据fontsize计算padding
   const dropdownTextSize = fontsize // 设置下拉框中文本的大小与fontsize一致
   const [curTopK, setCurTopK] = useState("3")
+  const dispatch = useDispatch()
+  const systemStateSetting: systemStateType = useSelector((state: AppState) => state.system)
   // const curTopKRef = useRef<string>(curTopK)
   // useEffect(() => {
   //   if (params4BackEnd.topK) {
@@ -51,7 +52,9 @@ const SelectorInText: React.FC<SelectorProps> = ({
   //   }
   // }, [params4BackEnd])
 
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   // console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness)
   const fontWeightValue = entityStyles.filter_cate.boldness ? "bold" : "normal"
   const fontStyleValue = entityStyles.filter_cate.italics ? "italic" : "normal"
@@ -142,27 +145,69 @@ const SelectorInText: React.FC<SelectorProps> = ({
     document.documentElement.style.setProperty("--select-padding-top", paddingTop)
     document.documentElement.style.setProperty("--select-padding-bottom", paddingBottom)
   }, [fontsize])
-  const callBackEnd = () => {
-    console.log()
+
+  const backComm = (curParams: Metadata4Configuration, curChartType: string) => {
+    fetch("http://localhost:5000/".concat(curChartType), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chartType,
+        timeSelection: curParams.timeSelection,
+        drillDownSelect: curParams.drillDownSelect,
+        drillDownGroup: curParams.drillDownGroup,
+        timeSegmentationCondition: curParams.timeSegmentationCondition,
+        topK: curParams.topK,
+      }), // 将name参数转换为JSON字符串
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        paramsFuncs4BackEnd.setTimeSelection(curParams.timeSelection as string[])
+        paramsFuncs4BackEnd.setDrillDownSelect(curParams.drillDownSelect as string)
+        paramsFuncs4BackEnd.setDrillDownGroup(curParams.drillDownGroup as string)
+        paramsFuncs4BackEnd.setTimeSegmentationCondition(
+          curParams.timeSegmentationCondition as string,
+        )
+        paramsFuncs4BackEnd.setTopK(curParams.topK as string)
+
+        dispatch(
+          ChangeSystemSetting({
+            ...systemStateSetting,
+            dataset: data,
+          }),
+        )
+      })
+      .catch((error) => console.error("Error:", error))
   }
 
   const handleChange = (value: string) => {
+    // console.log("debug-drillDownGroup", backEndType)
+
     // if (backEndType === "timeSelection") {
     //   console.log()
     // }
     // if (backEndType === "drillDownSelect") {
     //   console.log()
     // }
+    let curParams
     if (backEndType === "drillDownGroup") {
-      console.log()
+      curParams = { ...params4BackEnd, drillDownGroup: value }
+      paramsFuncs4BackEnd.setDrillDownGroup(value)
     }
+
     if (backEndType === "timeSegmentationCondition") {
-      console.log()
+      curParams = { ...params4BackEnd, timeSegmentationCondition: value }
     }
     if (backEndType === "topK") {
-      paramsFuncs4BackEnd.setTopK(value)
-      setCurTopK(value)
-      console.log("debug-3-hover", params4BackEnd)
+      curParams = { ...params4BackEnd, topK: value }
+      // paramsFuncs4BackEnd.setTopK(value)
+      // setCurTopK(value)
+    }
+    if (curParams) {
+      console.log("text-curParams", curParams)
+
+      backComm(curParams, chartType)
     }
   }
 

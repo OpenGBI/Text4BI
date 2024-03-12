@@ -83,6 +83,7 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
       .tooltip({ channel: "y", valueFormatter: ".1f" })
       .encode("color", "#5a85c4")
       .encode("shape", "smooth")
+      .axis("x", { tickFilter: (_: any, i: number) => i % 5 === 0 })
     // chart.data(tagData)
 
     // chart

@@ -95,6 +95,7 @@ const renderSparkLine = (
         curMetadata.tagData as number,
         curAspectRatio,
         curSparkLinePosition,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )

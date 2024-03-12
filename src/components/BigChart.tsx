@@ -31,6 +31,7 @@ const BigChart: React.FC<BigChartProps> = ({
   handleCurBigChart,
   highlightMessage,
 }) => {
+  // console.log("debug-bigchart-data", ChartType, BigChartData)
   // (ChartType,BigChartData)会报错
   // 用usememo创建SlicedBigChartData，只监听BigChartData和topk的变化 未解决
   const SlicedBigChartData = _.cloneDeep(BigChartData) // 深拷贝
@@ -40,9 +41,9 @@ const BigChart: React.FC<BigChartProps> = ({
   const BigChartDataRef = useRef(SlicedBigChartData)
 
   // // 使用useEffect来更新BigChartDataRef.current，以便它总是反映最新的BigChartData
-  useEffect(() => {
-    BigChartDataRef.current = _.cloneDeep(SlicedBigChartData)
-  }, [BigChartData]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
+  // useEffect(() => {
+  //   BigChartDataRef.current = _.cloneDeep(SlicedBigChartData)
+  // }, [BigChartData]) // 依赖项是BigChartData和topk，任何一个变化都会触发更新
   // console.log("BigChartDataRefBigChartDataRefBigChartDataRefBigChartDataRef", BigChartDataRef)
   // if (ChartType === "Categorization") {
   //   console.log("BigChart中的SlicedBigChartData和topk", BigChartData)
@@ -104,7 +105,7 @@ const BigChart: React.FC<BigChartProps> = ({
       return (
         <Categorization
           // data={_.cloneDeep( BigChartDataRef.current.detail) as cateAndValue[]} 这句代码会导致死循环zyx 待解决
-          data={BigChartDataRef.current.detail as cateAndValue[]}
+          data={BigChartData.detail as cateAndValue[]}
           handleCurBigChart={handleCurBigChart}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
@@ -117,7 +118,7 @@ const BigChart: React.FC<BigChartProps> = ({
       return (
         <Proportion
           // data={SlicedBigChartData.detail as cateAndValue[]}
-          data={BigChartDataRef.current.detail as cateAndValue[]}
+          data={BigChartData.detail as cateAndValue[]}
           handleCurBigChart={handleCurBigChart}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
@@ -126,8 +127,8 @@ const BigChart: React.FC<BigChartProps> = ({
     case "Association":
       return (
         <Association
-          data={BigChartDataRef.current.detail as Point[]}
-          tagData={SlicedBigChartData.tagData as Point[]}
+          data={BigChartData.detail as Point[]}
+          tagData={BigChartData.tagData as Point[]}
           ref={chartRef}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
@@ -137,7 +138,7 @@ const BigChart: React.FC<BigChartProps> = ({
     case "Distribution":
       return (
         <Distribution
-          data={BigChartDataRef.current.detail as cateAndValue[]}
+          data={BigChartData.detail as cateAndValue[]}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
@@ -146,8 +147,8 @@ const BigChart: React.FC<BigChartProps> = ({
     case "TemporalDifference":
       return (
         <Difference
-          iniData={BigChartDataRef.current.detail as cateAndValue[]}
-          tagData={BigChartDataRef.current.tagData as number[]}
+          iniData={BigChartData.detail as cateAndValue[]}
+          tagData={BigChartData.tagData as number[]}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
@@ -156,8 +157,8 @@ const BigChart: React.FC<BigChartProps> = ({
     case "TemporalPeriodicity": {
       return (
         <TemporalPeriodicity
-          data={BigChartDataRef.current.detail as cateAndValue[]}
-          tagData={BigChartDataRef.current.tagData as cateAndValue[]}
+          data={BigChartData.detail as cateAndValue[]}
+          tagData={BigChartData.tagData as cateAndValue[]}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
@@ -168,8 +169,8 @@ const BigChart: React.FC<BigChartProps> = ({
     case "TemporalAnomaly":
       return (
         <TemporalAnomaly
-          data={BigChartDataRef.current.detail as cateAndValue[]}
-          tagData={BigChartDataRef.current.tagData as number[]}
+          data={BigChartData.detail as cateAndValue[]}
+          tagData={BigChartData.tagData as number[]}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
@@ -178,8 +179,9 @@ const BigChart: React.FC<BigChartProps> = ({
     case "TemporalTrend":
       return (
         <TemporalTrend
-          data={BigChartDataRef.current.detail as cateAndValue[]}
-          tagData={BigChartDataRef.current.tagData as cateAndValue[]}
+          data={BigChartData.detail as cateAndValue[]}
+          tagData={BigChartData.tagData as cateAndValue[]}
+          // tagData={BigChartDataRef.current.tagData as cateAndValue[]}
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}

@@ -17,7 +17,7 @@ interface PieChartProps {
 const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message, hoverOrNot }) => {
   const containerRef = React.useRef<Chart | null>(null)
   const ProportionRef = React.useRef(null)
-  // console.log('BigChartData', data)
+  // console.log("debug-Proportion", data)
   const interactiveRef = React.useRef<Chart | null>(null)
   React.useEffect(() => {
     // 把子组件中的变量通过回调函数往上传
@@ -68,7 +68,7 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
     return () => {
       chart.destroy()
     }
-  }, [data[0].category])
+  }, [data[0].value, data[0].category])
   // }, [data])
   // useEffect中使用setState时
   React.useEffect(() => {

@@ -81,6 +81,7 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
       .encode("y", "predict")
       .encode("color", "#f2a15d")
       .encode("shape", "smooth")
+      .axis("x", { tickFilter: (_: any, i: number) => i % 5 === 0 })
     interactiveRef.current = chart
 
     chart.render()

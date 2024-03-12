@@ -27,13 +27,13 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_names" },
           },
           { type: "text", value: " and " },
           {
             type: "entity",
             value: "Profit",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_names" },
           },
           {
             type: "entity",
@@ -61,7 +61,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "delta_value", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           { type: "text", value: "（" },
           {
@@ -96,7 +96,7 @@ export const iniData: Card[] = [
       {
         type: "bullet",
         phrases: [
-          { type: "entity", value: "DAU", metadata: { entityType: "metric_name" } },
+          { type: "entity", value: "DAU", metadata: { entityType: "metric_names" } },
           { type: "text", value: " " },
           {
             type: "entity",
@@ -107,7 +107,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "delta_value", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           { type: "text", value: "（" },
           {
@@ -136,27 +136,27 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "+130.4",
-            metadata: { entityType: "delta_value", assessment: "negative" },
+            metadata: { entityType: "binary_value", assessment: "negative" },
           },
           {
             type: "entity",
             value: "-38.4%",
-            metadata: { entityType: "delta_value_ratio", assessment: "negative" },
+            metadata: { entityType: "binary_value", assessment: "negative" },
           },
           {
             type: "entity",
             value: "Sales",
-            metadata: { entityType: "metric_name" },
+            metadata: { entityType: "metric_names" },
           },
           {
             type: "entity",
             value: "left-skewed",
-            metadata: { entityType: "insight_desc", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           {
             type: "entity",
             value: "Country",
-            metadata: { entityType: "dim_cate" },
+            metadata: { entityType: "metric_names" },
           },
           {
             type: "entity",
@@ -215,7 +215,7 @@ export const iniData: Card[] = [
       {
         type: "normal",
         phrases: [
-          { type: "entity", value: "DAU", metadata: { entityType: "metric_name" } },
+          { type: "entity", value: "DAU", metadata: { entityType: "metric_names" } },
           { type: "text", value: " " },
           {
             type: "entity",
@@ -234,7 +234,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "delta_value", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           { type: "text", value: "（" },
           {
@@ -260,7 +260,7 @@ export const iniData: Card[] = [
       {
         type: "bullet",
         phrases: [
-          { type: "entity", value: "DAU", metadata: { entityType: "metric_name" } },
+          { type: "entity", value: "DAU", metadata: { entityType: "metric_names" } },
           { type: "text", value: " " },
           {
             type: "entity",
@@ -271,7 +271,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "delta_value", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           { type: "text", value: "（" },
           {
@@ -297,7 +297,7 @@ export const iniData: Card[] = [
       {
         type: "bullet",
         phrases: [
-          { type: "entity", value: "DAU", metadata: { entityType: "metric_name" } },
+          { type: "entity", value: "DAU", metadata: { entityType: "metric_names" } },
           { type: "text", value: " " },
           {
             type: "entity",
@@ -308,7 +308,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "delta_value", assessment: "positive" },
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           { type: "text", value: "（" },
           {

@@ -183,9 +183,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 初始样式对象
   const initialStyles: { [key: string]: Style } = {
     metric_value: { color: "#4B91FF", fontWeight: "bold" },
-    delta_value: { color: "#13A8A8", fontWeight: "bold" },
-    delta_value_ratio: { color: "#13A8A8", fontWeight: "bold" },
-    insight_desc: {
+    binary_value: {
       fontWeight: "bold",
       color:
         metadata.assessment === "positive" ||
@@ -195,8 +193,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ? "#13A8A8"
           : "#FA541C",
     },
-    metric_name: { fontWeight: "bold" },
-    dim_cate: { fontWeight: "bold" },
+    metric_names: { fontWeight: "bold" },
     algorithm: { textDecoration: "underline dashed" },
     // ... 其他实体类型
   }
@@ -979,7 +976,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     // const entityType = metadata.entityType || "default" // "default" 是一个占位值
     // const newStyle = { ...currentStyles[entityType] }
     // // 判断和设置特定的样式
-    // if (entityType === "delta_value" || entityType === "delta_value_ratio" || entityType === "insight_desc") {
+    // if (entityType === "binary_value" || entityType === "binary_value" || entityType === "binary_value") {
     //   // 确保 assessment 不是 undefined
     //   const assessment = metadata.assessment || ""
     //   if (["positive", "increase", "significant", "left-skewed"].includes(assessment)) {
@@ -1031,7 +1028,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             type={type}
           />
         ) : null}
-        {/* {metadata?.entityType === "insight_desc" &&
+        {/* {metadata?.entityType === "binary_value" &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition === "left" && (
@@ -1046,7 +1043,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         } */}
         {renderWord(metadata)}
-        {metadata?.entityType === "insight_desc" &&
+        {metadata?.entityType === "binary_value" &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition !== "left" && (
@@ -1078,7 +1075,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         }
         {/* {
           // 如果 sparkLinePosition 是 "up"，则在文本上方渲染 Icon
-          metadata?.entityType === "insight_desc" &&
+          metadata?.entityType === "binary_value" &&
             showSparkLine &&
             showDataDrivenGraphics &&
             sparkLinePosition === "up" && (
@@ -1095,7 +1092,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         }
         {
           // 如果 sparkLinePosition 是 "down"，则在文本下方渲染 Icon
-          metadata?.entityType === "insight_desc" &&
+          metadata?.entityType === "binary_value" &&
             showSparkLine &&
             showDataDrivenGraphics &&
             sparkLinePosition === "down" && (

@@ -12,7 +12,7 @@
       {
         "type": "normal",
         "phrases": [
-          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
           { "type": "text", "value": " " },
           {
             "type": "entity",
@@ -31,7 +31,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "delta_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -57,7 +57,7 @@
       {
         "type": "bullet",
         "phrases": [
-          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
           { "type": "text", "value": " " },
           {
             "type": "entity",
@@ -68,7 +68,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "delta_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -111,7 +111,7 @@
       {
         "type": "normal",
         "phrases": [
-          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
           { "type": "text", "value": " " },
           {
             "type": "entity",
@@ -130,7 +130,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "delta_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -156,7 +156,7 @@
       {
         "type": "bullet",
         "phrases": [
-          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
           { "type": "text", "value": " " },
           {
             "type": "entity",
@@ -167,7 +167,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "delta_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -193,7 +193,7 @@
       {
         "type": "bullet",
         "phrases": [
-          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+          { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
           { "type": "text", "value": " " },
           {
             "type": "entity",
@@ -204,7 +204,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "delta_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {

@@ -11,7 +11,7 @@ export const iniEntityStyles: entityStylesType = {
       backgroundColor: "white",
     },
     // 为其他实体类型定义样式设置...
-    delta_value: {
+    binary_value: {
       boldness: true,
       underline: false,
       italics: false,
@@ -19,31 +19,7 @@ export const iniEntityStyles: entityStylesType = {
       color: "13A8A8",
       backgroundColor: "white",
     },
-    delta_value_ratio: {
-      boldness: true,
-      underline: false,
-      italics: false,
-      contour: false,
-      color: "#13A8A8",
-      backgroundColor: "white",
-    },
-    insight_desc: {
-      boldness: true,
-      underline: false,
-      italics: false,
-      contour: false,
-      color: "#13A8A8",
-      backgroundColor: "white",
-    },
-    metric_name: {
-      boldness: true,
-      underline: false,
-      italics: false,
-      contour: false,
-      color: "#000000",
-      backgroundColor: "white",
-    },
-    dim_cate: {
+    metric_names: {
       boldness: true,
       underline: false,
       italics: false,

@@ -19,7 +19,7 @@ export type Metadata = {
   assessment?: string
   detail?: number[] | Point[] | cateAndValue[]
   selections?: string[]
-  delta_value?: string
+  binary_value?: string
   ratio_value?: string
   tagData?: number | number[] | Point[] | cateAndValue[] | string
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
@@ -105,11 +105,7 @@ export type entitiesType = {
 export type entityIconType = {
   [key: string]: entitiesType // 索引签名 zyx
   metric_value: entitiesType
-  delta_value: entitiesType
-  delta_value_ratio: entitiesType
-  insight_desc: entitiesType
-  metric_name: entitiesType
-  dim_cate: entitiesType
+  metric_names: entitiesType
   algorithm: entitiesType
   filter_time: entitiesType
   filter_cate: entitiesType
@@ -152,11 +148,7 @@ export type entityStyleSettingsType = {
 export type entityStylesType = {
   [key: string]: entityStyleSettingsType
   metric_value: entityStyleSettingsType
-  delta_value: entityStyleSettingsType
-  delta_value_ratio: entityStyleSettingsType
-  insight_desc: entityStyleSettingsType
-  metric_name: entityStyleSettingsType
-  dim_cate: entityStyleSettingsType
+  metric_names: entityStyleSettingsType
   algorithm: entityStyleSettingsType
   filter_time: entityStyleSettingsType
   filter_cate: entityStyleSettingsType

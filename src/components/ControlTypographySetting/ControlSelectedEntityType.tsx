@@ -38,19 +38,19 @@ const ControlSelectedEntityType: React.FC = () => {
             value={selectedEntityType}
             onChange={handlePrimaryChange}
           >
-            <Option value="metric_value">metric_value</Option>
-            <Option value="delta_value">delta_value</Option>
-            <Option value="insight_desc">insight_desc</Option>
-            <Option value="metric_name">metric_name</Option>
-            <Option value="dim_cate">dim_cate</Option>
+            {/* <Option value="metric_value">metric_value</Option>
+            <Option value="binary_value">binary_value</Option>
+            <Option value="binary_value">binary_value</Option>
+            <Option value="metric_names">metric_names</Option>
+            <Option value="metric_names">metric_names</Option>
             <Option value="algorithm">algorithm</Option>
             {/* <Option value="filter_time">filter_time</Option> */}
-            <Option value="filter_cate">filter_phrases</Option>
-            {/* <Option value="metric_value">value phrases(general)</Option>
-            <Option value="delta_value">value phrases(binary)</Option>
-            <Option value="metric_name">measure phrases</Option>
+            {/* <Option value="filter_cate">filter_phrases</Option> */}
+            <Option value="metric_value">value phrases(general)</Option>
+            <Option value="binary_value">value phrases(binary)</Option>
+            <Option value="metric_names">measure phrases</Option>
             <Option value="algorithm">method phrases</Option>
-            <Option value="filter_cate">filter phrases</Option> */}
+            <Option value="filter_cate">filter phrases</Option>
           </Select>
         </Col>
         {/* {showSecondaryOptions && (

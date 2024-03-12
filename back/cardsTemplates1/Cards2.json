@@ -17,7 +17,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -28,7 +28,7 @@
             "type": "entity",
             "value": "Profit",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -56,7 +56,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -67,7 +67,7 @@
             "type": "entity",
             "value": "Profit",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -5822,7 +5822,7 @@
             "type": "entity",
             "value": "positive",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "positive"
             }
           },
@@ -5834,7 +5834,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "significant"
             }
           }
@@ -11592,13 +11592,13 @@
           {
             "type": "entity",
             "value": "Sales",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" }
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" }
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
             "value": "City",
-            "metadata": { "entityType": "dim_cate", "interactionType": "x-axis" }
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" }
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } }
         ]
@@ -11614,7 +11614,7 @@
             "type": "entity",
             "value": "sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -11905,7 +11905,7 @@
             "type": "entity",
             "value": "New York City",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -12157,7 +12157,7 @@
             "type": "entity",
             "value": "Los Angeles",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -12409,7 +12409,7 @@
             "type": "entity",
             "value": "Manila",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {

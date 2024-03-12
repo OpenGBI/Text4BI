@@ -38,14 +38,14 @@ def changeDifference(timeSelection):
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     for i in range(0,len(topics)):
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'insight_desc':
+            if phrase.get('metadata', {}).get('entityType') == 'binary_value':
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["value"]="increase"
                 else:
                     phrase["value"]="decrease"
                 break
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'delta_value_ratio':
+            if phrase.get('metadata', {}).get('entityType') == 'binary_value':
                 phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"

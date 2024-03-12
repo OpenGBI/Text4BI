@@ -183,9 +183,19 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 初始样式对象
   const initialStyles: { [key: string]: Style } = {
     metric_value: { color: "#4B91FF", fontWeight: "bold" },
-    delta_value: { color: "#13A8A8", fontWeight: "bold" },
-    delta_value_ratio: { color: "#13A8A8", fontWeight: "bold" },
-    insight_desc: {
+    // delta_value: { color: "#13A8A8", fontWeight: "bold" },
+    // delta_value_ratio: { color: "#13A8A8", fontWeight: "bold" },
+    // insight_desc: {
+    //   fontWeight: "bold",
+    //   color:
+    //     metadata.assessment === "positive" ||
+    //     metadata.assessment === "increase" ||
+    //     metadata.assessment === "significant" ||
+    //     metadata.assessment === "left-skewed"
+    //       ? "#13A8A8"
+    //       : "#FA541C",
+    // },
+    binary_value: {
       fontWeight: "bold",
       color:
         metadata.assessment === "positive" ||
@@ -195,8 +205,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ? "#13A8A8"
           : "#FA541C",
     },
-    metric_name: { fontWeight: "bold" },
-    dim_cate: { fontWeight: "bold" },
+    metric_names: { fontWeight: "bold" },
+    // dim_cate: { fontWeight: "bold" },
     algorithm: { textDecoration: "underline dashed" },
     // ... 其他实体类型
   }
@@ -1046,7 +1056,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         } */}
         {renderWord(metadata)}
-        {metadata?.entityType === "insight_desc" &&
+        {metadata?.entityType === "binary_value" &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition !== "left" && (

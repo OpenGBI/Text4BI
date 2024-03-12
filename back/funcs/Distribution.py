@@ -13,14 +13,14 @@ def calculate_outliers(data):
     lower_bound = q1 - (1.5 * iqr)
     upper_bound = q3 + (1.5 * iqr)
     outliers = data[(data < lower_bound) | (data > upper_bound)]
-    return outliers
+    return len(outliers)
 def changeDistribution(timeSelection):
     grouped_data = data[(data['OrderDate'] >= timeSelection[0]) & (data['OrderDate'] <= timeSelection[1])].groupby('OrderDate').sum()
 
     data_export = [{"category": "none", "value": row.Sales} for _, row in grouped_data.iterrows()]
     # 组合最终的JSON对象
     export_json = {"data": data_export}
-    print(export_json)
+    
     max_value = np.max(grouped_data['Sales'])
     min_value = np.min(grouped_data['Sales'])
     mean_value = np.mean(grouped_data['Sales'])
@@ -28,7 +28,7 @@ def changeDistribution(timeSelection):
     quantiles = np.percentile(grouped_data['Sales'], [25, 50, 75])
     variance = np.std(grouped_data['Sales'])
     outliers = calculate_outliers(grouped_data['Sales'])
-
+    
     target=0
     for item in iniData:
         if item["paragraph"][-1]["chartType"] == "Distribution":

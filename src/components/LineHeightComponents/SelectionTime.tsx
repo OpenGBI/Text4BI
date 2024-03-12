@@ -95,8 +95,6 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
     }
     const curParams = { ...params4BackEnd, timeSelection: curTimeSelection }
 
-    // console.log("debug-chartType", chartType)
-    // console.log("debug-params4BackEnd", curParams.timeSelection)
     backComm(curParams, chartType)
   }
   useEffect(() => {

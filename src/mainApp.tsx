@@ -34,7 +34,9 @@ function MainApp() {
   // Use useSelector to select the parts of the state you need
   const globalSettingState = useSelector((state: AppState) => state.globalSetting)
   const typographySettingState = useSelector((state: AppState) => state.typographySetting)
-  const wordScaleGraphicsSettingState = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const wordScaleGraphicsSettingState = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   // 进行和后端的通信
   // Function to compile the state slices and send them to the backend
   const saveSettings = () => {
@@ -56,14 +58,14 @@ function MainApp() {
       },
       body: JSON.stringify(initialSettings),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("传回初始数据Success!")
-      // alert("Settings saved successfully.")
-    })
-    .catch((error) => {
-      console.error("Error:", error)
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("传回初始数据Success!")
+        // alert("Settings saved successfully.")
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+      })
   }, []) // 将reducer中的初始状态传给后端
 
   const layoutStyle: React.CSSProperties = {
@@ -98,29 +100,42 @@ function MainApp() {
     <div id="APP" className="app-container">
       <Layout>
         {/* 将Header放在外层Layout中，并调整样式 */}
-        <Header className="header" style={{ background: "#fff", padding: "0", lineHeight: "inherit", height: "50px" }}>
+        <Header
+          className="header"
+          style={{ background: "#fff", padding: "0", lineHeight: "inherit", height: "50px" }}
+        >
           {/* h1的外边距设置为0，并对齐到左边 */}
-          <h1 style={{ margin: "0", color: "#035c94", textAlign: "left", paddingLeft: "14px", paddingTop: "10px" }}>Text4BI Prototype System</h1>
+          <h1
+            style={{
+              margin: "0",
+              color: "#035c94",
+              textAlign: "left",
+              paddingLeft: "14px",
+              paddingTop: "10px",
+            }}
+          >
+            Text4BI Prototype System
+          </h1>
         </Header>
         <Layout className="full-height" style={layoutStyle}>
-        <Sider width={400}>
+          <Sider width={400}>
             <Content style={leftSiderStyle}>
-            <ControlBar />
+              <ControlBar />
             </Content>
-        </Sider>
-        <Content>
+          </Sider>
+          <Content>
             <Content>
-            <ImportBar />
+              <ImportBar />
             </Content>
             <Content style={contentMiddleStyle}>
-            <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
+              <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
-        </Content>
-        <Sider width={120} style={rightSiderStyle}>
+          </Content>
+          <Sider width={120} style={rightSiderStyle}>
             <Content>
-            <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
+              <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>
-        </Sider>
+          </Sider>
         </Layout>
       </Layout>
     </div>

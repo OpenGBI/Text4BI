@@ -176,14 +176,6 @@ const SelectorInText: React.FC<SelectorProps> = ({
   }
 
   const handleChange = (value: string) => {
-    // console.log("debug-drillDownGroup", backEndType)
-
-    // if (backEndType === "timeSelection") {
-    //   console.log()
-    // }
-    // if (backEndType === "drillDownSelect") {
-    //   console.log()
-    // }
     let curParams
     if (backEndType === "drillDownGroup") {
       curParams = { ...params4BackEnd, drillDownGroup: value }
@@ -199,8 +191,6 @@ const SelectorInText: React.FC<SelectorProps> = ({
       // setCurTopK(value)
     }
     if (curParams) {
-      console.log("text-curParams", curParams)
-
       backComm(curParams, chartType)
     }
   }

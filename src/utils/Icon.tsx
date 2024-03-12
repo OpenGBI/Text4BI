@@ -18,14 +18,13 @@ interface IconProps {
   style?: React.CSSProperties // 添加这行代码来定义 style 属性
 }
 const Icon: React.FC<IconProps> = ({ assessment, style }) => {
-  const {
-    graphicsSignificance,
-    graphicsDirection,
-    graphicsAnomaly,
-  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const { graphicsSignificance, graphicsDirection, graphicsAnomaly } = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
   // 添加条件来检查是否渲染特定的图标
   if (
-    (graphicsSignificance === false && (assessment === "significant" || assessment === "insignificant")) ||
+    (graphicsSignificance === false &&
+      (assessment === "significant" || assessment === "insignificant")) ||
     (graphicsDirection === false && (assessment === "increase" || assessment === "decrease")) ||
     (graphicsAnomaly === false && (assessment === "anomaly" || assessment === "outlier"))
   ) {
@@ -34,6 +33,10 @@ const Icon: React.FC<IconProps> = ({ assessment, style }) => {
 
   // 根据 assessment 返回相应的图标
   switch (assessment) {
+    case "positive":
+      return <PlusCircleOutlined style={{ ...style, fontSize: "14px", color: "#13A8A8" }} />
+    case "negative":
+      return <MinusCircleOutlined style={{ ...style, fontSize: "14px", color: "#13A8A8" }} />
     case "significant":
       return <CheckCircleOutlined style={{ ...style, fontSize: "16px", color: "#13A8A8" }} />
     case "insignificant":

@@ -34,7 +34,7 @@ def changeDistribution(timeSelection):
         if item["paragraph"][-1]["chartType"] == "Distribution":
             target=item
             break
-    
+    # print(target)
     # print(target["paragraph"][0]["phrases"][-1]["value"].split(" ")[:-1].join(" "))
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=data_export
@@ -89,6 +89,7 @@ def changeDistribution(timeSelection):
             phrase["value"]=str(variance)
             phrase["metadata"]["detail"]=data_export
 
+    print(target)
 
     return iniData
 

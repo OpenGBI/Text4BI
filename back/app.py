@@ -41,10 +41,6 @@ def get_categorization_data():
     drillDownGroup = data.get('drillDownGroup')
     chartType=data.get("chartType")
     print(drillDownGroup)
-    # get_distribution_data(start_time,end_time)
-    # with open('./cardsTemplates/Cards2.json', 'r') as file:
-    #     # 加载JSON数据
-    #     data = json.load(file)
     res = changeCategorization(drillDownGroup)
     print("get data")
     return jsonify(res)

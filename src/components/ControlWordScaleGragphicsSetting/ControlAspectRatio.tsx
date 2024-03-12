@@ -69,7 +69,7 @@ const ControlAspectRatio: React.FC = () => {
               onFocus={() => setDropdownDisplay(selectedAspectRatio)} // 聚焦时显示实际选中的值
               onBlur={() => setDropdownDisplay("...")} // 失焦时显示....
             >
-              {["4:3", "16:9"].map((ratio) => (
+              {["4:3", "16:9", "6:1", "8:1", "10:1"].map((ratio) => (
                 <Option key={ratio} value={ratio}>
                   {ratio}
                 </Option>

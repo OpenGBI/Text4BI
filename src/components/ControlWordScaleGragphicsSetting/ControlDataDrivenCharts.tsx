@@ -6,6 +6,7 @@ import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 import ControlAspectRatio from "./ControlAspectRatio"
 import ControlTypeSwitch from "./ControlTypeSwitch"
+import ControlSparkLinePos from "./ControlSparkLinePos"
 
 const ControlDataDrivenCharts: React.FC = () => {
   const dispatch = useDispatch()
@@ -58,6 +59,12 @@ const ControlDataDrivenCharts: React.FC = () => {
         style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}
       >
         <ControlAspectRatio />
+      </Row>
+      <Row
+        className="control-row"
+        style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}
+      >
+        <ControlSparkLinePos />
       </Row>
       <Row
         className="control-row"

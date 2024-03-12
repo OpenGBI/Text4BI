@@ -70,7 +70,10 @@ function isPointArray(value: any): value is Point[] {
       typeof point.y === "number",
   )
 }
-
+type param4FilterType = {
+  startTime: string
+  endTime: string
+}
 type setParamFunc4FilterType = {
   setTimeSelection: (timeSelection: string[]) => void
   setDrillDownSelect: (drillDownSelect: string) => void
@@ -95,6 +98,8 @@ interface PhraseComponentProps extends Phrase {
   chartType: string
   params4BackEnd: Metadata4Configuration
   paramsFuncs4BackEnd: setParamFunc4FilterType
+  // param4Filter: param4FilterType
+  // setParamFuncs: setParamFunc4FilterType
   // React.MutableRefObject<Chart | null> ref
 }
 interface Style {
@@ -133,7 +138,18 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
   const { selectedSymbol2 } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-
+  // if (type === "entity") {
+  //   console.log("debug phrase", metadata, entityIcon)
+  // }
+  // 在父组件的状态中添加一个新的状态来管理日期值
+  const [dateValues, setDateValues] = useState({})
+  // // 更新日期选择的回调函数
+  // const handleDateChange = (id, dates) => {
+  //   setDateValues(prevDates => ({
+  //     ...prevDates,
+  //     [id]: dates // 使用元数据的id作为键存储日期
+  //   }))
+  // }
   const {
     showDataDrivenGraphics,
     showDataDrivenCharts,
@@ -166,10 +182,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 现在 currentStyles 有了明确的索引签名
   // 初始样式对象
   const initialStyles: { [key: string]: Style } = {
-    metric_value: { color: "#4B91FF" },
-    delta_value: { color: "#13A8A8" },
-    delta_value_ratio: { color: "#13A8A8" },
+    metric_value: { color: "#4B91FF", fontWeight: "bold" },
+    delta_value: { color: "#13A8A8", fontWeight: "bold" },
+    delta_value_ratio: { color: "#13A8A8", fontWeight: "bold" },
     insight_desc: {
+      fontWeight: "bold",
       color:
         metadata.assessment === "positive" ||
         metadata.assessment === "increase" ||
@@ -189,7 +206,17 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const [showSparkLineGraphic, setShowSparkLineGraphic] = useState(showSparkLine)
 
   // const [hoverState, setHoverState] = useState({ message: "", hoverOrNot: false })
-
+  // Mapping of terms to their corresponding index in COLOR_PALETTE
+  const valueToColorIndex: { [key: string]: number } = {
+    Distribution: 0,
+    Difference: 1,
+    Categorization: 2,
+    Proportion: 3,
+    Association: 4,
+    "Temporal Trend": 5,
+    "Temporal Anomaly": 6,
+    "Temporal Periodicity": 7,
+  }
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // const noneDataIconRef = useRef<HTMLSpanElement | null>(null)
   // useEffect(() => {
@@ -1004,14 +1031,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
             type={type}
           />
         ) : null}
-        {metadata?.entityType === "insight_desc" &&
+        {/* {metadata?.entityType === "insight_desc" &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition === "left" && (
             <span style={{ marginRight: "0px" }}>
               <Icon assessment={metadata.assessment as string} />
             </span>
-          )}
+          )} */}
         {/* {
           // icon的思路和sparkline的思路一致，都是在文字前后留好位置，挂上ref，如果该放icon了，就触发useeffect，然后操纵ref，然后画icon
           metadata?.entityType !== "insight" && sparkLinePosition === "left" ? (
@@ -1121,6 +1148,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     )
   }
   if (type === "CardTitle") {
+    const bgColor = COLOR_PALETTE[valueToColorIndex[value]] || "defaultBackgroundColor"
     // 生成随机颜色
     return (
       <span
@@ -1129,7 +1157,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           lineHeight,
           position: "relative",
           fontWeight: "bold",
-          backgroundColor: cardTitleBackgroundColor, // 使用存储的颜色
+          backgroundColor: bgColor, // 使用存储的颜色
           padding: "5px",
           borderRadius: "5px",
         }}

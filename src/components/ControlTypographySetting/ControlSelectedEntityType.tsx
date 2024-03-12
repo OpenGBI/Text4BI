@@ -13,7 +13,7 @@ const ControlSelectedEntityType: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
   const [selectedEntityType, setSelectedEntityType] = useState(typographySetting.selectedEntityType)
-  const [showSecondaryOptions, setShowSecondaryOptions] = useState(false)
+  // const [showSecondaryOptions, setShowSecondaryOptions] = useState(false)
 
   const handlePrimaryChange = (value: string) => {
     setSelectedEntityType(value)
@@ -34,22 +34,26 @@ const ControlSelectedEntityType: React.FC = () => {
         </Col>
         <Col span={14}>
           <Select
-            style={{ width: "70%" }}
+            style={{ width: "90%" }}
             value={selectedEntityType}
             onChange={handlePrimaryChange}
           >
             <Option value="metric_value">metric_value</Option>
             <Option value="delta_value">delta_value</Option>
-            <Option value="insight">insight</Option>
+            <Option value="insight_desc">insight_desc</Option>
             <Option value="metric_name">metric_name</Option>
             <Option value="dim_cate">dim_cate</Option>
             <Option value="algorithm">algorithm</Option>
-            <Option value="filter_time">filter_time</Option>
-            <Option value="filter_num">filter_num</Option>
-            {/* <Option value="filter_cate">filter_cate</Option> */}
+            <Option value="filter_time">filter time</Option>
+            <Option value="filter_cate">filter_cate</Option>
+            {/* <Option value="metric_value">value phrases(general)</Option>
+            <Option value="delta_value">value phrases(binary)</Option>
+            <Option value="metric_name">measure phrases</Option>
+            <Option value="algorithm">method phrases</Option>
+            <Option value="filter_cate">filter phrases</Option> */}
           </Select>
         </Col>
-        {showSecondaryOptions && (
+        {/* {showSecondaryOptions && (
           <Col span={24}>
             <Select
               style={{ width: "100%", marginTop: "10px" }}
@@ -63,7 +67,7 @@ const ControlSelectedEntityType: React.FC = () => {
               <Option value="Abnormality">Abnormality</Option>
             </Select>
           </Col>
-        )}
+        )} */}
       </Row>
     </div>
   )

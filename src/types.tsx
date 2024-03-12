@@ -124,6 +124,7 @@ export type systemStateType = {
   dataset: Card[]
   selectedCards: string[]
   allCards: string[]
+  generateKey: string
 }
 export type GlobalSettingStateType = {
   showBigGraph: boolean
@@ -138,8 +139,33 @@ export type GlobalSettingStateType = {
   linking: boolean
   detailsOnDemand: boolean
 }
+// 这里定义了每个实体的样式设置
+export type entityStyleSettingsType = {
+  boldness: boolean
+  underline: boolean
+  italics: boolean
+  contour: boolean
+  color: string
+  backgroundColor: string
+}
+// 这里使用了索引签名，使得每个实体类型都有一个对应的样式设置
+export type entityStylesType = {
+  [key: string]: entityStyleSettingsType
+  metric_value: entityStyleSettingsType
+  delta_value: entityStyleSettingsType
+  delta_value_ratio: entityStyleSettingsType
+  insight_desc: entityStyleSettingsType
+  metric_name: entityStyleSettingsType
+  dim_cate: entityStyleSettingsType
+  algorithm: entityStyleSettingsType
+  filter_time: entityStyleSettingsType
+  filter_cate: entityStyleSettingsType
+}
 export type typographySettingStateType = {
   selectedEntityType: string
+  secondEntityType: string
+  thirdEntityType: string
+  entityStyles: entityStylesType
   boldness: boolean
   underline: boolean
   italics: boolean

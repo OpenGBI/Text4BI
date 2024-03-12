@@ -10,11 +10,12 @@ import { copyToClipboard } from "@antv/ava-react"
 import { CopyOutlined, ExportOutlined } from "@ant-design/icons"
 import { Chart } from "@antv/g2"
 import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter"
-import { AppState } from "../store"
+import { AppState, store } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
 import { Card, sentence, highLightMessage, ConfigurationSentence } from "../types"
-// import ConfigurationSentence
+import { ReactComponent as ShareSvg } from "../icons/share.svg"
+
 const CARD_DRAG_TYPE = "CARD"
 
 interface InsightCardProps extends Card {
@@ -30,6 +31,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   onDrop,
   cardRef,
 }) => {
+  const [trigger, setTrigger] = useState(false)
   // 给数据筛选留的若干state
   const [timeSelection, setTimeSelection] = useState([""]) // Difference需要四个时刻来确定
   const [drillDownSelect, setDrillDownSelect] = useState("")
@@ -100,6 +102,70 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const [showButtons, setShowButtons] = useState(true)
   const buttonRef = useRef<HTMLElement>(null) // 用于引用按钮的位置
 
+  // const navigate = useNavigate() // Initialize useHistory hook
+  // const exportSelectedCardsAsHtml = async () => {
+  //   navigate("/export", { state: { selectedCardIDs: selectedCards } })
+  // }
+
+  const generateKey = (selectedCardIDs: string[]) => {
+    // 将卡片ID数组转换为字符串
+    const key = selectedCardIDs.sort().join("-")
+    // 对字符串进行Base64编码
+    const hash = btoa(key)
+    return hash
+  }
+  // 新的点击事件处理函数
+  const handleButtonClick = () => {
+    const key = generateKey([CardName]) // 生成 key
+    // console.log("1检查key", key)
+    // navigate("/export", { state: { key } }) // 将 key 作为路由状态传递
+    // 创建新URL，将 key 作为查询参数或路径的一部分
+    const url = `${window.location.origin}/export?key=${encodeURIComponent(key)}`
+    // 使用 window.open 在新标签页中打开URL
+    window.open(url, "_blank")
+    // exportSelectedCardsAsHtml() // 假设这是你的导出函数
+    setTrigger((prev) => !prev) // 切换 trigger 的值
+  }
+  // Use useSelector to select the parts of the state you need
+  const systemState = useSelector((state: AppState) => state.system)
+  const globalSettingState = useSelector((state: AppState) => state.globalSetting)
+  const typographySettingState = useSelector((state: AppState) => state.typographySetting)
+  const wordScaleGraphicsSettingState = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+
+  // 进行和后端的通信
+  // Function to compile the state slices and send them to the backend
+  const saveSettings = () => {
+    const nowSettings = {
+      // systemState,
+      globalSettingState,
+      typographySettingState,
+      wordScaleGraphicsSettingState,
+    }
+    return nowSettings
+  }
+  // useEffect(() => {
+  //   // console.log("2检查trigger", trigger)
+  //   const nowSettings = saveSettings()
+  //   // setSettings(nowSettings)
+  //   console.log("检查导出单张卡片时的Settings", nowSettings)
+  //   // Use fetch to send the settings object to your backend
+  //   fetch("http://localhost:5000/saveModifiedSettings", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(nowSettings),
+  //   })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log("传回导出单张卡片的全局状态", data)
+  //     // alert("Settings saved successfully.")
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error)
+  //   })
+  // }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
+
   // ref.current
   const handleCurBigChart = (curBigChart1: Chart | null) => {
     setCurBigChart(curBigChart1)
@@ -124,7 +190,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     isLineBreakOn,
     bulletPointStyle,
   } = useSelector((state: AppState) => state.globalSetting)
-  const { selectedEntityType, boldness, underline, italics, contour, color, backgroundColor } =
+  const { boldness, underline, italics, contour, color, backgroundColor } =
     useSelector((state: AppState) => state.typographySetting)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
@@ -152,39 +218,131 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     throw new Error("No data found for the date")
   }
   const onCopySuccess = () => {
-    console.log("success")
+    console.log("单张卡片的富文本内容已复制到剪贴板。")
+  }
+
+    // 这个函数返回当前应用的状态
+  const getAppState = () => {
+    // 从store获取当前状态
+    const currentState = store.getState()
+
+    // 序列化状态为JSON字符串
+    const serializedState = JSON.stringify(currentState)
+
+    // 返回序列化后的状态
+    return serializedState
+  }
+
+  const getStylesForExport = async () => {
+    let styles = ""
+    const styleSheets = Array.from(document.styleSheets)
+
+    const fetchStylesPromises = styleSheets.map(async (sheet) => {
+      try {
+        if (sheet.cssRules) {
+          const cssRules = Array.from(sheet.cssRules)
+          cssRules.forEach((rule) => {
+            styles += `${rule.cssText}\n`
+          })
+        } else if (sheet.href) {
+          // 为了避免CORS问题，这里假设你有权限访问这些资源或者它们不受CORS限制
+          const response = await fetch(sheet.href)
+          styles += `${await response.text()}\n`
+        }
+      } catch (e) {
+        console.warn("无法加载某些样式:", e)
+      }
+    })
+
+    await Promise.all(fetchStylesPromises)
+
+    return styles
+  }
+
+  function getJavascriptForExport() {
+    // 初始化一个字符串来收集所有的脚本
+    let scripts = ""
+
+    // 收集所有的内联脚本
+    const inlineScripts = Array.from(document.querySelectorAll("script:not([src])"))
+    inlineScripts.forEach((script) => {
+      scripts += `${script.innerHTML}\n`
+    })
+
+    // 收集所有的外部脚本链接
+    const externalScripts = Array.from(document.querySelectorAll("script[src]"))
+    externalScripts.forEach((script) => {
+      // 你可能需要记录外部脚本的URL来在导出后重新加载
+      // 这里简单地将其作为注释添加到脚本内容中
+      scripts += `/* 外部脚本链接: ${script.getAttribute("src")} */\n`
+    })
+
+    // 注意：对于通过JavaScript动态绑定的事件处理器，
+    // 你需要更复杂的逻辑来获取并正确地导出它们。
+
+    return scripts
+  }
+  const onClickCopyButton = async () => {
+    if (cardRef?.current) {
+      // const textExporter = new TextExporter()
+      const html = await getNarrativeHtml(cardRef.current, "text")
+      const plainText = "plainText"
+      copyToClipboard(html, plainText, onCopySuccess)
+      // onCopy?.(currentInsightInfo, ref.current)
+    }
   }
 
   const onClickExportAsHtml = async () => {
-    // 检查 cardRef.current 是否存在
     if (cardRef.current) {
-      // 添加一个临时类来隐藏边框
-      cardRef.current.classList.add("hide-border")
-      setTimeout(async () => {
-        try {
-          // 现在我们可以确信 cardRef.current 不为 null
-          const html = await getNarrativeHtml(cardRef.current!)
-          // 移除临时添加的类，以便边框在页面上能再次显示
-          cardRef.current!.classList.remove("hide-border")
-          // 创建并打开新窗口
-          const newWindow = window.open("", "_blank")
-          if (newWindow) {
-            newWindow.document.write(html)
-            newWindow.document.title = "Exported Content"
-          } else {
-            alert("Unable to open a new window. Please check your popup settings.")
-          }
-        } catch (error) {
-          console.error("Error exporting as HTML:", error)
-          // 在这里处理错误
+      try {
+        const html = await getNarrativeHtml(cardRef.current, "html")
+        const css = await getStylesForExport() // 实现这个函数
+        const js = await getJavascriptForExport() // 实现这个函数
+        const state = JSON.stringify(getAppState()) // 序列化你的应用状态
+        const newWindow = window.open("", "_blank")
+        if (newWindow) {
+          newWindow.document.write(`<html><head><style>${css}</style></head><body>${html}<script>${state}</script><script>${js}</script></body></html>`)
+          newWindow.document.title = "导出的内容"
+        } else {
+          alert("无法打开新窗口。请检查您的弹出窗口设置。")
         }
-      }, 100) // 根据需要可能要调整延时
+      } catch (error) {
+        console.error("导出为HTML时出错：", error)
+      }
     } else {
-      // cardRef.current 是 null 的情况处理
-      console.error("The card element is not available.")
-      // 在这里处理错误或显示消息
+      console.error("卡片元素不可用。")
     }
   }
+  // const onClickExportAsHtml = async () => {
+  //   // 检查 cardRef.current 是否存在
+  //   if (cardRef.current) {
+  //     // 添加一个临时类来隐藏边框
+  //     cardRef.current.classList.add("hide-border")
+  //     setTimeout(async () => {
+  //       try {
+  //         // 现在我们可以确信 cardRef.current 不为 null
+  //         const html = await getNarrativeHtml(cardRef.current!)
+  //         // 移除临时添加的类，以便边框在页面上能再次显示
+  //         cardRef.current!.classList.remove("hide-border")
+  //         // 创建并打开新窗口
+  //         const newWindow = window.open("", "_blank")
+  //         if (newWindow) {
+  //           newWindow.document.write(html)
+  //           newWindow.document.title = "Exported Content"
+  //         } else {
+  //           alert("Unable to open a new window. Please check your popup settings.")
+  //         }
+  //       } catch (error) {
+  //         console.error("Error exporting as HTML:", error)
+  //         // 在这里处理错误
+  //       }
+  //     }, 100) // 根据需要可能要调整延时
+  //   } else {
+  //     // cardRef.current 是 null 的情况处理
+  //     console.error("The card element is not available.")
+  //     // 在这里处理错误或显示消息
+  //   }
+  // }
   // const onClickExportAsHtml = async () => {
   //   // 隐藏模态对话框
   //   setIsModalVisible(false)
@@ -221,15 +379,27 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   //     }
   //   }, 100)
   // }
-  const onClickCopyButton = async () => {
-    if (cardRef?.current) {
-      // const textExporter = new TextExporter()
-      const html = await getNarrativeHtml(cardRef.current)
-      const plainText = "plainText"
-      copyToClipboard(html, plainText, onCopySuccess)
-      // onCopy?.(currentInsightInfo, ref.current)
-    }
-  }
+  // const onClickCopyButton = async () => {
+  //   if (cardRef?.current) {
+  //     try {
+  //       const html = await getNarrativeHtml(cardRef.current)
+  //       const css = await getStylesForExport() // 获取CSS
+  //       const js = await getJavascriptForExport() // 获取JavaScript
+  //       const state = JSON.stringify(getAppState()) // 序列化应用状态
+
+  //       // 构建完整的HTML字符串，包括CSS和JavaScript
+  //       const completeHtml = `<html><head><style>${css}</style></head><body>${html}<script>${state}</script><script>${js}</script></body></html>`
+
+  //       // 使用某个函数来复制完整的HTML到剪贴板
+  //       copyToClipboard(completeHtml, "HTML内容已复制", onCopySuccess)
+  //     } catch (error) {
+  //       console.error("复制到剪贴板时出错：", error)
+  //     }
+  //   } else {
+  //     console.error("卡片元素不可用。")
+  //   }
+  // }
+
   const onClickExportAsImage = async () => {
     // Ensure the modal is not visible when the screenshot is taken
     setIsModalVisible(false)
@@ -588,17 +758,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         </div>
       </Tooltip>
       <Tooltip title="Export This Card">
-        <ExportOutlined
-          ref={buttonRef} // 将 ref 关联到按钮
+        <ShareSvg
+          // ref={buttonRef} // 将 ref 关联到按钮
           onClick={showModal}
-          style={{
-            cursor: "pointer",
-            fontSize: "20px",
-            position: "absolute",
-            top: 10,
-            right: 35,
-            display: showButtons ? "block" : "none",
-          }}
+          style={{ cursor: "pointer", fontSize: "20px", position: "absolute", top: 9, right: 30, display: showButtons ? "block" : "none" }}
         />
       </Tooltip>
       <Modal
@@ -616,7 +779,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         getContainer={false} // 将 Modal 渲染到当前组件内
       >
         <p>
-          <Button onClick={onClickExportAsHtml}>Download HTML</Button>
+          <Button onClick={handleButtonClick}>Download HTML</Button>
         </p>
         <p>
           <Button onClick={onClickExportAsImage}>Download Image</Button>

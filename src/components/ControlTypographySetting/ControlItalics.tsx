@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button, Col, Row } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeTypographySetting } from "../../actions/typographySettingAction"
@@ -13,13 +13,22 @@ const ControlItalics: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
 
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  useEffect(() => {
+    setIsItalicsOn(entityStyles[selectedEntityType].italics)
+  }, [selectedEntityType])
+
   const handleItalicsChange = (value: boolean) => {
     setIsItalicsOn(value)
     // setShowSecondaryOptions(value === 'temporality')
+    entityStyles[selectedEntityType].italics = value
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         italics: value,
+        entityStyles: {
+          ...entityStyles,
+        },
       }),
     )
   }

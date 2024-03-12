@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Col, Row } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeTypographySetting } from "../../actions/typographySettingAction"
@@ -6,20 +6,28 @@ import { typographySettingStateType } from "../../types"
 import { AppState } from "../../store"
 
 const ControlBoldness: React.FC = () => {
-  const [isBoldnessOn, setIsBoldnessOn] = useState(false)
-
   const dispatch = useDispatch()
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
+  const [isBoldnessOn, setIsBoldnessOn] = useState(true)
+  // 需要更新二级boldness的显示值，当选择的实体类型改变时
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  useEffect(() => {
+    setIsBoldnessOn(entityStyles[selectedEntityType].boldness)
+  }, [selectedEntityType])
 
   const handleBoldnessChange = (value: boolean) => {
     setIsBoldnessOn(value)
+    entityStyles[selectedEntityType].boldness = value
     // setShowSecondaryOptions(value === 'temporality')
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         boldness: value,
+        entityStyles: {
+          ...entityStyles,
+        },
       }),
     )
   }

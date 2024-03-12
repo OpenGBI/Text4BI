@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { App, ColorPicker, Row, Col } from "antd"
 import type { ColorPickerProps, Color } from "antd/es/color-picker"
 import { useDispatch, useSelector } from "react-redux"
@@ -12,15 +12,25 @@ const ControlColor = () => {
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
+
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  useEffect(() => {
+    setValue(entityStyles[selectedEntityType].color)
+  }, [selectedEntityType])
+
   const handleChangeColor = (color: Color) => {
     const hexColor = color.toHexString() // 去除 '#' 符号
     // console.log('Selected HEX Color:', hexColor)
     setValue(hexColor)
     // console.log('After setValue, color:', color)
+    entityStyles[selectedEntityType].color = String(hexColor)
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         color: String(hexColor),
+        entityStyles: {
+          ...entityStyles,
+        },
       }),
     )
   }

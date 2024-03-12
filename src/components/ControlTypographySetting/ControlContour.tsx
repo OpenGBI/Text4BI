@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button, Col, Row } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeTypographySetting } from "../../actions/typographySettingAction"
@@ -12,14 +12,23 @@ const ControlContour: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
 
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  useEffect(() => {
+    setIsContourOn(entityStyles[selectedEntityType].contour)
+  }, [selectedEntityType])
+
   const toggleGlobalSetting = (value: boolean) => {
     // console.log("Before dispatch, isContourOn:", isContourOn)
     setIsContourOn(value)
     // console.log("After setIsContourOn, isContourOn:", value)
+    entityStyles[selectedEntityType].contour = value
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         contour: value,
+        entityStyles: {
+          ...entityStyles,
+        },
       }),
     )
   }

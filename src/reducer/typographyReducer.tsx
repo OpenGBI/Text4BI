@@ -1,9 +1,13 @@
 import { typographySettingStateType } from "../types"
 import { ChangeTypographySettingAction } from "../actions/typographySettingAction"
+import { iniEntityStyles } from "../utils/entityStyles"
 
 const iniTypographySettingState: typographySettingStateType = {
   selectedEntityType: "metric_value",
-  boldness: false,
+  secondEntityType: "metric_value",
+  thirdEntityType: "metric_value",
+  entityStyles: iniEntityStyles,
+  boldness: true,
   underline: false,
   italics: false,
   contour: false,
@@ -20,4 +24,5 @@ const TypographySettingReducer = (
   }
   return state
 }
+
 export default TypographySettingReducer

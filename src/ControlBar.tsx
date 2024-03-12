@@ -23,16 +23,22 @@ import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/C
 import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/ControlTypeSwitch"
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
-import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
+// import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
 import Navigation from "./Navigation"
+import { ReactComponent as SettingsSvg } from "./icons/settings.svg"
 
 const { Panel } = Collapse
+const leftSiderStyle: React.CSSProperties = {
+  height: "100%",
+  overflow: "auto",
+}
 
 const ControlBar: React.FC = () => (
   <div className="panel1">
     <div
       className="contro-label"
       style={{
+        height: 50,
         paddingBottom: 16,
         paddingLeft: 14,
         paddingTop: 14,
@@ -42,11 +48,15 @@ const ControlBar: React.FC = () => (
     >
       Design Panel
     </div>
-    {/* <div style={{ height: "100%", overflow: "auto" }}> */}
-    <div>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }}>
+    <div style={{ height: "95%", overflow: "auto" }}>
+      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
         <Panel
-          header={<span className="panel-header">Global Design</span>}
+          header={(
+            <span className="panel-header">
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              Global Design
+            </span>
+          )}
           key="1"
           style={{ backgroundColor: "#fff" }}
         >
@@ -70,8 +80,17 @@ const ControlBar: React.FC = () => (
           </Row>
         </Panel>
       </Collapse>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }}>
-        <Panel header={<span className="panel-header">Typography</span>} key="1">
+      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
+        <Panel
+          header={(
+            <span className="panel-header">
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              Typography
+            </span>
+          )}
+          key="1"
+          style={{ backgroundColor: "#fff" }}
+        >
           {/* <Row className='control-row'>
             <Col span={8} className='control-label'>
               Select Cards
@@ -103,11 +122,20 @@ const ControlBar: React.FC = () => (
           </Row>
         </Panel>
       </Collapse>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }}>
-        <Panel header={<span className="panel-header">Word Scale Graphics</span>} key="1">
-          <Row className="control-row">
+      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
+        <Panel
+          header={(
+            <span className="panel-header">
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              Word Scale Graphics
+            </span>
+          )}
+          key="1"
+          style={{ backgroundColor: "#fff" }}
+        >
+          {/* <Row className="control-row">
             <ControlSparkLinePos />
-          </Row>
+          </Row> */}
           <Row className="control-row">
             <ControlDataDrivenGraphics />
           </Row>

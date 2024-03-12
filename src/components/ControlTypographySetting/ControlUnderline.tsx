@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button, Col, Row } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeTypographySetting } from "../../actions/typographySettingAction"
@@ -12,14 +12,22 @@ const ControlUnderline: React.FC = () => {
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  useEffect(() => {
+    setIsUnderlineOn(entityStyles[selectedEntityType].underline)
+  }, [selectedEntityType])
 
   const handleUnderlineChange = (value: boolean) => {
     setIsUnderlineOn(value)
     // setShowSecondaryOptions(value === 'temporality')
+    entityStyles[selectedEntityType].underline = value
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         underline: value,
+        entityStyles: {
+          ...entityStyles,
+        },
       }),
     )
   }

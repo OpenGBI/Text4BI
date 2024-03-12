@@ -77,7 +77,7 @@ export const iniData: Card[] = [
           },
           {
             type: "text",
-            value: "Most data points lie in the range of ",
+            value: ". Most data points lie in the range of ",
           },
           {
             type: "entity",
@@ -226,7 +226,7 @@ export const iniData: Card[] = [
         type: "topic",
         phrases: [
           { type: "CardTitle", value: "Difference" },
-          { type: "text", value: " Difference of total " },
+          { type: "text", value: " Difference of Total " },
           {
             type: "entity",
             value: "Profit",
@@ -250,7 +250,7 @@ export const iniData: Card[] = [
             value: "2012.01.01",
             metadata: { entityType: "filter_time", selections: ["2012-01-01"], paramIndex: 2 },
           },
-          { type: "text", value: "to " },
+          { type: "text", value: " to " },
           {
             type: "entity",
             value: "2012.12.31",
@@ -271,7 +271,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "23.49% ",
-            metadata: { entityType: "delta_value_ratio", assessment: "positive" },
+            metadata: { entityType: "delta_value", assessment: "positive" },
           },
           {
             type: "entity",
@@ -289,7 +289,7 @@ export const iniData: Card[] = [
             value: "2011-01-01",
             metadata: { entityType: "filter_time", selections: ["2011-01-01"], paramIndex: 0 },
           },
-          { type: "text", value: "to " },
+          { type: "text", value: " to " },
           {
             type: "entity",
             value: "2011-12-31",
@@ -324,7 +324,7 @@ export const iniData: Card[] = [
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "CardTitle", value: "Categorization" },
-          { type: "text", value: " Sum of " },
+          { type: "text", value: " Rank of " },
           {
             type: "entity",
             value: "Sales",
@@ -514,9 +514,17 @@ export const iniData: Card[] = [
         type: "topic",
         phrases: [
           { type: "CardTitle", value: "Proportion" },
+          { type: "text", value: " Proportion of " },
           {
             type: "entity",
-            value: "Proportion Analysis of Sales Volume by Different Countries",
+            value: "Sales",
+            metadata: { entityType: "metric_name" },
+          },
+          { type: "text", value: " by " },
+          {
+            type: "entity",
+            value: "Country",
+            metadata: { entityType: "dim_cate" },
           },
         ],
       },
@@ -710,7 +718,7 @@ export const iniData: Card[] = [
               tagData: AssociationData.tagData,
             },
           },
-          { type: "text", value: " indicating a " },
+          { type: "text", value: ", indicating a " },
           {
             type: "entity",
             value: "positive",
@@ -751,10 +759,10 @@ export const iniData: Card[] = [
         type: "topic",
         phrases: [
           { type: "CardTitle", value: "Temporal Trend" },
-          { type: "text", value: "Trend of " },
+          { type: "text", value: " Trend of " },
           {
             type: "entity",
-            value: "sales",
+            value: "Sales",
             metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
         ],
@@ -763,16 +771,16 @@ export const iniData: Card[] = [
         type: "normal",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "According to the " },
-          {
-            type: "entity",
-            value: "linear regression,",
-            metadata: {
-              entityType: "algorithm",
-              origin:
-                "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
-            },
-          },
+          // { type: "text", value: "According to the " },
+          // {
+          //   type: "entity",
+          //   value: "linear regression,",
+          //   metadata: {
+          //     entityType: "algorithm",
+          //     origin:
+          //       "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
+          //   },
+          // },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
@@ -790,7 +798,7 @@ export const iniData: Card[] = [
               backEndType: "timeSegmentationCondition",
             },
           },
-          { type: "text", value: " there is an " },
+          { type: "text", value: ", there is an " },
           {
             type: "entity",
             value: "",
@@ -809,7 +817,7 @@ export const iniData: Card[] = [
           { type: "text", value: " trend in " },
           {
             type: "entity",
-            value: "Sales",
+            value: "Sales.",
             metadata: { entityType: "metric_name", interactionType: "y-axis" },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
@@ -840,7 +848,7 @@ export const iniData: Card[] = [
               interactionType: "Temporal Trend Regression",
             },
           },
-          { type: "text", value: ". With a predicted value of " },
+          { type: "text", value: " With a predicted value of " },
           {
             type: "entity",
             value: "11219.24 ",
@@ -884,7 +892,7 @@ export const iniData: Card[] = [
         type: "topic",
         phrases: [
           { type: "CardTitle", value: "Temporal Anomaly" },
-          { type: "text", value: " Anomaly detection of " },
+          { type: "text", value: " Anomaly Detection of " },
           {
             type: "entity",
             value: "Sales",
@@ -931,7 +939,7 @@ export const iniData: Card[] = [
               detail: AnomalyData.data,
             },
           },
-          { type: "text", value: " 2 seasons are identified, and the average period is " },
+          { type: "text", value: ". 2 seasons are identified, and the average period is " },
           {
             type: "entity",
             value: "365 ",
@@ -1081,8 +1089,12 @@ export const iniData: Card[] = [
             metadata: { entityType: "insight_desc", assessment: "significant" },
           },
           {
+            type: "text",
+            value: ". ",
+          },
+          {
             type: "entity",
-            value: "",
+            value: "2 seasons",
             metadata: {
               entityType: "insight",
               insightType: "TemporalitySeasonality",
@@ -1090,7 +1102,7 @@ export const iniData: Card[] = [
               tagData: PeriodicityData.tagData,
             },
           },
-          { type: "text", value: " 2 seasons are identified, and the average period is " },
+          { type: "text", value: " are identified, and the average period is " },
           {
             type: "entity",
             value: "365 ",
@@ -1170,7 +1182,6 @@ export const iniData: Card[] = [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
-
       {
         type: "plot",
         chartType: "TemporalPeriodicity",

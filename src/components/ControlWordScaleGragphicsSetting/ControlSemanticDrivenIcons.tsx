@@ -177,9 +177,9 @@ const ControlSemanticDrivenIcons: React.FC = () => {
             <div className="control-panel">
               <Row align="middle">
                 <Col span={10} className="control-label-layer3">
-                  Symbol
+                  Symbol111
                 </Col>
-                <Col span={14} style={{ display: "flex" }}>
+                <Col span={14} style={{ display: "flex", width: "50%" }}>
                   <Button.Group>
                   {/* <Button
                     className={`custom-btn ${selectedSymbol1 === "null" ? "active" : ""}`}
@@ -242,18 +242,18 @@ const ControlSemanticDrivenIcons: React.FC = () => {
               </Col>
               <Col span={14}>
                 <Select
-                  style={{ width: "70%" }}
+                  style={{ width: "90%" }}
                   value={semanticBindingEntityType}
                   onChange={handlePrimaryChange}
                 >
-                  <Option value="metric_value">metric_value</Option>
-                  <Option value="delta_value">delta_value</Option>
-                  <Option value="insight_desc">insight desc</Option>
-                  <Option value="metric_name">metric_name</Option>
-                  <Option value="dim_cate">dim_cate</Option>
-                  <Option value="algorithm">algorithm</Option>
-                  <Option value="filter_time">filter_time</Option>
-                  <Option value="filter_num">filter_num</Option>
+                  <Option value="metric_value">value phrases(general)</Option>
+                  <Option value="delta_value">value phrases(binary)</Option>
+                  <Option value="insight_desc">value phrases(binary)</Option>
+                  <Option value="metric_name">measure phrases</Option>
+                  <Option value="dim_cate">measure phrases</Option>
+                  <Option value="algorithm">method phrases</Option>
+                  <Option value="filter_time">filter phrases</Option>
+                  <Option value="filter_cate">filter phrases</Option>
                 </Select>
               </Col>
             </Row>

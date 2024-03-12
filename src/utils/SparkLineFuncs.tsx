@@ -52,6 +52,15 @@ export const renderDistribution1 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -263,6 +272,15 @@ export const renderDistribution2 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -414,6 +432,15 @@ export const renderCategorization1 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -595,6 +622,15 @@ export const renderCategorization2 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -940,6 +976,15 @@ export const renderProportion2 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -1106,6 +1151,15 @@ export const renderAssociation1 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -1315,6 +1369,15 @@ export const renderAssociation2 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -1544,6 +1607,15 @@ export const renderTemporalityTrend1 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -1805,6 +1877,15 @@ export const renderTemporalityTrend2 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -2138,6 +2219,15 @@ export const renderTemporalityDifference1 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -2368,6 +2458,15 @@ export const renderTemporalityDifference2 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -2566,6 +2665,15 @@ export const renderTemporalityAnomaly1 = (
   } else if (aspectRatio === "16:9") {
     width = 36
     height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
+    height = 20
   } else {
     width = 100
     height = 20
@@ -2724,6 +2832,15 @@ export const renderTemporalityAnomaly2 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -2888,6 +3005,15 @@ export const renderTemporalitySeasonality1 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100
@@ -3146,6 +3272,15 @@ export const renderTemporalitySeasonality2 = (
     height = 20
   } else if (aspectRatio === "16:9") {
     width = 36
+    height = 20
+  } else if (aspectRatio === "6:1") {
+    width = 120
+    height = 20
+  } else if (aspectRatio === "8:1") {
+    width = 160
+    height = 20
+  } else if (aspectRatio === "10:1") {
+    width = 200
     height = 20
   } else {
     width = 100

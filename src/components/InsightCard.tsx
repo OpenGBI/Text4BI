@@ -38,6 +38,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const [topK, setTopK] = useState("-1")
   const [chartType, setChartType] = useState("")
   const [params4BackEnd, setParams4BackEnd] = useState({}) // 这样，在InsightCard中修改params4BackEnd才能传下去
+  const [flag, setFlag] = useState(0)
   // let params4BackEnd = {} // 把参数打包起来
   const paramsFuncs4BackEnd = {
     setTimeSelection,
@@ -46,33 +47,39 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     setTimeSegmentationCondition,
     setTopK,
   }
+  // let flag = 0
   useEffect(() => {
     // 从paragraph中找到类型为'configuration'的对象，对当前状态进行初始化
+    if (flag === 0) {
+      setFlag(1)
 
-    const configuration = paragraph.find((p) => p.type === "configuration")
+      const configuration = paragraph.find((p) => p.type === "configuration")
 
-    if (configuration && "metadata" in configuration) {
-      if ("chartType" in configuration) {
-        setChartType(configuration.chartType)
-      }
-      if ("timeSelection" in configuration.metadata) {
-        setTimeSelection(configuration.metadata.timeSelection as string[])
-      }
-      if ("drillDownSelect" in configuration.metadata) {
-        setDrillDownSelect(configuration.metadata.drillDownSelect as string)
-      }
-      if ("drillDownGroup" in configuration.metadata) {
-        setDrillDownGroup(configuration.metadata.drillDownGroup as string)
-      }
-      if ("timeSegmentationCondition" in configuration.metadata) {
-        setTimeSegmentationCondition(configuration.metadata.timeSegmentationCondition as string)
-      }
-      if ("topK" in configuration.metadata) {
-        setTopK(configuration.metadata.topK as string)
+      if (configuration && "metadata" in configuration) {
+        if ("chartType" in configuration) {
+          setChartType(configuration.chartType)
+        }
+        if ("timeSelection" in configuration.metadata) {
+          setTimeSelection(configuration.metadata.timeSelection as string[])
+        }
+        if ("drillDownSelect" in configuration.metadata) {
+          setDrillDownSelect(configuration.metadata.drillDownSelect as string)
+        }
+        if ("drillDownGroup" in configuration.metadata) {
+          setDrillDownGroup(configuration.metadata.drillDownGroup as string)
+        }
+        if ("timeSegmentationCondition" in configuration.metadata) {
+          setTimeSegmentationCondition(configuration.metadata.timeSegmentationCondition as string)
+        }
+        if ("topK" in configuration.metadata) {
+          setTopK(configuration.metadata.topK as string)
+        }
       }
     }
   }, [paragraph])
   useEffect(() => {
+    // 重新设置了Params4BackEnd
+
     // 这个 useEffect 会在 timeSelection 等状态更新后运行
     setParams4BackEnd({
       timeSelection,
@@ -137,8 +144,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   }, [paragraph])
 
   const handleDataChange = (newData: number) => {
-    // setTopK(newData)
-    console.log()
+    // setTopK(newData)\
   }
 
   if (!CardName || !paragraph || !id || !onDrop) {

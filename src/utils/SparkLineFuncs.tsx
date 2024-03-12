@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react"
 import * as d3 from "d3"
 // import { useDispatch, useSelector } from "react-redux"
+import _ from "lodash"
 import { Point, cateAndValue, highLightMessage, Metadata } from "../types"
 // import { AppState } from "../store"
-
 // const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
 // const {
 //   showDataDrivenGraphics,
@@ -381,23 +381,23 @@ export const renderCategorization1 = (
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
-  const handleHover = () => {
-    const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
-    if (curMetadata.origin) {
-      highlightMessage.message = curMetadata.origin
-    } else if (value !== undefined) highlightMessage.message = value
-    if (curMetadata.interactionType) {
-      highlightMessage.interactionType = curMetadata.interactionType
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
     }
+    highlightMessage.interactionType = "ByValue"
+
     if (setHighlightMessage) setHighlightMessage(highlightMessage)
   }
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
   let height: number
   const padding = 1
-  const slicedData = iniData.slice(0, 5)
+  const slicedData = iniData.slice(0, 7)
   const data: number[] = slicedData.map((item) => item.value)
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
@@ -443,8 +443,6 @@ export const renderCategorization1 = (
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
-    wordElement.addEventListener("mouseenter", handleHover)
-    wordElement.addEventListener("mouseleave", handleLeave)
     const rect = wordElement.getBoundingClientRect()
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
@@ -488,11 +486,28 @@ export const renderCategorization1 = (
         }
         return i === tagData ? "#3769b1" : "#cbd7ed"
       })
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1"
+            }
+            return data.indexOf(d) === tagData ? "#3769b1" : "#cbd7ed"
+          }) // 根据条件恢复原始颜色
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
-    sparkLineElement.addEventListener("mouseenter", handleHover)
-    sparkLineElement.addEventListener("mouseleave", handleLeave)
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
@@ -516,16 +531,25 @@ export const renderCategorization1 = (
         }
         return i === tagData ? "#3769b1" : "#cbd7ed"
       })
-  }
-  return () => {
-    if (wordElement) {
-      wordElement.removeEventListener("mouseenter", handleHover)
-      wordElement.removeEventListener("mouseleave", handleLeave)
-    }
-    if (sparkLineElement) {
-      sparkLineElement?.removeEventListener("mouseenter", handleHover)
-      sparkLineElement?.removeEventListener("mouseleave", handleLeave)
-    }
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1"
+            }
+            return data.indexOf(d) === tagData ? "#3769b1" : "#cbd7ed"
+          }) // 根据条件恢复原始颜色
+      })
   }
 }
 
@@ -534,13 +558,27 @@ export const renderCategorization2 = (
   tagData: number,
   aspectRatio: string,
   sparkLinePosition: string,
+  setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
 ) => {
-  let width
+  const handleHover = (message: number) => {
+    const highlightMessage: highLightMessage = {
+      hoverOrNot: true,
+      message: parseFloat(message.toFixed(2)),
+    }
+    highlightMessage.interactionType = "ByValue"
+
+    if (setHighlightMessage) setHighlightMessage(highlightMessage)
+  }
+  const handleLeave = () => {
+    if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+  }
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
   let height: number
   const padding = 1
-  const slicedData = iniData.slice(0, 5)
+  const slicedData = iniData.slice(0, 7)
   const data: number[] = slicedData.map((item) => item.value)
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
@@ -641,6 +679,25 @@ export const renderCategorization2 = (
         }
         return i === tagData ? "#3769b1" : "#cbd7ed"
       })
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1"
+            }
+            return data.indexOf(d) === tagData ? "#3769b1" : "#cbd7ed"
+          }) // 根据条件恢复原始颜色
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -667,6 +724,25 @@ export const renderCategorization2 = (
           return "#3769b1"
         }
         return i === tagData ? "#3769b1" : "#cbd7ed"
+      })
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1"
+            }
+            return data.indexOf(d) === tagData ? "#3769b1" : "#cbd7ed"
+          }) // 根据条件恢复原始颜色
       })
   }
 }
@@ -1449,8 +1525,9 @@ export const renderTemporalityTrend1 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
-  let height
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
+  let height: number
   const padding = 1.5
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
@@ -1523,6 +1600,17 @@ export const renderTemporalityTrend1 = (
     } else {
       svgD3.style("bottom", "0").style("left", "0")
     }
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
 
     svgD3
       .append("path")
@@ -1537,6 +1625,31 @@ export const renderTemporalityTrend1 = (
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
+
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
+
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
     svgD3
       .selectAll("circle")
       .data(data)
@@ -1554,22 +1667,40 @@ export const renderTemporalityTrend1 = (
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
         // console.log("debug-TemporalTrend-circle")
-        handleHover(d)
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
   // 左右放小图
   if (sparkLineElement) {
     while (sparkLineElement.firstChild) {
       sparkLineElement.removeChild(sparkLineElement.firstChild)
     }
+
     const svgD3 = d3
       .select(sparkLineElement)
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
     svgD3
       .append("path")
       .datum(data)
@@ -1583,6 +1714,31 @@ export const renderTemporalityTrend1 = (
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
+
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
+
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
     svgD3
       .selectAll("circle")
       .data(data)
@@ -1591,21 +1747,21 @@ export const renderTemporalityTrend1 = (
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
       .attr("r", 1) // size of circle for "hit area"
-      .style("opacity", (d, i) => {
-        if (i === 0 || i === data.length - 1) {
-          return 1 // 更大的半径
-        }
-        return 0 // 默认的半径大小
-      })
+
       .style("fill", "steelblue")
       .on("mouseover", (event, d) => {
         // console.log("debug-TemporalTrend-over", d)
-        handleHover(d)
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
         // console.log("debug-TemporalTrend-leave")
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
 }
 export const renderTemporalityTrend2 = (
@@ -1630,8 +1786,9 @@ export const renderTemporalityTrend2 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
-  let height
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
+  let height: number
   const padding = 1.5
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
@@ -1703,6 +1860,17 @@ export const renderTemporalityTrend2 = (
     } else {
       svgD3.style("bottom", "0").style("left", "0")
     }
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
     svgD3
       .append("defs")
       .append("linearGradient")
@@ -1746,6 +1914,31 @@ export const renderTemporalityTrend2 = (
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
+
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
+
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
     svgD3
       .selectAll("circle")
       .data(data)
@@ -1762,12 +1955,16 @@ export const renderTemporalityTrend2 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        // console.log("debug-TemporalTrend-circle")
-        handleHover(d)
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1779,6 +1976,17 @@ export const renderTemporalityTrend2 = (
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
     svgD3
       .append("defs")
       .append("linearGradient")
@@ -1822,6 +2030,31 @@ export const renderTemporalityTrend2 = (
 
     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
     // svgD3.append('g').call(yAxis)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
+
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
+
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
     svgD3
       .selectAll("circle")
       .data(data)
@@ -1837,14 +2070,17 @@ export const renderTemporalityTrend2 = (
         return 0 // 默认的半径大小
       })
       .style("fill", "steelblue")
-      .on("mouseover", (event, d) => {
-        // console.log("debug-TemporalTrend-over", d)
-        handleHover(d)
+      .on("mouseenter", (event, d) => {
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
-        // console.log("debug-TemporalTrend-leave")
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
 }
 export const renderTemporalityDifference1 = (
@@ -1870,10 +2106,11 @@ export const renderTemporalityDifference1 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
   let height: number
 
-  const padding = 1.5
+  const padding = 8
   const data: number[] = tagData.map((year) => {
     const sum = iniData
       .filter((item) => item.year === year)
@@ -1905,7 +2142,7 @@ export const renderTemporalityDifference1 = (
     width = 100
     height = 20
   }
-  const barWidth = (width - padding * 6) / data.length
+  const barWidth = (width - padding * 8) / data.length
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
@@ -1922,7 +2159,7 @@ export const renderTemporalityDifference1 = (
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data) || 0])
-    .range([height - padding, padding])
+    .range([height, 0])
 
   // xScale.domain(data.map((d, i) => i))
   // 绘制线条
@@ -1986,11 +2223,19 @@ export const renderTemporalityDifference1 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
       .attr("fill", "steelblue")
-      .on("mouseenter", (event, d) => {
-        handleHover(d)
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
       })
-      .on("mouseleave", () => {
+      .on("mouseleave", function (event, d) {
         handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
 
     // 画趋势线
@@ -2043,12 +2288,19 @@ export const renderTemporalityDifference1 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
       .attr("fill", "steelblue")
-      .on("mouseenter", (event, d) => {
-        // console.log("debug-TemporalTrend-circle")
-        handleHover(d)
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
       })
-      .on("mouseleave", () => {
+      .on("mouseleave", function (event, d) {
         handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
 
     // 画趋势线
@@ -2090,9 +2342,10 @@ export const renderTemporalityDifference2 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
+  const handleHoverThrottled = _.throttle(handleHover, 200)
   let width
   let height
-  const padding = 1.5
+  const padding = 5
   const data: number[] = tagData.map((year) => {
     const sum = iniData
       .filter((item) => item.year === year)
@@ -2133,7 +2386,7 @@ export const renderTemporalityDifference2 = (
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data) || 0])
-    .range([height - padding, padding])
+    .range([height, padding])
 
   const line = d3
     .line<number>()
@@ -2191,19 +2444,27 @@ export const renderTemporalityDifference2 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1.5) // size of circle for "hit area"
-      .style("opacity", (d, i) => {
-        if (i === 0 || i === data.length - 1) {
-          return 1 // 更大的半径
-        }
-        return 0 // 默认的半径大小
-      })
+      .attr("r", 2) // size of circle for "hit area"
+      // .style("opacity", (d, i) => {
+      //   if (i === 0 || i === data.length - 1) {
+      //     return 1 // 更大的半径
+      //   }
+      //   return 0 // 默认的半径大小
+      // })
       .style("fill", "steelblue")
-      .on("mouseenter", (event, d) => {
-        handleHover(d)
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
       })
-      .on("mouseleave", () => {
+      .on("mouseleave", function (event, d) {
         handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
   }
   // 左右放小图
@@ -2236,19 +2497,27 @@ export const renderTemporalityDifference2 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1.5) // size of circle for "hit area"
-      .style("opacity", (d, i) => {
-        if (i === 0 || i === data.length - 1) {
-          return 1 // 更大的半径
-        }
-        return 0 // 默认的半径大小
-      })
+      .attr("r", 2) // size of circle for "hit area"
+      // .style("opacity", (d, i) => {
+      //   if (i === 0 || i === data.length - 1) {
+      //     return 1 // 更大的半径
+      //   }
+      //   return 0 // 默认的半径大小
+      // })
       .style("fill", "steelblue")
-      .on("mouseenter", (event, d) => {
-        handleHover(d)
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(d)
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
       })
-      .on("mouseleave", () => {
+      .on("mouseleave", function (event, d) {
         handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
   }
 }
@@ -2597,8 +2866,9 @@ export const renderTemporalitySeasonality1 = (
   const handleLeave = () => {
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
-  let width
-  let height
+  const handleHoverThrottled = _.throttle(handleHover, 200)
+  let width: number
+  let height: number
   const padding = 1.5
   const data: number[] = iniData.map((item) => item.value)
   const allDate: string[] = iniData.map((item) => item.date as string)
@@ -2668,6 +2938,17 @@ export const renderTemporalitySeasonality1 = (
       .attr("width", width)
       .attr("height", 20)
       .style("position", "absolute")
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
     if (sparkLinePosition === "up") {
       svgD3.style("top", "0").style("left", "0")
     } else {
@@ -2690,12 +2971,32 @@ export const renderTemporalitySeasonality1 = (
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1)
       .attr("d", line)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
 
-    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
 
-    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    // svgD3.append('g').call(yAxis)
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
+
     svgD3
       .selectAll("circle")
       .data(data)
@@ -2712,12 +3013,16 @@ export const renderTemporalitySeasonality1 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        // console.log("debug-TemporalTrend-circle")
-        handleHover(d)
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2729,6 +3034,17 @@ export const renderTemporalitySeasonality1 = (
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+    const horizontalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 可以根据喜好设置颜色
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
+
+    const verticalLine = svgD3
+      .append("line")
+      .attr("stroke", "#ea5322") // 同上
+      .attr("stroke-width", 1)
+      .style("opacity", 0) // 初始时不显示
     svgD3
       .append("path")
       .datum(data)
@@ -2747,11 +3063,31 @@ export const renderTemporalitySeasonality1 = (
         .attr("opacity", 0.8)
     }
 
-    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+    const handleHoverLine = (d: number) => {
+      horizontalLine.style("opacity", 1)
+      verticalLine.style("opacity", 1)
 
-    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    // svgD3.append('g').call(yAxis)
+      const x = xScale(data.indexOf(d)) // 假设 xScale 是根据索引或者特定的值来映射的
+      const y = yScale(d)
+
+      // 更新竖线的位置
+      verticalLine
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", 0)
+        .attr("y2", height)
+        .transition() // 动画效果
+        .duration(200) // 过渡时间，单位毫秒
+
+      // 更新横线的位置
+      horizontalLine
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .transition() // 同上
+        .duration(200) // 同上
+    }
     svgD3
       .selectAll("circle")
       .data(data)
@@ -2768,11 +3104,16 @@ export const renderTemporalitySeasonality1 = (
       })
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
-        handleHover(d)
+        handleHoverThrottled(d)
+        handleHoverLine(d)
       })
       .on("mouseleave", () => {
         handleLeave()
       })
+    svgD3.on("mouseleave", () => {
+      horizontalLine.style("opacity", 0)
+      verticalLine.style("opacity", 0)
+    })
   }
 }
 

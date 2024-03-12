@@ -160,7 +160,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
     .filter((card) => allCards.includes(card.id))
     .filter((card) => card.CardName)
-  console.log("Cards", Cards)
+  // console.log("Cards", Cards)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const showModal = () => {
     setIsModalVisible(true)

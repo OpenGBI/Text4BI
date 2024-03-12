@@ -79,6 +79,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       .encode("y", "value")
       .encode("color", "gray")
       .style("lineDash", [3, 3])
+      .axis("x", { tickFilter: (_: any, i: number) => i % 5 === 0 })
     chart.interaction("elementHighlight", true)
     interactiveRef.current = chart
     chart.render()
@@ -99,6 +100,7 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       const lineY = message
       const lineX = data.find((item) => parseFloat(item.value.toFixed(2)) === message)?.date
       if (lineX && lineY) {
+        console.log("lineX && lineY", lineX, lineY)
         for (let i = interactiveRef.current.children.length - 1; i > 2; i -= 1) {
           interactiveRef.current.children[i].remove()
         }

@@ -522,6 +522,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.tagData as number,
           curAspectRatio,
           curSparkLinePosition,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -822,7 +823,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     } else if (wordRef.current && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
       const sparklines = wordRef.current.getElementsByClassName("sparklines")
       Array.from(sparklines).forEach((sparkline) => sparkline.remove())
-      console.log("sparkLineRef.current 为空")
+      // console.log("sparkLineRef.current 为空")
     } else if (sparkLineRef.current) {
       // showSparkLine 为 false 时，隐藏或移除小图
       sparkLineRef.current.style.display = "none"
@@ -930,8 +931,21 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         // </span>
       )
     }
-    if (metadata.entityType === "filter_time" && metadata.selections) {
-      return <SelectorTime defaultSelection={metadata.selections[0]} metadata={metadata} />
+    if (
+      metadata.entityType === "filter_time" &&
+      metadata.selections &&
+      metadata.paramIndex !== undefined
+    ) {
+      return (
+        <SelectorTime
+          defaultSelection={metadata.selections[0]}
+          metadata={metadata}
+          chartType={chartType}
+          paramIndex={metadata.paramIndex}
+          params4BackEnd={params4BackEnd}
+          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+        />
+      )
     }
     // // 下面是对颜色进行设置
     // // 确保 entityType 不是 undefined

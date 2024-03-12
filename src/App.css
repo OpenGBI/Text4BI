@@ -6,6 +6,9 @@
 .app-container :where(.css-dev-only-do-not-override-2i2tap).ant-layout-content {
   flex: unset;
 }
+.app-container :where(.css-2i2tap).ant-layout-content {
+  flex: unset;
+}
 
 /* .full-height {
   height: 100%; 

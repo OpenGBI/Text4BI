@@ -543,10 +543,10 @@ export const iniData: Card[] = [
           },
           {
             type: "entity",
-            value: "City",
+            value: "Country",
             metadata: {
               entityType: "filter_cate",
-              selections: ["City", "Market", "Country"],
+              selections: ["Country", "City", "Market"],
               backEndType: "drillDownGroup",
             },
           },
@@ -586,16 +586,6 @@ export const iniData: Card[] = [
             value: "18.17%",
             metadata: {
               entityType: "metric_value",
-              insightType: "Proportion",
-              origin: 0.1817,
-              detail: [0.1817, 1 - 0.1817],
-            },
-          },
-          {
-            type: "entity",
-            value: "啊啊啊",
-            metadata: {
-              entityType: "insight",
               insightType: "Proportion",
               origin: 0.1817,
               detail: [0.1817, 1 - 0.1817],

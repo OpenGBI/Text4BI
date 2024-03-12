@@ -24,13 +24,13 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({ defaultSelection, metad
   const height = `${Math.max(10, fontSizeNumber * 1.7)}px` // 根据fontsize计算width
   const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
   // console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness)
-  const fontWeightValue = entityStyles.filter_time.boldness ? "bold" : "normal"
+  const fontWeightValue = entityStyles.filter_cate.boldness ? "bold" : "normal"
   // console.log("检查fontWeightValue", fontWeightValue)
-  const fontStyleValue = entityStyles.filter_time.italics ? "italic" : "normal"
-  const textDecorationValue = entityStyles.filter_time.underline ? "underline" : "none"
-  const colorValue = entityStyles.filter_time.color
-  const backgroundColorValue = entityStyles.filter_time.backgroundColor
-  const textContourValue = entityStyles.filter_time.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
+  const fontStyleValue = entityStyles.filter_cate.italics ? "italic" : "normal"
+  const textDecorationValue = entityStyles.filter_cate.underline ? "underline" : "none"
+  const colorValue = entityStyles.filter_cate.color
+  const backgroundColorValue = entityStyles.filter_cate.backgroundColor
+  const textContourValue = entityStyles.filter_cate.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
 
   useEffect(() => {
     // 设置 CSS 变量

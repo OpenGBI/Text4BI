@@ -80,6 +80,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
     // 更新 CSS 变量以匹配 fontsize
     document.documentElement.style.setProperty("--dynamic-font-size", fontsize)
   }, [fontsize])
+
   useEffect(() => {
     document.documentElement.style.setProperty("--dynamic-font-weight", fontWeightValue)
   }, [fontWeightValue])
@@ -91,6 +92,11 @@ const SelectorInText: React.FC<SelectorProps> = ({
     // document.documentElement.style.setProperty("--dynamic-font-color", "#000") // 这里设置初始文本颜色为黑色
     // 其他必要的初始化操作...
   }, [])
+  // useEffect(() => {
+  //   // ...
+  //   document.documentElement.style.setProperty("--dynamic-text-contour", "1px solid black")
+  //   // ...
+  // }, [textContourValue])
 
   useEffect(() => {
     const fontWeightValue1 = entityStyles.filter_cate.boldness ? "bold" : "normal"

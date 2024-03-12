@@ -44,8 +44,8 @@ const ControlSelectedEntityType: React.FC = () => {
             <Option value="metric_name">metric_name</Option>
             <Option value="dim_cate">dim_cate</Option>
             <Option value="algorithm">algorithm</Option>
-            <Option value="filter_time">filter time</Option>
-            <Option value="filter_cate">filter_cate</Option>
+            {/* <Option value="filter_time">filter_time</Option> */}
+            <Option value="filter_cate">filter_phrases</Option>
             {/* <Option value="metric_value">value phrases(general)</Option>
             <Option value="delta_value">value phrases(binary)</Option>
             <Option value="metric_name">measure phrases</Option>

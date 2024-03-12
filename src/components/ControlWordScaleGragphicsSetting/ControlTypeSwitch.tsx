@@ -5,22 +5,40 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType } from "../../types"
 
-import AnomalyA from "../../icons/Anomaly_A.svg"
-import AnomalyB from "../../icons/Anomaly_B.svg"
-import AssociationA from "../../icons/Association_A.svg"
-import AssociationB from "../../icons/Association_B.svg"
-import DifferenceA from "../../icons/Difference_A.svg"
-import DifferenceB from "../../icons/Difference_B.svg"
-import DistributionA from "../../icons/Distribution_A.svg"
-import DistributionB from "../../icons/Distribution_B.svg"
-import ProportionA from "../../icons/Proportion_A.svg"
-import ProportionB from "../../icons/Proportion_B.svg"
-import RankA from "../../icons/Rank_A.svg"
-import RankB from "../../icons/Rank_B.svg"
-import SeasonalityA from "../../icons/Seasonality_A.svg"
-import SeasonalityB from "../../icons/Seasonality_B.svg"
-import TrendA from "../../icons/Trend_A.svg"
-import TrendB from "../../icons/Trend_B.svg"
+import AnomalyA from "../../utils/icons/Anomaly_A.svg"
+import AnomalyB from "../../utils/icons/Anomaly_B.svg"
+import AssociationA from "../../utils/icons/Association_A.svg"
+import AssociationB from "../../utils/icons/Association_B.svg"
+import DifferenceA from "../../utils/icons/Difference_A.svg"
+import DifferenceB from "../../utils/icons/Difference_B.svg"
+import DistributionA from "../../utils/icons/Distribution_A.svg"
+import DistributionB from "../../utils/icons/Distribution_B.svg"
+import ProportionA from "../../utils/icons/Proportion_A.svg"
+import ProportionB from "../../utils/icons/Proportion_B.svg"
+import RankA from "../../utils/icons/Rank_A.svg"
+import RankB from "../../utils/icons/Rank_B.svg"
+import SeasonalityA from "../../utils/icons/Seasonality_A.svg"
+import SeasonalityB from "../../utils/icons/Seasonality_B.svg"
+import TrendA from "../../utils/icons/Trend_A.svg"
+import TrendB from "../../utils/icons/Trend_B.svg"
+
+// 导入icon-substitute中的所有SVG
+import SubAnomalyA from "../../utils/icon-substitute/Anomaly_A.svg"
+import SubAnomalyB from "../../utils/icon-substitute/Anomaly_B.svg"
+import SubAssociationA from "../../utils/icon-substitute/Association_A.svg"
+import SubAssociationB from "../../utils/icon-substitute/Association_B.svg"
+import SubDifferenceA from "../../utils/icon-substitute/Difference_A.svg"
+import SubDifferenceB from "../../utils/icon-substitute/Difference_B.svg"
+import SubDistributionA from "../../utils/icon-substitute/Distribution_A.svg"
+import SubDistributionB from "../../utils/icon-substitute/Distribution_B.svg"
+import SubProportionA from "../../utils/icon-substitute/Proportion_A.svg"
+import SubProportionB from "../../utils/icon-substitute/Proportion_B.svg"
+import SubRankA from "../../utils/icon-substitute/Rank_A.svg"
+import SubRankB from "../../utils/icon-substitute/Rank_B.svg"
+import SubSeasonalityA from "../../utils/icon-substitute/Seasonality_A.svg"
+import SubSeasonalityB from "../../utils/icon-substitute/Seasonality_B.svg"
+import SubTrendA from "../../utils/icon-substitute/Trend_A.svg"
+import SubTrendB from "../../utils/icon-substitute/Trend_B.svg"
 
 // 定义一个接口来描述SVG图标对象的结构
 interface SVGIcons {
@@ -113,6 +131,17 @@ const ControlTypeSwitch: React.FC = () => {
     anomalyType: { a: AnomalyA, b: AnomalyB },
     seasonalityType: { a: SeasonalityA, b: SeasonalityB },
   }
+
+  const substituteSVGs: SVGIcons = {
+    distributionType: { a: SubDistributionA, b: SubDistributionB },
+    rankType: { a: SubRankA, b: SubRankB },
+    proportionType: { a: SubProportionA, b: SubProportionB },
+    associationType: { a: SubAssociationA, b: SubAssociationB },
+    trendType: { a: SubTrendA, b: SubTrendB },
+    differenceType: { a: SubDifferenceA, b: SubDifferenceB },
+    anomalyType: { a: SubAnomalyA, b: SubAnomalyB },
+    seasonalityType: { a: SubSeasonalityA, b: SubSeasonalityB },
+  }
   // // 根据typeKey和value决定使用哪个SVG图标
   // const getSVG = (typeKey: keyof SVGIcons, value: "a" | "b"): React.ReactElement => {
   //   const SVGComponent = svgs[typeKey][value]
@@ -124,8 +153,8 @@ const ControlTypeSwitch: React.FC = () => {
   // 修改renderButtonGroup函数来包含SVG图标
   const renderButtonGroup = (typeKey: keyof SVGIcons, label: string, value: "a" | "b") => {
     // 根据typeKey获取对应的SVG内容字符串
-    const SVGUrlA = svgs[typeKey].a
-    const SVGUrlB = svgs[typeKey].b
+    const SVGUrlA = value === "a" ? substituteSVGs[typeKey].a : svgs[typeKey].a
+    const SVGUrlB = value === "b" ? substituteSVGs[typeKey].b : svgs[typeKey].b
     return (
       <Row style={{ paddingTop: 6 }}>
         <Col span={10}>

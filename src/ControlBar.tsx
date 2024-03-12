@@ -25,7 +25,7 @@ import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSettin
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
 // import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
 import Navigation from "./Navigation"
-import { ReactComponent as SettingsSvg } from "./icons/settings.svg"
+import { ReactComponent as SettingsSvg } from "./utils/icons/settings.svg"
 
 const { Panel } = Collapse
 const leftSiderStyle: React.CSSProperties = {

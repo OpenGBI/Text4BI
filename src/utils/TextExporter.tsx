@@ -146,11 +146,13 @@ export async function transformHtml({
     if (exportType === "text") {
       // 过滤出类名以 'ant-space css-dev-only-do-not-override-2i2tap' 开头的div元素，这里是select元素
       const selectorElements = Array.from(allDivs).filter((div) =>
-        div.className.startsWith("ant-space css-dev-only-do-not-override-y6cdby"),
+        // div.className.startsWith("ant-space css-dev-only-do-not-override"),
+        div.className.startsWith("ant-space css-dev-only-do-not-override-1u3bnvn"),
       )
       // 过滤出类名以 'ant-space css-dev-only-do-not-override-1xg9z9n' 开头的div元素，这里是datepicker元素
       const dateSelectorElements = Array.from(allDivs).filter((div) =>
-        div.className.startsWith("ant-space css-dev-only-do-not-override-1k979oh"),
+        // div.className.startsWith("ant-space css-dev-only-do-not-override"),
+        div.className.startsWith("ant-space css-dev-only-do-not-override-1uweeqc"),
       )
       for (let l = 0; l < selectorElements.length; l += 1) {
         const selectorElement = selectorElements[l]

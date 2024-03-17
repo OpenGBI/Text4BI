@@ -5,10 +5,10 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 import { AppState } from "../../store"
 import { wordScaleGraphicsSettingStateType, GlobalSettingStateType } from "../../types"
 import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
-import RightIcon from "../../icons/right.svg"
-import LeftIcon from "../../icons/left.svg"
-import UpIcon from "../../icons/up.svg"
-import DownIcon from "../../icons/down.svg"
+import RightIcon from "../../utils/icons/right.svg"
+import LeftIcon from "../../utils/icons/left.svg"
+import UpIcon from "../../utils/icons/up.svg"
+import DownIcon from "../../utils/icons/down.svg"
 
 const ControlSparkLinePos: React.FC = () => {
   const buttonIcons = {

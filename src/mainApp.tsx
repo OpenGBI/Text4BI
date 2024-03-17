@@ -49,7 +49,7 @@ function MainApp() {
   }
   useEffect(() => {
     const initialSettings = saveSettings()
-    console.log("1检查初始Settings saved", initialSettings)
+    // console.log("1检查初始Settings saved", initialSettings)
     // Use fetch to send the settings object to your backend
     fetch("http://localhost:5000/saveInitialSettings", {
       method: "POST",
@@ -60,7 +60,7 @@ function MainApp() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("传回初始数据Success!")
+        // console.log("传回初始数据Success!")
         // alert("Settings saved successfully.")
       })
       .catch((error) => {

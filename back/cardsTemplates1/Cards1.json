@@ -17,7 +17,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -28,7 +28,7 @@
             "type": "entity",
             "value": "Profit",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -56,7 +56,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -67,7 +67,7 @@
             "type": "entity",
             "value": "Profit",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -5822,7 +5822,7 @@
             "type": "entity",
             "value": "positive",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "positive"
             }
           },
@@ -5834,7 +5834,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "significant"
             }
           }
@@ -11598,7 +11598,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -11641,7 +11641,7 @@
             "type": "entity",
             "value": " Sales ",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29052,7 +29052,7 @@
             "type": "entity",
             "value": "sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29068,7 +29068,7 @@
             "type": "entity",
             "value": "United States",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29101,7 +29101,7 @@
             "type": "entity",
             "value": "Australia",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29195,7 +29195,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29206,7 +29206,7 @@
             "type": "entity",
             "value": "City",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -29222,7 +29222,7 @@
             "type": "entity",
             "value": "sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29509,7 +29509,7 @@
             "type": "entity",
             "value": "New York City",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -29761,7 +29761,7 @@
             "type": "entity",
             "value": "Los Angeles",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -30013,7 +30013,7 @@
             "type": "entity",
             "value": "Manila",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           },
           {
@@ -30510,7 +30510,7 @@
             "type": "entity",
             "value": "sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -30556,7 +30556,7 @@
             "type": "entity",
             "value": "",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "positive"
             }
           },
@@ -31888,7 +31888,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -31928,7 +31928,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "significant"
             }
           },
@@ -33094,7 +33094,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -33134,7 +33134,7 @@
             "type": "entity",
             "value": "12",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "anomaly"
             }
           },
@@ -34097,7 +34097,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -34120,7 +34120,7 @@
             "type": "entity",
             "value": "6235.21",
             "metadata": {
-              "entityType": "delta_value",
+              "entityType": "binary_value",
               "origin": 6235.21
             }
           }
@@ -34137,7 +34137,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -34160,7 +34160,7 @@
             "type": "entity",
             "value": "4995.34.",
             "metadata": {
-              "entityType": "delta_value",
+              "entityType": "binary_value",
               "origin": 4995.34
             }
           }
@@ -34177,7 +34177,7 @@
             "type": "entity",
             "value": "Sales",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -34200,7 +34200,7 @@
             "type": "entity",
             "value": "6732.64",
             "metadata": {
-              "entityType": "delta_value",
+              "entityType": "binary_value",
               "origin": 6732.64
             }
           }
@@ -35154,7 +35154,7 @@
             "type": "entity",
             "value": "Profit",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
@@ -35165,7 +35165,7 @@
             "type": "entity",
             "value": "Year",
             "metadata": {
-              "entityType": "dim_cate"
+              "entityType": "metric_names"
             }
           }
         ]
@@ -35205,14 +35205,14 @@
             "type": "entity",
             "value": "profit ",
             "metadata": {
-              "entityType": "metric_name"
+              "entityType": "metric_names"
             }
           },
           {
             "type": "entity",
             "value": "increased ",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "increase"
             }
           },
@@ -35224,7 +35224,7 @@
             "type": "entity",
             "value": "23.49% ",
             "metadata": {
-              "entityType": "delta_value_ratio",
+              "entityType": "binary_value",
               "assessment": "positive"
             }
           },

@@ -14,7 +14,7 @@ import { AppState, store } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
 import { Card, sentence, highLightMessage, ConfigurationSentence } from "../types"
-import { ReactComponent as ShareSvg } from "../icons/share.svg"
+import { ReactComponent as ShareSvg } from "../utils/icons/share.svg"
 
 const CARD_DRAG_TYPE = "CARD"
 
@@ -145,28 +145,28 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     }
     return nowSettings
   }
-  // useEffect(() => {
-  //   // console.log("2检查trigger", trigger)
-  //   const nowSettings = saveSettings()
-  //   // setSettings(nowSettings)
-  //   console.log("检查导出单张卡片时的Settings", nowSettings)
-  //   // Use fetch to send the settings object to your backend
-  //   fetch("http://localhost:5000/saveModifiedSettings", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(nowSettings),
-  //   })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     console.log("传回导出单张卡片的全局状态", data)
-  //     // alert("Settings saved successfully.")
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error)
-  //   })
-  // }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
+  useEffect(() => {
+    // console.log("2检查trigger", trigger)
+    const nowSettings = saveSettings()
+    // setSettings(nowSettings)
+    // console.log("检查导出单张卡片时的Settings", nowSettings)
+    // Use fetch to send the settings object to your backend
+    fetch("http://localhost:5000/saveModifiedSettings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(nowSettings),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("传回导出单张卡片的全局状态", data)
+      // alert("Settings saved successfully.")
+    })
+    .catch((error) => {
+      console.error("Error:", error)
+    })
+  }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
 
   // ref.current
   const handleCurBigChart = (curBigChart1: Chart | null) => {

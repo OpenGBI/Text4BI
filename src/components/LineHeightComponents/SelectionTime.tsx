@@ -45,13 +45,13 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
     (state: AppState) => state.typographySetting,
   )
   // console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness)
-  const fontWeightValue = entityStyles.filter_time.boldness ? "bold" : "normal"
+  const fontWeightValue = entityStyles.filter_cate.boldness ? "bold" : "normal"
   // console.log("检查fontWeightValue", fontWeightValue)
-  const fontStyleValue = entityStyles.filter_time.italics ? "italic" : "normal"
-  const textDecorationValue = entityStyles.filter_time.underline ? "underline" : "none"
-  const colorValue = entityStyles.filter_time.color
-  const backgroundColorValue = entityStyles.filter_time.backgroundColor
-  const textContourValue = entityStyles.filter_time.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
+  const fontStyleValue = entityStyles.filter_cate.italics ? "italic" : "normal"
+  const textDecorationValue = entityStyles.filter_cate.underline ? "underline" : "none"
+  const colorValue = entityStyles.filter_cate.color
+  const backgroundColorValue = entityStyles.filter_cate.backgroundColor
+  const textContourValue = entityStyles.filter_cate.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
   const backComm = (curParams: Metadata4Configuration, curChartType: string) => {
     fetch("http://localhost:5000/".concat(curChartType), {
       method: "POST",
@@ -89,8 +89,10 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     // curParams = { ...params4BackEnd, drillDownGroup: value }
     const curTimeSelection = { ...params4BackEnd }.timeSelection
+    // console.log("111", typeof curTimeSelection)
     if (curTimeSelection) {
-      curTimeSelection[paramIndex] = dateString
+      const dateStrings = dateString as string
+      curTimeSelection[paramIndex] = dateStrings
       paramsFuncs4BackEnd.setTimeSelection(curTimeSelection)
     }
     const curParams = { ...params4BackEnd, timeSelection: curTimeSelection }

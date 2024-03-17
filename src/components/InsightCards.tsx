@@ -13,7 +13,7 @@ import { ChangeSystemSetting } from "../actions/systemAction"
 import { systemStateType, Card } from "../types"
 import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter"
 // import { fetchDataset } from "../actions/systemAction"
-import { ReactComponent as ShareSvg } from "../icons/share.svg"
+import { ReactComponent as ShareSvg } from "../utils/icons/share.svg"
 
 const { Header, Footer, Sider, Content } = Layout
 interface InsightCardsProps {
@@ -89,14 +89,14 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       },
       body: JSON.stringify(nowSettings),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("传回修改数据Success!")
-        // alert("Settings saved successfully.")
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-      })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("返回setting修改数据", data)
+      // alert("Settings saved successfully.")
+    })
+    .catch((error) => {
+      console.error("Error:", error)
+    })
   }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
 
   // useEffect(() => {

@@ -401,8 +401,9 @@ export const iniData: Card[] = [
             metadata: { entityType: "dim_cate", interactionType: "ByValue" },
           },
           {
-            type: "text",
-            value: ": ",
+            type: "entity",
+            value: "80万",
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           // {
           //   type: 'entity',
@@ -427,15 +428,17 @@ export const iniData: Card[] = [
       {
         type: "bullet",
         phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "entity", value: "DAU", metadata: { entityType: "metric_names" } },
+          { type: "text", value: " " },
           {
             type: "entity",
             value: "Los Angeles",
             metadata: { entityType: "dim_cate", interactionType: "ByValue" },
           },
           {
-            type: "text",
-            value: ": ",
+            type: "entity",
+            value: "80万",
+            metadata: { entityType: "binary_value", assessment: "positive" },
           },
           // {
           //   type: 'entity',

@@ -29,7 +29,7 @@ def changeProportion(timeSelection,drillDownGroup):
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'bullet']
     for i in range(0,len(topics)):
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'dim_cate':
+            if phrase.get('metadata', {}).get('entityType') == 'metric_names':
                 phrase["value"]=export_json["data"][i]["category"]
                 break
         for phrase in topics[i]['phrases']:

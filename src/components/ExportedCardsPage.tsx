@@ -97,6 +97,8 @@ const ExportedCardsAsPage: React.FC = () => {
   )
   const cardRefs = iniData.map(() => useRef<HTMLDivElement>(null))
   const { dataset, selectedCards, allCards } = useSelector((state: AppState) => state.system)
+  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  console.log("检查样式值", selectedEntityType, entityStyles[selectedEntityType].boldness, entityStyles[selectedEntityType].underline, entityStyles[selectedEntityType].italics)
   // 解析查询参数以获取key值
   const queryParams = new URLSearchParams(location.search)
   const generatedKey = queryParams.get("key")
@@ -125,53 +127,50 @@ const ExportedCardsAsPage: React.FC = () => {
       }
       throw new Error("Network response was not ok.") // 如果响应状态码不在200-299范围内，抛出错误
     })
-.then((data) => {
-  if (isMounted) {
-    console.log("检查返回的数据", data) // 在控制台打印获取到的数据
-    Object.entries(data).forEach(([stateKey, settings]) => {
-      switch (stateKey) {
-        case "globalSettingState":
-          Object.entries(settings as GlobalSettingState).forEach(([key, value]) => {
-            dispatch(ChangeGlobalSetting({
-              ...globalSetting,
-              [key]: value },
-            ))
-          })
-          break
-        case "typographySettingState":
-          Object.entries(settings as TypographySettingState).forEach(([key, value]) => {
-            dispatch(ChangeTypographySetting({
-              ...typographySetting,
-              [key]: value },
-            ))
-          })
-          break
-        case "wordScaleGraphicsSettingState":
-          Object.entries(settings as WordScaleGraphicsSettingState).forEach(([key, value]) => {
-            dispatch(ChangeWordScaleGraphicsSetting({
-              ...wordScaleGraphicsSetting,
-              [key]: value },
-            ))
-          })
-          break
-        default:
-          console.log(`No action defined for ${stateKey}`)
-      }
+    .then((data) => {
+      if (isMounted) {
+        console.log("返回setting比较数据", data) // 在控制台打印获取到的数据
+        Object.entries(data).forEach(([stateKey, settings]) => {
+          switch (stateKey) {
+            case "globalSettingState":
+              Object.entries(settings as GlobalSettingState).forEach(([key, value]) => {
+                dispatch(ChangeGlobalSetting({
+                  ...globalSetting,
+                  [key]: value },
+                ))
+              })
+              break
+            case "typographySettingState":
+              Object.entries(settings as TypographySettingState).forEach(([key, value]) => {
+                dispatch(ChangeTypographySetting({
+                  ...typographySetting,
+                  [key]: value },
+                ))
+              })
+              break
+            case "wordScaleGraphicsSettingState":
+              Object.entries(settings as WordScaleGraphicsSettingState).forEach(([key, value]) => {
+                dispatch(ChangeWordScaleGraphicsSetting({
+                  ...wordScaleGraphicsSetting,
+                  [key]: value },
+                ))
+              })
+              break
+            default:
+              console.log(`No action defined for ${stateKey}`)
+          }
+        })
+        setIsDataLoaded(true) // 移动到这里，确保所有设置处理后再更新状态
+        console.log()
+      } // 如果组件已经卸载，就不再更新状态
     })
-    // setIsDataLoaded(true) // 移动到这里，确保所有设置处理后再更新状态
-  } // 如果组件已经卸载，就不再更新状态
-})
     .catch((error) => {
       console.error("There has been a problem with your fetch operation:", error)
     })
     return () => {
       isMounted = false // 当组件卸载时，修改标志
     }
-  }, [dispatch, generatedKey])
-
-  // if (!isDataLoaded) {
-  //   return <div>Loading settings...</div>
-  // }
+  }, [generatedKey])
 
   const cardNumbers = selectedCards.map((card) => {
     const match = card.match(/\d+/) // 正则表达式匹配数字
@@ -219,6 +218,9 @@ const ExportedCardsAsPage: React.FC = () => {
   }
   const handleCancel = () => {
     setIsModalVisible(false)
+  }
+  if (!isDataLoaded) {
+    return <div>Loading settings...</div>
   }
   return (
     <div className="panel3">

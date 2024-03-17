@@ -5,7 +5,7 @@
     "BigChartData": [2, 4, 55, 77, 99],
     "phrasesLists": [
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -24,7 +24,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -46,7 +46,7 @@
         { "type": "text", "value": "按垂直行业分：" }
       ],
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -57,7 +57,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -86,7 +86,7 @@
     "BigChartData": [2, 4, 55, 7, 99],
     "phrasesLists": [
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -97,7 +97,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -119,7 +119,7 @@
         { "type": "text", "value": "按垂直行业分：" }
       ],
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -130,7 +130,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -159,7 +159,7 @@
     "BigChartData": [2, 2, 2, 2, 99],
     "phrasesLists": [
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -170,7 +170,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -192,7 +192,7 @@
         { "type": "text", "value": "按垂直行业分：" }
       ],
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -203,7 +203,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -232,7 +232,7 @@
     "BigChartData": [333, 4, 55, 7, 99],
     "phrasesLists": [
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -243,7 +243,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -265,7 +265,7 @@
         { "type": "text", "value": "按垂直行业分：" }
       ],
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -276,7 +276,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -305,7 +305,7 @@
     "BigChartData": [2, 222, 55, 222, 99],
     "phrasesLists": [
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -316,7 +316,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {
@@ -338,7 +338,7 @@
         { "type": "text", "value": "按垂直行业分：" }
       ],
       [
-        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_name" } },
+        { "type": "entity", "value": "DAU", "metadata": { "entityType": "metric_names" } },
         { "type": "text", "value": " " },
         {
           "type": "entity",
@@ -349,7 +349,7 @@
         {
           "type": "entity",
           "value": "80万",
-          "metadata": { "entityType": "delta_value", "assessment": "positive" }
+          "metadata": { "entityType": "binary_value", "assessment": "positive" }
         },
         { "type": "text", "value": "（" },
         {

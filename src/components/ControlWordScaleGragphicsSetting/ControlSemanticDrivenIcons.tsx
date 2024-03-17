@@ -274,12 +274,9 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                   onChange={handlePrimaryChange}
                 >
                   <Option value="metric_value">value phrases(general)</Option>
-                  <Option value="delta_value">value phrases(binary)</Option>
-                  <Option value="insight_desc">value phrases(binary)</Option>
-                  <Option value="metric_name">measure phrases</Option>
-                  <Option value="dim_cate">measure phrases</Option>
+                  <Option value="binary_value">value phrases(binary)</Option>
+                  <Option value="metric_names">measure phrases</Option>
                   <Option value="algorithm">method phrases</Option>
-                  <Option value="filter_time">filter phrases</Option>
                   <Option value="filter_cate">filter phrases</Option>
                 </Select>
               </Col>

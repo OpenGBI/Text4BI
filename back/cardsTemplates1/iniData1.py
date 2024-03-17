@@ -20,7 +20,7 @@ data = [
           {
             "type": "entity",
             "value": "Sales",
-            "metadata": { "entityType": "metric_name" },
+            "metadata": { "entityType": "metric_names" },
           },
         ],
       },
@@ -55,7 +55,7 @@ data = [
           {
             "type": "entity",
             "value": " Sales ",
-            "metadata": { "entityType": "metric_name" },
+            "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
@@ -222,13 +222,13 @@ data = [
           {
             "type": "entity",
             "value": "Profit",
-            "metadata": { "entityType": "metric_name" },
+            "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
             "value": "Year",
-            "metadata": { "entityType": "dim_cate" },
+            "metadata": { "entityType": "metric_names" },
           },
         ],
       },
@@ -252,18 +252,18 @@ data = [
           {
             "type": "entity",
             "value": "profit ",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           {
             "type": "entity",
             "value": "increased ",
-            "metadata": { "entityType": "insight_desc", "assessment": "increase" },
+            "metadata": { "entityType": "binary_value", "assessment": "increase" },
           },
           { "type": "text", "value": "by " },
           {
             "type": "entity",
             "value": "23.49% ",
-            "metadata": { "entityType": "delta_value_ratio", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value", "assessment": "positive" },
           },
           {
             "type": "entity",
@@ -320,13 +320,13 @@ data = [
           {
             "type": "entity",
             "value": "Sales",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
             "value": "City",
-            "metadata": { "entityType": "dim_cate", "interactionType": "x-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
@@ -339,7 +339,7 @@ data = [
           {
             "type": "entity",
             "value": "sales",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
@@ -390,7 +390,7 @@ data = [
           {
             "type": "entity",
             "value": "New York City",
-            "metadata": { "entityType": "dim_cate", "interactionType": "ByValue" },
+            "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
             "type": "text",
@@ -419,7 +419,7 @@ data = [
           {
             "type": "entity",
             "value": "Los Angeles",
-            "metadata": { "entityType": "dim_cate", "interactionType": "ByValue" },
+            "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
             "type": "text",
@@ -448,7 +448,7 @@ data = [
           {
             "type": "entity",
             "value": "Manila",
-            "metadata": { "entityType": "dim_cate", "interactionType": "ByValue" },
+            "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
             "type": "text",
@@ -537,7 +537,7 @@ data = [
           {
             "type": "entity",
             "value": "sales",
-            "metadata": { "entityType": "metric_name" },
+            "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
@@ -554,7 +554,7 @@ data = [
           {
             "type": "entity",
             "value": "United States",
-            "metadata": { "entityType": "dim_cate" },
+            "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
@@ -593,7 +593,7 @@ data = [
           {
             "type": "entity",
             "value": "Australia",
-            "metadata": { "entityType": "dim_cate" },
+            "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
@@ -642,13 +642,13 @@ data = [
           {
             "type": "entity",
             "value": "Sales",
-            "metadata": { "entityType": "metric_name", "interactionType": "x-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
           {
             "type": "entity",
             "value": "Profit",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
       },
@@ -672,13 +672,13 @@ data = [
           {
             "type": "entity",
             "value": "Sales",
-            "metadata": { "entityType": "metric_name", "interactionType": "x-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
           {
             "type": "entity",
             "value": "Profit",
-            "metadata": { "entityType": "metric_name", "interactionType": "y-axis" },
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " equals " },
           {
@@ -695,14 +695,14 @@ data = [
           {
             "type": "entity",
             "value": "positive",
-            "metadata": { "entityType": "insight_desc", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value", "assessment": "positive" },
           },
           { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
           {
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "insight_desc",
+              "entityType": "binary_value",
               "assessment": "significant",
               "interactionType": "Association Regression",
             },

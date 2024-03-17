@@ -2192,12 +2192,7 @@ export const renderTemporalityDifference1 = (
   let height: number
 
   const padding = 8
-  const data: number[] = tagData.map((year) => {
-    const sum = iniData
-      .filter((item) => item.year === year)
-      .reduce((acc, item) => acc + item.value, 0)
-    return sum
-  })
+  const data: number[] = iniData.map((item) => item.value)
 
   // console.log(
   //   "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
@@ -2433,15 +2428,16 @@ export const renderTemporalityDifference2 = (
     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
   }
   const handleHoverThrottled = _.throttle(handleHover, 200)
-  let width
-  let height
-  const padding = 5
-  const data: number[] = tagData.map((year) => {
-    const sum = iniData
-      .filter((item) => item.year === year)
-      .reduce((acc, item) => acc + item.value, 0)
-    return sum
-  })
+  let width: number
+  let height: number
+
+  const padding = 8
+  const data: number[] = iniData.map((item) => item.value)
+
+  // console.log(
+  //   "renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1renderTemporalityDifference1",
+  //   data,
+  // )
   // 1:1 2.75:1 4:1
   if (aspectRatio === "1:1") {
     width = 20
@@ -2471,6 +2467,7 @@ export const renderTemporalityDifference2 = (
     width = 100
     height = 20
   }
+  const barWidth = (width - padding * 8) / data.length
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
     children.forEach((child) => {
@@ -2482,20 +2479,20 @@ export const renderTemporalityDifference2 = (
     .scaleLinear()
     .domain([0, data.length])
     .range([padding, width - padding])
+
+  // 定义Y比例尺
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data) || 0])
-    .range([height, padding])
-
-  const line = d3
-    .line<number>()
-    .x((d, i) => xScale(i))
-    .y((d) => yScale(d))
+    .range([height, 0])
+  const maxValueIndex = data.indexOf(Math.max(...data))
+  const minValueIndex = data.indexOf(Math.min(...data))
+  const minValue = Math.min(...data)
+  const diff = Math.max(...data) - minValue // 最大值和最小值的差
 
   // 上下放小图
   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
     const rect = wordElement.getBoundingClientRect()
-    // console.log(rect)
     const newDiv = document.createElement("span")
     newDiv.setAttribute("data-highlight-color-name", "red")
     newDiv.classList.add("sparklines")
@@ -2524,35 +2521,18 @@ export const renderTemporalityDifference2 = (
     }
 
     svgD3
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1)
-      .attr("d", line)
-
-    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
-
-    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    // svgD3.append('g').call(yAxis)
-    svgD3
-      .selectAll("circle")
-      .data(data)
+      .selectAll(".minBar")
+      .data([minValueIndex, maxValueIndex])
       .enter()
-      .append("circle")
-      .attr("cx", (d, i) => xScale(i))
-      .attr("cy", (d) => yScale(d))
-      .attr("r", 2) // size of circle for "hit area"
-      // .style("opacity", (d, i) => {
-      //   if (i === 0 || i === data.length - 1) {
-      //     return 1 // 更大的半径
-      //   }
-      //   return 0 // 默认的半径大小
-      // })
-      .style("fill", "steelblue")
+      .append("rect")
+      .attr("class", "minBar")
+      .attr("x", (d) => xScale(d))
+      .attr("y", (d) => yScale(minValue))
+      .attr("width", barWidth)
+      .attr("height", (d) => height - yScale(minValue))
+      .attr("fill", "steelblue")
       .on("mouseenter", function (event, d) {
-        handleHoverThrottled(d)
+        handleHoverThrottled(data[d])
         d3.select(this)
           .transition() // 可选：添加一个平滑的过渡效果
           .duration(150) // 过渡效果的持续时间，单位为毫秒
@@ -2565,6 +2545,37 @@ export const renderTemporalityDifference2 = (
           .duration(150) // 过渡效果的持续时间，单位为毫秒
           .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
+
+    // 在最大值位置的上方绘制一个红色柱子，表示最大值和最小值的差
+    svgD3
+      .append("rect")
+      .attr("x", xScale(maxValueIndex))
+      .attr("y", (d) => yScale(Math.max(...data)))
+      .attr("width", barWidth)
+      .attr("height", (d) => yScale(minValue) - yScale(Math.max(...data)))
+      .attr("fill", "#ea5322")
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(data[maxValueIndex])
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 根据条件恢复原始颜色
+      })
+    svgD3
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", yScale(minValue))
+      .attr("x2", width * 0.8)
+      .attr("y2", yScale(minValue))
+      .style("stroke", "steelblue")
+      .style("stroke-dasharray", "3, 3") // 设置为虚线
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2577,35 +2588,18 @@ export const renderTemporalityDifference2 = (
       .attr("width", width)
       .attr("height", height)
     svgD3
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1)
-      .attr("d", line)
-
-    // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
-    // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
-
-    // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
-    // svgD3.append('g').call(yAxis)
-    svgD3
-      .selectAll("circle")
-      .data(data)
+      .selectAll(".minBar")
+      .data([minValueIndex, maxValueIndex])
       .enter()
-      .append("circle")
-      .attr("cx", (d, i) => xScale(i))
-      .attr("cy", (d) => yScale(d))
-      .attr("r", 2) // size of circle for "hit area"
-      // .style("opacity", (d, i) => {
-      //   if (i === 0 || i === data.length - 1) {
-      //     return 1 // 更大的半径
-      //   }
-      //   return 0 // 默认的半径大小
-      // })
-      .style("fill", "steelblue")
+      .append("rect")
+      .attr("class", "minBar")
+      .attr("x", (d) => xScale(d))
+      .attr("y", (d) => yScale(minValue))
+      .attr("width", barWidth)
+      .attr("height", (d) => height - yScale(minValue))
+      .attr("fill", "steelblue")
       .on("mouseenter", function (event, d) {
-        handleHoverThrottled(d)
+        handleHoverThrottled(data[d])
         d3.select(this)
           .transition() // 可选：添加一个平滑的过渡效果
           .duration(150) // 过渡效果的持续时间，单位为毫秒
@@ -2618,8 +2612,263 @@ export const renderTemporalityDifference2 = (
           .duration(150) // 过渡效果的持续时间，单位为毫秒
           .style("fill", "steelblue") // 根据条件恢复原始颜色
       })
+
+    // 在最大值位置的上方绘制一个红色柱子，表示最大值和最小值的差
+    svgD3
+      .append("rect")
+      .attr("x", xScale(maxValueIndex))
+      .attr("y", (d) => yScale(Math.max(...data)))
+      .attr("width", barWidth)
+      .attr("height", (d) => yScale(minValue) - yScale(Math.max(...data)))
+      .attr("fill", "#ea5322")
+      .on("mouseenter", function (event, d) {
+        handleHoverThrottled(data[maxValueIndex])
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 改变颜色为红色
+      })
+      .on("mouseleave", function (event, d) {
+        handleLeave()
+        d3.select(this)
+          .transition() // 可选：添加一个平滑的过渡效果
+          .duration(150) // 过渡效果的持续时间，单位为毫秒
+          .style("fill", "#ea5322") // 根据条件恢复原始颜色
+      })
+    svgD3
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", yScale(minValue))
+      .attr("x2", width * 0.8)
+      .attr("y2", yScale(minValue))
+      .style("stroke", "steelblue")
+      .style("stroke-dasharray", "3, 3") // 设置为虚线
   }
 }
+// export const renderTemporalityDifference2 = (
+//   iniData: cateAndValue[],
+//   aspectRatio: string,
+//   sparkLinePosition: string,
+//   tagData: number[],
+//   curMetadata: Metadata,
+//   value: string | number | undefined,
+//   setHighlightMessage?: (message: highLightMessage) => void,
+//   wordElement?: HTMLSpanElement,
+//   sparkLineElement?: HTMLSpanElement,
+// ) => {
+//   const handleHover = (message: number) => {
+//     const highlightMessage: highLightMessage = {
+//       hoverOrNot: true,
+//       message: parseFloat(message.toFixed(2)),
+//     }
+//     highlightMessage.interactionType = "ByValue"
+
+//     if (setHighlightMessage) setHighlightMessage(highlightMessage)
+//   }
+//   const handleLeave = () => {
+//     if (setHighlightMessage) setHighlightMessage({ message: "", hoverOrNot: false })
+//   }
+//   const handleHoverThrottled = _.throttle(handleHover, 200)
+//   let width
+//   let height
+//   const padding = 5
+//   // const data: number[] = tagData.map((year) => {
+//   //   const sum = iniData
+//   //     .filter((item) => item.year === year)
+//   //     .reduce((acc, item) => acc + item.value, 0)
+//   //   return sum
+//   // })
+//   const data: number[] = iniData.map((item) => item.value)
+//   // 1:1 2.75:1 4:1
+//   if (aspectRatio === "1:1") {
+//     width = 20
+//     height = 20
+//   } else if (aspectRatio === "2:1") {
+//     width = 50
+//     height = 20
+//   } else if (aspectRatio === "4:1") {
+//     width = 100
+//     height = 20
+//   } else if (aspectRatio === "4:3") {
+//     width = 27
+//     height = 20
+//   } else if (aspectRatio === "16:9") {
+//     width = 36
+//     height = 20
+//   } else if (aspectRatio === "6:1") {
+//     width = 120
+//     height = 20
+//   } else if (aspectRatio === "8:1") {
+//     width = 160
+//     height = 20
+//   } else if (aspectRatio === "10:1") {
+//     width = 200
+//     height = 20
+//   } else {
+//     width = 100
+//     height = 20
+//   }
+//   if (wordElement) {
+//     const children = wordElement.querySelectorAll(":scope > .sparklines")
+//     children.forEach((child) => {
+//       wordElement.removeChild(child)
+//     })
+//   }
+
+//   const xScale = d3
+//     .scaleLinear()
+//     .domain([0, data.length])
+//     .range([padding, width - padding])
+//   const yScale = d3
+//     .scaleLinear()
+//     .domain([0, d3.max(data) || 0])
+//     .range([height, padding])
+
+//   const line = d3
+//     .line<number>()
+//     .x((d, i) => xScale(i))
+//     .y((d) => yScale(d))
+
+//   // 上下放小图
+//   if (wordElement && (sparkLinePosition === "up" || sparkLinePosition === "down")) {
+//     const rect = wordElement.getBoundingClientRect()
+//     // console.log(rect)
+//     const newDiv = document.createElement("span")
+//     newDiv.setAttribute("data-highlight-color-name", "red")
+//     newDiv.classList.add("sparklines")
+//     newDiv.style.position = "absolute"
+//     if (sparkLinePosition === "up") {
+//       newDiv.style.top = "-20px"
+//       newDiv.style.left = "0px"
+//     } else {
+//       newDiv.style.top = "0px"
+//       newDiv.style.left = "0px"
+//     }
+
+//     newDiv.style.width = `${rect.width + 20}px`
+//     newDiv.style.height = `${rect.height + 20}px`
+//     wordElement.appendChild(newDiv)
+//     const svgD3 = d3
+//       .select(newDiv)
+//       .append("svg")
+//       .attr("width", rect.width)
+//       .attr("height", 20)
+//       .style("position", "absolute")
+//     if (sparkLinePosition === "up") {
+//       svgD3.style("top", "0").style("left", "0")
+//     } else {
+//       svgD3.style("bottom", "0").style("left", "0")
+//     }
+
+//     svgD3
+//       .append("path")
+//       .datum(data)
+//       .attr("fill", "none")
+//       .attr("stroke", "steelblue")
+//       .attr("stroke-width", 1)
+//       .attr("d", line)
+
+//     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+//     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+//     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+//     // svgD3.append('g').call(yAxis)
+//     svgD3
+//       .selectAll("circle")
+//       .data(data)
+//       .enter()
+//       .append("circle")
+//       .attr("cx", (d, i) => xScale(i))
+//       .attr("cy", (d) => yScale(d))
+//       .attr("r", 2) // size of circle for "hit area"
+//       // .style("opacity", (d, i) => {
+//       //   if (i === 0 || i === data.length - 1) {
+//       //     return 1 // 更大的半径
+//       //   }
+//       //   return 0 // 默认的半径大小
+//       // })
+//       .style("fill", "steelblue")
+//       .on("mouseenter", function (event, d) {
+//         handleHoverThrottled(d)
+//         d3.select(this)
+//           .transition() // 可选：添加一个平滑的过渡效果
+//           .duration(150) // 过渡效果的持续时间，单位为毫秒
+//           .style("fill", "#ea5322") // 改变颜色为红色
+//       })
+//       .on("mouseleave", function (event, d) {
+//         handleLeave()
+//         d3.select(this)
+//           .transition() // 可选：添加一个平滑的过渡效果
+//           .duration(150) // 过渡效果的持续时间，单位为毫秒
+//           .style("fill", "steelblue") // 根据条件恢复原始颜色
+//       })
+//   }
+//   // 左右放小图
+//   if (sparkLineElement) {
+//     while (sparkLineElement.firstChild) {
+//       sparkLineElement.removeChild(sparkLineElement.firstChild)
+//     }
+//     console.log("debug-differenceData", data)
+//     const svgD3 = d3
+//       .select(sparkLineElement)
+//       .append("svg")
+//       .attr("width", width)
+//       .attr("height", height)
+//     svgD3
+//       .selectAll(".bar")
+//       .data([300, 200])
+//       .enter()
+//       .append("rect")
+//       .attr("class", "bar")
+//       .attr("x", (d, i) => xScale(i))
+//       .attr("y", (d) => yScale(d))
+//       .attr("width", xScale.bandwidth())
+//       .attr("height", (d) => height - y(d))
+//       .attr("fill", (d, i) => (i === 0 ? "red" : "blue"))
+//     // svgD3
+//     //   .append("path")
+//     //   .datum(data)
+//     //   .attr("fill", "none")
+//     //   .attr("stroke", "steelblue")
+//     //   .attr("stroke-width", 1)
+//     //   .attr("d", line)
+
+//     // const xAxis = d3.axisBottom(xScale).ticks(data.length).tickSize(-2)
+//     // const yAxis = d3.axisLeft(yScale).ticks(5).tickSize(-2)
+
+//     // svgD3.append('g').call(xAxis).attr('transform', `translate(0, ${height})`)
+//     // svgD3.append('g').call(yAxis)
+//     // svgD3
+//     //   .selectAll("circle")
+//     //   .data(data)
+//     //   .enter()
+//     //   .append("circle")
+//     //   .attr("cx", (d, i) => xScale(i))
+//     //   .attr("cy", (d) => yScale(d))
+//     //   .attr("r", 2) // size of circle for "hit area"
+//     // .style("opacity", (d, i) => {
+//     //   if (i === 0 || i === data.length - 1) {
+//     //     return 1 // 更大的半径
+//     //   }
+//     //   return 0 // 默认的半径大小
+//     // })
+//     // .style("fill", "steelblue")
+//     // .on("mouseenter", function (event, d) {
+//     //   handleHoverThrottled(d)
+//     //   d3.select(this)
+//     //     .transition() // 可选：添加一个平滑的过渡效果
+//     //     .duration(150) // 过渡效果的持续时间，单位为毫秒
+//     //     .style("fill", "#ea5322") // 改变颜色为红色
+//     // })
+//     // .on("mouseleave", function (event, d) {
+//     //   handleLeave()
+//     //   d3.select(this)
+//     //     .transition() // 可选：添加一个平滑的过渡效果
+//     //     .duration(150) // 过渡效果的持续时间，单位为毫秒
+//     //     .style("fill", "steelblue") // 根据条件恢复原始颜色
+//     // })
+//   }
+// }
 export const renderTemporalityAnomaly1 = (
   iniData: cateAndValue[],
   aspectRatio: string,

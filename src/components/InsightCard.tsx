@@ -130,7 +130,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const systemState = useSelector((state: AppState) => state.system)
   const globalSettingState = useSelector((state: AppState) => state.globalSetting)
   const typographySettingState = useSelector((state: AppState) => state.typographySetting)
-  const wordScaleGraphicsSettingState = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const wordScaleGraphicsSettingState = useSelector(
+    (state: AppState) => state.wordScaleGraphicsSetting,
+  )
 
   // 进行和后端的通信
   // Function to compile the state slices and send them to the backend
@@ -190,8 +192,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     isLineBreakOn,
     bulletPointStyle,
   } = useSelector((state: AppState) => state.globalSetting)
-  const { boldness, underline, italics, contour, color, backgroundColor } =
-    useSelector((state: AppState) => state.typographySetting)
+  const { boldness, underline, italics, contour, color, backgroundColor } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -221,7 +224,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     console.log("单张卡片的富文本内容已复制到剪贴板。")
   }
 
-    // 这个函数返回当前应用的状态
+  // 这个函数返回当前应用的状态
   const getAppState = () => {
     // 从store获取当前状态
     const currentState = store.getState()
@@ -301,7 +304,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         const state = JSON.stringify(getAppState()) // 序列化你的应用状态
         const newWindow = window.open("", "_blank")
         if (newWindow) {
-          newWindow.document.write(`<html><head><style>${css}</style></head><body>${html}<script>${state}</script><script>${js}</script></body></html>`)
+          newWindow.document.write(
+            `<html><head><style>${css}</style></head><body>${html}<script>${state}</script><script>${js}</script></body></html>`,
+          )
           newWindow.document.title = "导出的内容"
         } else {
           alert("无法打开新窗口。请检查您的弹出窗口设置。")
@@ -561,7 +566,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         />
       ))
     }
-    if (curSentence.type === "normal" || curSentence.type === "bullet") {
+    if (
+      curSentence.type === "normal" ||
+      (curSentence.type === "bullet" && curSentence.show !== "no")
+    ) {
       return curSentence.phrases.map((phrase, index) => (
         <PhraseComponent
           key={index}
@@ -761,7 +769,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         <ShareSvg
           // ref={buttonRef} // 将 ref 关联到按钮
           onClick={showModal}
-          style={{ cursor: "pointer", fontSize: "20px", position: "absolute", top: 9, right: 30, display: showButtons ? "block" : "none" }}
+          style={{
+            cursor: "pointer",
+            fontSize: "20px",
+            position: "absolute",
+            top: 9,
+            right: 30,
+            display: showButtons ? "block" : "none",
+          }}
         />
       </Tooltip>
       <Modal

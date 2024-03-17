@@ -23,6 +23,10 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   // const { semanticBindingEntityType } = useSelector((state: AppState) => state.typographySetting)
 
   // ... (previous states and functions)
+
+  const [symbol1Null, setSymbol1Null] = useState(true)
+  const [symbol2Null, setSymbol2Null] = useState(true)
+
   const [isSemanticDrivenIconsOn, setIsSemanticDrivenIconsOn] = useState(true)
   const [semanticsAbsolutePosition, setSemanticsAbsolutePosition] = useState("sentenceStart")
   const [selectedSymbol1, setSelectedSymbol1] = useState("null")
@@ -60,6 +64,12 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   }
 
   const handleSymbol1Change = (symbol: string) => {
+    // console.log("debug-symbol1", symbol)
+    if (symbol === "null") {
+      setSymbol1Null(true)
+    } else {
+      setSymbol1Null(false)
+    }
     setSelectedSymbol1(symbol)
     setDropdownDisplay1(symbol)
     dispatch(
@@ -84,6 +94,11 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   }
 
   const handleSymbol2Change = (symbol: string) => {
+    if (symbol === "null") {
+      setSymbol2Null(true)
+    } else {
+      setSymbol2Null(false)
+    }
     setSelectedSymbol2(symbol)
     dispatch(
       ChangeWordScaleGraphicsSetting({
@@ -137,7 +152,10 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       <div
         style={{
           width: "100%",
-          display: globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
+          display:
+            globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn
+              ? "block"
+              : "none",
         }}
       >
         <Row className="control-row">
@@ -181,7 +199,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                 </Col>
                 <Col span={14} style={{ display: "flex", width: "50%" }}>
                   <Button.Group>
-                  {/* <Button
+                    {/* <Button
                     className={`custom-btn ${selectedSymbol1 === "null" ? "active" : ""}`}
                     onClick={() => handleSymbol1Change("null")}
                     style={{ width: `${buttoWidth1}px`, textAlign: "center" }}
@@ -199,7 +217,13 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         icon={
                           <SvgIcon svgContent={absoluteIcon[semanticsAbsolutePosition][symbol]} />
                         }
-                        style={{ width: `${buttoWidth1}px`, display: "inline-flex", textAlign: "left", justifyContent: "center", alignItems: "center" }}
+                        style={{
+                          width: `${buttoWidth1}px`,
+                          display: "inline-flex",
+                          textAlign: "left",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
                       >
                         {symbol === "null" ? "null" : null}
                       </Button>
@@ -218,7 +242,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         </Option>
                       ))}
                     </Select> */}
-                    <ImportIcon IconSpecies="absolute" />
+                    <ImportIcon IconSpecies="absolute" disabled={symbol1Null} />
                   </Button.Group>
                 </Col>
               </Row>
@@ -231,7 +255,10 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       <div
         style={{
           width: "100%",
-          display: globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn ? "block" : "none",
+          display:
+            globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn
+              ? "block"
+              : "none",
         }}
       >
         <Row className="control-row">
@@ -284,7 +311,13 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         setDropdownDisplay2(symbol) // 点击按钮后重置下拉框显示
                       }}
                       icon={<SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />}
-                      style={{ width: `${buttoWidth1}px`, display: "inline-flex", textAlign: "left", justifyContent: "center", alignItems: "center" }}
+                      style={{
+                        width: `${buttoWidth1}px`,
+                        display: "inline-flex",
+                        textAlign: "left",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
                       {symbol === "null" ? "null" : null}
                     </Button>
@@ -303,7 +336,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                       </Option>
                     ))}
                   </Select> */}
-                  <ImportIcon IconSpecies="entity" />
+                  <ImportIcon IconSpecies="entity" disabled={symbol2Null} />
                 </Button.Group>
               </Col>
             </Row>

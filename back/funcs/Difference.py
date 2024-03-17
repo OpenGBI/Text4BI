@@ -55,7 +55,7 @@ def changeDifference(timeSelection):
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'insight':             
                 phrase["value"]="("+str(round(data_export[0]["value"],2))+" → "+str(round(data_export[1]["value"],2))+")"
-                phrase["detail"]=data_export
-                
+                phrase["metadata"]["detail"]=data_export
+    print(data_export)
     return iniData
 

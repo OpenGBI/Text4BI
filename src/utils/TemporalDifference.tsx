@@ -21,12 +21,12 @@ const Difference: React.FC<DifferenceProps> = ({
 }) => {
   const containerRef = React.useRef(null)
   const interactiveRef = React.useRef<Chart | null>(null)
-  const data = tagData.map((year) => {
-    const value = iniData
-      .filter((item) => item.year === year)
-      .reduce((acc, item) => acc + item.value, 0)
-    return { year, value }
-  })
+  // const data = tagData.map((year) => {
+  //   const value = iniData
+  //     .filter((item) => item.year === year)
+  //     .reduce((acc, item) => acc + item.value, 0)
+  //   return { year, value }
+  // })
   React.useEffect(() => {
     if (!containerRef.current) return
 
@@ -68,8 +68,8 @@ const Difference: React.FC<DifferenceProps> = ({
     chart.interaction("elementHighlight", true)
     chart
       .interval()
-      .data(data)
-      .encode("x", "year")
+      .data(iniData)
+      .encode("x", "category")
       .encode("y", "value")
       .state("active", { fill: "#4B91FF" })
       .state("inactive", { opacity: 0.5 })
@@ -97,7 +97,7 @@ const Difference: React.FC<DifferenceProps> = ({
     if (interactionType === "ByValue") {
       const isString = (value: any) => typeof value === "string" || value instanceof String
 
-      const highlightData = find(data, (item: cateAndValue) => {
+      const highlightData = find(iniData, (item: cateAndValue) => {
         if (isString(message)) {
           return item.category === message
         }

@@ -10,6 +10,7 @@ from funcs.Difference import changeDifference
 from funcs.TemporalTrend import changeTemporalTrend
 from funcs.TemporalPeriodly import changeTemporalPeriodly
 from utils.getDistributionData import get_distribution_data
+from funcs.TemporalAnomaly import changeTemporalAnomaly
 # from github import Github # 导入GitHub库
 
 app = Flask(__name__)
@@ -57,7 +58,7 @@ def get_distribution_data():
     res = changeDistribution(timeSelection)
     print("get data")
     return jsonify(res)
-@app.route('/Difference', methods=['POST'])
+@app.route('/TemporalDifference', methods=['POST'])
 def get_difference_data():
     print("start Distribution")
     data = request.json  
@@ -87,7 +88,7 @@ def get_proportion_data():
     print("get data")
     return jsonify(res)
 
-@app.route('/TemporalPeriodly', methods=['POST'])
+@app.route('/TemporalPeriodicity', methods=['POST'])
 def get_TemporalPeriodly_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
@@ -100,12 +101,15 @@ def get_TemporalPeriodly_data():
     res = changeTemporalPeriodly(timeSegmentationCondition)
     print("get data")
     return jsonify(res)
+
 @app.route('/TemporalTrend', methods=['POST'])
 def get_TemporalTrend_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
     timeSelection = data.get('timeSelection')
     chartType=data.get("chartType")
+    print(timeSegmentationCondition)
+    print(timeSelection)
     # get_distribution_data(start_time,end_time)
     # with open('./cardsTemplates/Cards2.json', 'r') as file:
     #     # 加载JSON数据
@@ -114,7 +118,19 @@ def get_TemporalTrend_data():
     print("get data")
     return jsonify(res)
 
-    return jsonify(data)
+@app.route('/TemporalAnomaly', methods=['POST'])
+def get_TemporalAnomaly_data():
+    data = request.json  
+    timeSegmentationCondition = data.get('timeSegmentationCondition')
+    chartType=data.get("chartType")
+    print(timeSegmentationCondition)
+    # get_distribution_data(start_time,end_time)
+    # with open('./cardsTemplates/Cards2.json', 'r') as file:
+    #     # 加载JSON数据
+    #     data = json.load(file)
+    res = changeTemporalAnomaly(timeSegmentationCondition)
+    print("get data")
+    return jsonify(res)
 
 @app.route('/saveInitialSettings', methods=['POST'])
 def save_initial_settings_data():

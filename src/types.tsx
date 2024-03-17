@@ -53,6 +53,7 @@ export type NormalSentence = {
 
 export type BulletSentence = {
   type: "bullet"
+  show?: string
   phrases: Phrase[]
 }
 

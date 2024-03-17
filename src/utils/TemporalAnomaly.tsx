@@ -1,5 +1,6 @@
 import React from "react"
 import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
+import * as d3 from "d3"
 import { cateAndValue } from "../types"
 import { highlightAxis, noHighlightElement } from "./HighLightElement"
 
@@ -28,6 +29,124 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
   const containerRef = React.useRef(null)
   const interactiveRef = React.useRef<Chart | null>(null)
 
+  // React.useEffect(() => {
+  //   if (!containerRef.current || !data || data.length === 0) return
+  //   const svg = d3
+  //     .select(containerRef.current)
+  //     .append("svg")
+  //     .attr("width", 600)
+  //     .attr("height", 400)
+  //     .style("position", "absolute")
+
+  //   // 清除之前的绘图
+  //   svg.selectAll("*").remove()
+
+  //   const margin = { top: 20, right: 30, bottom: 30, left: 50 }
+  //   const width = 600 - margin.left - margin.right
+  //   const height = 400 - margin.top - margin.bottom
+
+  //   // 确保domain为有效值
+  //   const dateExtent = d3.extent(data, (d) => new Date(d.date))
+  //   if (!dateExtent[0] || !dateExtent[1]) {
+  //     // 如果dateExtent不包含有效的日期，不继续执行
+  //     console.error("Invalid date extent:", dateExtent)
+  //     return
+  //   }
+
+  //   const x = d3.scaleTime().domain(dateExtent).range([0, width])
+
+  //   const maxValue = d3.max(data, (d) => d.value) || 0 // 如果d3.max返回undefined，则默认使用0
+  //   const y = d3.scaleLinear().domain([0, maxValue]).range([height, 0])
+
+  //   const line = d3
+  //     .line<cateAndValue>()
+  //     .x((d) => x(new Date(d.date))) // 使用函数获取每个点的X坐标
+  //     .y((d) => y(d.value)) // 使用函数获取每个点的Y坐标
+
+  //   svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`)
+
+  //   // 绘制X轴
+  //   svg
+  //     .append("g")
+  //     .attr("transform", `translate(${margin.left},${height + margin.top})`)
+  //     .call(d3.axisBottom(x))
+
+  //   // 绘制Y轴
+  //   svg
+  //     .append("g")
+  //     .attr("transform", `translate(${margin.left},${margin.top})`)
+  //     .call(d3.axisLeft(y))
+
+  //   // 绘制折线图
+  //   svg
+  //     .append("path")
+  //     .datum(data)
+  //     .attr("fill", "none")
+  //     .attr("stroke", "steelblue")
+  //     .attr("stroke-width", 1.5)
+  //     .attr("d", line)
+  //     .attr("transform", `translate(${margin.left},${margin.top})`)
+
+  //   // const plotData = data.map((value, index) => ({
+  //   //   date: index + 1,
+  //   //   value,
+  //   // }))
+
+  //   // const chart = new Chart({
+  //   //   container: containerRef.current,
+  //   //   autoFit: true,
+  //   //   height: 400,
+  //   //   width: 600,
+  //   // })
+  //   // console.log("debug-TemporalAnomaly", data)
+
+  //   // chart.data(data)
+  //   // // .axis("y", { title: false }).scale("x", { type: "linear", tickCount: 10 })
+  //   // chart
+  //   //   .area()
+  //   //   .encode("x", "date")
+  //   //   .encode("y", ["min", "max"])
+  //   //   .encode("shape", "smooth")
+  //   //   .style("stroke", "#f8d6b8")
+  //   //   // .style('lineWidth', 0)
+  //   //   .style("fillOpacity", 0.65)
+  //   //   .style("fill", "#fef5ea")
+  //   //   .style("lineWidth", 1)
+
+  //   // chart
+  //   //   .point()
+  //   //   .encode("x", "date")
+  //   //   .encode("y", "value")
+  //   //   .encode("size", 2)
+  //   //   .encode("shape", "point")
+  //   //   .tooltip("value")
+  //   //   .style("fill", "red")
+  //   //   .style("fillOpacity", (datum: cateAndValue, i: number) =>
+  //   //     datum.category === "abnormal" ? 1 : 0,
+  //   //   )
+
+  //   // chart
+  //   //   .line()
+  //   //   .encode("x", "date")
+  //   //   .encode("y", "value")
+  //   //   .encode("color", "#5a85c4")
+  //   //   .encode("shape", "smooth")
+
+  //   // chart
+  //   //   .line()
+  //   //   .encode("x", "date")
+  //   //   .encode("y", "predict")
+  //   //   .encode("color", "#f2a15d")
+  //   //   .encode("shape", "smooth")
+  //   //   .axis("x", { tickFilter: (_: any, i: number) => i % 5 === 0 })
+  //   // interactiveRef.current = chart
+
+  //   // chart.render()
+
+  //   // return () => {
+  //   //   chart.destroy()
+  //   // }
+  // }, [data])
   React.useEffect(() => {
     if (!containerRef.current) return
 

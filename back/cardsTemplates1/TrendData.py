@@ -1,4 +1,4 @@
-TrendDataData = {
+TrendData = {
   "data": [
     { "date": "2011-01-01", "value": 808.563, "category": "real" },
     { "date": "2011-01-02", "value": 314.22, "category": "real" },

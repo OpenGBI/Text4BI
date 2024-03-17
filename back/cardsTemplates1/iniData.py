@@ -7,7 +7,7 @@ from cardsTemplates1.DifferenceData import DifferenceData
 from cardsTemplates1.DistributionData import DistributionData
 from cardsTemplates1.PeriodicityData import PeriodicityData
 from cardsTemplates1.ProportionData import ProportionData
-from cardsTemplates1.TrendData import TrendDataData
+from cardsTemplates1.TrendData import TrendData
 iniData = [
     {
     "CardName": "Card1",
@@ -774,8 +774,8 @@ iniData = [
             "metadata": {
               "entityType": "insight",
               "insightType": "TemporalityTrend",
-              "detail": TrendDataData["data"],
-              "tagData": TrendDataData["predictData"],
+              "detail": TrendData["data"],
+              "tagData": TrendData["predictData"],
             },
           },
           { "type": "text", "value": " trend in " },
@@ -821,10 +821,10 @@ iniData = [
           { "type": "text", "value": "until " },
           {
             "type": "entity",
-            "value": "January 01, 2012",
+            "value": "January 10, 2012",
             "metadata": {
               "entityType": "filter_time",
-              "selections": ["2012-01-01"],
+              "selections": ["2012-01-10"],
               "paramIndex": 0,
             },
           },
@@ -835,15 +835,15 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalTrend",
         "metadata": {
-          "detail": TrendDataData["data"]+ TrendDataData["predictData"] ,
-          "tagData": TrendDataData["tagData"] ,
+          "detail": TrendData["data"]+ TrendData["predictData"] ,
+          "tagData": TrendData["tagData"] ,
         },
       },
       {
         "type": "configuration",
         "chartType": "TemporalTrend",
         "metadata": {
-          "timeSelection": ["2012-01-01"],
+          "timeSelection": ["2012-01-10"],
           "timeSegmentationCondition": "365 days",
         },
       },
@@ -884,14 +884,14 @@ iniData = [
             "value": "365 days",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["365 days", "2 years", "3 years", "4 years"],
+              "selections": ["365 days", "30 days", "7 days"],
               "backEndType": "timeSegmentationCondition",
             },
           },
           { "type": "text", "value": " , there are " },
           {
             "type": "entity",
-            "value": "12",
+            "value": "9",
             "metadata": { "entityType": "binary_value", "assessment": "anomaly" },
           },
           {
@@ -1000,7 +1000,7 @@ iniData = [
         "type": "configuration",
         "chartType": "TemporalAnomaly",
         "metadata": {
-          "timeSegmentationCondition": "4 years",
+          "timeSegmentationCondition": "365 days",
         },
       },
     ],
@@ -1041,7 +1041,7 @@ iniData = [
             "value": "4 years",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["4 years", "3 years", "2 years", "365 days"],
+              "selections": ["4 years", "3 years", "2 years"],
               "backEndType": "timeSegmentationCondition",
             },
           },

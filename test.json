@@ -1,0 +1,172 @@
+{
+  "CardName": "Card7",
+  "paragraph": [
+    {
+      "type": "topic",
+      "phrases": [
+        { "type": "CardTitle", "value": "Temporal Anomaly" },
+        { "type": "text", "value": " Anomaly detection of " },
+        {
+          "type": "entity",
+          "value": "Sales",
+          "metadata": { "entityType": "metric_names", "interactionType": "y-axis" }
+        }
+      ]
+    },
+    {
+      "type": "normal",
+      "phrases": [
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+        { "type": "text", "value": "According to the " },
+        {
+          "type": "entity",
+          "value": "Confidence interval method ",
+          "metadata": {
+            "entityType": "algorithm",
+            "origin": "Local trends were first estimated using LOWESS (Locally Weighted Scatterplot Smoothing) by weighting the neighboring data points near each data point to get the predicted values and confidence intervals were calculated to get the outliers."
+          }
+        },
+        { "type": "text", "value": ", in the past " },
+        {
+          "type": "entity",
+          "value": "365 days",
+          "metadata": {
+            "entityType": "filter_cate",
+            "selections": ["365 days", "30 days", "7 days"],
+            "backEndType": "timeSegmentationCondition"
+          }
+        },
+        { "type": "text", "value": " , there are " },
+        {
+          "type": "entity",
+          "value": 0,
+          "metadata": { "entityType": "binary_value", "assessment": "anomaly" }
+        },
+        {
+          "type": "entity",
+          "value": " anomalies",
+          "metadata": { "entityType": "insight", "insightType": "TemporalityAnomaly", "detail": [] }
+        },
+        { "type": "text", "value": " 2 seasons are identified, and the average period is " },
+        {
+          "type": "entity",
+          "value": "365 ",
+          "metadata": { "entityType": "metric_value", "origin": 365 }
+        },
+        { "type": "text", "value": "days. " },
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } }
+      ]
+    },
+    {
+      "type": "bullet",
+      "phrases": [
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+        { "type": "text", "value": "2011-12-20" },
+        {
+          "type": "entity",
+          "value": "Sales",
+          "metadata": { "entityType": "metric_names", "interactionType": "y-axis" }
+        },
+        { "type": "text", "value": " = " },
+        {
+          "type": "entity",
+          "value": "21881.93",
+          "metadata": {
+            "entityType": "metric_value",
+            "origin": 21881.93,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "text", "value": "exceeding the baseline " },
+        {
+          "type": "entity",
+          "value": "11203.89",
+          "metadata": {
+            "entityType": "binary_value",
+            "assessment": "positive",
+            "origin": 11203.89,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } }
+      ],
+      "show": "no"
+    },
+    {
+      "type": "bullet",
+      "phrases": [
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+        { "type": "text", "value": " 2011-10-27, " },
+        {
+          "type": "entity",
+          "value": "Sales",
+          "metadata": { "entityType": "metric_names", "interactionType": "y-axis" }
+        },
+        { "type": "text", "value": " = " },
+        {
+          "type": "entity",
+          "value": "17289.69 ",
+          "metadata": {
+            "entityType": "metric_value",
+            "origin": 17289.69,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "text", "value": "exceeding the baseline " },
+        {
+          "type": "entity",
+          "value": "4995.34.",
+          "metadata": {
+            "entityType": "binary_value",
+            "assessment": "positive",
+            "origin": 4995.34,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } }
+      ],
+      "show": "no"
+    },
+    {
+      "type": "bullet",
+      "phrases": [
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+        { "type": "text", "value": " 2011-10-06, " },
+        {
+          "type": "entity",
+          "value": "Sales",
+          "metadata": { "entityType": "metric_names", "interactionType": "y-axis" }
+        },
+        { "type": "text", "value": " = " },
+        {
+          "type": "entity",
+          "value": "17289.69 ",
+          "metadata": {
+            "entityType": "metric_value",
+            "origin": 17289.69,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "text", "value": "exceeding the baseline " },
+        {
+          "type": "entity",
+          "value": "6732.64",
+          "metadata": {
+            "entityType": "binary_value",
+            "assessment": "positive",
+            "origin": 6732.64,
+            "interactionType": "ByValue"
+          }
+        },
+        { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } }
+      ],
+      "show": "no"
+    },
+    { "type": "plot", "chartType": "TemporalAnomaly", "metadata": { "detail": [] } },
+    {
+      "type": "configuration",
+      "chartType": "TemporalAnomaly",
+      "metadata": { "timeSegmentationCondition": "365 days" }
+    }
+  ]
+}

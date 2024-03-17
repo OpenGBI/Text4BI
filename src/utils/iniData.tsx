@@ -194,7 +194,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "6567.82",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Distribution",
               detail: DistributionData.data,
             },
@@ -857,10 +857,10 @@ export const iniData: Card[] = [
           { type: "text", value: "until " },
           {
             type: "entity",
-            value: "January 01, 2012",
+            value: "January 10, 2012",
             metadata: {
               entityType: "filter_time",
-              selections: ["2012-01-01"],
+              selections: ["2012-01-10"],
               paramIndex: 0,
             },
           },
@@ -879,7 +879,7 @@ export const iniData: Card[] = [
         type: "configuration",
         chartType: "TemporalTrend",
         metadata: {
-          timeSelection: ["2012-01-01"],
+          timeSelection: ["2012-01-10"],
           timeSegmentationCondition: "365 days",
         },
       },
@@ -920,14 +920,14 @@ export const iniData: Card[] = [
             value: "365 days",
             metadata: {
               entityType: "filter_cate",
-              selections: ["365 days", "2 years", "3 years", "4 years"],
+              selections: ["365 days", "30 days", "7 days"],
               backEndType: "timeSegmentationCondition",
             },
           },
           { type: "text", value: " , there are " },
           {
             type: "entity",
-            value: "12",
+            value: "9",
             metadata: { entityType: "binary_value", assessment: "anomaly" },
           },
           {
@@ -1051,7 +1051,7 @@ export const iniData: Card[] = [
         type: "configuration",
         chartType: "TemporalAnomaly",
         metadata: {
-          timeSegmentationCondition: "4 years",
+          timeSegmentationCondition: "365 days",
         },
       },
     ],
@@ -1093,7 +1093,7 @@ export const iniData: Card[] = [
             value: "4 years",
             metadata: {
               entityType: "filter_cate",
-              selections: ["4 years", "3 years", "2 years", "365 days"],
+              selections: ["4 years", "3 years", "2 years"],
               backEndType: "timeSegmentationCondition",
             },
           },

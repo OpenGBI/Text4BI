@@ -21,12 +21,12 @@ def changeDistribution(timeSelection):
     # 组合最终的JSON对象
     export_json = {"data": data_export}
     
-    max_value = np.max(grouped_data['Sales'])
-    min_value = np.min(grouped_data['Sales'])
-    mean_value = np.mean(grouped_data['Sales'])
-    median_value = np.median(grouped_data['Sales'])
+    max_value = np.max(grouped_data['Sales']).astype(float).round(2)
+    min_value = np.min(grouped_data['Sales']).astype(float).round(2)
+    mean_value = np.mean(grouped_data['Sales']).astype(float).round(2)
+    median_value = np.median(grouped_data['Sales']).astype(float).round(2)
     quantiles = np.percentile(grouped_data['Sales'], [25, 50, 75])
-    variance = np.std(grouped_data['Sales'])
+    variance = np.std(grouped_data['Sales']).astype(float).round(2)
     outliers = calculate_outliers(grouped_data['Sales'])
     
     target=0
@@ -69,14 +69,14 @@ def changeDistribution(timeSelection):
     for phrase in topics[1]['phrases']:
         if phrase.get('metadata', {}).get('entityType') == 'metric_value':
             if count==0:
-                phrase["metadata"]["origin"]=quantiles[0]
-                phrase["value"]=str(quantiles[0])
+                phrase["metadata"]["origin"]=quantiles[0].astype(float).round(2)
+                phrase["value"]=str(quantiles[0].astype(float).round(2))
             if count==1:
-                phrase["metadata"]["origin"]=quantiles[1]
-                phrase["value"]=str(quantiles[1])
-            if count==1:
-                phrase["metadata"]["origin"]=quantiles[2]
-                phrase["value"]=str(quantiles[2])
+                phrase["metadata"]["origin"]=quantiles[1].astype(float).round(2)
+                phrase["value"]=str(quantiles[1].astype(float).round(2))
+            if count==2:
+                phrase["metadata"]["origin"]=quantiles[2].astype(float).round(2)
+                phrase["value"]=str(quantiles[2].astype(float).round(2))
             count+=1
     count=0
     for phrase in topics[2]['phrases']:
@@ -89,7 +89,7 @@ def changeDistribution(timeSelection):
             phrase["value"]=str(variance)
             phrase["metadata"]["detail"]=data_export
 
-    print(target)
+    # print(target)
 
     return iniData
 

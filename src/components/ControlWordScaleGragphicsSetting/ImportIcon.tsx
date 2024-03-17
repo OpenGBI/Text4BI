@@ -7,8 +7,9 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 
 type ImportIconProps = {
   IconSpecies: string
+  disabled: boolean
 }
-const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies }) => {
+const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, disabled }) => {
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -66,6 +67,7 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies }) => {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
+    disabled,
   }
   return (
     <Upload {...props}>

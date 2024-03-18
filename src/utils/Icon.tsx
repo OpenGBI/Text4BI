@@ -26,7 +26,7 @@ const Icon: React.FC<IconProps> = ({ assessment, style }) => {
   if (
     (graphicsSignificance === false &&
       (assessment === "significant" || assessment === "insignificant")) ||
-    (graphicsDirection === false && (assessment === "increase" || assessment === "decrease")) ||
+    (graphicsDirection === false && (assessment === "increase" || assessment === "decrease" || assessment === "positive" || assessment === "negative")) ||
     (graphicsAnomaly === false && (assessment === "anomaly" || assessment === "outlier"))
   ) {
     return null // 不渲染图标

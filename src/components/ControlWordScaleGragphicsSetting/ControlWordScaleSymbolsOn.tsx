@@ -11,26 +11,30 @@ const ControlWordScaleSymbolsOn: React.FC = () => {
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
   const [isSymbolsOn, setIsSymbolsOn] = useState(true)
-  const changeDataDrivenGraphics = (checked: boolean) => {
-    dispatch(
-      ChangeWordScaleGraphicsSetting({
-        ...wordScaleGraphicsSetting,
-        showWordScaleChartsOn: checked,
-        graphicsSignificance: checked,
-        graphicsDirection: checked,
-        graphicsAnomaly: checked,
-      }),
-    )
-  }
   const handleSymbolsOn = (checked: boolean) => {
     setIsSymbolsOn(checked)
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         showWordScaleSymbolsOn: checked,
+        showDataDrivenSymbols: checked,
+        graphicsSignificance: checked,
+        graphicsDirection: checked,
+        graphicsAnomaly: checked,
         isSemanticDrivenIconsOn: checked,
         selectedSymbol1: "null",
         selectedSymbol2: "null",
+      }),
+    )
+  }
+  const changeDataDrivenIcons = (checked: boolean) => {
+    dispatch(
+      ChangeWordScaleGraphicsSetting({
+        ...wordScaleGraphicsSetting,
+        showDataDrivenSymbols: checked,
+        graphicsSignificance: checked,
+        graphicsDirection: checked,
+        graphicsAnomaly: checked,
       }),
     )
   }
@@ -46,7 +50,7 @@ const ControlWordScaleSymbolsOn: React.FC = () => {
             <Col span={14}>
               <Switch
                 checked={
-                  globalSetting.showSparkLine && wordScaleGraphicsSetting.isSemanticDrivenIconsOn
+                  globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn
                 }
                 onChange={handleSymbolsOn}
               />
@@ -54,15 +58,15 @@ const ControlWordScaleSymbolsOn: React.FC = () => {
           </Row>
         </div>
       </Row>
-      <div className="control-panel">
+      <div className="control-panel" style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn ? "block" : "none" }}>
         <Row align="middle">
           <Col span={10} className="control-label-layer2">
             Data-Driven
           </Col>
           <Col span={14}>
             <Switch
-              checked={globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn}
-              onChange={changeDataDrivenGraphics}
+              checked={globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn && wordScaleGraphicsSetting.showDataDrivenSymbols}
+              onChange={changeDataDrivenIcons}
             />
           </Col>
         </Row>

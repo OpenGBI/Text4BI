@@ -47,7 +47,7 @@ const ControlWordScaleChartsOn: React.FC = () => {
             </Col>
             <Col span={14}>
               <Switch
-                checked={wordScaleGraphicsSetting.showWordScaleChartsOn}
+                checked={globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn}
                 onChange={changeDataDrivenCharts}
               />
             </Col>
@@ -56,19 +56,19 @@ const ControlWordScaleChartsOn: React.FC = () => {
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlAspectRatio />
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlSparkLinePos />
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlTypeSwitch />
       </Row>

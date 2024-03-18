@@ -138,7 +138,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   )
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn ? "block" : "none" }}>
       {/* Semantic-driven 开关 */}
       <Row className="control-row">
         <div className="control-panel">

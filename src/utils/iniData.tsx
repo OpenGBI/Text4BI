@@ -70,9 +70,10 @@ export const iniData: Card[] = [
             type: "entity",
             value: " left-skewed ",
             metadata: {
-              entityType: "insight",
+              entityType: "binary_value",
               insightType: "Distribution",
               detail: DistributionData.data,
+              assessment: "left-skewed",
             },
           },
           {
@@ -415,7 +416,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "256368.16",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 0, // 标记第几个数据高亮
@@ -449,7 +450,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "175851.34",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 1, // 标记第几个数据高亮
@@ -483,7 +484,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "120886.95",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 2, // 标记第几个数据高亮
@@ -517,7 +518,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "119540.742",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 3, // 标记第几个数据高亮
@@ -551,7 +552,7 @@ export const iniData: Card[] = [
             type: "entity",
             value: "112669.092",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Categorization",
               detail: Category11.data,
               tagData: 4, // 标记第几个数据高亮
@@ -880,10 +881,11 @@ export const iniData: Card[] = [
             type: "entity",
             value: "increased",
             metadata: {
-              entityType: "insight",
+              entityType: "binary_value",
               insightType: "TemporalityTrend",
               detail: TrendData11.data as cateAndValue[],
               tagData: TrendData11.predictData as cateAndValue[],
+              assessment: "increase",
             },
           },
           { type: "text", value: " trend in " },
@@ -1225,10 +1227,10 @@ export const iniData: Card[] = [
             type: "entity",
             value: "256368.16",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "TemporalitySeasonality",
               detail: PeriodicityData.data,
-              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+              tagData: PeriodicityData.tagData1, // 标记第几个数据高亮
             },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
@@ -1260,10 +1262,10 @@ export const iniData: Card[] = [
             type: "entity",
             value: "256368.16",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "TemporalitySeasonality",
               detail: PeriodicityData.data,
-              tagData: PeriodicityData.tagData, // 标记第几个数据高亮
+              tagData: PeriodicityData.tagData2, // 标记第几个数据高亮
             },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },

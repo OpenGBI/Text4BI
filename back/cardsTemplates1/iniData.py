@@ -66,9 +66,10 @@ iniData = [
             "type": "entity",
             "value": " left-skewed ",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "binary_value",
               "insightType": "Distribution",
               "detail": DistributionData["data"],
+              "assessment":"left-skewed"
             },
           },
           {
@@ -402,7 +403,7 @@ iniData = [
             "type": "entity",
             "value": "256368.16",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": CategoryData["data"],
               "tagData": 0, 
@@ -431,7 +432,7 @@ iniData = [
             "type": "entity",
             "value": "175851.34",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": CategoryData["data"],
               "tagData": 1, 
@@ -461,7 +462,7 @@ iniData = [
             "type": "entity",
             "value": "119540.742",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": CategoryData["data"],
               "tagData": 3, 
@@ -491,7 +492,7 @@ iniData = [
             "type": "entity",
             "value": "112669.092",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": CategoryData["data"],
               "tagData": 4, 
@@ -521,7 +522,7 @@ iniData = [
             "type": "entity",
             "value": "120886.95",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": CategoryData["data"],
               "tagData": 2, 
@@ -835,10 +836,11 @@ iniData = [
             "type": "entity",
             "value": "increased",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "binary_value",
               "insightType": "TemporalityTrend",
               "detail": TrendData["data"],
               "tagData": TrendData["predictData"],
+              "assessment": "increase",
             },
           },
           { "type": "text", "value": " trend in " },
@@ -1155,10 +1157,10 @@ iniData = [
             "type": "entity",
             "value": "256368.16",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalitySeasonality",
               "detail": PeriodicityData["data"],
-              "tagData": PeriodicityData["tagData"], 
+              "tagData": PeriodicityData["tagData1"], 
             },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -1188,7 +1190,7 @@ iniData = [
               "entityType": "insight",
               "insightType": "TemporalitySeasonality",
               "detail": PeriodicityData["data"],
-              "tagData": PeriodicityData["tagData"], 
+              "tagData": PeriodicityData["tagData2"], 
             },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },

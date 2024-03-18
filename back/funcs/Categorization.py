@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from cardsTemplates1.iniData import iniData
 # 读取Global Superstore的CSV文件
 data = pd.read_csv(r'./Datasets/Global Superstore.csv')
-def changeCategorization(drillDownGroup):
+def changeCategorization(drillDownGroup,topk):
     grouped_by = data.groupby(drillDownGroup)['Sales'].sum().reset_index().sort_values(by='Sales', ascending=False)
     total_sales_sum = grouped_by['Sales'].sum()
     data_export = [{"category": row[drillDownGroup], "value": row.Sales} for _, row in grouped_by.iterrows()][:7]
@@ -32,13 +32,17 @@ def changeCategorization(drillDownGroup):
     #修改bullet point
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'bullet']
     for i in range(0,len(topics)):
+        if(i>=int(topk)):
+            topics[i]["show"]="no"
+        else:
+            topics[i]["show"]="yes"
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'metric_names':
                 phrase["value"]=export_json["data"][i]["category"]
                 break
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'insight':
-                phrase["value"]=str(round(export_json["data"][i]["value"]/total_sales_sum*100,2))+"%"
+                phrase["value"]=str(round(export_json["data"][i]["value"],2))+"%"
                 phrase["metadata"]["origin"]=export_json["data"][i]["value"]
                 phrase["metadata"]["detail"]=export_json["data"]
                 break

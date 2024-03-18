@@ -143,7 +143,7 @@ const Distribution: React.FC<DistributionProps> = ({
       .attr("y", 100)
       .attr("width", x(q3) - x(q1))
       .attr("height", 200)
-      .style("fill", "#3f94ff")
+      .style("fill", "#4474cc")
       .classed("boxplot-element", true) // Class added for selection
 
     // Median Line
@@ -240,8 +240,9 @@ const Distribution: React.FC<DistributionProps> = ({
         .attr("cy", 200)
         .attr("r", 3)
         .style("fill", "red")
+        .attr("data-value", d.toFixed(2)) // 添加 data-value 属性
         .classed("outliers", true)
-        .classed("boxplot-element", true) // Class added for selection
+        .classed("boxplot-element", true)
     })
   }, [data])
   React.useEffect(() => {
@@ -269,6 +270,16 @@ const Distribution: React.FC<DistributionProps> = ({
     if (interactionType === "distribution Q3") {
       d3.selectAll(".boxplot-element").style("opacity", 0.3) // Dim all other elements
       d3.select(".q3-line").style("opacity", 1)
+    }
+    if (interactionType === "ByValue") {
+      d3.selectAll(".outliers").style("opacity", 0.3)
+
+      // 然后找到与message相等的点，将其透明度设置为1
+      d3.selectAll(".outliers")
+        .filter(function () {
+          return +d3.select(this).attr("data-value") === message
+        })
+        .style("opacity", 1)
     }
   }, [message])
   React.useEffect(() => {

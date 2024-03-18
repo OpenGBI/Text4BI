@@ -81,7 +81,7 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
       //   fontSize: 10,
       // })
       .tooltip({ channel: "y", valueFormatter: ".1f" })
-      .encode("color", "#5a85c4")
+      .encode("color", "#4474cc")
       .encode("shape", "smooth")
       .axis("x", { tickFilter: (_: any, i: number) => i % 5 === 0 })
     // chart.data(tagData)
@@ -139,8 +139,18 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
           interactiveRef.current.children[i].remove()
         }
         // interactiveRef.current.render()
-        interactiveRef.current.line().data(data).encode("x", "date").encode("y", lineY)
-        interactiveRef.current.line().data(data).encode("x", lineX).encode("y", "value")
+        interactiveRef.current
+          .line()
+          .data(data)
+          .encode("x", "date")
+          .encode("y", lineY)
+          .encode("color", "#ea5322")
+        interactiveRef.current
+          .line()
+          .data(data)
+          .encode("x", lineX)
+          .encode("y", "value")
+          .encode("color", "#ea5322")
         interactiveRef.current.render()
       }
     }

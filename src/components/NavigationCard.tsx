@@ -53,6 +53,6 @@ const NavigationCard: React.FC<NavigationCardProp> = ({ navigationClick, CardID,
     }
   }
 
-  return <div>{renderPhrases()}</div>
+  return <div style={{ marginTop: "50px", marginBottom: "50px" }}>{renderPhrases()}</div>
 }
 export default NavigationCard

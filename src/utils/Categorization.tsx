@@ -38,8 +38,12 @@ const Categorization: React.FC<BarChartProps> = ({
       autoFit: true,
       height: 400,
       width: 600,
+      axis: {
+        x: { title: "Sales" },
+        y: { title: "City" },
+      },
     })
-    chart.coordinate({ transform: [{ type: "transpose" }] })
+    // chart.coordinate({ transform: [{ type: "transpose" }] })
     chart.data(data)
     // console.log('CategorizationCategorizationCategorization', data)
 
@@ -48,7 +52,8 @@ const Categorization: React.FC<BarChartProps> = ({
 
       .encode("x", "category")
       .encode("y", "value")
-      .state("active", { fill: "#4B91FF" })
+      .encode("color", "#4474cc")
+      .state("active", { fill: "#4474cc" })
       .state("inactive", { opacity: 0.5 })
     chart.interaction("elementHighlight", true)
     // containerRef.current = chart

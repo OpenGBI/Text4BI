@@ -18,6 +18,7 @@ interface IconProps {
   style?: React.CSSProperties // 添加这行代码来定义 style 属性
 }
 const Icon: React.FC<IconProps> = ({ assessment, style }) => {
+  // console.log("ICON", assessment)
   const { graphicsSignificance, graphicsDirection, graphicsAnomaly } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )

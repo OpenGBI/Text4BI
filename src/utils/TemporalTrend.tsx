@@ -57,17 +57,17 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       .data(realValue)
       .encode("x", "date")
       .encode("y", "value")
-      .encode("color", "#5a85c4")
+      .encode("color", "#4474cc")
       .encode("shape", "smooth")
-      .style("lineWidth", 3)
+      .style("lineWidth", 1)
     chart
       .line()
       .data(predictValue)
       .encode("x", "date")
       .encode("y", "value")
-      .encode("color", "#5a85c4")
+      .encode("color", "#4474cc")
       .encode("shape", "smooth")
-      .style("lineWidth", 3)
+      .style("lineWidth", 1)
       .style("opacity", 0.5)
       .style("lineDash", [3, 3])
 
@@ -105,8 +105,18 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
           interactiveRef.current.children[i].remove()
         }
         // interactiveRef.current.render()
-        interactiveRef.current.line().data(data).encode("x", "date").encode("y", lineY)
-        interactiveRef.current.line().data(data).encode("x", lineX).encode("y", "value")
+        interactiveRef.current
+          .line()
+          .data(data)
+          .encode("x", "date")
+          .encode("y", lineY)
+          .encode("color", "#ea5322")
+        interactiveRef.current
+          .line()
+          .data(data)
+          .encode("x", lineX)
+          .encode("y", "value")
+          .encode("color", "#ea5322")
         interactiveRef.current.render()
       }
     }

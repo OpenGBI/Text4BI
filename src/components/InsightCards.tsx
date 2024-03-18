@@ -89,14 +89,14 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       },
       body: JSON.stringify(nowSettings),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("返回setting修改数据", data)
-      // alert("Settings saved successfully.")
-    })
-    .catch((error) => {
-      console.error("Error:", error)
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("返回setting修改数据", data)
+        // alert("Settings saved successfully.")
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+      })
   }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
 
   // useEffect(() => {
@@ -141,8 +141,9 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
     setCards(newCards)
     cardsExchange(newCards)
+    // console.log("debug-Cards", newCards)
   }
-  const Cards = selectedCards
+  const Cards = cards
     .map((cardId) => {
       const card = dataset.find((d) => d.CardName === cardId)
       return {
@@ -151,6 +152,10 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       }
     })
     .filter((card) => allCards.includes(card.id))
+  // console.log("debug-selectedCards", selectedCards)
+  useEffect(() => {
+    setCards(selectedCards)
+  }, [...selectedCards])
   // console.log("Cards", Cards)
   // 这个函数返回当前应用的状态
   const getAppState = () => {

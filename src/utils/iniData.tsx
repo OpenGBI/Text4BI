@@ -104,6 +104,7 @@ export const iniData: Card[] = [
               entityType: "metric_value",
               origin: 29,
               interactionType: "distribution Outliers",
+              assessment: "anomaly",
             },
           },
           { type: "text", value: " outliers have been identified, with " },
@@ -174,34 +175,34 @@ export const iniData: Card[] = [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "Mean = " },
-          {
-            type: "entity",
-            value: "8840.91",
-            metadata: { entityType: "metric_value", origin: 8840.91 },
-          },
-          { type: "text", value: " , Standard deviation = " },
-          // {
-          //   type: "entity",
-          //   value: "6567.82",
-          //   metadata: { entityType: "metric_value", origin: 6567.82 },
-          // },
-          {
-            type: "entity",
-            value: "6567.82",
-            metadata: {
-              entityType: "metric_value",
-              insightType: "Distribution",
-              detail: DistributionData.data,
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
+      // {
+      //   type: "bullet",
+      //   phrases: [
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+      //     { type: "text", value: "Mean = " },
+      //     {
+      //       type: "entity",
+      //       value: "8840.91",
+      //       metadata: { entityType: "metric_value", origin: 8840.91 },
+      //     },
+      //     { type: "text", value: " , Standard deviation = " },
+      //     // {
+      //     //   type: "entity",
+      //     //   value: "6567.82",
+      //     //   metadata: { entityType: "metric_value", origin: 6567.82 },
+      //     // },
+      //     {
+      //       type: "entity",
+      //       value: "6567.82",
+      //       metadata: {
+      //         entityType: "metric_value",
+      //         insightType: "Distribution",
+      //         detail: DistributionData.data,
+      //       },
+      //     },
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+      //   ],
+      // },
 
       {
         type: "plot",
@@ -322,7 +323,7 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           { type: "CardTitle", value: "Categorization" },
           { type: "text", value: " Rank of " },
           {
@@ -336,7 +337,7 @@ export const iniData: Card[] = [
             value: "City",
             metadata: { entityType: "metric_names", interactionType: "x-axis" },
           },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -393,6 +394,7 @@ export const iniData: Card[] = [
       },
       {
         type: "bullet",
+        show: "yes",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
@@ -426,6 +428,7 @@ export const iniData: Card[] = [
       },
       {
         type: "bullet",
+        show: "yes",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
@@ -459,6 +462,7 @@ export const iniData: Card[] = [
       },
       {
         type: "bullet",
+        show: "yes",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
           {
@@ -484,6 +488,74 @@ export const iniData: Card[] = [
               detail: Category11.data,
               tagData: 2, // 标记第几个数据高亮
               origin: 120886.95,
+              interactionType: "ByValue",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        show: "no",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          {
+            type: "entity",
+            value: "Seattle",
+            metadata: { entityType: "metric_names", interactionType: "ByValue" },
+          },
+          {
+            type: "text",
+            value: ": ",
+          },
+          // {
+          //   type: 'entity',
+          //   value: '120886.95',
+          //   metadata: { entityType: 'metric_value', origin: 120886.95 },
+          // },
+          {
+            type: "entity",
+            value: "119540.742",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: 3, // 标记第几个数据高亮
+              origin: 119540.742,
+              interactionType: "ByValue",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        show: "no",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          {
+            type: "entity",
+            value: "San Francisco",
+            metadata: { entityType: "metric_names", interactionType: "ByValue" },
+          },
+          {
+            type: "text",
+            value: ": ",
+          },
+          // {
+          //   type: 'entity',
+          //   value: '120886.95',
+          //   metadata: { entityType: 'metric_value', origin: 120886.95 },
+          // },
+          {
+            type: "entity",
+            value: "112669.092",
+            metadata: {
+              entityType: "insight",
+              insightType: "Categorization",
+              detail: Category11.data,
+              tagData: 4, // 标记第几个数据高亮
+              origin: 119540.742,
               interactionType: "ByValue",
             },
           },
@@ -712,10 +784,11 @@ export const iniData: Card[] = [
             type: "entity",
             value: "0.65",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "Association",
               detail: AssociationData.data,
               tagData: AssociationData.tagData,
+              interactionType: "Association Regression",
             },
           },
           { type: "text", value: ", indicating a " },
@@ -731,7 +804,6 @@ export const iniData: Card[] = [
             metadata: {
               entityType: "binary_value",
               assessment: "significant",
-              interactionType: "Association Regression",
             },
           },
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },

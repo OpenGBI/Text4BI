@@ -158,14 +158,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       },
       body: JSON.stringify(nowSettings),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("传回导出单张卡片的全局状态", data)
-      // alert("Settings saved successfully.")
-    })
-    .catch((error) => {
-      console.error("Error:", error)
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("传回导出单张卡片的全局状态", data)
+        // alert("Settings saved successfully.")
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+      })
   }, [trigger]) // 现在 useEffect 依赖于 trigger 变量
 
   // ref.current
@@ -529,14 +529,14 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   drag(drop(ref))
   // 函数Dataset接收一个参数，而不是三个函数，预期这个参数是一个对象，并且这个对象应该具有type、BigChartData和phrases这三个属性。
   const renderBulletPoint = (curSentence: sentence) => {
-    if (isLineBreakOn && curSentence.type === "bullet") {
+    if (isLineBreakOn && curSentence.type === "bullet" && curSentence.show !== "no") {
       if (bulletPointStyle === "#") {
         // Render a numbered list item
         bulletPointIndex += 1
-        return <span style={{ fontSize: fontsize }}>{bulletPointIndex}.</span>
+        return <span style={{ fontSize: fontsize }}>{`${bulletPointIndex.toString()}. `}</span>
       }
       // Render the original bullet point style
-      return <span style={{ fontSize: fontsize }}>{bulletPointStyle}</span>
+      return <span style={{ fontSize: fontsize }}>{`${bulletPointStyle} `}</span>
     }
     return null
   }

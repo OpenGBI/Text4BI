@@ -18,6 +18,7 @@ import {
   renderTemporalityTrend1,
   renderTemporalityTrend2,
 } from "../utils/SparkLineFuncs"
+import { AppState } from "../store"
 import {
   highLightMessage,
   Phrase,
@@ -50,12 +51,20 @@ const renderSparkLine = (
   curSparkLineSpan: HTMLSpanElement | undefined,
   defaultChoice: boolean, // 是否选择函数1
   value: string | number,
+  distributionTypeOn: boolean,
+  rankTypeOn: boolean,
+  proportionTypeOn: boolean,
+  associationTypeOn: boolean,
+  trendTypeOn: boolean,
+  differenceTypeOn: boolean,
+  anomalyTypeOn: boolean,
+  seasonalityTypeOn: boolean,
 ) => {
   if (!curMetadata.detail) {
     throw new Error("no curMetadata")
   }
   if (curMetadata.insightType === "Distribution") {
-    if (defaultChoice) {
+    if (distributionTypeOn) {
       renderDistribution1(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -66,7 +75,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!distributionTypeOn) {
       renderDistribution2(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -77,7 +86,7 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "Categorization") {
-    if (defaultChoice) {
+    if (rankTypeOn) {
       renderCategorization1(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as number,
@@ -89,7 +98,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!rankTypeOn) {
       renderCategorization2(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as number,
@@ -102,7 +111,7 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "Proportion") {
-    if (defaultChoice) {
+    if (proportionTypeOn) {
       renderProportion1(
         curMetadata.detail as number[],
         curAspectRatio,
@@ -113,7 +122,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!proportionTypeOn) {
       renderProportion2(
         curMetadata.detail as number[],
         curAspectRatio,
@@ -127,28 +136,34 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "Association") {
-    if (defaultChoice && isPointArray(curMetadata.detail)) {
+    if (associationTypeOn && isPointArray(curMetadata.detail)) {
       renderAssociation1(
         curMetadata.detail as Point[],
         curAspectRatio,
         curSparkLinePosition,
         curMetadata.tagData as Point[],
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice && isPointArray(curMetadata.detail)) {
+    } else if (!associationTypeOn && isPointArray(curMetadata.detail)) {
       renderAssociation2(
         curMetadata.detail as Point[],
         curAspectRatio,
         curSparkLinePosition,
         curMetadata.tagData as Point[],
+        curMetadata,
+        value,
+        undefined,
         curWordSpan,
         curSparkLineSpan,
       )
     }
   }
   if (curMetadata.insightType === "TemporalityTrend") {
-    if (defaultChoice) {
+    if (trendTypeOn) {
       const valuesFromData = curMetadata.detail.map((item) => (item as cateAndValue).value)
       let valuesFromPredictData: number[] = []
 
@@ -168,7 +183,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!trendTypeOn) {
       const valuesFromData = curMetadata.detail.map((item) => (item as cateAndValue).value)
       let valuesFromPredictData: number[] = []
 
@@ -190,7 +205,7 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "TemporalDifference") {
-    if (defaultChoice) {
+    if (differenceTypeOn) {
       renderTemporalityDifference1(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -202,7 +217,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!differenceTypeOn) {
       renderTemporalityDifference2(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -217,7 +232,7 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "TemporalityAnomaly") {
-    if (defaultChoice) {
+    if (anomalyTypeOn) {
       renderTemporalityAnomaly1(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -228,7 +243,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!anomalyTypeOn) {
       renderTemporalityAnomaly2(
         curMetadata.detail as cateAndValue[],
         curAspectRatio,
@@ -242,7 +257,7 @@ const renderSparkLine = (
     }
   }
   if (curMetadata.insightType === "TemporalitySeasonality" && curMetadata.tagData) {
-    if (defaultChoice) {
+    if (seasonalityTypeOn) {
       renderTemporalitySeasonality1(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as cateAndValue[],
@@ -254,7 +269,7 @@ const renderSparkLine = (
         curWordSpan,
         curSparkLineSpan,
       )
-    } else if (!defaultChoice) {
+    } else if (!seasonalityTypeOn) {
       renderTemporalitySeasonality2(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as cateAndValue[],
@@ -289,6 +304,30 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
   // if (stringID) {
   //   id = parseInt(stringID, 10) - 1
   // }
+  const {
+    showDataDrivenGraphics,
+    showDataDrivenCharts,
+    distributionType,
+    rankType,
+    proportionType,
+    associationType,
+    trendType,
+    differenceType,
+    anomalyType,
+    seasonalityType,
+    graphicsSignificance,
+    graphicsDirection,
+    graphicsAnomaly,
+    isSemanticDrivenIconsOn,
+  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const distributionTypeOn1 = distributionType === "a"
+  const rankTypeOn1 = rankType === "a"
+  const proportionTypeOn1 = proportionType === "a"
+  const associationTypeOn1 = associationType === "a"
+  const trendTypeOn1 = trendType === "a"
+  const differenceTypeOn1 = differenceType === "a"
+  const anomalyTypeOn1 = anomalyType === "a"
+  const seasonalityTypeOn1 = seasonalityType === "a"
   const wordRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -301,9 +340,30 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
         wordRef.current,
         globalBoolean,
         value,
+        distributionTypeOn1,
+        rankTypeOn1,
+        proportionTypeOn1,
+        associationTypeOn1,
+        trendTypeOn1,
+        differenceTypeOn1,
+        anomalyTypeOn1,
+        seasonalityTypeOn1,
       )
     }
-  }, [metadata, aspectRatio, sparkLinePosition, globalBoolean])
+  }, [
+    metadata,
+    aspectRatio,
+    sparkLinePosition,
+    globalBoolean,
+    distributionTypeOn1,
+    rankTypeOn1,
+    proportionTypeOn1,
+    associationTypeOn1,
+    trendTypeOn1,
+    differenceTypeOn1,
+    anomalyTypeOn1,
+    seasonalityTypeOn1,
+  ])
   const handleKeyDown = (event: React.KeyboardEvent) => {
     // 检查是否按下了回车键或空格键
     if (event.key === "Enter" || event.key === " ") {

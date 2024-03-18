@@ -72,10 +72,15 @@ const ControlSemanticDrivenIcons: React.FC = () => {
     }
     setSelectedSymbol1(symbol)
     setDropdownDisplay1(symbol)
+    // eslint-disable-next-line quotes
+    const IconN = '<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"></svg>'
+    absoluteIcon[semanticsAbsolutePosition].e = IconN
+
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         selectedSymbol1: symbol,
+        absoluteIcon: { ...absoluteIcon },
       }),
     )
   }
@@ -100,10 +105,21 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       setSymbol2Null(false)
     }
     setSelectedSymbol2(symbol)
+    // dispatch(
+    //   ChangeWordScaleGraphicsSetting({
+    //     ...wordScaleGraphicsSetting,
+    //     selectedSymbol2: symbol,
+    //   }),
+    // )
+    // eslint-disable-next-line quotes
+    const IconN = '<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"></svg>'
+    entityIcon[semanticBindingEntityType].e = IconN
+
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
         selectedSymbol2: symbol,
+        absoluteIcon: { ...absoluteIcon },
       }),
     )
   }
@@ -242,7 +258,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         </Option>
                       ))}
                     </Select> */}
-                    <ImportIcon IconSpecies="absolute" disabled={symbol1Null} />
+                    <ImportIcon IconSpecies="absolute" iconType="symbol1" />
                   </Button.Group>
                 </Col>
               </Row>
@@ -333,7 +349,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                       </Option>
                     ))}
                   </Select> */}
-                  <ImportIcon IconSpecies="entity" disabled={symbol2Null} />
+                  <ImportIcon IconSpecies="entity" iconType="symbol1" />
                 </Button.Group>
               </Col>
             </Row>

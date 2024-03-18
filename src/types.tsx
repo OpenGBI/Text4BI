@@ -102,6 +102,7 @@ export type entitiesType = {
   b: string
   c: string
   d: string
+  e: string
 }
 export type entityIconType = {
   [key: string]: entitiesType // 索引签名 zyx

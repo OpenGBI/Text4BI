@@ -100,6 +100,7 @@ iniData = [
               "entityType": "metric_value",
               "origin": 29,
               "interactionType": "distribution Outliers",
+              "assessment": "anomaly"
             },
           },
           { "type": "text", "value": " outliers have been identified, with " },
@@ -170,30 +171,30 @@ iniData = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
-      {
-        "type": "bullet",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": "Mean = " },
-          {
-            "type": "entity",
-            "value": "8840.91",
-            "metadata": { "entityType": "metric_value", "origin": 8840.91 },
-          },
-          { "type": "text", "value": " , Standard deviation = " },
+      # {
+      #   "type": "bullet",
+      #   "phrases": [
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+      #     { "type": "text", "value": "Mean = " },
+      #     {
+      #       "type": "entity",
+      #       "value": "8840.91",
+      #       "metadata": { "entityType": "metric_value", "origin": 8840.91 },
+      #     },
+      #     { "type": "text", "value": " , Standard deviation = " },
           
-          {
-            "type": "entity",
-            "value": "6567.82",
-            "metadata": {
-              "entityType": "insight",
-              "insightType": "Distribution",
-              "detail": DistributionData["data"],
-            },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
+      #     {
+      #       "type": "entity",
+      #       "value": "6567.82",
+      #       "metadata": {
+      #         "entityType": "insight",
+      #         "insightType": "Distribution",
+      #         "detail": DistributionData["data"],
+      #       },
+      #     },
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+      #   ],
+      # },
 
       {
         "type": "plot",
@@ -314,7 +315,7 @@ iniData = [
       {
         "type": "topic",
         "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
           { "type": "CardTitle", "value": "Categorization" },
           { "type": "text", "value": " Sum of " },
           {
@@ -328,7 +329,7 @@ iniData = [
             "value": "City",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+          # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
       {
@@ -443,6 +444,67 @@ iniData = [
       },
       {
         "type": "bullet",
+        "show": "no",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          {
+            "type": "entity",
+            "value": "Seattle",
+            "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
+          },
+          {
+            "type": "text",
+            "value": ": ",
+          },
+          
+          {
+            "type": "entity",
+            "value": "119540.742",
+            "metadata": {
+              "entityType": "insight",
+              "insightType": "Categorization",
+              "detail": CategoryData["data"],
+              "tagData": 3, 
+              "origin": 119540.742,
+              "interactionType": "ByValue",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "show": "no",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          {
+            "type": "entity",
+            "value": "San Francisco",
+            "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
+          },
+          {
+            "type": "text",
+            "value": ": ",
+          },
+          
+          {
+            "type": "entity",
+            "value": "112669.092",
+            "metadata": {
+              "entityType": "insight",
+              "insightType": "Categorization",
+              "detail": CategoryData["data"],
+              "tagData": 4, 
+              "origin": 119540.742,
+              "interactionType": "ByValue",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "show": "yes",
         "phrases": [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
           {
@@ -676,10 +738,12 @@ iniData = [
             "type": "entity",
             "value": "0.65",
             "metadata": {
-              "entityType": "insight",
+              
+              "entityType": "metric_value",
               "insightType": "Association",
               "detail": AssociationData["data"],
               "tagData": AssociationData["tagData"],
+              "interactionType": "Association Regression",
             },
           },
           { "type": "text", "value": " indicating a " },
@@ -695,7 +759,6 @@ iniData = [
             "metadata": {
               "entityType": "binary_value",
               "assessment": "significant",
-              "interactionType": "Association Regression",
             },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },

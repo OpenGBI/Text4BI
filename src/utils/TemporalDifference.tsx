@@ -45,6 +45,10 @@ const Difference: React.FC<DifferenceProps> = ({
       autoFit: true,
       height: 400,
       width: 600,
+      axis: {
+        x: { title: "Year" },
+        y: { title: "Profit" },
+      },
     })
     // chart
     //   .data(data)
@@ -71,8 +75,19 @@ const Difference: React.FC<DifferenceProps> = ({
       .data(iniData)
       .encode("x", "category")
       .encode("y", "value")
-      .state("active", { fill: "#4B91FF" })
+      .encode("color", "#4474cc")
+      .state("active", { fill: "#4474cc" })
       .state("inactive", { opacity: 0.5 })
+    // chart.axis("category", {
+    //   title: {
+    //     text: "Year", // 设置x轴的标题文本
+    //   },
+    // })
+    // chart.axis("value", {
+    //   title: {
+    //     text: "Profit", // 设置x轴的标题文本
+    //   },
+    // })
     interactiveRef.current = chart
     chart.render()
 

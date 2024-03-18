@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef, useRef, useEffect } from "react"
-import { Chart } from "@antv/g2"
+import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import { find } from "lodash"
 import { Point } from "../types"
 import { highlightAxis, noHighlightElement, multiHighlightElements } from "./HighLightElement"
@@ -32,6 +32,7 @@ const Association = forwardRef(
         container: containerRef.current,
         autoFit: true,
         height: 500,
+        tooltip: false,
       })
       // console.log('散点图datadatadatadata', data)
 
@@ -44,7 +45,7 @@ const Association = forwardRef(
         .point()
         .encode("x", "x")
         .encode("y", "y")
-        .state("active", { fill: "#4B91FF" })
+        .state("active", { fill: "#4474cc" })
         .state("inactive", { opacity: 0.5 })
       // Generate data for the line y = x
       // const maxAbsX = data.reduce((max, current) => Math.max(max, Math.abs(current.x)), 0)
@@ -63,6 +64,7 @@ const Association = forwardRef(
         .state("active", { opacity: 1 })
         .state("inactive", { opacity: 0.5 })
       chart.interaction("elementHighlight", true)
+      // chart.options({ tooltip: false })
       interactiveRef.current = chart
       // Render the chart
       chart.render()
@@ -78,6 +80,29 @@ const Association = forwardRef(
       }
       if (message === undefined) {
         return
+      }
+      if (interactionType === "ByValue" && typeof message === "number") {
+        const lineX = message
+        const lineY = k * message + b
+        if (lineX && lineY) {
+          for (let i = interactiveRef.current.children.length - 1; i > 1; i -= 1) {
+            interactiveRef.current.children[i].remove()
+          }
+          // interactiveRef.current.render()
+          interactiveRef.current
+            .line()
+            .data(data)
+            .encode("x", "x")
+            .encode("y", lineY)
+            .encode("color", "#ea5322")
+          interactiveRef.current
+            .line()
+            .data(data)
+            .encode("x", lineX)
+            .encode("y", "y")
+            .encode("color", "#ea5322")
+          interactiveRef.current.render()
+        }
       }
       if (interactionType === "x-axis" || interactionType === "y-axis") {
         highlightAxis(interactiveRef.current, interactionType)
@@ -97,6 +122,16 @@ const Association = forwardRef(
       }
       if (!hoverOrNot) {
         noHighlightElement(interactiveRef.current)
+        const { canvas } = interactiveRef.current.getContext()
+        if (!canvas) return
+        const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME)
+        // console.log("lineX && lineY", elements)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const lines = _.filter(elements, (element) => element.markType === "line")
+        for (let i = lines.length - 1; i > 0; i -= 1) {
+          lines[i].remove()
+        }
       }
     }, [hoverOrNot])
 

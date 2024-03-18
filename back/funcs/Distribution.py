@@ -79,15 +79,15 @@ def changeDistribution(timeSelection):
                 phrase["value"]=str(quantiles[2].astype(float).round(2))
             count+=1
     count=0
-    for phrase in topics[2]['phrases']:
-        if phrase.get('metadata', {}).get('entityType') == 'metric_value':
-            if count==0:
-                phrase["metadata"]["origin"]=mean_value
-                phrase["value"]=str(mean_value)
-            count+=1
-        if phrase.get('metadata', {}).get('entityType') == 'insight':
-            phrase["value"]=str(variance)
-            phrase["metadata"]["detail"]=data_export
+    # for phrase in topics[2]['phrases']:
+    #     if phrase.get('metadata', {}).get('entityType') == 'metric_value':
+    #         if count==0:
+    #             phrase["metadata"]["origin"]=mean_value
+    #             phrase["value"]=str(mean_value)
+    #         count+=1
+    #     if phrase.get('metadata', {}).get('entityType') == 'insight':
+    #         phrase["value"]=str(variance)
+    #         phrase["metadata"]["detail"]=data_export
 
     # print(target)
 

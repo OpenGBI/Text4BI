@@ -191,7 +191,7 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
       .line()
       .encode("x", "date")
       .encode("y", "value")
-      .encode("color", "#5a85c4")
+      .encode("color", "#4474cc")
       .encode("shape", "smooth")
 
     chart
@@ -226,8 +226,16 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
           interactiveRef.current.children[i].remove()
         }
         // interactiveRef.current.render()
-        interactiveRef.current.line().encode("x", "date").encode("y", lineY)
-        interactiveRef.current.line().encode("x", lineX).encode("y", "value")
+        interactiveRef.current
+          .line()
+          .encode("x", "date")
+          .encode("y", lineY)
+          .encode("color", "#ea5322")
+        interactiveRef.current
+          .line()
+          .encode("x", lineX)
+          .encode("y", "value")
+          .encode("color", "#ea5322")
         interactiveRef.current.render()
       }
     }
@@ -247,8 +255,16 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
           interactiveRef.current.children[i].remove()
         }
         // interactiveRef.current.render()
-        interactiveRef.current.line().encode("x", "date").encode("y", lineY)
-        interactiveRef.current.line().encode("x", lineX).encode("y", "value")
+        interactiveRef.current
+          .line()
+          .encode("x", "date")
+          .encode("y", lineY)
+          .encode("color", "#ea5322")
+        interactiveRef.current
+          .line()
+          .encode("x", lineX)
+          .encode("y", "value")
+          .encode("color", "#ea5322")
         interactiveRef.current.render()
       }
     }

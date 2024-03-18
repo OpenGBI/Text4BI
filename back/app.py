@@ -41,8 +41,9 @@ def get_categorization_data():
     data = request.json  
     drillDownGroup = data.get('drillDownGroup')
     chartType=data.get("chartType")
+    topK=data.get("topK")
     print(drillDownGroup)
-    res = changeCategorization(drillDownGroup)
+    res = changeCategorization(drillDownGroup,topK)
     print("get data")
     return jsonify(res)
 @app.route('/Distribution', methods=['POST'])
@@ -93,6 +94,7 @@ def get_TemporalPeriodly_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
     chartType=data.get("chartType")
+    topK=data.get("topK")
     print(timeSegmentationCondition)
     # get_distribution_data(start_time,end_time)
     # with open('./cardsTemplates/Cards2.json', 'r') as file:

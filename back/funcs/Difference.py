@@ -44,14 +44,32 @@ def changeDifference(timeSelection):
                 else:
                     phrase["value"]="decrease"
                 break
+        count=0
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'binary_value':
+            if (phrase.get('metadata', {}).get('entityType') == 'binary_value') and (count==0):
+                print("aaa阿啊阿啊阿啊阿啊阿啊阿啊")
+                if data_export[1]["value"]>data_export[0]["value"]:
+                    phrase["value"]="increased "
+                    phrase["metadata"]["assessment"]="increase"
+                elif data_export[1]["value"]<data_export[0]["value"]:
+                    phrase["value"]="decreased "
+                    phrase["metadata"]["assessment"]="decrease"
+                # print
+                # print("aaa阿啊阿啊阿啊阿啊阿啊阿啊")
+                print(phrase)
+                count+=1
+                # phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
+                # if data_export[1]["value"]>data_export[0]["value"]:
+                #     phrase["metadata"]["assessment"]="positive"
+                # else:
+                #     phrase["metadata"]["assessment"]="negative"
+            elif (phrase.get('metadata', {}).get('entityType') == 'binary_value')and(count==1):
                 phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"
                 else:
                     phrase["metadata"]["assessment"]="negative"
-                break
+                count+=1
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'insight':             
                 phrase["value"]="("+str(round(data_export[0]["value"],2))+" → "+str(round(data_export[1]["value"],2))+")"

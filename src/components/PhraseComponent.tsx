@@ -403,27 +403,26 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     const style = currentStyles[entityType] || {}
 
     return (
-      <Tooltip title={curMetadata.origin}>
-        <span
-          ref={wordRef}
-          style={{
-            fontWeight: style.fontWeight || "normal",
-            textDecoration: style.textDecoration || "none",
-            fontStyle: style.fontStyle || "normal",
-            border: style.border || "none",
-            color: style.color || "#000000",
-            backgroundColor: style.backgroundColor || "#FFFFFF",
-            fontSize: fontsize,
-            lineHeight,
-            position: "relative",
-          }}
-          onMouseEnter={handleHover}
-          onMouseLeave={handleLeave}
-          className={curMetadata.entityType}
-        >
-          {value}
-        </span>
-      </Tooltip>
+      // <Tooltip title={curMetadata.origin}></Tooltip>
+      <span
+        ref={wordRef}
+        style={{
+          fontWeight: style.fontWeight || "normal",
+          textDecoration: style.textDecoration || "none",
+          fontStyle: style.fontStyle || "normal",
+          border: style.border || "none",
+          color: style.color || "#000000",
+          backgroundColor: style.backgroundColor || "#FFFFFF",
+          fontSize: fontsize,
+          lineHeight,
+          position: "relative",
+        }}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleLeave}
+        className={curMetadata.entityType}
+      >
+        {value}
+      </span>
     )
   }
 
@@ -608,6 +607,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curAspectRatio,
           curSparkLinePosition,
           curMetadata.tagData as Point[],
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -617,6 +619,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curAspectRatio,
           curSparkLinePosition,
           curMetadata.tagData as Point[],
+          curMetadata,
+          value,
+          setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
         )
@@ -1056,7 +1061,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         } */}
         {renderWord(metadata)}
-        {metadata?.entityType === "binary_value" &&
+        {(metadata?.entityType === "binary_value" || metadata.assessment) &&
           showSparkLine &&
           showDataDrivenGraphics &&
           sparkLinePosition !== "left" && (

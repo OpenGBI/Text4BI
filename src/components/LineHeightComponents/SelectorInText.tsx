@@ -192,11 +192,11 @@ const SelectorInText: React.FC<SelectorProps> = ({
       curParams = { ...params4BackEnd, timeSegmentationCondition: value }
     }
     if (backEndType === "topK") {
-      // curParams = { ...params4BackEnd, topK: value }
-      // paramsFuncs4BackEnd.setTopK(value)
+      curParams = { ...params4BackEnd, topK: value }
+      paramsFuncs4BackEnd.setTopK(value)
       setCurTopK(value)
     }
-    if (curParams && backEndType !== "topK") {
+    if (curParams) {
       backComm(curParams, chartType)
     }
   }

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { UploadOutlined } from "@ant-design/icons"
 import { UploadProps, Button, message, Upload } from "antd"
 import { useSelector, useDispatch } from "react-redux"
@@ -7,16 +7,30 @@ import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsS
 
 type ImportIconProps = {
   IconSpecies: string
-  disabled: boolean
+  iconType: string
 }
-const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, disabled }) => {
+const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, iconType }) => {
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+  // eslint-disable-next-line quotes
+  const IconN = '<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"></svg>'
   const wordScaleGraphicsSetting = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   const { selectedSymbol1, semanticsAbsolutePosition, selectedSymbol2, semanticBindingEntityType } =
     useSelector((state: AppState) => state.wordScaleGraphicsSetting)
   const dispatch = useDispatch()
+  // console.log("ImportIcon", absoluteIcon, semanticsAbsolutePosition, semanticBindingEntityType)
+  const [svgContent, setSvgContent] = useState(IconN)
+  useEffect(() => {
+    if (iconType === "symbol1") {
+      console.log("ImportIcon", absoluteIcon, semanticsAbsolutePosition, semanticBindingEntityType)
+      console.log("ImportIcon", entityIcon[semanticsAbsolutePosition])
+      setSvgContent(absoluteIcon[semanticsAbsolutePosition].e)
+    } else {
+      setSvgContent(entityIcon[semanticBindingEntityType].e)
+    }
+  }, [selectedSymbol1, semanticsAbsolutePosition, selectedSymbol2, semanticBindingEntityType])
+  // const [svgContent, setSvgContent] = useState(null);
   const props: UploadProps = {
     name: "file",
     action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
@@ -44,19 +58,38 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, disabled }) => {
             curSvgContent = curSvgContent
               .replace(/width="\d+"/, `width="${width}"`) // 模版字符串用反引号
               .replace(/height="\d+"/, `height="${height}"`)
+            setSvgContent(curSvgContent)
             if (IconSpecies === "entity") {
-              entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
+              // entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
+              entityIcon[semanticBindingEntityType].e = curSvgContent
+              dispatch(
+                ChangeWordScaleGraphicsSetting({
+                  ...wordScaleGraphicsSetting,
+                  entityIcon: { ...entityIcon },
+                  absoluteIcon: { ...absoluteIcon },
+                  selectedSymbol2: "e",
+                }),
+              )
             }
             if (IconSpecies === "absolute") {
-              absoluteIcon[semanticsAbsolutePosition][selectedSymbol1] = curSvgContent
+              // absoluteIcon[semanticsAbsolutePosition][selectedSymbol1] = curSvgContent
+              absoluteIcon[semanticsAbsolutePosition].e = curSvgContent
+              dispatch(
+                ChangeWordScaleGraphicsSetting({
+                  ...wordScaleGraphicsSetting,
+                  entityIcon: { ...entityIcon },
+                  absoluteIcon: { ...absoluteIcon },
+                  selectedSymbol1: "e",
+                }),
+              )
             }
-            dispatch(
-              ChangeWordScaleGraphicsSetting({
-                ...wordScaleGraphicsSetting,
-                entityIcon: { ...entityIcon },
-                absoluteIcon: { ...absoluteIcon },
-              }),
-            )
+            // dispatch(
+            //   ChangeWordScaleGraphicsSetting({
+            //     ...wordScaleGraphicsSetting,
+            //     entityIcon: { ...entityIcon },
+            //     absoluteIcon: { ...absoluteIcon },
+            //   }),
+            // )
           }
           reader.readAsText(file)
         } else {
@@ -67,11 +100,19 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, disabled }) => {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
-    disabled,
+    // disabled,
   }
   return (
     <Upload {...props}>
-      <Button icon={<UploadOutlined />} />
+      <Button
+        icon={
+          svgContent !== IconN ? (
+            <span dangerouslySetInnerHTML={{ __html: svgContent }} />
+          ) : (
+            <UploadOutlined />
+          )
+        }
+      />
     </Upload>
   )
 }

@@ -55,4 +55,12 @@ PeriodicityData = {
     { "date": "2012-01-01", "value": 13, "category": "regression" },
     { "date": "2013-01-01", "value": 199185.90738, "category": "regression" },
   ],
+  "tagData1": [
+    { "date": "2011-01-01", "value": 0, "category": "regression" },
+    { "date": "2012-01-01", "value": 13, "category": "regression" },
+  ],
+  "tagData2": [
+    { "date": "2012-01-01", "value": 13, "category": "regression" },
+    { "date": "2013-01-01", "value": 199185.90738, "category": "regression" },
+  ],
 }

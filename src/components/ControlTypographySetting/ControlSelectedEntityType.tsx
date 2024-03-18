@@ -13,11 +13,11 @@ const ControlSelectedEntityType: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
   const [selectedEntityType, setSelectedEntityType] = useState(typographySetting.selectedEntityType)
-  // const [showSecondaryOptions, setShowSecondaryOptions] = useState(false)
+  const [showSecondaryOptions, setShowSecondaryOptions] = useState(false)
 
   const handlePrimaryChange = (value: string) => {
     setSelectedEntityType(value)
-    // setShowSecondaryOptions(value === 'temporality')
+    setShowSecondaryOptions(value === "binary_value")
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
@@ -38,14 +38,6 @@ const ControlSelectedEntityType: React.FC = () => {
             value={selectedEntityType}
             onChange={handlePrimaryChange}
           >
-            {/* <Option value="metric_value">metric_value</Option>
-            <Option value="binary_value">binary_value</Option>
-            <Option value="binary_value">binary_value</Option>
-            <Option value="metric_names">metric_names</Option>
-            <Option value="metric_names">metric_names</Option>
-            <Option value="algorithm">algorithm</Option>
-            {/* <Option value="filter_time">filter_time</Option> */}
-            {/* <Option value="filter_cate">filter_phrases</Option> */}
             <Option value="metric_value">value phrases(general)</Option>
             <Option value="binary_value">value phrases(binary)</Option>
             <Option value="metric_names">measure phrases</Option>
@@ -54,17 +46,17 @@ const ControlSelectedEntityType: React.FC = () => {
           </Select>
         </Col>
         {/* {showSecondaryOptions && (
-          <Col span={24}>
+          <Col span={12}>
             <Select
-              style={{ width: "100%", marginTop: "10px" }}
-              defaultValue="General Trend"
+              style={{ width: "100%" }}
+              defaultValue="positive"
+              placeholder="Select binary option"
               onChange={(value) => {
                 // Handle change for secondary select if needed
               }}
             >
-              <Option value="General Trend">General Trend</Option>
-              <Option value="Seasonal Feature">Seasonal Feature</Option>
-              <Option value="Abnormality">Abnormality</Option>
+              <Option value="positive">Positive</Option>
+              <Option value="negative">Negative</Option>
             </Select>
           </Col>
         )} */}

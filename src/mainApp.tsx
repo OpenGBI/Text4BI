@@ -78,6 +78,7 @@ function MainApp() {
   const rightSiderStyle: React.CSSProperties = {
     height: "100%",
     overflow: "auto",
+    background: "#272643",
   }
   const contentMiddleStyle: React.CSSProperties = {
     height: "100%",
@@ -131,7 +132,7 @@ function MainApp() {
               <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
             </Content>
           </Content>
-          <Sider width={120} style={rightSiderStyle}>
+          <Sider width={140} style={rightSiderStyle}>
             <Content>
               <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
             </Content>

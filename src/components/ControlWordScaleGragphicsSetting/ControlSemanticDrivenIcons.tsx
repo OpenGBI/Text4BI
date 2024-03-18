@@ -349,7 +349,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                       </Option>
                     ))}
                   </Select> */}
-                  <ImportIcon IconSpecies="entity" iconType="symbol1" />
+                  <ImportIcon IconSpecies="entity" iconType="symbol2" />
                 </Button.Group>
               </Col>
             </Row>

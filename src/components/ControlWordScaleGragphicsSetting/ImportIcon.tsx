@@ -58,7 +58,7 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, iconType }) => {
             curSvgContent = curSvgContent
               .replace(/width="\d+"/, `width="${width}"`) // 模版字符串用反引号
               .replace(/height="\d+"/, `height="${height}"`)
-            setSvgContent(curSvgContent)
+            // setSvgContent(curSvgContent)
             if (IconSpecies === "entity") {
               // entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
               entityIcon[semanticBindingEntityType].e = curSvgContent

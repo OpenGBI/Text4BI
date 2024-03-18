@@ -47,7 +47,7 @@ const ControlSparkLinePos: React.FC = () => {
       dispatch(
         ChangeGlobalSetting({
           ...globalSetting,
-          lineHeight: 2.6314,
+          lineHeight: 3,
         }),
       )
     } else {

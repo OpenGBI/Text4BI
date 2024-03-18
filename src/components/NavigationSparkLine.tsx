@@ -67,7 +67,7 @@ const renderSparkLine = (
     if (distributionTypeOn) {
       renderDistribution1(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -78,7 +78,7 @@ const renderSparkLine = (
     } else if (!distributionTypeOn) {
       renderDistribution2(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curWordSpan,
         curSparkLineSpan,
@@ -90,7 +90,7 @@ const renderSparkLine = (
       renderCategorization1(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as number,
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -102,7 +102,7 @@ const renderSparkLine = (
       renderCategorization2(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as number,
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         undefined,
         curWordSpan,
@@ -114,7 +114,7 @@ const renderSparkLine = (
     if (proportionTypeOn) {
       renderProportion1(
         curMetadata.detail as number[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -125,7 +125,7 @@ const renderSparkLine = (
     } else if (!proportionTypeOn) {
       renderProportion2(
         curMetadata.detail as number[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -139,7 +139,7 @@ const renderSparkLine = (
     if (associationTypeOn && isPointArray(curMetadata.detail)) {
       renderAssociation1(
         curMetadata.detail as Point[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata.tagData as Point[],
         curMetadata,
@@ -151,7 +151,7 @@ const renderSparkLine = (
     } else if (!associationTypeOn && isPointArray(curMetadata.detail)) {
       renderAssociation2(
         curMetadata.detail as Point[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata.tagData as Point[],
         curMetadata,
@@ -175,7 +175,7 @@ const renderSparkLine = (
 
       renderTemporalityTrend1(
         combinedValues as number[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -194,7 +194,7 @@ const renderSparkLine = (
       const combinedValues = [...valuesFromData, ...valuesFromPredictData]
       renderTemporalityTrend2(
         combinedValues as number[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -208,7 +208,7 @@ const renderSparkLine = (
     if (differenceTypeOn) {
       renderTemporalityDifference1(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata.tagData as number[],
         curMetadata,
@@ -220,7 +220,7 @@ const renderSparkLine = (
     } else if (!differenceTypeOn) {
       renderTemporalityDifference2(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata.tagData as number[],
         curMetadata,
@@ -235,7 +235,7 @@ const renderSparkLine = (
     if (anomalyTypeOn) {
       renderTemporalityAnomaly1(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -246,7 +246,7 @@ const renderSparkLine = (
     } else if (!anomalyTypeOn) {
       renderTemporalityAnomaly2(
         curMetadata.detail as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -261,7 +261,7 @@ const renderSparkLine = (
       renderTemporalitySeasonality1(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curMetadata,
         value,
@@ -273,7 +273,7 @@ const renderSparkLine = (
       renderTemporalitySeasonality2(
         curMetadata.detail as cateAndValue[],
         curMetadata.tagData as cateAndValue[],
-        curAspectRatio,
+        "4:1",
         curSparkLinePosition,
         curWordSpan,
         curSparkLineSpan,

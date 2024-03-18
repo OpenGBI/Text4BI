@@ -15,217 +15,6 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "Distribution" },
-          { type: "text", value: " Distribution of " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_names" },
-          },
-        ],
-      },
-      {
-        type: "normal",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "From " },
-          {
-            type: "entity",
-            value: "January 01, 2011",
-            metadata: {
-              entityType: "filter_time",
-              selections: ["2011-01-01"],
-              paramIndex: 0,
-            },
-          },
-          { type: "text", value: " to " },
-          {
-            type: "entity",
-            value: "December 31, 2014",
-            metadata: {
-              entityType: "filter_time",
-              selections: ["2014-12-31"],
-              paramIndex: 1,
-            },
-          },
-          {
-            type: "text",
-            value: ", the distribution of ",
-          },
-          {
-            type: "entity",
-            value: " Sales ",
-            metadata: { entityType: "metric_names" },
-          },
-          {
-            type: "text",
-            value: "is ",
-          },
-          // {
-          //   type: "entity",
-          //   value: "left-skewed ",
-          //   metadata: { entityType: "binary_value", assessment: "negative" },
-          // },
-          {
-            type: "entity",
-            value: " left-skewed ",
-            metadata: {
-              entityType: "insight",
-              insightType: "Distribution",
-              detail: DistributionData.data,
-            },
-          },
-          {
-            type: "text",
-            value: ". Most data points lie in the range of ",
-          },
-          {
-            type: "entity",
-            value: "0",
-            metadata: { entityType: "metric_value", origin: 0 },
-          },
-          {
-            type: "text",
-            value: " - ",
-          },
-          {
-            type: "entity",
-            value: "7700",
-            metadata: { entityType: "metric_value", origin: 7700.14 },
-          },
-          {
-            type: "text",
-            value: ", ",
-          },
-          {
-            type: "entity",
-            value: "29",
-            metadata: {
-              entityType: "metric_value",
-              origin: 29,
-              interactionType: "distribution Outliers",
-              assessment: "anomaly",
-            },
-          },
-          { type: "text", value: " outliers have been identified, with " },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "Min = " },
-          {
-            type: "entity",
-            value: "2.69",
-            metadata: {
-              entityType: "metric_value",
-              origin: 2.69,
-              interactionType: "distribution Min",
-            },
-          },
-          { type: "text", value: " , Max = " },
-          {
-            type: "entity",
-            value: "39536.13",
-            metadata: {
-              entityType: "metric_value",
-              origin: 39536.13,
-              interactionType: "distribution Max",
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "Q1 = " },
-          {
-            type: "entity",
-            value: "3794.66",
-            metadata: {
-              entityType: "metric_value",
-              origin: 3794.66,
-              interactionType: "distribution Q1",
-            },
-          },
-          { type: "text", value: " , Q2 (Median) = " },
-          {
-            type: "entity",
-            value: "7700.14",
-            metadata: {
-              entityType: "metric_value",
-              origin: 7700.14,
-              interactionType: "distribution Median",
-            },
-          },
-          { type: "text", value: " , Q3 = " },
-          {
-            type: "entity",
-            value: "12466.37",
-            metadata: {
-              entityType: "metric_value",
-              origin: 12466.37,
-              interactionType: "distribution Q3",
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      // {
-      //   type: "bullet",
-      //   phrases: [
-      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-      //     { type: "text", value: "Mean = " },
-      //     {
-      //       type: "entity",
-      //       value: "8840.91",
-      //       metadata: { entityType: "metric_value", origin: 8840.91 },
-      //     },
-      //     { type: "text", value: " , Standard deviation = " },
-      //     // {
-      //     //   type: "entity",
-      //     //   value: "6567.82",
-      //     //   metadata: { entityType: "metric_value", origin: 6567.82 },
-      //     // },
-      //     {
-      //       type: "entity",
-      //       value: "6567.82",
-      //       metadata: {
-      //         entityType: "metric_value",
-      //         insightType: "Distribution",
-      //         detail: DistributionData.data,
-      //       },
-      //     },
-      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-      //   ],
-      // },
-
-      {
-        type: "plot",
-        chartType: "Distribution",
-        metadata: {
-          detail: DistributionData.data,
-        },
-      },
-      {
-        type: "configuration",
-        chartType: "Distribution",
-        metadata: {
-          timeSelection: ["2011-01-01", "2014-12-31"],
-        },
-      },
-    ],
-  },
-  {
-    CardName: "Card2",
-    paragraph: [
-      {
-        type: "topic",
-        phrases: [
           { type: "CardTitle", value: "Difference" },
           { type: "text", value: " Difference of Total " },
           {
@@ -318,7 +107,7 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card3",
+    CardName: "Card2",
     paragraph: [
       {
         type: "topic",
@@ -580,7 +369,7 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card4",
+    CardName: "Card3",
     paragraph: [
       {
         type: "topic",
@@ -731,101 +520,7 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card5",
-    paragraph: [
-      {
-        type: "topic",
-        phrases: [
-          { type: "CardTitle", value: "Association" },
-          { type: "text", value: " Association between " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_names", interactionType: "x-axis" },
-          },
-          { type: "text", value: " and " },
-          {
-            type: "entity",
-            value: "Profit",
-            metadata: { entityType: "metric_names", interactionType: "y-axis" },
-          },
-        ],
-      },
-      {
-        type: "normal",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-
-          { type: "text", value: "According to the " },
-          {
-            type: "entity",
-            value: "Pearson correlation coefficient",
-            metadata: {
-              entityType: "algorithm",
-              origin:
-                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient" +
-                " is equal to 1, it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
-            },
-          },
-          { type: "text", value: ", the correlation between " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_names", interactionType: "x-axis" },
-          },
-          { type: "text", value: " and " },
-          {
-            type: "entity",
-            value: "Profit",
-            metadata: { entityType: "metric_names", interactionType: "y-axis" },
-          },
-          { type: "text", value: " equals " },
-          {
-            type: "entity",
-            value: "0.65",
-            metadata: {
-              entityType: "metric_value",
-              insightType: "Association",
-              detail: AssociationData.data,
-              tagData: AssociationData.tagData,
-              interactionType: "Association Regression",
-            },
-          },
-          { type: "text", value: ", indicating a " },
-          {
-            type: "entity",
-            value: "positive",
-            metadata: { entityType: "binary_value", assessment: "positive" },
-          },
-          { type: "text", value: " relationship. Besides, the correlation is statistically " },
-          {
-            type: "entity",
-            value: "significant",
-            metadata: {
-              entityType: "binary_value",
-              assessment: "significant",
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      {
-        type: "plot",
-        chartType: "Association",
-        metadata: {
-          detail: AssociationData.data,
-          tagData: AssociationData.tagData,
-        },
-      },
-      {
-        type: "configuration",
-        chartType: "Association",
-        metadata: {},
-      },
-    ],
-  },
-  {
-    CardName: "Card6",
+    CardName: "Card4",
     paragraph: [
       {
         type: "topic",
@@ -958,7 +653,7 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card7",
+    CardName: "Card5",
     paragraph: [
       {
         type: "topic",
@@ -1129,7 +824,7 @@ export const iniData: Card[] = [
     ],
   },
   {
-    CardName: "Card8",
+    CardName: "Card6",
     paragraph: [
       {
         type: "topic",
@@ -1282,6 +977,311 @@ export const iniData: Card[] = [
         chartType: "TemporalPeriodicity",
         metadata: {
           timeSegmentationCondition: "4 years",
+        },
+      },
+    ],
+  },
+  {
+    CardName: "Card7",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Association" },
+          { type: "text", value: " Association between " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_names", interactionType: "x-axis" },
+          },
+          { type: "text", value: " and " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_names", interactionType: "y-axis" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+
+          { type: "text", value: "According to the " },
+          {
+            type: "entity",
+            value: "Pearson correlation coefficient",
+            metadata: {
+              entityType: "algorithm",
+              origin:
+                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient" +
+                " is equal to 1, it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
+            },
+          },
+          { type: "text", value: ", the correlation between " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_names", interactionType: "x-axis" },
+          },
+          { type: "text", value: " and " },
+          {
+            type: "entity",
+            value: "Profit",
+            metadata: { entityType: "metric_names", interactionType: "y-axis" },
+          },
+          { type: "text", value: " equals " },
+          {
+            type: "entity",
+            value: "0.65",
+            metadata: {
+              entityType: "metric_value",
+              insightType: "Association",
+              detail: AssociationData.data,
+              tagData: AssociationData.tagData,
+              interactionType: "Association Regression",
+            },
+          },
+          { type: "text", value: ", indicating a " },
+          {
+            type: "entity",
+            value: "positive",
+            metadata: { entityType: "binary_value", assessment: "positive" },
+          },
+          { type: "text", value: " relationship. Besides, the correlation is statistically " },
+          {
+            type: "entity",
+            value: "significant",
+            metadata: {
+              entityType: "binary_value",
+              assessment: "significant",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "plot",
+        chartType: "Association",
+        metadata: {
+          detail: AssociationData.data,
+          tagData: AssociationData.tagData,
+        },
+      },
+      {
+        type: "configuration",
+        chartType: "Association",
+        metadata: {},
+      },
+    ],
+  },
+  {
+    CardName: "Card8",
+    paragraph: [
+      {
+        type: "topic",
+        phrases: [
+          { type: "CardTitle", value: "Distribution" },
+          { type: "text", value: " Distribution of " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_names" },
+          },
+        ],
+      },
+      {
+        type: "normal",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: "From " },
+          {
+            type: "entity",
+            value: "January 01, 2011",
+            metadata: {
+              entityType: "filter_time",
+              selections: ["2011-01-01"],
+              paramIndex: 0,
+            },
+          },
+          { type: "text", value: " to " },
+          {
+            type: "entity",
+            value: "December 31, 2014",
+            metadata: {
+              entityType: "filter_time",
+              selections: ["2014-12-31"],
+              paramIndex: 1,
+            },
+          },
+          {
+            type: "text",
+            value: ", the distribution of ",
+          },
+          {
+            type: "entity",
+            value: " Sales ",
+            metadata: { entityType: "metric_names" },
+          },
+          {
+            type: "text",
+            value: "is ",
+          },
+          // {
+          //   type: "entity",
+          //   value: "left-skewed ",
+          //   metadata: { entityType: "binary_value", assessment: "negative" },
+          // },
+          {
+            type: "entity",
+            value: " left-skewed ",
+            metadata: {
+              entityType: "insight",
+              insightType: "Distribution",
+              detail: DistributionData.data,
+            },
+          },
+          {
+            type: "text",
+            value: ". Most data points lie in the range of ",
+          },
+          {
+            type: "entity",
+            value: "0",
+            metadata: { entityType: "metric_value", origin: 0 },
+          },
+          {
+            type: "text",
+            value: " - ",
+          },
+          {
+            type: "entity",
+            value: "7700",
+            metadata: { entityType: "metric_value", origin: 7700.14 },
+          },
+          {
+            type: "text",
+            value: ", ",
+          },
+          {
+            type: "entity",
+            value: "29",
+            metadata: {
+              entityType: "metric_value",
+              origin: 29,
+              interactionType: "distribution Outliers",
+              assessment: "anomaly",
+            },
+          },
+          { type: "text", value: " outliers have been identified, with " },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: "Min = " },
+          {
+            type: "entity",
+            value: "2.69",
+            metadata: {
+              entityType: "metric_value",
+              origin: 2.69,
+              interactionType: "distribution Min",
+            },
+          },
+          { type: "text", value: " , Max = " },
+          {
+            type: "entity",
+            value: "39536.13",
+            metadata: {
+              entityType: "metric_value",
+              origin: 39536.13,
+              interactionType: "distribution Max",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: "Q1 = " },
+          {
+            type: "entity",
+            value: "3794.66",
+            metadata: {
+              entityType: "metric_value",
+              origin: 3794.66,
+              interactionType: "distribution Q1",
+            },
+          },
+          { type: "text", value: " , Q2 (Median) = " },
+          {
+            type: "entity",
+            value: "7700.14",
+            metadata: {
+              entityType: "metric_value",
+              origin: 7700.14,
+              interactionType: "distribution Median",
+            },
+          },
+          { type: "text", value: " , Q3 = " },
+          {
+            type: "entity",
+            value: "12466.37",
+            metadata: {
+              entityType: "metric_value",
+              origin: 12466.37,
+              interactionType: "distribution Q3",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      // {
+      //   type: "bullet",
+      //   phrases: [
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+      //     { type: "text", value: "Mean = " },
+      //     {
+      //       type: "entity",
+      //       value: "8840.91",
+      //       metadata: { entityType: "metric_value", origin: 8840.91 },
+      //     },
+      //     { type: "text", value: " , Standard deviation = " },
+      //     // {
+      //     //   type: "entity",
+      //     //   value: "6567.82",
+      //     //   metadata: { entityType: "metric_value", origin: 6567.82 },
+      //     // },
+      //     {
+      //       type: "entity",
+      //       value: "6567.82",
+      //       metadata: {
+      //         entityType: "metric_value",
+      //         insightType: "Distribution",
+      //         detail: DistributionData.data,
+      //       },
+      //     },
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+      //   ],
+      // },
+
+      {
+        type: "plot",
+        chartType: "Distribution",
+        metadata: {
+          detail: DistributionData.data,
+        },
+      },
+      {
+        type: "configuration",
+        chartType: "Distribution",
+        metadata: {
+          timeSelection: ["2011-01-01", "2014-12-31"],
         },
       },
     ],

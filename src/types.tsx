@@ -168,10 +168,9 @@ export type typographySettingStateType = {
   backgroundColor: string
 }
 export type wordScaleGraphicsSettingStateType = {
-  sparkLinePosition: string
-  showDataDrivenGraphics: boolean
-  showDataDrivenCharts: boolean
+  showWordScaleChartsOn: boolean
   aspectRatio: string
+  sparkLinePosition: string
   distributionType: string
   rankType: string
   proportionType: string
@@ -180,6 +179,8 @@ export type wordScaleGraphicsSettingStateType = {
   differenceType: string
   anomalyType: string
   seasonalityType: string
+  showWordScaleSymbolsOn: boolean
+  showDataDrivenSymbols: boolean
   graphicsSignificance: boolean
   graphicsDirection: boolean
   graphicsAnomaly: boolean

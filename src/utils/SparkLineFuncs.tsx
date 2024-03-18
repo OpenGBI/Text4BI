@@ -6,10 +6,10 @@ import { Point, cateAndValue, highLightMessage, Metadata } from "../types"
 // import { AppState } from "../store"
 // const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
 // const {
-//   showDataDrivenGraphics,
+//   showWordScaleChartsOn,
 //   showDataDrivenCharts,
 // } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-// const shouldRenderSparkLine = showSparkLine && (showDataDrivenGraphics || showDataDrivenCharts)
+// const shouldRenderSparkLine = showSparkLine && (showWordScaleChartsOn || showDataDrivenCharts)
 export const renderDistribution1 = (
   data: cateAndValue[],
   aspectRatio: string,

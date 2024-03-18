@@ -143,7 +143,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
       <Row className="control-row">
         <div className="control-panel">
           <Row align="middle">
-            <Col span={10} className="control-label">
+            <Col span={10} className="control-label-layer2">
               Semantic-driven
             </Col>
             <Col span={14}>
@@ -177,7 +177,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
         <Row className="control-row">
           <div className="control-panel">
             <Row align="middle">
-              <Col span={10} className="control-label-layer2">
+              <Col span={10} className="control-label-layer3">
                 Absolute position
               </Col>
               <Col span={14}>
@@ -210,8 +210,8 @@ const ControlSemanticDrivenIcons: React.FC = () => {
           <Row className="control-row">
             <div className="control-panel">
               <Row align="middle">
-                <Col span={10} className="control-label-layer3">
-                  Symbol111
+                <Col span={10} className="control-label-layer4">
+                  Symbol
                 </Col>
                 <Col span={14} style={{ display: "flex", width: "50%" }}>
                   <Button.Group>
@@ -280,7 +280,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
         <Row className="control-row">
           <div className="control-panel">
             <Row align="middle">
-              <Col span={10} className="control-label-layer2">
+              <Col span={10} className="control-label-layer3">
                 Binding entity
               </Col>
               <Col span={14}>
@@ -303,7 +303,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
         <Row className="control-row">
           <div className="control-panel">
             <Row align="middle">
-              <Col span={10} className="control-label-layer3">
+              <Col span={10} className="control-label-layer4">
                 Symbol
               </Col>
               <Col span={14} style={{ display: "flex" }}>

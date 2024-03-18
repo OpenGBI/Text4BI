@@ -305,8 +305,7 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
   //   id = parseInt(stringID, 10) - 1
   // }
   const {
-    showDataDrivenGraphics,
-    showDataDrivenCharts,
+    showWordScaleChartsOn,
     distributionType,
     rankType,
     proportionType,

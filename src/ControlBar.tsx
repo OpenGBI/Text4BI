@@ -17,10 +17,10 @@ import ControlColor from "./components/ControlTypographySetting/ControlColor"
 import ControlBackgroundColor from "./components/ControlTypographySetting/ControlBackgroundColor"
 // 以下是word graphics panel的导入
 import ControlAspectRatio from "./components/ControlWordScaleGragphicsSetting/ControlAspectRatio"
-import ControlDataDrivenGraphics from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenGraphics"
-import ControlDataDrivenCharts from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenCharts"
+import ControlWordScaleChartsOn from "./components/ControlWordScaleGragphicsSetting/ControlWordScaleChartsOn"
 import ControlSparkLinePos from "./components/ControlWordScaleGragphicsSetting/ControlSparkLinePos"
 import ControlTypeSwitch from "./components/ControlWordScaleGragphicsSetting/ControlTypeSwitch"
+import ControlWordScaleSymbolsOn from "./components/ControlWordScaleGragphicsSetting/ControlWordScaleSymbolsOn"
 import ControlDataDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlDataDrivenIcons"
 import ControlSemanticDrivenIcons from "./components/ControlWordScaleGragphicsSetting/ControlSemanticDrivenIcons"
 // import ControlIconDesign from "./components/ControlWordScaleGragphicsSetting/ControlIconDesign"
@@ -136,16 +136,16 @@ const ControlBar: React.FC = () => (
           {/* <Row className="control-row">
             <ControlSparkLinePos />
           </Row> */}
-          <Row className="control-row">
-            <ControlDataDrivenGraphics />
-          </Row>
-          <ControlDataDrivenCharts />
+          <ControlWordScaleChartsOn />
           {/* <Row className='control-row'>
             <ControlAspectRatio />
           </Row> */}
           {/* <Row className="control-row">
             <ControlTypeSwitch />
           </Row> */}
+          <Row className="control-row">
+            <ControlWordScaleSymbolsOn />
+          </Row>
           <Row className="control-row">
             <ControlDataDrivenIcons />
           </Row>

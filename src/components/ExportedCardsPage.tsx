@@ -53,8 +53,7 @@ interface TypographySettingState {
 
 interface WordScaleGraphicsSettingState {
   sparkLinePosition: string
-  showDataDrivenGraphics: boolean
-  showDataDrivenCharts: boolean
+  showWordScaleChartsOn: boolean
   aspectRatio: string
   distributionType: string
   rankType: string

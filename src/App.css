@@ -121,6 +121,14 @@
   font-family: "Montserrat", sans-serif; /* 添加这一行 */
   color: #fff;
 }
+.control-label-layer4 {
+  display: flex;
+  align-items: center; /* Vertically centers the text with the form controls */
+  font-size: 14px; /* Set your desired font size */
+  padding-left: 45px;
+  font-family: "Montserrat", sans-serif; /* 添加这一行 */
+  color: #fff;
+}
 /* 在全局 CSS 文件中添加 */
 .ant-input-number-handler-wrap {
   opacity: 1 !important;

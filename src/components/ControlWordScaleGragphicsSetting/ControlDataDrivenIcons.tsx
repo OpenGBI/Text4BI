@@ -7,7 +7,7 @@ import { wordScaleGraphicsSettingStateType } from "../../types"
 
 const ControlDataDrivenIcons: React.FC = () => {
   const dispatch = useDispatch()
-  const { showDataDrivenGraphics } = useSelector(
+  const { showWordScaleChartsOn } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
@@ -46,7 +46,7 @@ const ControlDataDrivenIcons: React.FC = () => {
   const renderButtonGroup = (typeKey: string, label: string, value: boolean) => (
     <Row>
       <Col span={10}>
-        <div className="control-label-layer2">{label}</div>
+        <div className="control-label-layer3">{label}</div>
       </Col>
       <Col span={14}>
         <Button.Group style={{ width: "50%", paddingBottom: 7 }}>
@@ -72,7 +72,7 @@ const ControlDataDrivenIcons: React.FC = () => {
   return (
     <div
       className="control-panel"
-      style={{ display: showDataDrivenGraphics && showSparkLine ? "block" : "none" }}
+      style={{ display: showWordScaleChartsOn && showSparkLine ? "block" : "none" }}
     >
       {renderButtonGroup("graphicsSignificance", "Significance", wordScaleGraphicsSetting.graphicsSignificance)}
       {renderButtonGroup("graphicsDirection", "Direction", wordScaleGraphicsSetting.graphicsDirection)}

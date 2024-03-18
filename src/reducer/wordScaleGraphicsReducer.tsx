@@ -3,10 +3,9 @@ import { ChangeWordScaleGraphicsSettingAction } from "../actions/wordScaleGraphi
 import { iniEntityIcon, iniAbsoluteIcon } from "../utils/iniNoneDataIcon"
 
 const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
-  sparkLinePosition: "right",
-  showDataDrivenGraphics: true,
-  showDataDrivenCharts: true,
+  showWordScaleChartsOn: true,
   aspectRatio: "4:1",
+  sparkLinePosition: "right",
   distributionType: "a",
   rankType: "a",
   proportionType: "a",
@@ -15,6 +14,8 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   differenceType: "a",
   anomalyType: "a",
   seasonalityType: "a",
+  showWordScaleSymbolsOn: true,
+  showDataDrivenSymbols: true,
   graphicsSignificance: true,
   graphicsDirection: true,
   graphicsAnomaly: true,

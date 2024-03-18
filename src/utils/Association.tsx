@@ -64,6 +64,7 @@ const Association = forwardRef(
         .state("active", { opacity: 1 })
         .state("inactive", { opacity: 0.5 })
       chart.interaction("elementHighlight", true)
+      chart.interaction("tooltip", false)
       // chart.options({ tooltip: false })
       interactiveRef.current = chart
       // Render the chart

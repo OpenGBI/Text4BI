@@ -403,7 +403,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "binary_value", assessment: "positive" },
+            metadata: { entityType: "binary_value_positive", assessment: "positive" },
           },
           // {
           //   type: 'entity',
@@ -438,7 +438,7 @@ export const iniData: Card[] = [
           {
             type: "entity",
             value: "80万",
-            metadata: { entityType: "binary_value", assessment: "positive" },
+            metadata: { entityType: "binary_value_positive", assessment: "positive" },
           },
           // {
           //   type: 'entity',

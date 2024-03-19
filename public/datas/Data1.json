@@ -39,7 +39,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -76,7 +76,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -104,12 +104,12 @@
           {
             "type": "entity",
             "value": "+130.4",
-            "metadata": { "entityType": "binary_value", "assessment": "negative" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "negative" }
           },
           {
             "type": "entity",
             "value": "-38.4%",
-            "metadata": { "entityType": "binary_value", "assessment": "negative" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "negative" }
           },
           {
             "type": "entity",
@@ -119,7 +119,7 @@
           {
             "type": "entity",
             "value": "left-skewed",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           {
             "type": "entity",
@@ -175,7 +175,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -212,7 +212,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {
@@ -249,7 +249,7 @@
           {
             "type": "entity",
             "value": "80万",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" }
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" }
           },
           { "type": "text", "value": "（" },
           {

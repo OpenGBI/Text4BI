@@ -378,6 +378,7 @@ const NavigationSparkLine: React.FC<NavigationSparkLineProp> = ({
       role="button" // 添加角色
       tabIndex={0}
       aria-label="描述按钮功能的文本"
+      style={{ justifyContent: "center", alignItems: "center" }}
     />
   )
 }

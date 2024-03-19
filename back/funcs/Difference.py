@@ -38,7 +38,7 @@ def changeDifference(timeSelection):
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     for i in range(0,len(topics)):
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'binary_value':
+            if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["value"]="increase"
                 else:
@@ -46,7 +46,7 @@ def changeDifference(timeSelection):
                 break
         count=0
         for phrase in topics[i]['phrases']:
-            if (phrase.get('metadata', {}).get('entityType') == 'binary_value') and (count==0):
+            if (phrase.get('metadata', {}).get('entityType') == 'binary_value_positive') and (count==0):
                 print("aaa阿啊阿啊阿啊阿啊阿啊阿啊")
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["value"]="increased "
@@ -63,7 +63,7 @@ def changeDifference(timeSelection):
                 #     phrase["metadata"]["assessment"]="positive"
                 # else:
                 #     phrase["metadata"]["assessment"]="negative"
-            elif (phrase.get('metadata', {}).get('entityType') == 'binary_value')and(count==1):
+            elif (phrase.get('metadata', {}).get('entityType') == 'binary_value_positive')and(count==1):
                 phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"

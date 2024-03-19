@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Row, Col, Switch, Dropdown, Menu, Select } from "antd"
+import { TreeSelect, Button, Row, Col, Switch, Dropdown, Menu, Select } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeWordScaleGraphicsSetting } from "../../actions/wordScaleGraphicsSettingAction"
@@ -9,6 +9,7 @@ import { SvgIcon } from "../../utils/NoneDataIcon"
 import ImportIcon from "./ImportIcon"
 
 const { Option } = Select
+const { TreeNode } = TreeSelect
 
 const ControlSemanticDrivenIcons: React.FC = () => {
   const dispatch = useDispatch()
@@ -87,6 +88,9 @@ const ControlSemanticDrivenIcons: React.FC = () => {
 
   // Function to handle change in selected entity type
   const handlePrimaryChange = (value: string) => {
+    if (value === "binary_value") {
+      value = "binary_value_positive"
+    }
     setSemanticBindingEntityType(value)
     // Dispatch or handle change in state here
     // console.log('Selected entity type:', value)
@@ -138,7 +142,15 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   )
 
   return (
-    <div style={{ width: "100%", display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn ? "block" : "none" }}>
+    <div
+      style={{
+        width: "100%",
+        display:
+          globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleSymbolsOn
+            ? "block"
+            : "none",
+      }}
+    >
       {/* Semantic-driven 开关 */}
       <Row className="control-row">
         <div className="control-panel">
@@ -284,17 +296,24 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                 Binding entity
               </Col>
               <Col span={14}>
-                <Select
-                  style={{ width: "90%" }}
+                <TreeSelect
+                  style={{ width: "100%" }}
                   value={semanticBindingEntityType}
+                  dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+                  placeholder="Please select"
+                  allowClear
+                  treeDefaultExpandAll
                   onChange={handlePrimaryChange}
                 >
-                  <Option value="metric_value">value phrases(general)</Option>
-                  <Option value="binary_value">value phrases(binary)</Option>
-                  <Option value="metric_names">measure phrases</Option>
-                  <Option value="algorithm">method phrases</Option>
-                  <Option value="filter_cate">filter phrases</Option>
-                </Select>
+                  <TreeNode value="metric_value" title="value phrases(general)" />
+                  <TreeNode value="binary_value" title="value phrases(binary)" selectable={false}>
+                    <TreeNode value="binary_value_positive" title="value phrases(+)" />
+                    <TreeNode value="binary_value_negative" title="value phrases(-)" />
+                  </TreeNode>
+                  <TreeNode value="metric_names" title="measure phrases" />
+                  <TreeNode value="algorithm" title="method phrases" />
+                  <TreeNode value="filter_cate" title="filter phrases" />
+                </TreeSelect>
               </Col>
             </Row>
           </div>

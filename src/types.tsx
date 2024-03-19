@@ -19,7 +19,8 @@ export type Metadata = {
   assessment?: string
   detail?: number[] | Point[] | cateAndValue[]
   selections?: string[]
-  binary_value?: string
+  binary_value_positive?: string
+  binary_value_negative?: string
   ratio_value?: string
   tagData?: number | number[] | Point[] | cateAndValue[] | string
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点

@@ -40,7 +40,7 @@ def changeTemporalPeriodly(timeSegmentationCondition):
     # topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     # for i in range(0,len(topics)):
     #     for phrase in topics[i]['phrases']:
-    #         if phrase.get('metadata', {}).get('entityType') == 'binary_value':
+    #         if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
     #             phrase["value"]=len(abnormal_data)
     #             break
     #     for phrase in topics[i]['phrases']:
@@ -65,7 +65,7 @@ def changeTemporalPeriodly(timeSegmentationCondition):
     #             phrase["metadata"]["origin"]=round(abnormal_data["value"],2)
     #             break
     #     for phrase in topics[i]['phrases']:
-    #         if phrase.get('metadata', {}).get('entityType') == 'binary_value':
+    #         if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
     #             phrase["value"]=str(round(abnormal_data["predict"],2))
     #             phrase["metadata"]["origin"]=round(abnormal_data["predict"],2)
     #             break

@@ -11,12 +11,20 @@ export const iniEntityStyles: entityStylesType = {
       backgroundColor: "white",
     },
     // 为其他实体类型定义样式设置...
-    binary_value: {
+    binary_value_positive: {
       boldness: true,
       underline: false,
       italics: false,
       contour: false,
-      color: "13A8A8",
+      color: "#13A8A8",
+      backgroundColor: "white",
+    },
+    binary_value_negative: {
+      boldness: true,
+      underline: false,
+      italics: false,
+      contour: false,
+      color: "#FA541C",
       backgroundColor: "white",
     },
     metric_names: {

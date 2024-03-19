@@ -534,23 +534,23 @@ export const iniData: Card[] = [
           },
         ],
       },
-      {
-        type: "normal",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          // { type: "text", value: "According to the " },
-          // {
-          //   type: "entity",
-          //   value: "linear regression,",
-          //   metadata: {
-          //     entityType: "algorithm",
-          //     origin:
-          //       "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
-          //   },
-          // },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
+      // {
+      //   type: "normal",
+      //   phrases: [
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+      //     // { type: "text", value: "According to the " },
+      //     // {
+      //     //   type: "entity",
+      //     //   value: "linear regression,",
+      //     //   metadata: {
+      //     //     entityType: "algorithm",
+      //     //     origin:
+      //     //       "A statistical model which estimates the linear relationship between a scalar response and one explanatory variables",
+      //     //   },
+      //     // },
+      //     { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+      //   ],
+      // },
       {
         type: "normal",
         phrases: [

@@ -124,20 +124,25 @@ function MainApp() {
               <ControlBar />
             </Content>
           </Sider>
-
-          <Content>
-            <Content>
-              <ImportBar />
-            </Content>
-            <Content style={contentMiddleStyle}>
-              <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
-            </Content>
-          </Content>
-          <Sider width={140} style={rightSiderStyle}>
-            <Content>
-              <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
-            </Content>
-          </Sider>
+          <Layout>
+            <Header
+              style={{ background: "#fff", padding: "0", lineHeight: "inherit", height: "50px" }}
+            >
+              <Content>
+                <ImportBar />
+              </Content>
+            </Header>
+            <Layout>
+              <Content style={contentMiddleStyle}>
+                <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
+              </Content>
+              <Sider width={140} style={rightSiderStyle}>
+                <Content>
+                  <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
+                </Content>
+              </Sider>
+            </Layout>
+          </Layout>
         </Layout>
       </Layout>
     </div>

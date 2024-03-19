@@ -10,7 +10,7 @@
   display: flex; /* 设定为弹性盒子 */
   flex-direction: column; /* 子元素垂直排列 */
   gap: 20px; /* 子元素之间间隔20px，这个属性在现代浏览器中得到支持 */
-  margin-top: 63px;
+  /* margin-top: 63px; */
 }
 #NavigationCard {
   display: flex; /* 设定为弹性盒子 */

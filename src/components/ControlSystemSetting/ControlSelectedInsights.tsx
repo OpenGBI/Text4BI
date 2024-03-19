@@ -23,9 +23,7 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ menu }) => (
-  <div style={{ overflowY: "auto" }}>
-    {menu}
-  </div>
+  <div style={{ overflowY: "auto" }}>{menu}</div>
 )
 
 const ControlSelectedInsights: React.FC = () => {
@@ -67,12 +65,12 @@ const ControlSelectedInsights: React.FC = () => {
   ]
   const formatOptionLabel = ({ label, value }: OptionType) => (
     // console.log("检查formatOptionLabel的参数", label, value)
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {/* <span
+    <div style={{ display: "flex", alignItems: "center" }}>
+      {/* <span
           style={{ color: value, fontSize: "20px", fontWeight: "bold" }}
         > · </span> */}
-        <span
-          style={{
+      <span
+        style={{
           height: "10px",
           width: "10px",
           backgroundColor: value, // 使用option中的颜色值
@@ -80,13 +78,13 @@ const ControlSelectedInsights: React.FC = () => {
           display: "inline-block",
           marginRight: "8px", // 和文本保持一定间距
           flexShrink: 0, // 防止圆点被压缩
-          }}
-        >
-          {/* 这里是颜色圆点 */}
-        </span>
-        <span style={{ color: "black" }}>{label}</span>
-      </div>
-    )
+        }}
+      >
+        {/* 这里是颜色圆点 */}
+      </span>
+      <span style={{ color: "black" }}>{label}</span>
+    </div>
+  )
   // const defaultValuesLabels = defaultValue.map(
   //   (val) => options.find((option) => option.value === val)?.label,
   // )
@@ -96,8 +94,8 @@ const ControlSelectedInsights: React.FC = () => {
     setSelectedValues(selectedItems)
     // 将对应的cardid存起来
     const selectedIds = options
-    .filter((option) => selectedItems.includes(option.value)) // 先过滤出选中的项
-    .map((option) => option.cardid) // 然后映射到它们的 cardid
+      .filter((option) => selectedItems.includes(option.value)) // 先过滤出选中的项
+      .map((option) => option.cardid) // 然后映射到它们的 cardid
     // console.log("检查第一次的selectedvalues", selectedValues)
     console.log("检查selectedIds", selectedIds)
     setSelectedCards(selectedIds)
@@ -151,7 +149,9 @@ const ControlSelectedInsights: React.FC = () => {
   }
 
   return (
-    <Space style={{ width: "100%" }} direction="vertical"> {/* 设置外部容器的固定宽度 */}
+    <Space style={{ width: "85%" }} direction="vertical">
+      {" "}
+      {/* 设置外部容器的固定宽度 */}
       <Select
         className="custom-select-multiple"
         // dropdownClassName="custom-dropdown"

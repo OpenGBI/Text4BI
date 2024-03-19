@@ -12,21 +12,20 @@ type navigationProps = {
   CardsIDs: string[]
 }
 const Navigation: React.FC<navigationProps> = ({ navigationClick, CardsIDs }) => (
-  <div>
+  <div id="Navigation">
     {CardsIDs.map((cardID, index) => (
-      <div key={index} style={{ marginTop: "50px", marginBottom: "50px" }}>
+      <div key={index} style={{}}>
         {/* <button type="submit" onClick={() => navigationClick(index)}>
             {cardID}
           </button> */}
-        <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#272643" }}>
-          {/* <Panel
+        {/* <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "white" }}></Collapse> */}
+        {/* <Panel
             header={<span className="panel-header">Icon</span>}
             key="1"
             style={{ backgroundColor: "#fff" }}
           > */}
-          <NavigationCard navigationClick={navigationClick} CardID={cardID} cardIndex={index} />
-          {/* </Panel> */}
-        </Collapse>
+        <NavigationCard navigationClick={navigationClick} CardID={cardID} cardIndex={index} />
+        {/* </Panel> */}
       </div>
     ))}
   </div>

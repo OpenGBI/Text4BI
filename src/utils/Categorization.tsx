@@ -23,6 +23,7 @@ const Categorization: React.FC<BarChartProps> = ({
   const CategorizationRef = React.useRef(null)
   const [testState, setTestState] = React.useState(0)
   const interactiveRef = React.useRef<Chart | null>(null)
+  const processedData = data.slice(0, 7)
   // console.log("CategorizationData!!!!!!!!!!!", data)
   React.useEffect(() => {
     // const plotData = data.map((value, index) => ({
@@ -44,7 +45,7 @@ const Categorization: React.FC<BarChartProps> = ({
       },
     })
     // chart.coordinate({ transform: [{ type: "transpose" }] })
-    chart.data(data)
+    chart.data(processedData)
     // console.log('CategorizationCategorizationCategorization', data)
 
     chart
@@ -98,7 +99,7 @@ const Categorization: React.FC<BarChartProps> = ({
     if (interactionType === "ByValue") {
       const isString = (value: any) => typeof value === "string" || value instanceof String
 
-      const highlightData = find(data, (item: cateAndValue) => {
+      const highlightData = find(processedData, (item: cateAndValue) => {
         if (isString(message)) {
           return item.category === message
         }

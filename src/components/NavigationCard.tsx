@@ -31,7 +31,8 @@ const NavigationCard: React.FC<NavigationCardProp> = ({ navigationClick, CardID,
           return paragraph.phrases.map((phrase, index) => {
             if (phrase.metadata && phrase.metadata.detail) {
               return (
-                <Row className="control-row">
+                // <Row className="control-row"></Row>
+                <div id="NavigationItem">
                   <NavigationSparkLine
                     key={index}
                     metadata={phrase.metadata}
@@ -42,7 +43,7 @@ const NavigationCard: React.FC<NavigationCardProp> = ({ navigationClick, CardID,
                     cardIndex={cardIndex}
                     value={phrase.value}
                   />
-                </Row>
+                </div>
               )
             }
             return null
@@ -54,7 +55,7 @@ const NavigationCard: React.FC<NavigationCardProp> = ({ navigationClick, CardID,
   }
 
   return (
-    <div style={{ marginTop: "50px", marginBottom: "50px", background: "#272643" }}>
+    <div id="NavigationCard" style={{ marginTop: "2px", marginBottom: "2px", background: "white" }}>
       {renderPhrases()}
     </div>
   )

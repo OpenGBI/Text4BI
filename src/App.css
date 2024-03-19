@@ -6,6 +6,22 @@
   background-color: #fff;
 }
 
+#Navigation {
+  display: flex; /* 设定为弹性盒子 */
+  flex-direction: column; /* 子元素垂直排列 */
+  gap: 20px; /* 子元素之间间隔20px，这个属性在现代浏览器中得到支持 */
+}
+#NavigationCard {
+  display: flex; /* 设定为弹性盒子 */
+  flex-direction: column; /* 子元素垂直排列 */
+  gap: 20px; /* 子元素之间间隔20px，这个属性在现代浏览器中得到支持 */
+}
+#NavigationItem {
+  border: 2px solid lightgray; /* 设置边框宽度为2px，颜色为浅灰色 */
+
+  justify-content: center; /* 水平居中子元素 */
+  align-items: center; /* 垂直居中子元素 */
+}
 .full-height {
   height: 100%; /* 设置Layout的高度为100% */
 }

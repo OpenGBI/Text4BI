@@ -3348,7 +3348,7 @@ export const renderTemporalityAnomaly2 = (
       .datum(data)
       .attr("d", line)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "#3769b1")
       .attr("stroke-width", 2)
 
     svgD3
@@ -3384,7 +3384,7 @@ export const renderTemporalityAnomaly2 = (
       .datum(data)
       .attr("d", line)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "#3769b1")
       .attr("stroke-width", 2)
 
     svgD3
@@ -3517,7 +3517,7 @@ export const renderTemporalityAnomaly1 = (
       .datum(data)
       .attr("d", line)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "#3769b1")
       .attr("stroke-width", 2)
 
     // 标记第3个和第5个点
@@ -3555,7 +3555,7 @@ export const renderTemporalityAnomaly1 = (
       .datum(data)
       .attr("d", line)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "#3769b1")
       .attr("stroke-width", 2)
 
     svgD3

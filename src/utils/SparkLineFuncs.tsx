@@ -564,13 +564,26 @@ export const renderCategorization1 = (
           .selectAll("rect")
           .transition()
           .duration(150)
+          .attr("fill", function () {
+            return this === event.currentTarget ? "#3769b1" : "#cbd7ed" // 对当前rect保持不变，其他的设置透明度为0.618
+          }) // 当鼠标悬停时设置颜色为 #3769b1
           .style("opacity", function () {
             return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
           })
       })
       .on("mouseleave", (event, d) => {
         handleLeave()
-        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .attr("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1" // 如果没有特定的tagData, 保持这个颜色
+            }
+            return i === tagData ? "#3769b1" : "#cbd7ed" // 根据tagData决定恢复到原始颜色或保留高亮
+          })
+          .style("opacity", "1") // 保证透明度回到1
       })
   }
   // 左右放小图
@@ -604,13 +617,26 @@ export const renderCategorization1 = (
           .selectAll("rect")
           .transition()
           .duration(150)
+          .attr("fill", function () {
+            return this === event.currentTarget ? "#3769b1" : "#cbd7ed" // 对当前rect保持不变，其他的设置透明度为0.618
+          }) // 当鼠标悬停时设置颜色为 #3769b1
           .style("opacity", function () {
             return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
           })
       })
       .on("mouseleave", (event, d) => {
         handleLeave()
-        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .attr("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1" // 如果没有特定的tagData, 保持这个颜色
+            }
+            return i === tagData ? "#3769b1" : "#cbd7ed" // 根据tagData决定恢复到原始颜色或保留高亮
+          })
+          .style("opacity", "1") // 保证透明度回到1
       })
   }
 }
@@ -756,13 +782,26 @@ export const renderCategorization2 = (
           .selectAll("rect")
           .transition()
           .duration(150)
+          .attr("fill", function () {
+            return this === event.currentTarget ? "#3769b1" : "#cbd7ed" // 对当前rect保持不变，其他的设置透明度为0.618
+          }) // 当鼠标悬停时设置颜色为 #3769b1
           .style("opacity", function () {
             return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
           })
       })
       .on("mouseleave", (event, d) => {
         handleLeave()
-        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .attr("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1" // 如果没有特定的tagData, 保持这个颜色
+            }
+            return i === tagData ? "#3769b1" : "#cbd7ed" // 根据tagData决定恢复到原始颜色或保留高亮
+          })
+          .style("opacity", "1") // 保证透明度回到1
       })
   }
   // 左右放小图
@@ -797,13 +836,26 @@ export const renderCategorization2 = (
           .selectAll("rect")
           .transition()
           .duration(150)
+          .attr("fill", function () {
+            return this === event.currentTarget ? "#3769b1" : "#cbd7ed" // 对当前rect保持不变，其他的设置透明度为0.618
+          }) // 当鼠标悬停时设置颜色为 #3769b1
           .style("opacity", function () {
             return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
           })
       })
       .on("mouseleave", (event, d) => {
         handleLeave()
-        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .attr("fill", (dd, i) => {
+            if (tagData === -1) {
+              return "#3769b1" // 如果没有特定的tagData, 保持这个颜色
+            }
+            return i === tagData ? "#3769b1" : "#cbd7ed" // 根据tagData决定恢复到原始颜色或保留高亮
+          })
+          .style("opacity", "1") // 保证透明度回到1
       })
   }
 }
@@ -1364,6 +1416,17 @@ export const renderAssociation1 = (
       .y((d) => yScale(k * d.x + b))
     // console.log('datumdatum', k, b)
 
+    const res = svgD3
+      .append("path")
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)")
     svgD3
       .selectAll(".scatter-line-point") // 使用一个不同的类名
       .data(points)
@@ -1372,7 +1435,8 @@ export const renderAssociation1 = (
       .attr("class", "scatter-line-point") // 使用一个不同的类名
       .attr("cx", (d) => xScale(d.x))
       .attr("cy", (d) => yScale(d.y))
-      .attr("r", 0.8)
+      .attr("r", 1)
+      .attr("opacity", 0)
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
         handleHoverThrottled(d.x)
@@ -1477,6 +1541,17 @@ export const renderAssociation1 = (
       .y((d) => yScale(k * d.x + b))
     // console.log('datumdatum', k, b)
 
+    const res = svgD3
+      .append("path")
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)")
     svgD3
       .selectAll(".scatter-line-point") // 使用一个不同的类名
       .data(points)
@@ -1485,7 +1560,8 @@ export const renderAssociation1 = (
       .attr("class", "scatter-line-point") // 使用一个不同的类名
       .attr("cx", (d) => xScale(d.x))
       .attr("cy", (d) => yScale(d.y))
-      .attr("r", 0.8)
+      .attr("r", 1)
+      .attr("opacity", 0)
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
         handleHoverThrottled(d.x)
@@ -1708,6 +1784,24 @@ export const renderAssociation2 = (
       .attr("stroke-width", 1)
       .attr("d", line)
       .attr("marker-end", "url(#arrow)")
+    svgD3
+      .selectAll(".scatter-line-point") // 使用一个不同的类名
+      .data(points)
+      .enter()
+      .append("circle")
+      .attr("class", "scatter-line-point") // 使用一个不同的类名
+      .attr("cx", (d) => xScale(d.x))
+      .attr("cy", (d) => yScale(d.y))
+      .attr("r", 1)
+      .attr("opacity", 0)
+      .style("fill", "steelblue")
+      .on("mouseenter", (event, d) => {
+        handleHoverThrottled(d.x)
+        handleHoverLine(d)
+      })
+      .on("mouseleave", () => {
+        handleLeave()
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -1795,16 +1889,31 @@ export const renderAssociation2 = (
       )
       .selectAll("path, line") // 选择坐标轴的所有路径和线
       .style("stroke", "steelblue")
-
+    const line = d3
+      .line<Point>()
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(k * d.x + b))
+    const res = svgD3
+      .append("path")
+      .datum([
+        { x: -maxAbsX, y: 0 },
+        { x: maxAbsX, y: 0 },
+      ])
+      .attr("class", "line")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+      .attr("marker-end", "url(#arrow)")
     svgD3
       .selectAll(".scatter-line-point") // 使用一个不同的类名
       .data(points)
       .enter()
       .append("circle")
-      .attr("class", "scatter-line-point")
+      .attr("class", "scatter-line-point") // 使用一个不同的类名
       .attr("cx", (d) => xScale(d.x))
       .attr("cy", (d) => yScale(d.y))
-      .attr("r", 0.8)
+      .attr("r", 1)
+      .attr("opacity", 0)
       .style("fill", "steelblue")
       .on("mouseenter", (event, d) => {
         handleHoverThrottled(d.x)
@@ -1813,6 +1922,7 @@ export const renderAssociation2 = (
       .on("mouseleave", () => {
         handleLeave()
       })
+
     svgD3.on("mouseleave", () => {
       horizontalLine.style("opacity", 0)
       verticalLine.style("opacity", 0)
@@ -1983,7 +2093,7 @@ export const renderTemporalityTrend1 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1) // size of circle for "hit area"
+      .attr("r", 1.5) // size of circle for "hit area"
       .style("opacity", (d, i) => {
         if (i === 0 || i === data.length - 1) {
           return 1 // 更大的半径
@@ -2072,8 +2182,13 @@ export const renderTemporalityTrend1 = (
       .append("circle")
       .attr("cx", (d, i) => xScale(i))
       .attr("cy", (d) => yScale(d))
-      .attr("r", 1) // size of circle for "hit area"
-
+      .attr("r", 1.5) // size of circle for "hit area"
+      .style("opacity", (d, i) => {
+        if (i === 0 || i === data.length - 1) {
+          return 1 // 更大的半径
+        }
+        return 0 // 默认的半径大小
+      })
       .style("fill", "steelblue")
       .on("mouseover", (event, d) => {
         // console.log("debug-TemporalTrend-over", d)
@@ -2852,19 +2967,19 @@ export const renderTemporalityDifference2 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(minValue))
       .attr("fill", "#4474cc")
-      .on("mouseenter", function (event, d) {
-        handleHoverThrottled(data[d])
-        d3.select(this)
-          .transition() // 可选：添加一个平滑的过渡效果
-          .duration(150) // 过渡效果的持续时间，单位为毫秒
-          .style("fill", "#ea5322") // 改变颜色为红色
+      .on("mouseenter", (event, d) => {
+        handleHoverThrottled(data[maxValueIndex])
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .style("opacity", function () {
+            return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
+          })
       })
-      .on("mouseleave", function (event, d) {
+      .on("mouseleave", (event, d) => {
         handleLeave()
-        d3.select(this)
-          .transition() // 可选：添加一个平滑的过渡效果
-          .duration(150) // 过渡效果的持续时间，单位为毫秒
-          .style("fill", "#4474cc") // 根据条件恢复原始颜色
+        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
       })
 
     // 在最大值位置的上方绘制一个红色柱子，表示最大值和最小值的差
@@ -2875,19 +2990,19 @@ export const renderTemporalityDifference2 = (
       .attr("width", barWidth)
       .attr("height", (d) => yScale(minValue) - yScale(Math.max(...data)))
       .attr("fill", "#ea5322")
-      .on("mouseenter", function (event, d) {
+      .on("mouseenter", (event, d) => {
         handleHoverThrottled(data[maxValueIndex])
-        d3.select(this)
-          .transition() // 可选：添加一个平滑的过渡效果
-          .duration(150) // 过渡效果的持续时间，单位为毫秒
-          .style("fill", "#ea5322") // 改变颜色为红色
+        svgD3
+          .selectAll("rect")
+          .transition()
+          .duration(150)
+          .style("opacity", function () {
+            return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
+          })
       })
-      .on("mouseleave", function (event, d) {
+      .on("mouseleave", (event, d) => {
         handleLeave()
-        d3.select(this)
-          .transition() // 可选：添加一个平滑的过渡效果
-          .duration(150) // 过渡效果的持续时间，单位为毫秒
-          .style("fill", "#ea5322") // 根据条件恢复原始颜色
+        svgD3.selectAll("rect").transition().duration(150).style("opacity", "1")
       })
     svgD3
       .append("line")
@@ -3123,7 +3238,7 @@ export const renderTemporalityDifference2 = (
 //     // })
 //   }
 // }
-export const renderTemporalityAnomaly1 = (
+export const renderTemporalityAnomaly2 = (
   iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
@@ -3291,7 +3406,7 @@ export const renderTemporalityAnomaly1 = (
       })
   }
 }
-export const renderTemporalityAnomaly2 = (
+export const renderTemporalityAnomaly1 = (
   iniData: cateAndValue[],
   aspectRatio: string,
   sparkLinePosition: string,
@@ -3694,13 +3809,13 @@ export const renderTemporalitySeasonality1 = (
       .attr("stroke", "#ea5322") // 同上
       .attr("stroke-width", 1)
       .style("opacity", 0) // 初始时不显示
-    svgD3
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1)
-      .attr("d", line)
+    // svgD3
+    //   .append("path")
+    //   .datum(data)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "steelblue")
+    //   .attr("stroke-width", 1)
+    //   .attr("d", line)
     for (let i = 0; i < tagData.length; i += 2) {
       if (i < tagData.length - 2) {
         svgD3
@@ -3730,7 +3845,13 @@ export const renderTemporalitySeasonality1 = (
           .attr("opacity", 0.8)
       }
     }
-
+    svgD3
+      .append("path")
+      .datum(data)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line)
     const handleHoverLine = (d: number) => {
       horizontalLine.style("opacity", 1)
       verticalLine.style("opacity", 1)
@@ -3908,7 +4029,7 @@ export const renderTemporalitySeasonality2 = (
         .append("path")
         .attr("d", arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
         .attr("fill", "none")
-        .attr("stroke", "blue")
+        .attr("stroke", "#3769b1")
         .attr("stroke-width", 2)
     }
   }
@@ -3959,7 +4080,7 @@ export const renderTemporalitySeasonality2 = (
         .append("path")
         .attr("d", arcGenerator(points as any)) // `as any` is used to bypass the strict type checking
         .attr("fill", "none")
-        .attr("stroke", "blue")
+        .attr("stroke", "#3769b1")
         .attr("stroke-width", 2)
     }
   }

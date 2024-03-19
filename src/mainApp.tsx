@@ -78,7 +78,7 @@ function MainApp() {
   const rightSiderStyle: React.CSSProperties = {
     height: "100%",
     overflow: "auto",
-    background: "#272643",
+    background: "white",
   }
   const contentMiddleStyle: React.CSSProperties = {
     height: "100%",

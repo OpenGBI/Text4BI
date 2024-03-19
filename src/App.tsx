@@ -52,7 +52,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router basename="bi4an">
+      <Router basename="">
         {" "}
         {/* 使用 BrowserRouter */}
         <Routes>

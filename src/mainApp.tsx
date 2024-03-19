@@ -124,6 +124,7 @@ function MainApp() {
               <ControlBar />
             </Content>
           </Sider>
+
           <Content>
             <Content>
               <ImportBar />

@@ -528,11 +528,7 @@ iniData = [
             },
           },
           { "type": "text", "value": " there is an " },
-          {
-            "type": "entity",
-            "value": "",
-            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
-          },
+          
           {
             "type": "entity",
             "value": "increased",

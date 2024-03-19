@@ -5822,7 +5822,7 @@
             "type": "entity",
             "value": "positive",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "positive"
             }
           },
@@ -5834,7 +5834,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "significant"
             }
           }
@@ -30556,7 +30556,7 @@
             "type": "entity",
             "value": "",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "positive"
             }
           },
@@ -31928,7 +31928,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "significant"
             }
           },
@@ -33134,7 +33134,7 @@
             "type": "entity",
             "value": "12",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "anomaly"
             }
           },
@@ -34120,7 +34120,7 @@
             "type": "entity",
             "value": "6235.21",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "origin": 6235.21
             }
           }
@@ -34160,7 +34160,7 @@
             "type": "entity",
             "value": "4995.34.",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "origin": 4995.34
             }
           }
@@ -34200,7 +34200,7 @@
             "type": "entity",
             "value": "6732.64",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "origin": 6732.64
             }
           }
@@ -35212,7 +35212,7 @@
             "type": "entity",
             "value": "increased ",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "increase"
             }
           },
@@ -35224,7 +35224,7 @@
             "type": "entity",
             "value": "23.49% ",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "positive"
             }
           },

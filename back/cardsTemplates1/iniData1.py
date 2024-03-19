@@ -257,13 +257,13 @@ data = [
           {
             "type": "entity",
             "value": "increased ",
-            "metadata": { "entityType": "binary_value", "assessment": "increase" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "increase" },
           },
           { "type": "text", "value": "by " },
           {
             "type": "entity",
             "value": "23.49% ",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           {
             "type": "entity",
@@ -695,14 +695,14 @@ data = [
           {
             "type": "entity",
             "value": "positive",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
           {
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "significant",
               "interactionType": "Association Regression",
             },

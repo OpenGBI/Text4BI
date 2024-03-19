@@ -66,7 +66,7 @@ iniData = [
             "type": "entity",
             "value": " left-skewed ",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "insightType": "Distribution",
               "detail": DistributionData["data"],
               "assessment":"left-skewed"
@@ -259,13 +259,13 @@ iniData = [
           {
             "type": "entity",
             "value": "increased ",
-            "metadata": { "entityType": "binary_value", "assessment": "increase" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "increase" },
           },
           { "type": "text", "value": "by " },
           {
             "type": "entity",
             "value": "23.49% ",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           {
             "type": "entity",
@@ -751,14 +751,14 @@ iniData = [
           {
             "type": "entity",
             "value": "positive",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
           {
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "significant",
             },
           },
@@ -830,13 +830,13 @@ iniData = [
           {
             "type": "entity",
             "value": "",
-            "metadata": { "entityType": "binary_value", "assessment": "positive" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           {
             "type": "entity",
             "value": "increased",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "insightType": "TemporalityTrend",
               "detail": TrendData["data"],
               "tagData": TrendData["predictData"],
@@ -872,7 +872,7 @@ iniData = [
             "type": "entity",
             "value": "increasing",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "increase",
               "interactionType": "Temporal Trend Regression",
             },
@@ -957,7 +957,7 @@ iniData = [
           {
             "type": "entity",
             "value": "9",
-            "metadata": { "entityType": "binary_value", "assessment": "anomaly" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "anomaly" },
           },
           {
             "type": "entity",
@@ -999,7 +999,7 @@ iniData = [
           {
             "type": "entity",
             "value": "6235.21",
-            "metadata": { "entityType": "binary_value","assessment": "positive", "origin": 6235.21, "interactionType": "ByValue" },
+            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6235.21, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
@@ -1024,7 +1024,7 @@ iniData = [
           {
             "type": "entity",
             "value": "4995.34.",
-            "metadata": { "entityType": "binary_value","assessment": "positive", "origin": 4995.34, "interactionType": "ByValue" },
+            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 4995.34, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
@@ -1049,7 +1049,7 @@ iniData = [
           {
             "type": "entity",
             "value": "6732.64",
-            "metadata": { "entityType": "binary_value","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
+            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
@@ -1114,7 +1114,7 @@ iniData = [
           {
             "type": "entity",
             "value": "significant",
-            "metadata": { "entityType": "binary_value", "assessment": "significant" },
+            "metadata": { "entityType": "binary_value_positive", "assessment": "significant" },
           },
           {
             "type": "entity",

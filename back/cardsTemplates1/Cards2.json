@@ -5822,7 +5822,7 @@
             "type": "entity",
             "value": "positive",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "positive"
             }
           },
@@ -5834,7 +5834,7 @@
             "type": "entity",
             "value": "significant",
             "metadata": {
-              "entityType": "binary_value",
+              "entityType": "binary_value_positive",
               "assessment": "significant"
             }
           }

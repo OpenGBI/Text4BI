@@ -56,14 +56,14 @@ const ControlSelectedInsights: React.FC = () => {
   ] // Pastel1 色板
 
   const options = [
-    { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card1" },
-    { value: COLOR_PALETTE[1], label: "Difference of Total Profit by Year", cardid: "Card2" },
-    { value: COLOR_PALETTE[2], label: "Rank of Sales by City", cardid: "Card3" },
-    { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card4" },
-    { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card5" },
-    { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card6" },
-    { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card7" },
-    { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card8" },
+    { value: COLOR_PALETTE[1], label: "Difference of Total Profit by Year", cardid: "Card1" },
+    { value: COLOR_PALETTE[2], label: "Rank of Sales by City", cardid: "Card2" },
+    { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card3" },
+    { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card4" },
+    { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card5" },
+    { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card6" },
+    { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card7" },
+    { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card8" },
   ]
   const formatOptionLabel = ({ label, value }: OptionType) => (
     // console.log("检查formatOptionLabel的参数", label, value)

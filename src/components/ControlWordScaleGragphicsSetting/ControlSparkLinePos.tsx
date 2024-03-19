@@ -47,7 +47,7 @@ const ControlSparkLinePos: React.FC = () => {
       dispatch(
         ChangeGlobalSetting({
           ...globalSetting,
-          lineHeight: 2.6314,
+          lineHeight: 3,
         }),
       )
     } else {
@@ -80,7 +80,7 @@ const ControlSparkLinePos: React.FC = () => {
   return (
     <div className="control-panel">
       <Row align="middle">
-        <Col span={10} className="control-label-layer3">
+        <Col span={10} className="control-label-layer2">
           Position
         </Col>
         <Col span={14} style={{ width: "55%" }}>

@@ -8,10 +8,10 @@ import ControlAspectRatio from "./ControlAspectRatio"
 import ControlTypeSwitch from "./ControlTypeSwitch"
 import ControlSparkLinePos from "./ControlSparkLinePos"
 
-const ControlDataDrivenCharts: React.FC = () => {
+const ControlWordScaleChartsOn: React.FC = () => {
   const dispatch = useDispatch()
   const globalSetting = useSelector((state: AppState) => state.globalSetting)
-  const { showDataDrivenGraphics, showDataDrivenCharts } = useSelector(
+  const { showWordScaleChartsOn } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
@@ -24,7 +24,7 @@ const ControlDataDrivenCharts: React.FC = () => {
     dispatch(
       ChangeWordScaleGraphicsSetting({
         ...wordScaleGraphicsSetting,
-        showDataDrivenCharts: checked,
+        showWordScaleChartsOn: checked,
       }),
     )
   }
@@ -33,21 +33,21 @@ const ControlDataDrivenCharts: React.FC = () => {
     <div
       style={{
         width: "100%",
-        display:
-          wordScaleGraphicsSetting.showDataDrivenGraphics && globalSetting.showSparkLine
-            ? "block"
-            : "none",
+        // display:
+        //   globalSetting.showSparkLine
+        //     ? "block"
+        //     : "none",
       }}
     >
       <Row className="control-row">
         <div className="control-panel">
           <Row align="middle">
-            <Col span={10} className="control-label-layer2">
-              Chart
+            <Col span={10} className="control-label">
+              Charts
             </Col>
             <Col span={14}>
               <Switch
-                checked={wordScaleGraphicsSetting.showDataDrivenCharts}
+                checked={globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn}
                 onChange={changeDataDrivenCharts}
               />
             </Col>
@@ -56,19 +56,19 @@ const ControlDataDrivenCharts: React.FC = () => {
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlAspectRatio />
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlSparkLinePos />
       </Row>
       <Row
         className="control-row"
-        style={{ display: wordScaleGraphicsSetting.showDataDrivenCharts ? "block" : "none" }}
+        style={{ display: globalSetting.showSparkLine && wordScaleGraphicsSetting.showWordScaleChartsOn ? "block" : "none" }}
       >
         <ControlTypeSwitch />
       </Row>
@@ -76,4 +76,4 @@ const ControlDataDrivenCharts: React.FC = () => {
   )
 }
 
-export default ControlDataDrivenCharts
+export default ControlWordScaleChartsOn

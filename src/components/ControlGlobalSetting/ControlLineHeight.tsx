@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button, InputNumber, Row, Col } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { ChangeGlobalSetting } from "../../actions/GlobalSettingAction"
@@ -11,6 +11,10 @@ const ControlLineHeight: React.FC = () => {
   const globalSetting: GlobalSettingStateType = useSelector(
     (state: AppState) => state.globalSetting,
   )
+  useEffect(() => {
+    // 当 globalSetting.lineHeight 更改时，更新 selectedLineHeight
+    setSelectedLineHeight(globalSetting.lineHeight)
+  }, [globalSetting.lineHeight])
 
   const handleLineHeightChange = (value: number | null) => {
     let newValue = 1.5

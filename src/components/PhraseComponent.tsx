@@ -151,8 +151,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //   }))
   // }
   const {
-    showDataDrivenGraphics,
-    showDataDrivenCharts,
+    showWordScaleChartsOn,
     distributionType,
     rankType,
     proportionType,
@@ -166,7 +165,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     graphicsAnomaly,
     isSemanticDrivenIconsOn,
   } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
-  const shouldShowSparkLine = showSparkLine && showDataDrivenGraphics && showDataDrivenCharts
+  const shouldShowSparkLine = showSparkLine && showWordScaleChartsOn
   // console.log("检查shouldShowSparkLine", shouldShowSparkLine)
   const distributionTypeOn1 = distributionType === "a"
   // console.log("检查distributionTypeOn", distributionTypeOn1)
@@ -799,10 +798,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   //
   useEffect(() => {
     // console.log(
-    //   `检查: showSparkLine=${showSparkLine}, showDataDrivenGraphics=${showDataDrivenGraphics}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
+    //   `检查: showSparkLine=${showSparkLine}, showWordScaleChartsOn=${showWordScaleChartsOn}, showDataDrivenCharts=${showDataDrivenCharts}, shouldShowSparkLine=${shouldShowSparkLine}, sparkLineRef=${sparkLineRef.current}`,
     // )
     // 如果不需要显示 SparkLine，立即隐藏
-    // if (!showSparkLine || !showDataDrivenGraphics || !showDataDrivenCharts) {
+    // if (!showSparkLine || !showWordScaleChartsOn || !showDataDrivenCharts) {
     //   if (sparkLineRef.current) {
     //     sparkLineRef.current.style.display = "none"
     //   }
@@ -877,8 +876,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     aspectRatio,
     sparkLinePosition,
     showSparkLine,
-    showDataDrivenGraphics,
-    showDataDrivenCharts,
+    showWordScaleChartsOn,
+    // showDataDrivenCharts,
     distributionTypeOn1,
     rankTypeOn1,
     proportionTypeOn1,
@@ -1048,7 +1047,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         ) : null}
         {/* {metadata?.entityType === "binary_value" &&
           showSparkLine &&
-          showDataDrivenGraphics &&
+          showWordScaleChartsOn &&
           sparkLinePosition === "left" && (
             <span style={{ marginRight: "0px" }}>
               <Icon assessment={metadata.assessment as string} />
@@ -1063,7 +1062,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         {renderWord(metadata)}
         {(metadata?.entityType === "binary_value" || metadata.assessment) &&
           showSparkLine &&
-          showDataDrivenGraphics &&
+          showWordScaleChartsOn &&
           sparkLinePosition !== "left" && (
             <span style={{ marginLeft: "-1px" }}>
               {" "}
@@ -1095,7 +1094,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           // 如果 sparkLinePosition 是 "up"，则在文本上方渲染 Icon
           metadata?.entityType === "binary_value" &&
             showSparkLine &&
-            showDataDrivenGraphics &&
+            showWordScaleChartsOn &&
             sparkLinePosition === "up" && (
               <Icon
                 assessment={metadata.assessment as string}
@@ -1112,7 +1111,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           // 如果 sparkLinePosition 是 "down"，则在文本下方渲染 Icon
           metadata?.entityType === "binary_value" &&
             showSparkLine &&
-            showDataDrivenGraphics &&
+            showWordScaleChartsOn &&
             sparkLinePosition === "down" && (
               <Icon
                 assessment={metadata.assessment as string}

@@ -158,7 +158,7 @@ const ControlTypeSwitch: React.FC = () => {
     return (
       <Row style={{ paddingTop: 6 }}>
         <Col span={10}>
-          <div className="control-label-layer3">{label}</div>
+          <div className="control-label-layer2">{label}</div>
         </Col>
         <Col span={14}>
           <Button.Group style={{ width: "80%" }}>
@@ -186,14 +186,14 @@ const ControlTypeSwitch: React.FC = () => {
 
   return (
     <div className="control-panel">
-      {renderButtonGroup("distributionType", "Distribution", isdistributionTypeOn)}
       {renderButtonGroup("differenceType", "Difference", isdifferenceTypeOn)}
       {renderButtonGroup("rankType", "Rank", isrankTypeOn)}
       {renderButtonGroup("proportionType", "Proportion", isproportionTypeOn)}
-      {renderButtonGroup("associationType", "Association", isassociationTypeOn)}
       {renderButtonGroup("trendType", "Trend", istrendTypeOn)}
       {renderButtonGroup("anomalyType", "Anomaly", isanomalyTypeOn)}
       {renderButtonGroup("seasonalityType", "Seasonality", isseasonalityTypeOn)}
+      {renderButtonGroup("associationType", "Association", isassociationTypeOn)}
+      {renderButtonGroup("distributionType", "Distribution", isdistributionTypeOn)}
     </div>
   )
 }

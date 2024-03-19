@@ -38,7 +38,7 @@ const ControlAspectRatio: React.FC = () => {
   return (
     <div className="control-panel">
       <Row align="middle">
-        <Col span={10} className="control-label-layer3">
+        <Col span={10} className="control-label-layer2">
           Sizing
         </Col>
         <Col span={14}>

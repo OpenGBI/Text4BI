@@ -64,8 +64,8 @@ const ControlSelectedEntityType: React.FC = () => {
           >
             <TreeNode value="metric_value" title="value phrases(general)" />
             <TreeNode value="binary_value" title="value phrases(binary)" selectable={false}>
-              <TreeNode value="binary_value_positive" title="value phrases(positive value)" />
-              <TreeNode value="binary_value_negative" title="value phrases(negative value)" />
+              <TreeNode value="binary_value_positive" title="value phrases(+)" />
+              <TreeNode value="binary_value_negative" title="value phrases(-)" />
             </TreeNode>
             <TreeNode value="metric_names" title="measure phrases" />
             <TreeNode value="algorithm" title="method phrases" />

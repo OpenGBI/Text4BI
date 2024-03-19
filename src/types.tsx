@@ -124,6 +124,7 @@ export type systemStateType = {
   selectedCards: string[]
   allCards: string[]
   generateKey: string
+  setShowExportButton: boolean
 }
 export type GlobalSettingStateType = {
   showBigGraph: boolean

@@ -99,7 +99,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   // ref.current -> Chart | null
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 })
+  const { setShowExportButton } = useSelector((state: AppState) => state.system)
   const [showButtons, setShowButtons] = useState(true)
+  console.log("检查开关111", setShowExportButton)
+  console.log("检查开关222", showButtons)
   const buttonRef = useRef<HTMLElement>(null) // 用于引用按钮的位置
 
   // const navigate = useNavigate() // Initialize useHistory hook
@@ -756,7 +759,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 10,
             right: 60,
-            display: showButtons ? "block" : "none",
+            display: showButtons && setShowExportButton ? "block" : "none",
           }}
         >
           <CopyOutlined
@@ -775,7 +778,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 9,
             right: 30,
-            display: showButtons ? "block" : "none",
+            display: showButtons && setShowExportButton ? "block" : "none",
           }}
         />
       </Tooltip>

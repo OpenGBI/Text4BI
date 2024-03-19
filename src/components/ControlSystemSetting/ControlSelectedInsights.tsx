@@ -99,7 +99,7 @@ const ControlSelectedInsights: React.FC = () => {
     .filter((option) => selectedItems.includes(option.value)) // 先过滤出选中的项
     .map((option) => option.cardid) // 然后映射到它们的 cardid
     // console.log("检查第一次的selectedvalues", selectedValues)
-    // console.log("检查第一次的selectedIds", selectedIds)
+    console.log("检查selectedIds", selectedIds)
     setSelectedCards(selectedIds)
     dispatch(
       ChangeSystemSetting({

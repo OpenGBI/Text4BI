@@ -130,7 +130,10 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   // cards是卡片id的列表，是[Card1,Card2]
   const [cards, setCards] = useState(CardsId)
   const [showButtons, setShowExportButton] = useState(true)
-
+  useEffect(() => {
+    setCards(selectedCards)
+  }, [...selectedCards])
+  // console.log("111", cards)
   const swapCards = (dragIndex: string, hoverIndex: string) => {
     const dragCard = cards.find((card) => card === dragIndex)!
     const hoverCard = cards.find((card) => card === hoverIndex)!
@@ -143,7 +146,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     cardsExchange(newCards)
     // console.log("debug-Cards", newCards)
   }
-  const Cards = cards
+  const Cards = selectedCards
     .map((cardId) => {
       const card = dataset.find((d) => d.CardName === cardId)
       return {
@@ -153,9 +156,6 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
     .filter((card) => allCards.includes(card.id))
   // console.log("debug-selectedCards", selectedCards)
-  useEffect(() => {
-    setCards(selectedCards)
-  }, [...selectedCards])
   // console.log("Cards", Cards)
   // 这个函数返回当前应用的状态
   const getAppState = () => {
@@ -304,6 +304,12 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   const exportSelectedCardsAsImage = async () => {
     // 隐藏导出按钮
     setShowExportButton(false)
+    dispatch(
+      ChangeSystemSetting({
+        ...systemSetting,
+        setShowExportButton: false,
+      }),
+    )
     // 稍微延迟以确保按钮的显示状态更新
     setTimeout(async () => {
       // 你的截图逻辑...
@@ -359,6 +365,12 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       }
       // 确保按钮在截图之后显示
       setShowExportButton(true)
+      dispatch(
+        ChangeSystemSetting({
+          ...systemSetting,
+          setShowExportButton: true,
+        }),
+      )
     }, 100)
   }
 
@@ -392,7 +404,14 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
         </Tooltip>
         <Tooltip title="Export This Card">
           <div style={{ position: "absolute", top: 64, right: 170 }}>
-            <ShareSvg onClick={showModal} style={{ cursor: "pointer", fontSize: "20px" }} />
+            <ShareSvg
+              onClick={showModal}
+              style={{
+                cursor: "pointer",
+                fontSize: "20px",
+                display: showButtons ? "block" : "none",
+              }}
+            />
             <Modal
               title="Export Options"
               visible={isModalVisible}

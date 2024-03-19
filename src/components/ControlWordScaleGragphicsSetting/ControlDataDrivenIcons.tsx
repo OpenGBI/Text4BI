@@ -76,7 +76,7 @@ const ControlDataDrivenIcons: React.FC = () => {
     >
       {renderButtonGroup("graphicsSignificance", "Significance", wordScaleGraphicsSetting.graphicsSignificance)}
       {renderButtonGroup("graphicsDirection", "Direction", wordScaleGraphicsSetting.graphicsDirection)}
-      {renderButtonGroup("graphicsAnomaly", "Anomaly", wordScaleGraphicsSetting.graphicsAnomaly)}
+      {renderButtonGroup("graphicsAnomaly", "Abnormality", wordScaleGraphicsSetting.graphicsAnomaly)}
     </div>
   )
 }

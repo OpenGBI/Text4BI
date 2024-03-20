@@ -876,7 +876,7 @@ iniData = [
             "type": "entity",
             "value": "02 ",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalitySeasonality",
               "detail": PeriodicityData["data"],
               "tagData": PeriodicityData["tagData2"], 

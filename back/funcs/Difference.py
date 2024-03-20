@@ -69,7 +69,7 @@ def changeDifference(timeSelection):
                 #     phrase["metadata"]["assessment"]="positive"
                 # else:
                 #     phrase["metadata"]["assessment"]="negative"
-            elif (phrase.get('metadata', {}).get('entityType') == 'binary_value_positive')and(count==1):
+            elif entity_type is not None and entity_type.startswith("binary_value")and(count==1):
                 
                 phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:

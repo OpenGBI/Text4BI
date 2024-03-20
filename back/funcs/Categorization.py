@@ -19,7 +19,7 @@ def changeCategorization(drillDownGroup,topk):
             target=item
             break
     #修改题目
-    target["paragraph"][0]["phrases"][-2]["value"]=drillDownGroup
+    target["paragraph"][0]["phrases"][-1]["value"]=drillDownGroup
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=data_export
     #修改normal

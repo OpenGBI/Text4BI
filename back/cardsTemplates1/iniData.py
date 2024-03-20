@@ -353,9 +353,17 @@ iniData = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Proportion" },
+          { "type": "text", "value": " Proportion of " },
           {
             "type": "entity",
-            "value": "Proportion Analysis of Sales Volume by Different Countries",
+            "value": "Sales",
+            "metadata": { "entityType": "metric_names" },
+          },
+          { "type": "text", "value": " by " },
+          {
+            "type": "entity",
+            "value": "Country",
+            "metadata": { "entityType": "metric_names" },
           },
         ],
       },
@@ -829,14 +837,14 @@ iniData = [
             "metadata": { "entityType": "metric_value", "origin": 11 },
           },
           { "type": "text", "value": ", bottom = " },
+          # {
+          #   "type": "entity",
+          #   "value": "02 ",
+          #   "metadata": { "entityType": "metric_value", "origin": 2 },
+          # },
           {
             "type": "entity",
             "value": "02 ",
-            "metadata": { "entityType": "metric_value", "origin": 2 },
-          },
-          {
-            "type": "entity",
-            "value": "256368.16",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "TemporalitySeasonality",
@@ -859,14 +867,14 @@ iniData = [
             "metadata": { "entityType": "metric_value", "origin": 11 },
           },
           { "type": "text", "value": ", bottom = " },
+          # {
+          #   "type": "entity",
+          #   "value": "02 ",
+          #   "metadata": { "entityType": "metric_value", "origin": 2 },
+          # },
           {
             "type": "entity",
             "value": "02 ",
-            "metadata": { "entityType": "metric_value", "origin": 2 },
-          },
-          {
-            "type": "entity",
-            "value": "256368.16",
             "metadata": {
               "entityType": "insight",
               "insightType": "TemporalitySeasonality",

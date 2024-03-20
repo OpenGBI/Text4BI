@@ -903,11 +903,11 @@ export const iniData: Card[] = [
             metadata: { entityType: "metric_value", origin: 11 },
           },
           { type: "text", value: ", bottom = " },
-          {
-            type: "entity",
-            value: "02 ",
-            metadata: { entityType: "metric_value", origin: 2 },
-          },
+          // {
+          //   type: "entity",
+          //   value: "02 ",
+          //   metadata: { entityType: "metric_value", origin: 2 },
+          // },
           // {
           //   type: 'entity',
           //   value: '256368.16',
@@ -915,7 +915,7 @@ export const iniData: Card[] = [
           // },
           {
             type: "entity",
-            value: "256368.16",
+            value: "02 ",
             metadata: {
               entityType: "metric_value",
               insightType: "TemporalitySeasonality",
@@ -938,11 +938,11 @@ export const iniData: Card[] = [
             metadata: { entityType: "metric_value", origin: 11 },
           },
           { type: "text", value: ", bottom = " },
-          {
-            type: "entity",
-            value: "02 ",
-            metadata: { entityType: "metric_value", origin: 2 },
-          },
+          // {
+          //   type: "entity",
+          //   value: "02 ",
+          //   metadata: { entityType: "metric_value", origin: 2 },
+          // },
           // {
           //   type: 'entity',
           //   value: '256368.16',
@@ -950,7 +950,7 @@ export const iniData: Card[] = [
           // },
           {
             type: "entity",
-            value: "256368.16",
+            value: "02 ",
             metadata: {
               entityType: "metric_value",
               insightType: "TemporalitySeasonality",

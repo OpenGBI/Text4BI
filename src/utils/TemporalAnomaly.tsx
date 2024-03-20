@@ -160,6 +160,10 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
       autoFit: true,
       height: 400,
       width: 600,
+      axis: {
+        x: { title: "Date" },
+        y: { title: "Sales" },
+      },
     })
 
     chart.data(data)

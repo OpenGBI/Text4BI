@@ -3503,7 +3503,7 @@ export const renderTemporalityAnomaly1 = (
     const svgD3 = d3
       .select(newDiv)
       .append("svg")
-      .attr("width", rect.width)
+      .attr("width", width)
       .attr("height", 20)
       .style("position", "absolute")
     if (sparkLinePosition === "up") {

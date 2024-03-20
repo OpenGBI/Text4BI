@@ -33,6 +33,10 @@ const Association = forwardRef(
         autoFit: true,
         height: 500,
         tooltip: false,
+        axis: {
+          x: { title: "Sales" },
+          y: { title: "Profit" },
+        },
       })
       // console.log('散点图datadatadatadata', data)
 

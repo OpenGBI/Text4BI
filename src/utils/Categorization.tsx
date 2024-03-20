@@ -10,6 +10,7 @@ interface BarChartProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
+  drillDownGroup: string
 }
 
 const Categorization: React.FC<BarChartProps> = ({
@@ -18,6 +19,7 @@ const Categorization: React.FC<BarChartProps> = ({
   message,
   hoverOrNot,
   interactionType,
+  drillDownGroup,
 }) => {
   const containerRef = React.useRef<Chart | null>(null)
   const CategorizationRef = React.useRef(null)
@@ -41,7 +43,7 @@ const Categorization: React.FC<BarChartProps> = ({
       width: 600,
       axis: {
         x: { title: "Sales" },
-        y: { title: "City" },
+        y: { title: drillDownGroup },
       },
     })
     // chart.coordinate({ transform: [{ type: "transpose" }] })

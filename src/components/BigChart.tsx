@@ -23,6 +23,7 @@ type BigChartProps = {
   // topk: number
   handleCurBigChart: (ref: Chart | null) => void // 父组件传到子组件的回调函数的定义方法 zyx
   highlightMessage: highLightMessage | null
+  drillDownGroup: string
 }
 const BigChart: React.FC<BigChartProps> = ({
   ChartType,
@@ -30,6 +31,7 @@ const BigChart: React.FC<BigChartProps> = ({
   // topk,
   handleCurBigChart,
   highlightMessage,
+  drillDownGroup,
 }) => {
   // console.log("debug-bigchart-data", ChartType, BigChartData)
   // (ChartType,BigChartData)会报错
@@ -110,6 +112,7 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          drillDownGroup={drillDownGroup}
         />
       )
     }

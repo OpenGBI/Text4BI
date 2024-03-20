@@ -42,6 +42,10 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       autoFit: true,
       height: 400,
       width: 600,
+      axis: {
+        x: { title: "Date" },
+        y: { title: "Sales" },
+      },
     })
 
     // chart.data(data).axis('y', { title: false }).scale('x', { type: 'linear', tickCount: 10 })

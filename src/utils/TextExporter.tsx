@@ -40,7 +40,9 @@ function selectorToText(selectorElement: HTMLDivElement, imgExtra: ImageExtra | 
   // 如果没有值，则尝试从 Ant Design Select 组件提取文本
   if (!value) {
     // 选择 Ant Design Select 组件的显示项元素
-    const selectDisplayElement = selectorElement.querySelector(".ant-select-selection-item, .ant-select-selection-placeholder")
+    const selectDisplayElement = selectorElement.querySelector(
+      ".ant-select-selection-item, .ant-select-selection-placeholder",
+    )
     // 提取文本，确保只提取文本内容，忽略任何图标或其他元素
     if (selectDisplayElement && selectDisplayElement.textContent) {
       value = selectDisplayElement.textContent.trim()
@@ -117,8 +119,7 @@ export async function transformHtml({
   elements = [],
   exportType,
   imageExtra,
-  replaceType = "image",
-  // containerWidth,
+  replaceType = "image", // containerWidth,
   // containerHeight,
 }: {
   elements: HTMLCollectionOf<Element> | HTMLElement[]
@@ -147,12 +148,12 @@ export async function transformHtml({
       // 过滤出类名以 'ant-space css-dev-only-do-not-override-2i2tap' 开头的div元素，这里是select元素
       const selectorElements = Array.from(allDivs).filter((div) =>
         // div.className.startsWith("ant-space css-dev-only-do-not-override"),
-        div.className.startsWith("ant-space css-dev-only-do-not-override-1u3bnvn"),
+        div.className.startsWith("ant-space css-dev-only-do-not-override-dot6z4"),
       )
       // 过滤出类名以 'ant-space css-dev-only-do-not-override-1xg9z9n' 开头的div元素，这里是datepicker元素
       const dateSelectorElements = Array.from(allDivs).filter((div) =>
         // div.className.startsWith("ant-space css-dev-only-do-not-override"),
-        div.className.startsWith("ant-space css-dev-only-do-not-override-1uweeqc"),
+        div.className.startsWith("ant-space css-dev-only-do-not-override-2i2tap"),
       )
       for (let l = 0; l < selectorElements.length; l += 1) {
         const selectorElement = selectorElements[l]
@@ -215,7 +216,7 @@ export async function getNarrativeHtml(
   imageExtra?: ImageExtra,
   replaceType: "image" | "text" | "none" = "image",
 ) {
-    // 获取容器的宽度和高度
+  // 获取容器的宽度和高度
   const containerWidth = container.offsetWidth
   const containerHeight = container.offsetHeight
   // console.log("检查containerWidth", containerWidth)

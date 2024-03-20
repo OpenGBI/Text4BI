@@ -658,6 +658,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
                     // topk={topK}
                     handleCurBigChart={handleCurBigChart}
                     highlightMessage={highlightMessage}
+                    drillDownGroup={drillDownGroup}
                   />
                 )
               }
@@ -712,6 +713,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
                   // topk={topK}
                   handleCurBigChart={handleCurBigChart}
                   highlightMessage={highlightMessage}
+                  drillDownGroup={drillDownGroup}
                 />
               )
             }

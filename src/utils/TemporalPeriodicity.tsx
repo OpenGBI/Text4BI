@@ -38,6 +38,10 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
       autoFit: true,
       height: 400,
       width: 600,
+      axis: {
+        x: { title: "Date" },
+        y: { title: "Sales" },
+      },
     })
     data.forEach((dataItem) => {
       // 检查tagData数组中是否有与dataItem日期匹配的元素 zyx

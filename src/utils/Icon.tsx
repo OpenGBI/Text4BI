@@ -26,7 +26,11 @@ const Icon: React.FC<IconProps> = ({ assessment, style }) => {
   if (
     (graphicsSignificance === false &&
       (assessment === "significant" || assessment === "insignificant")) ||
-    (graphicsDirection === false && (assessment === "increase" || assessment === "decrease" || assessment === "positive" || assessment === "negative")) ||
+    (graphicsDirection === false &&
+      (assessment === "increase" ||
+        assessment === "decrease" ||
+        assessment === "positive" ||
+        assessment === "negative")) ||
     (graphicsAnomaly === false && (assessment === "anomaly" || assessment === "outlier"))
   ) {
     return null // 不渲染图标
@@ -37,7 +41,7 @@ const Icon: React.FC<IconProps> = ({ assessment, style }) => {
     case "positive":
       return <PlusCircleOutlined style={{ ...style, fontSize: "14px", color: "#13A8A8" }} />
     case "negative":
-      return <MinusCircleOutlined style={{ ...style, fontSize: "14px", color: "#13A8A8" }} />
+      return <MinusCircleOutlined style={{ ...style, fontSize: "14px", color: "#FA5413" }} />
     case "significant":
       return <CheckCircleOutlined style={{ ...style, fontSize: "16px", color: "#13A8A8" }} />
     case "insignificant":

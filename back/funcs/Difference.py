@@ -38,22 +38,28 @@ def changeDifference(timeSelection):
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     for i in range(0,len(topics)):
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
+            entity_type = phrase.get('metadata', {}).get('entityType')
+
+            if entity_type is not None and entity_type.startswith("binary_value"):
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["value"]="increase"
+                    phrase["metadata"]["entityType"]="binary_value_positive"
                 else:
                     phrase["value"]="decrease"
+                    phrase["metadata"]["entityType"]="binary_value_negative"
                 break
         count=0
         for phrase in topics[i]['phrases']:
-            if (phrase.get('metadata', {}).get('entityType') == 'binary_value_positive') and (count==0):
-                print("aaa阿啊阿啊阿啊阿啊阿啊阿啊")
+            entity_type = phrase.get('metadata', {}).get('entityType')
+            if entity_type is not None and entity_type.startswith("binary_value") and (count==0):
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["value"]="increased "
                     phrase["metadata"]["assessment"]="increase"
+                    phrase["metadata"]["entityType"]="binary_value_positive"
                 elif data_export[1]["value"]<data_export[0]["value"]:
                     phrase["value"]="decreased "
                     phrase["metadata"]["assessment"]="decrease"
+                    phrase["metadata"]["entityType"]="binary_value_negative"
                 # print
                 # print("aaa阿啊阿啊阿啊阿啊阿啊阿啊")
                 print(phrase)
@@ -64,11 +70,14 @@ def changeDifference(timeSelection):
                 # else:
                 #     phrase["metadata"]["assessment"]="negative"
             elif (phrase.get('metadata', {}).get('entityType') == 'binary_value_positive')and(count==1):
+                
                 phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"
+                    phrase["metadata"]["entityType"]="binary_value_positive"
                 else:
                     phrase["metadata"]["assessment"]="negative"
+                    phrase["metadata"]["entityType"]="binary_value_negative"
                 count+=1
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'insight':             

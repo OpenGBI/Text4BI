@@ -1426,7 +1426,7 @@ export const renderAssociation1 = (
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1)
       .attr("d", line)
-      .attr("marker-end", "url(#arrow)")
+    // .attr("marker-end", "url(#arrow)")
     svgD3
       .selectAll(".scatter-line-point") // 使用一个不同的类名
       .data(points)
@@ -1551,7 +1551,7 @@ export const renderAssociation1 = (
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1)
       .attr("d", line)
-      .attr("marker-end", "url(#arrow)")
+    // .attr("marker-end", "url(#arrow)")
     svgD3
       .selectAll(".scatter-line-point") // 使用一个不同的类名
       .data(points)

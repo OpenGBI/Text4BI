@@ -43,7 +43,7 @@ const Categorization: React.FC<BarChartProps> = ({
       width: 600,
       axis: {
         x: { title: "Sales" },
-        y: { title: drillDownGroup },
+        y: { title: drillDownGroup || "City" },
       },
     })
     // chart.coordinate({ transform: [{ type: "transpose" }] })

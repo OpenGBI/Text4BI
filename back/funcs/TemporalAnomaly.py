@@ -42,7 +42,8 @@ def changeTemporalAnomaly(timeSegmentationCondition):
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     for i in range(0,len(topics)):
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
+            entity_type = phrase.get('metadata', {}).get('entityType')
+            if entity_type is not None and entity_type.startswith("binary_value"):
                 phrase["value"]=len(abnormal_data)
                 break
         for phrase in topics[i]['phrases']:

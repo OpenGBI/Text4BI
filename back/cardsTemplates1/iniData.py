@@ -806,8 +806,22 @@ iniData = [
             "metadata": { "entityType": "binary_value_positive", "assessment": "significant" },
           },
           {
+            "type": "text",
+            "value": ". ",
+          },
+          # {
+          #   "type": "entity",
+          #   "value": "",
+          #   "metadata": {
+          #     "entityType": "insight",
+          #     "insightType": "TemporalitySeasonality",
+          #     "detail": PeriodicityData["data"],
+          #     "tagData": PeriodicityData["tagData"],
+          #   },
+          # },
+          {
             "type": "entity",
-            "value": "",
+            "value": "2 seasons",
             "metadata": {
               "entityType": "insight",
               "insightType": "TemporalitySeasonality",
@@ -815,7 +829,7 @@ iniData = [
               "tagData": PeriodicityData["tagData"],
             },
           },
-          { "type": "text", "value": " 2 seasons are identified, and the average period is " },
+          { "type": "text", "value": " are identified, and the average period is " },
           {
             "type": "entity",
             "value": "365 ",

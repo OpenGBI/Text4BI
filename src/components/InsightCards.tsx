@@ -11,7 +11,7 @@ import { InsightCard } from "./InsightCard"
 import { AppState, store } from "../store"
 import { ChangeSystemSetting } from "../actions/systemAction"
 import { systemStateType, Card } from "../types"
-import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter"
+import { getNarrativeHtml } from "../utils/TextExporter"
 // import { fetchDataset } from "../actions/systemAction"
 import { ReactComponent as ShareSvg } from "../utils/icons/share.svg"
 
@@ -40,23 +40,12 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
 
   const generateKey = (selectedCardIDs: string[]) => {
     // 将卡片ID数组转换为字符串
-    const key = selectedCardIDs.sort().join("-")
+    const key = selectedCardIDs.join("-")
     // 对字符串进行Base64编码
     const hash = btoa(key)
     return hash
   }
-  // 新的点击事件处理函数
-  const handleButtonClick = () => {
-    const key = generateKey(selectedCards) // 生成 key
-    // console.log("1检查key", key)
-    // navigate("/export", { state: { key } }) // 将 key 作为路由状态传递
-    // 创建新URL，将 key 作为查询参数或路径的一部分
-    const url = `${window.location.origin}/export?key=${encodeURIComponent(key)}`
-    // 使用 window.open 在新标签页中打开URL
-    window.open(url, "_blank")
-    // exportSelectedCardsAsHtml() // 假设这是你的导出函数
-    setTrigger((prev) => !prev) // 切换 trigger 的值
-  }
+
   // Use useSelector to select the parts of the state you need
   const systemState = useSelector((state: AppState) => state.system)
   const globalSettingState = useSelector((state: AppState) => state.globalSetting)
@@ -132,8 +121,21 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
   const [showButtons, setShowExportButton] = useState(true)
   useEffect(() => {
     setCards(selectedCards)
-  }, [...selectedCards])
+    cardsExchange(selectedCards)
+  }, [selectedCards])
   // console.log("111", cards)
+  // 新的点击事件处理函数
+  const handleButtonClick = () => {
+    const key = generateKey(cards) // 生成 key
+    // console.log("1检查key", key)
+    // navigate("/export", { state: { key } }) // 将 key 作为路由状态传递
+    // 创建新URL，将 key 作为查询参数或路径的一部分
+    const url = `${window.location.origin}/export?key=${encodeURIComponent(key)}`
+    // 使用 window.open 在新标签页中打开URL
+    window.open(url, "_blank")
+    // exportSelectedCardsAsHtml() // 假设这是你的导出函数
+    setTrigger((prev) => !prev) // 切换 trigger 的值
+  }
   const swapCards = (dragIndex: string, hoverIndex: string) => {
     const dragCard = cards.find((card) => card === dragIndex)!
     const hoverCard = cards.find((card) => card === hoverIndex)!
@@ -146,7 +148,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     cardsExchange(newCards)
     // console.log("debug-Cards", newCards)
   }
-  const Cards = selectedCards
+  const Cards = cards
     .map((cardId) => {
       const card = dataset.find((d) => d.CardName === cardId)
       return {

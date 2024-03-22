@@ -13,13 +13,13 @@ def changeTemporalPeriodly(timeSegmentationCondition):
     filtered_data=[]
 
     if timeSegmentationCondition=="4 years":
-        filtered_data = [entry for entry in new_data["data"] if entry["date"] < "2015-01-01"]
+        filtered_data = [entry for entry in new_data["data"] if entry["date"] <= "2015-01-01"]
 
     if timeSegmentationCondition=="3 years":
-        filtered_data = [entry for entry in new_data["data"] if entry["date"] < "2014-01-01"]
+        filtered_data = [entry for entry in new_data["data"] if entry["date"] <= "2014-01-01"]
 
     if timeSegmentationCondition=="2 years":
-        filtered_data = [entry for entry in new_data["data"] if entry["date"] < "2013-01-01"]
+        filtered_data = [entry for entry in new_data["data"] if entry["date"] <= "2013-01-01"]
 
     new_data["data"]=filtered_data
     # abnormal_data = [item for item in data if item["category"] == "abnormal"]
@@ -36,7 +36,32 @@ def changeTemporalPeriodly(timeSegmentationCondition):
     # print(target["paragraph"][0]["phrases"][-1]["value"].split(" ")[:-1].join(" "))
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=new_data["data"]
+    topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     # #修改bullet point
+    for i in range(0,len(topics)):
+        for phrase in topics[i]['phrases']:
+            # print(entity_type)
+            if phrase.get('metadata', {}).get('entityType')=="insight":
+                phrase["metadata"]["detail"]=new_data["data"]
+                phrase["metadata"]["tagData"]=new_data["tagData"]
+                
+                break
+    topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'bullet']
+    count=0
+    for i in range(0,len(topics)):
+        for phrase in topics[i]['phrases']:
+            # print(entity_type)
+            if phrase.get('metadata', {}).get('entityType')=="metric_value" and phrase.get('metadata', {}).get('detail')!=None:
+                if count==0:
+                    phrase["metadata"]["detail"]=new_data["data"]
+                    phrase["metadata"]["tagData"]=new_data["tagData1"]
+                    count+=1
+                    break
+                elif count==1:
+                    phrase["metadata"]["detail"]=new_data["data"]
+                    phrase["metadata"]["tagData"]=new_data["tagData2"]
+                    count+=1
+                    break
     # topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
     # for i in range(0,len(topics)):
     #     for phrase in topics[i]['phrases']:

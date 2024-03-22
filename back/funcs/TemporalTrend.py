@@ -39,13 +39,41 @@ def changeTemporalTrend(timeSegmentationCondition,timeSelection):
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=new_data["data"]+new_data["predictData"]
     target["paragraph"][-2]["metadata"]["tagData"]=new_data["tagData"]
-    #修改bullet point
+    
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'normal']
+    count=0
+    print(new_data["predictData"][0]["value"])
+    print(new_data["predictData"][-1]["value"])
     for i in range(0,len(topics)):
+        count+=1
         for phrase in topics[i]['phrases']:
-            if phrase.get('metadata', {}).get('entityType') == 'insight':
+            entity_type = phrase.get('metadata', {}).get('entityType')
+            # print(entity_type)
+            if entity_type is not None and entity_type.startswith("binary_value") and count==1:
                 phrase["metadata"]["detail"]=new_data["data"]
                 phrase["metadata"]["tagData"]=new_data["predictData"]
+                if new_data["data"][0]["value"]<new_data["data"][-1]["value"]:
+                    phrase["value"]="increased "
+                    phrase["metadata"]["entityType"]= "binary_value_positive"
+                    phrase["metadata"]["assessment"]="increase"
+                else:
+                    phrase["value"]="decreased "
+                    phrase["metadata"]["entityType"]= "binary_value_negative"
+                    phrase["metadata"]["assessment"]="decrease"
+                break
+            if entity_type is not None and entity_type.startswith("binary_value") and count==2:
+                if new_data["predictData"][0]["value"]<new_data["predictData"][-1]["value"]:
+                    phrase["value"]="increasing "
+                    phrase["metadata"]["entityType"]="binary_value_positive"
+                    phrase["metadata"]["assessment"]="increase"
+                else:
+                    phrase["value"]="decreasing "
+                    phrase["metadata"]["entityType"]="binary_value_negative"
+                    phrase["metadata"]["assessment"]="decrease"
+                # if new_data["predictData"]["value"][0]<new_data["predictData"]["value"][1]:
+                #     phrase["metadata"]["tagData"]["entityType"]= "binary_value_positive",
+                # else:
+                #     phrase["metadata"]["tagData"]["entityType"]= "binary_value_negative",
                 break
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'metric_value':

@@ -2560,7 +2560,7 @@ export const renderTemporalityDifference1 = (
   let width: number
   let height: number
 
-  const padding = 8
+  // const padding = 8
   const data: number[] = iniData.map((item) => item.value)
 
   // console.log(
@@ -2596,6 +2596,7 @@ export const renderTemporalityDifference1 = (
     width = 100
     height = 20
   }
+  const padding = width / 15
   const barWidth = (width - padding * 8) / data.length
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
@@ -2800,7 +2801,7 @@ export const renderTemporalityDifference2 = (
   let width: number
   let height: number
 
-  const padding = 8
+  // const padding = 8
   const data: number[] = iniData.map((item) => item.value)
 
   // console.log(
@@ -2836,6 +2837,7 @@ export const renderTemporalityDifference2 = (
     width = 100
     height = 20
   }
+  const padding = width / 15
   const barWidth = (width - padding * 8) / data.length
   if (wordElement) {
     const children = wordElement.querySelectorAll(":scope > .sparklines")
@@ -3700,6 +3702,7 @@ export const renderTemporalitySeasonality1 = (
     }
     // console.log("debug-rect", tagData)
     for (let i = 0; i < tagData.length; i += 2) {
+      // console.log("debug-tagData", tagData)
       if (i < tagData.length - 2) {
         svgD3
           .append("rect")
@@ -3817,6 +3820,7 @@ export const renderTemporalitySeasonality1 = (
     //   .attr("stroke-width", 1)
     //   .attr("d", line)
     for (let i = 0; i < tagData.length; i += 2) {
+      // console.log("debug-tagData", tagData)
       if (i < tagData.length - 2) {
         svgD3
           .append("rect")

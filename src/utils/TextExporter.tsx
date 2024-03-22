@@ -142,6 +142,7 @@ export async function transformHtml({
     const allDivs = element.querySelectorAll("div")
     const svgElements = element.getElementsByTagName("svg")
     const canvasElements = element.getElementsByTagName("canvas")
+    const allTooltips = element.querySelectorAll("#g2-tooltip-list-item-value")
 
     // 当要复制富文本的时候，对select和datepicker提取他们的文本值，其他时候作为svg/canvas处理
     if (exportType === "text") {
@@ -204,6 +205,10 @@ export async function transformHtml({
       // 下面这样子直接写，可以获得它的颜色，但是不能转为图片
       // newHtml = transformArrowToText(svgElement, newHtml)
     }
+    for (let l = 0; l < allTooltips.length; l += 1) {
+      const tooltipHtml = allTooltips[l].outerHTML
+      newHtml = newHtml.replace(tooltipHtml, "")
+    }
     // debugger
   }
 
@@ -227,18 +232,18 @@ export async function getNarrativeHtml(
   return transformedHtml
 }
 
-export async function getNarrativeHtml4Export(
-  container: HTMLElement,
-  imageExtra?: ImageExtra,
-  replaceType: "image" | "text" | "none" = "image",
-) {
-  //   debugger
-  const elements = container?.getElementsByClassName(NTV_CONTAINER_CLS)
-  let originalHtml = ""
+// export async function getNarrativeHtml4Export(
+//   container: HTMLElement,
+//   imageExtra?: ImageExtra,
+//   replaceType: "image" | "text" | "none" = "image",
+// ) {
+//   //   debugger
+//   const elements = container?.getElementsByClassName(NTV_CONTAINER_CLS)
+//   let originalHtml = ""
 
-  for (let i = 0; i < elements.length; i += 1) {
-    const element = (elements as HTMLCollectionOf<Element>).item?.(i) || elements?.[i]
-    originalHtml += element?.outerHTML || "" // 使用空字符串作为默认值 zyx
-  }
-  return originalHtml
-}
+//   for (let i = 0; i < elements.length; i += 1) {
+//     const element = (elements as HTMLCollectionOf<Element>).item?.(i) || elements?.[i]
+//     originalHtml += element?.outerHTML || "" // 使用空字符串作为默认值 zyx
+//   }
+//   return originalHtml
+// }

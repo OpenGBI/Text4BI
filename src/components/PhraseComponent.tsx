@@ -398,9 +398,33 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
 
     // 现在可以安全地使用 entityType 作为索引
     const style = currentStyles[entityType] || {}
+    if (entityType === "algorithm") {
+      return (
+        <Tooltip title={curMetadata.origin}>
+          <span
+            ref={wordRef}
+            style={{
+              fontWeight: style.fontWeight || "normal",
+              textDecoration: style.textDecoration || "none",
+              fontStyle: style.fontStyle || "normal",
+              border: style.border || "none",
+              color: style.color || "#000000",
+              backgroundColor: style.backgroundColor || "#FFFFFF",
+              fontSize: fontsize,
+              lineHeight,
+              position: "relative",
+            }}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleLeave}
+            className={curMetadata.entityType}
+          >
+            {value}
+          </span>
+        </Tooltip>
+      )
+    }
 
     return (
-      // <Tooltip title={curMetadata.origin}></Tooltip>
       <span
         ref={wordRef}
         style={{
@@ -1058,7 +1082,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           ) : null // 这是一个三目运算符 ？：
         } */}
         {renderWord(metadata)}
-        {(metadata?.entityType === "binary_value_positive" || metadata?.entityType === "binary_value_negative" || metadata.assessment) &&
+        {(metadata?.entityType === "binary_value_positive" ||
+          metadata?.entityType === "binary_value_negative" ||
+          metadata.assessment) &&
           showSparkLine &&
           showWordScaleChartsOn &&
           sparkLinePosition !== "left" && (

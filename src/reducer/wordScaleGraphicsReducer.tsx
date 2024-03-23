@@ -26,6 +26,14 @@ const iniWordScaleGraphicsSettingState: wordScaleGraphicsSettingStateType = {
   selectedSymbol2: "null",
   entityIcon: iniEntityIcon,
   absoluteIcon: iniAbsoluteIcon,
+  beginPositionSymbol: "null",
+  endPositionSymbol: "null",
+  generalSymbol: "null",
+  plusSymbol: "null",
+  minusSymbol: "null",
+  measureSymbol: "null",
+  methodSymbol: "null",
+  filterSymbol: "null",
 }
 
 const WordScaleGraphicsSettingReducer = (

@@ -21,6 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "react/jsx-wrap-multilines": "off",
+    "no-extra-semi": "off",
     "no-debugger": "off",
     "no-undef": "off",
     "max-len": ["error", { "code": 300 }],
@@ -66,7 +68,7 @@
     ],
     "react/function-component-definition": "off",
     "consistent-return": "off",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     // "import/no-extraneous-dependencies": "off"
     "react/no-unstable-nested-components": "off"
   },

@@ -24,8 +24,8 @@ export const iniEntityIcon: entityIconType = {
   binary_value_negative: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
   metric_names: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
   algorithm: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
-  filter_time: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
-  filter_cate: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
+  // filter_time: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
+  filter: { a: iconA, b: iconB, c: iconC, d: iconD, null: iconN, e: iconN },
 }
 
 export const iniAbsoluteIcon: absoluteIconType = {

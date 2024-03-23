@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { TreeSelect, Button, Row, Col, Switch, Dropdown, Menu, Select } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import { useDispatch, useSelector } from "react-redux"
@@ -8,6 +8,9 @@ import { wordScaleGraphicsSettingStateType } from "../../types"
 import { SvgIcon } from "../../utils/NoneDataIcon"
 import ImportIcon from "./ImportIcon"
 
+type ButtonRefs = {
+  [key: string]: HTMLElement | null
+}
 const { Option } = Select
 const { TreeNode } = TreeSelect
 
@@ -20,6 +23,7 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
+
   // const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
   // const { semanticBindingEntityType } = useSelector((state: AppState) => state.typographySetting)
 
@@ -33,6 +37,32 @@ const ControlSemanticDrivenIcons: React.FC = () => {
   const [selectedSymbol1, setSelectedSymbol1] = useState("null")
   const [semanticBindingEntityType, setSemanticBindingEntityType] = useState("metric_value")
   const [selectedSymbol2, setSelectedSymbol2] = useState("null")
+
+  const positionButtonRefs = useRef<ButtonRefs>({})
+  const entityButtonRefs = useRef<ButtonRefs>({})
+  // const [beginPositionSymbol, setBeginPositionSymbol] = useState("null")
+  // const [endPositionSymbol, setEndPositionSymbol] = useState("null")
+  // const [generalSymbol, setGeneralSymbol] = useState("null")
+  // const [plusSymbol, setPlusSymbol] = useState("null")
+  // const [minusSymbol, setMinusSymbol] = useState("null")
+  // const [measureSymbol, setMeasureSymbol] = useState("null")
+  // const [methodSymbol, setMethodSymbol] = useState("null")
+  // const [filterSymbol, setFilterSymbol] = useState("null")
+  const {
+    // selectedSymbol1,
+    // semanticsAbsolutePosition,
+    // selectedSymbol2,
+    // semanticBindingEntityType,
+    beginPositionSymbol,
+    endPositionSymbol,
+    generalSymbol,
+    plusSymbol,
+    minusSymbol,
+    measureSymbol,
+    methodSymbol,
+    filterSymbol,
+  } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+
   // 下拉框显示的值
   const [dropdownDisplay1, setDropdownDisplay1] = useState("...")
   const [dropdownDisplay2, setDropdownDisplay2] = useState("...")
@@ -55,51 +85,225 @@ const ControlSemanticDrivenIcons: React.FC = () => {
 
   // 用于控制 Absolute position 开关状态的函数
   const handleAbsolutePositionChange = (position: string) => {
+    // console.log("debug-absolutePosition", position)
+    if (position === "sentenceStart") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          selectedSymbol1: endPositionSymbol,
+          absoluteIcon: { ...absoluteIcon },
+          semanticsAbsolutePosition: position,
+        }),
+      )
+      if (positionButtonRefs.current[beginPositionSymbol] !== null) {
+        setTimeout(() => {
+          if (beginPositionSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(positionButtonRefs.current[beginPositionSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    if (position === "sentenceEnd") {
+      // console.log("debug-sentenceEnd")
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          selectedSymbol1: endPositionSymbol,
+          absoluteIcon: { ...absoluteIcon },
+          semanticsAbsolutePosition: position,
+        }),
+      )
+      if (positionButtonRefs.current[endPositionSymbol] !== null) {
+        setTimeout(() => {
+          if (endPositionSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(positionButtonRefs.current[endPositionSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
     setSemanticsAbsolutePosition(position)
-    dispatch(
-      ChangeWordScaleGraphicsSetting({
-        ...wordScaleGraphicsSetting,
-        semanticsAbsolutePosition: position,
-      }),
-    )
+    // dispatch(
+    //   ChangeWordScaleGraphicsSetting({
+    //     ...wordScaleGraphicsSetting,
+    //     semanticsAbsolutePosition: position,
+    //   }),
+    // )
   }
 
   const handleSymbol1Change = (symbol: string) => {
     // console.log("debug-symbol1", symbol)
-    if (symbol === "null") {
-      setSymbol1Null(true)
-    } else {
-      setSymbol1Null(false)
-    }
     setSelectedSymbol1(symbol)
     setDropdownDisplay1(symbol)
     // eslint-disable-next-line quotes
     const IconN = '<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"></svg>'
     absoluteIcon[semanticsAbsolutePosition].e = IconN
+    if (symbol === "null") {
+      setSymbol1Null(true)
+    } else {
+      setSymbol1Null(false)
+    }
+    if (semanticsAbsolutePosition === "sentenceStart") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          selectedSymbol1: symbol,
+          absoluteIcon: { ...absoluteIcon },
+          beginPositionSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticsAbsolutePosition === "sentenceEnd") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          selectedSymbol1: symbol,
+          absoluteIcon: { ...absoluteIcon },
+          endPositionSymbol: symbol,
+        }),
+      )
+    }
 
-    dispatch(
-      ChangeWordScaleGraphicsSetting({
-        ...wordScaleGraphicsSetting,
-        selectedSymbol1: symbol,
-        absoluteIcon: { ...absoluteIcon },
-      }),
-    )
+    // dispatch(
+    //   ChangeWordScaleGraphicsSetting({
+    //     ...wordScaleGraphicsSetting,
+    //     selectedSymbol1: symbol,
+    //     absoluteIcon: { ...absoluteIcon },
+    //   }),
+    // )
   }
 
   // Function to handle change in selected entity type
   const handlePrimaryChange = (value: string) => {
-    if (value === "binary_value") {
-      value = "binary_value_positive"
+    if (value === "metric_value") {
+      // dispatch(
+      //   ChangeWordScaleGraphicsSetting({
+      //     ...wordScaleGraphicsSetting,
+      //     selectedSymbol1: endPositionSymbol,
+      //     absoluteIcon: { ...absoluteIcon },
+      //     semanticBindingEntityType: value,
+      //   }),
+      // )
+      // if (positionButtonRefs.current[beginPositionSymbol] !== null) {
+      //   // eslint-disable-next-line no-extra-semi
+      //   ;(positionButtonRefs.current[beginPositionSymbol] as HTMLElement).click()
+      // }
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[generalSymbol] !== null) {
+        setTimeout(() => {
+          if (generalSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(entityButtonRefs.current[generalSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
     }
+    if (value === "binary_value_positive") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[plusSymbol] !== null) {
+        setTimeout(() => {
+          if (plusSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(entityButtonRefs.current[plusSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    if (value === "binary_value_negative") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[minusSymbol] !== null) {
+        setTimeout(() => {
+          if (minusSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(entityButtonRefs.current[minusSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    if (value === "metric_names") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[measureSymbol] !== null) {
+        setTimeout(() => {
+          if (measureSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(entityButtonRefs.current[measureSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    if (value === "algorithm") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[methodSymbol] !== null) {
+        setTimeout(() => {
+          if (methodSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+            ;(entityButtonRefs.current[methodSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    if (value === "filter_cate") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          absoluteIcon: { ...absoluteIcon },
+          semanticBindingEntityType: value,
+        }),
+      )
+      if (positionButtonRefs.current[filterSymbol] !== null) {
+        // console.log("啊啊啊啊啊啊", entityButtonRefs.current[filterSymbol])
+        setTimeout(() => {
+          if (filterSymbol !== "e") {
+            // eslint-disable-next-line no-extra-semi
+
+            ;(entityButtonRefs.current[filterSymbol] as HTMLElement).click()
+          }
+        }, 100)
+      }
+    }
+    // if (value === "binary_value") {
+    //   value = "binary_value_positive"
+    // }
     setSemanticBindingEntityType(value)
-    // Dispatch or handle change in state here
-    // console.log('Selected entity type:', value)
-    dispatch(
-      ChangeWordScaleGraphicsSetting({
-        ...wordScaleGraphicsSetting,
-        semanticBindingEntityType: value,
-      }),
-    )
+    // // Dispatch or handle change in state here
+    // // console.log('Selected entity type:', value)
+    // dispatch(
+    //   ChangeWordScaleGraphicsSetting({
+    //     ...wordScaleGraphicsSetting,
+    //     semanticBindingEntityType: value,
+    //   }),
+    // )
   }
 
   const handleSymbol2Change = (symbol: string) => {
@@ -117,15 +321,81 @@ const ControlSemanticDrivenIcons: React.FC = () => {
     // )
     // eslint-disable-next-line quotes
     const IconN = '<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"></svg>'
-    entityIcon[semanticBindingEntityType].e = IconN
+    console.log("entityIcon.filter.e", semanticBindingEntityType, entityIcon)
+    if (semanticBindingEntityType.startsWith("filter")) {
+      entityIcon.filter.e = IconN
+    } else {
+      entityIcon[semanticBindingEntityType].e = IconN
+    }
 
-    dispatch(
-      ChangeWordScaleGraphicsSetting({
-        ...wordScaleGraphicsSetting,
-        selectedSymbol2: symbol,
-        absoluteIcon: { ...absoluteIcon },
-      }),
-    )
+    if (semanticBindingEntityType === "metric_value") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          generalSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticBindingEntityType === "binary_value_positive") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          plusSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticBindingEntityType === "binary_value_negative") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          minusSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticBindingEntityType === "metric_names") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          measureSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticBindingEntityType === "algorithm") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          methodSymbol: symbol,
+        }),
+      )
+    }
+    if (semanticBindingEntityType === "filter_cate") {
+      dispatch(
+        ChangeWordScaleGraphicsSetting({
+          ...wordScaleGraphicsSetting,
+          entityIcon: { ...entityIcon },
+          absoluteIcon: { ...absoluteIcon },
+          filterSymbol: symbol,
+        }),
+      )
+    }
+
+    // dispatch(
+    //   ChangeWordScaleGraphicsSetting({
+    //     ...wordScaleGraphicsSetting,
+    //     selectedSymbol2: symbol,
+    //     absoluteIcon: { ...absoluteIcon },
+    //   }),
+    // )
   }
 
   // Dropdown menu for the last symbol button
@@ -252,6 +522,9 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                           justifyContent: "center",
                           alignItems: "center",
                         }}
+                        ref={(el) => {
+                          positionButtonRefs.current[symbol] = el
+                        }}
                       >
                         {symbol === "null" ? "null" : null}
                       </Button>
@@ -342,13 +615,26 @@ const ControlSemanticDrivenIcons: React.FC = () => {
                         handleSymbol2Change(symbol)
                         setDropdownDisplay2(symbol) // 点击按钮后重置下拉框显示
                       }}
-                      icon={<SvgIcon svgContent={entityIcon[semanticBindingEntityType][symbol]} />}
+                      icon={
+                        <SvgIcon
+                          svgContent={
+                            entityIcon[
+                              semanticBindingEntityType.startsWith("filter")
+                                ? "filter"
+                                : semanticBindingEntityType
+                            ][symbol]
+                          }
+                        />
+                      }
                       style={{
                         width: `${buttoWidth1}px`,
                         display: "inline-flex",
                         textAlign: "left",
                         justifyContent: "center",
                         alignItems: "center",
+                      }}
+                      ref={(el) => {
+                        entityButtonRefs.current[symbol] = el
                       }}
                     >
                       {symbol === "null" ? "null" : null}

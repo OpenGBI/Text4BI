@@ -447,34 +447,34 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     )
   }
 
-  const renderNoneDataIcon4UpDown = (
-    curMetadata: Metadata,
-    curNoneDataIconSpan: HTMLSpanElement | undefined,
-    curSparkLinePosition: string,
-  ) => {
-    if (!curMetadata.entityType || !curNoneDataIconSpan) return
-    if (!entityIcon[curMetadata.entityType]) return
-    if (entityIcon[curMetadata.entityType][selectedSymbol2] === "") return
-    // <span dangerouslySetInnerHTML={{ __html: svgContent }} />
-    // 直接设置innerHTML
-    const rect = curNoneDataIconSpan.getBoundingClientRect()
-    const svgContent = entityIcon[curMetadata.entityType][selectedSymbol2]
-    const newSpan = document.createElement("span") // 创建新的span元素
-    newSpan.setAttribute("data-highlight-color-name", "red")
-    newSpan.classList.add("sparklines")
-    newSpan.style.position = "absolute"
-    if (curSparkLinePosition === "up") {
-      newSpan.style.top = "-20px"
-      newSpan.style.left = "0px"
-    } else {
-      newSpan.style.top = "20px"
-      newSpan.style.left = "0px"
-    }
-    newSpan.style.width = `${rect.width}px`
-    newSpan.style.height = `${rect.height + 20}px`
-    newSpan.innerHTML = svgContent
-    curNoneDataIconSpan.appendChild(newSpan)
-  }
+  // const renderNoneDataIcon4UpDown = (
+  //   curMetadata: Metadata,
+  //   curNoneDataIconSpan: HTMLSpanElement | undefined,
+  //   curSparkLinePosition: string,
+  // ) => {
+  //   if (!curMetadata.entityType || !curNoneDataIconSpan) return
+  //   if (!entityIcon[curMetadata.entityType]) return
+  //   if (entityIcon[curMetadata.entityType][selectedSymbol2] === "") return
+  //   // <span dangerouslySetInnerHTML={{ __html: svgContent }} />
+  //   // 直接设置innerHTML
+  //   const rect = curNoneDataIconSpan.getBoundingClientRect()
+  //   const svgContent = entityIcon[curMetadata.entityType][selectedSymbol2]
+  //   const newSpan = document.createElement("span") // 创建新的span元素
+  //   newSpan.setAttribute("data-highlight-color-name", "red")
+  //   newSpan.classList.add("sparklines")
+  //   newSpan.style.position = "absolute"
+  //   if (curSparkLinePosition === "up") {
+  //     newSpan.style.top = "-20px"
+  //     newSpan.style.left = "0px"
+  //   } else {
+  //     newSpan.style.top = "20px"
+  //     newSpan.style.left = "0px"
+  //   }
+  //   newSpan.style.width = `${rect.width}px`
+  //   newSpan.style.height = `${rect.height + 20}px`
+  //   newSpan.innerHTML = svgContent
+  //   curNoneDataIconSpan.appendChild(newSpan)
+  // }
 
   const renderSparkLine = (
     curMetadata: Metadata,
@@ -980,17 +980,35 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       // console.log("PhraseComponent", params4BackEnd)
       return (
         // <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+        <span style={{ position: "relative" }}>
+          {sparkLinePosition === "left" ? (
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          ) : null}
+          <SelectorInText
+            selections={metadata.selections}
+            defaultSelection={metadata.selections[0]}
+            metadata={metadata}
+            setHighlightMessage={setHighlightMessage}
+            chartType={chartType}
+            backEndType={metadata.backEndType}
+            params4BackEnd={params4BackEnd}
+            paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+          />
+          {sparkLinePosition === "right" ? (
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          ) : null}
+        </span>
 
-        <SelectorInText
-          selections={metadata.selections}
-          defaultSelection={metadata.selections[0]}
-          metadata={metadata}
-          setHighlightMessage={setHighlightMessage}
-          chartType={chartType}
-          backEndType={metadata.backEndType}
-          params4BackEnd={params4BackEnd}
-          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
-        />
         // </span>
       )
     }
@@ -1000,14 +1018,32 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
       metadata.paramIndex !== undefined
     ) {
       return (
-        <SelectorTime
-          defaultSelection={metadata.selections[0]}
-          metadata={metadata}
-          chartType={chartType}
-          paramIndex={metadata.paramIndex}
-          params4BackEnd={params4BackEnd}
-          paramsFuncs4BackEnd={paramsFuncs4BackEnd}
-        />
+        <span style={{ position: "relative" }}>
+          {sparkLinePosition === "left" ? (
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          ) : null}
+          <SelectorTime
+            defaultSelection={metadata.selections[0]}
+            metadata={metadata}
+            chartType={chartType}
+            paramIndex={metadata.paramIndex}
+            params4BackEnd={params4BackEnd}
+            paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+          />
+          {sparkLinePosition === "right" ? (
+            <NoneDataIcon
+              entityIcon={entityIcon}
+              absoluteIcon={absoluteIcon}
+              curMetadata={metadata}
+              type={type}
+            />
+          ) : null}
+        </span>
       )
     }
     // // 下面是对颜色进行设置

@@ -27,7 +27,11 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, iconType }) => {
       console.log("ImportIcon", entityIcon[semanticsAbsolutePosition])
       setSvgContent(absoluteIcon[semanticsAbsolutePosition].e)
     } else {
-      setSvgContent(entityIcon[semanticBindingEntityType].e)
+      setSvgContent(
+        entityIcon[
+          semanticBindingEntityType.startsWith("filter") ? "filter" : semanticBindingEntityType
+        ].e,
+      )
     }
   }, [selectedSymbol1, semanticsAbsolutePosition, selectedSymbol2, semanticBindingEntityType])
   // const [svgContent, setSvgContent] = useState(null);
@@ -61,27 +65,106 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, iconType }) => {
             setSvgContent(curSvgContent)
             if (IconSpecies === "entity") {
               // entityIcon[semanticBindingEntityType][selectedSymbol2] = curSvgContent
-              entityIcon[semanticBindingEntityType].e = curSvgContent
-              dispatch(
-                ChangeWordScaleGraphicsSetting({
-                  ...wordScaleGraphicsSetting,
-                  entityIcon: { ...entityIcon },
-                  absoluteIcon: { ...absoluteIcon },
-                  selectedSymbol2: "e",
-                }),
-              )
+              entityIcon[
+                semanticBindingEntityType.startsWith("filter")
+                  ? "filter"
+                  : semanticBindingEntityType
+              ].e = curSvgContent
+              console.log("Upload", semanticBindingEntityType)
+              if (semanticBindingEntityType === "metric_value") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    generalSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticBindingEntityType === "binary_value_positive") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    plusSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticBindingEntityType === "binary_value_negative") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    minusSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticBindingEntityType === "metric_names") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    measureSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticBindingEntityType === "algorithm") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    methodSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticBindingEntityType === "filter_cate") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    filterSymbol: "e",
+                  }),
+                )
+              }
+              // dispatch(
+              //   ChangeWordScaleGraphicsSetting({
+              //     ...wordScaleGraphicsSetting,
+              //     entityIcon: { ...entityIcon },
+              //     absoluteIcon: { ...absoluteIcon },
+              //     selectedSymbol2: "e",
+              //   }),
+              // )
             }
             if (IconSpecies === "absolute") {
               // absoluteIcon[semanticsAbsolutePosition][selectedSymbol1] = curSvgContent
               absoluteIcon[semanticsAbsolutePosition].e = curSvgContent
-              dispatch(
-                ChangeWordScaleGraphicsSetting({
-                  ...wordScaleGraphicsSetting,
-                  entityIcon: { ...entityIcon },
-                  absoluteIcon: { ...absoluteIcon },
-                  selectedSymbol1: "e",
-                }),
-              )
+              if (semanticsAbsolutePosition === "sentenceStart") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    selectedSymbol1: "e",
+                    beginPositionSymbol: "e",
+                  }),
+                )
+              }
+              if (semanticsAbsolutePosition === "sentenceEnd") {
+                dispatch(
+                  ChangeWordScaleGraphicsSetting({
+                    ...wordScaleGraphicsSetting,
+                    entityIcon: { ...entityIcon },
+                    absoluteIcon: { ...absoluteIcon },
+                    selectedSymbol1: "e",
+                    endPositionSymbol: "e",
+                  }),
+                )
+              }
             }
             // dispatch(
             //   ChangeWordScaleGraphicsSetting({

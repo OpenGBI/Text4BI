@@ -110,8 +110,8 @@ export type entityIconType = {
   metric_value: entitiesType
   metric_names: entitiesType
   algorithm: entitiesType
-  filter_time: entitiesType
-  filter_cate: entitiesType
+  // filter_time: entitiesType
+  filter: entitiesType
 }
 export type absoluteIconType = {
   [key: string]: entitiesType // 索引签名 zyx
@@ -193,6 +193,14 @@ export type wordScaleGraphicsSettingStateType = {
   selectedSymbol2: string
   entityIcon: entityIconType
   absoluteIcon: absoluteIconType
+  beginPositionSymbol: string
+  endPositionSymbol: string
+  generalSymbol: string
+  plusSymbol: string
+  minusSymbol: string
+  measureSymbol: string
+  methodSymbol: string
+  filterSymbol: string
 }
 export type highLightMessage = {
   message: string | number

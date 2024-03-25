@@ -1,0 +1,32 @@
+{
+    "1": {
+        "Female": 66,
+        "Male": 34,
+        "Others": 1,
+        "Prefer not to say": 14
+    },
+    "2": {
+        "Female": 112,
+        "Male": 51,
+        "Others": 7,
+        "Prefer not to say": 24
+    },
+    "3": {
+        "Female": 127,
+        "Male": 40,
+        "Others": 7,
+        "Prefer not to say": 35
+    },
+    "4": {
+        "Female": 41,
+        "Male": 14,
+        "Others": 2,
+        "Prefer not to say": 10
+    },
+    "5": {
+        "Female": 6,
+        "Male": 3,
+        "Others": 2,
+        "Prefer not to say": 6
+    }
+}

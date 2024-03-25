@@ -219,6 +219,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     // setTopK(newData)\
   }
 
+  console.log("!CardName || !paragraph || !id || !onDrop", CardName, paragraph, id, onDrop)
   if (!CardName || !paragraph || !id || !onDrop) {
     console.log("No data found for the date", CardName, paragraph, id)
     throw new Error("No data found for the date")

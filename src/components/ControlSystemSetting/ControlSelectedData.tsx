@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { systemStateType, Card } from "../../types"
 import { AppState } from "../../store"
 import { ChangeSystemSetting } from "../../actions/systemAction"
-import { iniData } from "../../utils/iniData"
+import { iniData } from "../../utils/iniData2"
 
 const ControlSelectedData: React.FC = () => {
   const [selectedDataset, setSelectedDataset] = useState<Card[]>(iniData)
@@ -12,10 +12,27 @@ const ControlSelectedData: React.FC = () => {
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
 
   const handleChangeDataset = (value: string) => {
+    // dispatch(
+    //   ChangeSystemSetting({
+    //     ...systemSetting,
+    //     selectedCards: selectedIds,
+    //   }),
+    // )
     // console.log(`../../public/datas/${value}.json`)
-    fetch(`http://localhost:3000/datas/${value}.json`)
+    fetch("http://localhost:5000/changeData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ value }), // 将 JavaScript 对象转换为 JSON 字符串
+    })
       .then((response) => response.json())
-      .then((jsonData) => setSelectedDataset(jsonData))
+      .then((jsonData) => {
+        setSelectedDataset(jsonData)
+      })
+      .catch((error) => {
+        console.error("Error posting data:", error)
+      })
     // console.log('selectedDataset', selectedDataset)
     // const selectedCardsId: string[] = selectedDataset.map((card) => card.key)
 

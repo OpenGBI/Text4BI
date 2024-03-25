@@ -438,15 +438,21 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
       <div style={{ height: "100%", overflow: "auto" }}>
         <DndProvider backend={HTML5Backend}>
           <div className="card-container">
-            {Cards.map((curDataset, index) => (
-              <Content id={curDataset.CardName} key={curDataset.CardName}>
-                <InsightCard
-                  {...(curDataset as InsightCardProps)}
-                  onDrop={swapCards}
-                  cardRef={cardRefs[index]}
-                />
-              </Content>
-            ))}
+            {Cards.map((curDataset, index) => {
+              if (curDataset.paragraph !== undefined) {
+                return (
+                  <Content id={curDataset.CardName} key={curDataset.CardName}>
+                    <InsightCard
+                      {...(curDataset as InsightCardProps)}
+                      onDrop={swapCards}
+                      cardRef={cardRefs[index]}
+                    />
+                  </Content>
+                )
+              }
+
+              return null
+            })}
           </div>
         </DndProvider>
       </div>

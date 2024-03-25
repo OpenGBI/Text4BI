@@ -12,7 +12,7 @@ import DesignBar from "./DesignBar"
 import ImportBar from "./ImportBar"
 import Container from "./Container"
 import Navigation from "./Navigation"
-import { iniData } from "./utils/iniData"
+import { iniData } from "./utils/iniData2"
 
 const { Header, Sider, Content } = Layout
 

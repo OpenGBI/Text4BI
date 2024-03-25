@@ -1,0 +1,8 @@
+{
+  "data": [
+    { "category": "categories", "value": 0.4432 },
+    { "category": "Keyword", "value": 0.2579 },
+    { "category": "Filter", "value": 0.1975 },
+    { "category": "others", "value": 0.1013 }
+  ]
+}

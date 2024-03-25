@@ -1,0 +1,15 @@
+{
+  "data": [
+    { "category": "Customer service responsiveness", "value": 0.3929 },
+    { "category": "Product quality and accuracy", "value": 0.2347 },
+    { "category": "Reducing packaging waste", "value": 0.2337 },
+    { "category": "Shipping speed and reliability", "value": 0.1143 },
+    { "category": "Nil", "value": 0.0051 },
+    { "category": "Irrelevant product suggestions", "value": 0.0041 },
+    { "category": ".", "value": 0.0031 },
+    { "category": "Quality of product is very poor according to the big offers", "value": 0.0031 },
+    { "category": "UI", "value": 0.0031 },
+    { "category": "User interface ", "value": 0.0031 },
+    { "category": "better app interface and lower shipping charges", "value": 0.0031 }
+  ]
+}

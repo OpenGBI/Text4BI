@@ -1,12 +1,12 @@
-import { AssociationData } from "../datas4graph/AssociationData"
-import { DistributionData } from "../datas4graph/DistributionData"
-import { ProportionData } from "../datas4graph/ProportionData"
-import { Category11 } from "../datas4graph/CategoryData"
+import { AssociationData } from "../datas4graph/datasets1/AssociationData"
+import { DistributionData } from "../datas4graph/datasets1/DistributionData"
+import { ProportionData } from "../datas4graph/datasets1/ProportionData"
+import { Category11 } from "../datas4graph/datasets1/CategoryData"
 import { Card, cateAndValue } from "../types"
-import { TrendData11 } from "../datas4graph/TrendData"
-import { PeriodicityData } from "../datas4graph/PeriodicityData"
-import { AnomalyData } from "../datas4graph/AnomalyData"
-import { DifferenceData } from "../datas4graph/DifferenceData"
+import { TrendData11 } from "../datas4graph/datasets1/TrendData"
+import { PeriodicityData } from "../datas4graph/datasets1/PeriodicityData"
+import { AnomalyData } from "../datas4graph/datasets1/AnomalyData"
+import { DifferenceData } from "../datas4graph/datasets1/DifferenceData"
 
 export const iniData: Card[] = [
   {

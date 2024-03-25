@@ -46,6 +46,16 @@ const Categorization: React.FC<BarChartProps> = ({
         y: { title: drillDownGroup || "City" },
       },
     })
+    chart.scale("category", {
+      formatter: (text: string) => {
+        const words = text.split(/\s+/) // 切分单词
+        if (words.length > 3) {
+          // 如果超过三个单词，则截断并添加省略号
+          return `${words.slice(0, 3).join(" ")}...`
+        }
+        return text // 如果三个单词或更少，原样返回
+      },
+    })
     // chart.coordinate({ transform: [{ type: "transpose" }] })
     chart.data(processedData)
     // console.log('CategorizationCategorizationCategorization', data)

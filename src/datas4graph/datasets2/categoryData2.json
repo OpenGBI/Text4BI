@@ -1,0 +1,54 @@
+{
+  "data": [
+    { "category": "Beauty and Personal Care", "value": 106 },
+    { "category": "Clothing and Fashion", "value": 106 },
+    { "category": "others", "value": 48 },
+    { "category": "Beauty and Personal Care;Clothing and Fashion", "value": 46 },
+    { "category": "Beauty and Personal Care;Clothing and Fashion;Home and Kitchen", "value": 42 },
+    {
+      "category": "Groceries and Gourmet Food;Beauty and Personal Care;Clothing and Fashion;Home and Kitchen;others",
+      "value": 32
+    },
+    { "category": "Clothing and Fashion;Home and Kitchen", "value": 27 },
+    { "category": "Home and Kitchen", "value": 24 },
+    { "category": "Beauty and Personal Care;Home and Kitchen", "value": 21 },
+    { "category": "Clothing and Fashion;Home and Kitchen;others", "value": 16 },
+    { "category": "Clothing and Fashion;others", "value": 14 },
+    { "category": "Groceries and Gourmet Food", "value": 14 },
+    {
+      "category": "Groceries and Gourmet Food;Beauty and Personal Care;Clothing and Fashion;Home and Kitchen",
+      "value": 14
+    },
+    { "category": "Beauty and Personal Care;Clothing and Fashion;others", "value": 12 },
+    {
+      "category": "Groceries and Gourmet Food;Beauty and Personal Care;Clothing and Fashion",
+      "value": 10
+    },
+    { "category": "Home and Kitchen;others", "value": 9 },
+    {
+      "category": "Beauty and Personal Care;Clothing and Fashion;Home and Kitchen;others",
+      "value": 8
+    },
+    { "category": "Groceries and Gourmet Food;Beauty and Personal Care", "value": 7 },
+    { "category": "Beauty and Personal Care;others", "value": 7 },
+    { "category": "Groceries and Gourmet Food;Clothing and Fashion", "value": 6 },
+    { "category": "Groceries and Gourmet Food;Home and Kitchen;others", "value": 6 },
+    { "category": "Groceries and Gourmet Food;Home and Kitchen", "value": 5 },
+    { "category": "Beauty and Personal Care;Home and Kitchen;others", "value": 5 },
+    {
+      "category": "Groceries and Gourmet Food;Beauty and Personal Care;Home and Kitchen",
+      "value": 4
+    },
+    { "category": "Groceries and Gourmet Food;Clothing and Fashion;Home and Kitchen", "value": 4 },
+    { "category": "Groceries and Gourmet Food;Beauty and Personal Care;others", "value": 3 },
+    {
+      "category": "Groceries and Gourmet Food;Clothing and Fashion;Home and Kitchen;others",
+      "value": 3
+    },
+    { "category": "Groceries and Gourmet Food;Clothing and Fashion;others", "value": 2 },
+    {
+      "category": "Groceries and Gourmet Food;Beauty and Personal Care;Clothing and Fashion;others",
+      "value": 1
+    }
+  ]
+}

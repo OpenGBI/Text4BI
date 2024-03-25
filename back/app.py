@@ -9,8 +9,9 @@ from funcs.Categorization import changeCategorization
 from funcs.Difference import changeDifference
 from funcs.TemporalTrend import changeTemporalTrend
 from funcs.TemporalPeriodly import changeTemporalPeriodly
-from utils.getDistributionData import get_distribution_data
+# from utils.getDistributionData import get_distribution_data
 from funcs.TemporalAnomaly import changeTemporalAnomaly
+from funcs.changeData import change_datasets
 # from github import Github # 导入GitHub库
 
 app = Flask(__name__)
@@ -58,6 +59,13 @@ def get_distribution_data():
     #     data = json.load(file)
     res = changeDistribution(timeSelection)
     print("get data")
+    return jsonify(res)
+@app.route('/changeData', methods=['Post'])
+def change_dataset():
+    data = request.json
+    value = data.get('value')
+
+    res=change_datasets(value)
     return jsonify(res)
 @app.route('/TemporalDifference', methods=['POST'])
 def get_difference_data():

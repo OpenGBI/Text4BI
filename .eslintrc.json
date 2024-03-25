@@ -21,6 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    // "import/no-unresolved": "off",
+    "import/no-unresolved": "off",
     "react/jsx-wrap-multilines": "off",
     "no-extra-semi": "off",
     "no-debugger": "off",

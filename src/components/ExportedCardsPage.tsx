@@ -12,6 +12,7 @@ import { ChangeGlobalSetting } from "../actions/GlobalSettingAction"
 import { ChangeTypographySetting } from "../actions/typographySettingAction"
 import { ChangeWordScaleGraphicsSetting } from "../actions/wordScaleGraphicsSettingAction"
 import { AppState, store } from "../store"
+import { iniData } from "../utils/iniData2"
 import {
   Card,
   GlobalSettingStateType,
@@ -21,7 +22,7 @@ import {
   absoluteIconType,
 } from "../types"
 // import { getNarrativeHtml, getNarrativeHtml4Export } from "../utils/TextExporter"
-import { iniData } from "../utils/iniData"
+
 // import { fetchDataset } from "../actions/systemAction"
 
 const { Header, Footer, Sider, Content } = Layout

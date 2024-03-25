@@ -30,6 +30,7 @@ const ControlSelectedInsights: React.FC = () => {
   const dispatch = useDispatch()
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
   const [selectedValues, setSelectedValues] = React.useState<string[]>([])
+
   const [curSelectedCards, setSelectedCards] = useState([
     "Card1",
     "Card2",
@@ -40,6 +41,9 @@ const ControlSelectedInsights: React.FC = () => {
     "Card7",
     "Card8",
   ])
+  useEffect(() => {
+    setSelectedCards(systemSetting.allCards)
+  }, [systemSetting.allCards])
 
   const defaultValue = ["gold", "cyan"]
   const COLOR_PALETTE = [

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { systemStateType, Card } from "../../types"
 import { AppState } from "../../store"
 import { ChangeSystemSetting } from "../../actions/systemAction"
-import { iniData } from "../../utils/iniData2"
+import { iniData } from "../../utils/iniData1"
 
 const ControlSelectedData: React.FC = () => {
   const [selectedDataset, setSelectedDataset] = useState<Card[]>(iniData)

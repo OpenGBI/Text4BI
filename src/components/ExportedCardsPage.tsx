@@ -12,7 +12,7 @@ import { ChangeGlobalSetting } from "../actions/GlobalSettingAction"
 import { ChangeTypographySetting } from "../actions/typographySettingAction"
 import { ChangeWordScaleGraphicsSetting } from "../actions/wordScaleGraphicsSettingAction"
 import { AppState, store } from "../store"
-import { iniData } from "../utils/iniData2"
+import { iniData } from "../utils/iniData1"
 import {
   Card,
   GlobalSettingStateType,

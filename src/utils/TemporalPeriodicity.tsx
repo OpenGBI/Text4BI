@@ -10,6 +10,8 @@ interface TemporalPeriodicityProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string
+  xAxis: string
+  yAxis: string
 }
 // AAAA = {
 //   category:数据类别，这n个可以一样
@@ -22,6 +24,8 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
   message,
   hoverOrNot,
   interactionType,
+  xAxis,
+  yAxis,
 }) => {
   const containerRef = React.useRef(null)
   const interactiveRef = React.useRef<Chart | null>(null)
@@ -39,8 +43,8 @@ const TemporalPeriodicity: React.FC<TemporalPeriodicityProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: "Date" },
-        y: { title: "Sales" },
+        x: { title: xAxis },
+        y: { title: yAxis },
       },
     })
     data.forEach((dataItem) => {

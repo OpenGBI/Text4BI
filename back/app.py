@@ -12,6 +12,9 @@ from funcs.TemporalPeriodly import changeTemporalPeriodly
 # from utils.getDistributionData import get_distribution_data
 from funcs.TemporalAnomaly import changeTemporalAnomaly
 from funcs.changeData import change_datasets
+
+from funcs2.Categorization import changeCategorization2
+from funcs2.Proportion import changeProportion2
 # from github import Github # 导入GitHub库
 
 app = Flask(__name__)
@@ -37,7 +40,7 @@ def hello_world():
 #         data = json.load(file)
 #     print("get data")
 #     return jsonify(data)
-@app.route('/Categorization', methods=['POST'])
+@app.route('/Data1/Categorization', methods=['POST'])
 def get_categorization_data():
     data = request.json  
     drillDownGroup = data.get('drillDownGroup')
@@ -47,7 +50,7 @@ def get_categorization_data():
     res = changeCategorization(drillDownGroup,topK)
     print("get data")
     return jsonify(res)
-@app.route('/Distribution', methods=['POST'])
+@app.route('/Data1/Distribution', methods=['POST'])
 def get_distribution_data():
     print("start Distribution")
     data = request.json  
@@ -67,7 +70,7 @@ def change_dataset():
 
     res=change_datasets(value)
     return jsonify(res)
-@app.route('/TemporalDifference', methods=['POST'])
+@app.route('/Data1/TemporalDifference', methods=['POST'])
 def get_difference_data():
     print("start Distribution")
     data = request.json  
@@ -80,7 +83,7 @@ def get_difference_data():
     res = changeDifference(timeSelection)
     print("get data")
     return jsonify(res)
-@app.route('/Proportion', methods=['POST'])
+@app.route('/Data1/Proportion', methods=['POST'])
 def get_proportion_data():
     print("start Proportion")
     data = request.json  
@@ -97,7 +100,7 @@ def get_proportion_data():
     print("get data")
     return jsonify(res)
 
-@app.route('/TemporalPeriodicity', methods=['POST'])
+@app.route('/Data1/TemporalPeriodicity', methods=['POST'])
 def get_TemporalPeriodly_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
@@ -112,7 +115,7 @@ def get_TemporalPeriodly_data():
     print("get data")
     return jsonify(res)
 
-@app.route('/TemporalTrend', methods=['POST'])
+@app.route('/Data1/TemporalTrend', methods=['POST'])
 def get_TemporalTrend_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
@@ -128,7 +131,7 @@ def get_TemporalTrend_data():
     print("get data")
     return jsonify(res)
 
-@app.route('/TemporalAnomaly', methods=['POST'])
+@app.route('/Data1/TemporalAnomaly', methods=['POST'])
 def get_TemporalAnomaly_data():
     data = request.json  
     timeSegmentationCondition = data.get('timeSegmentationCondition')
@@ -218,6 +221,29 @@ def get_changed_settings():
         return jsonify(changed_settings)
     else:
         return jsonify({"message": "No changes detected."})
+
+@app.route('/Data2/Categorization', methods=['POST'])
+def get_categorization_data2():
+    data = request.json  
+    drillDownGroup = data.get('drillDownGroup')
+    chartType=data.get("chartType")
+    topK=data.get("topK")
+    print(drillDownGroup)
+    res = changeCategorization2(drillDownGroup,topK)
+    print("get data")
+    return jsonify(res)
+
+@app.route('/Data2/Proportion', methods=['POST'])
+def get_Proportion_data2():
+    data = request.json  
+    drillDownGroup = data.get('drillDownGroup')
+    chartType=data.get("chartType")
+    topK=data.get("topK")
+    print(drillDownGroup)
+    res = changeProportion2(drillDownGroup)
+    print("get data")
+    return jsonify(res)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

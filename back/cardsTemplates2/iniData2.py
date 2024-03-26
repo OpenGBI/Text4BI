@@ -2,7 +2,7 @@
 from cardsTemplates2.AssociationData import AssociationData
 from cardsTemplates2.CategoryData import Category11
 from cardsTemplates2.DifferenceData import DifferenceData
-from cardsTemplates2.ProportionData import ProportionData
+from cardsTemplates2.ProportionData import ProportionData11
 from cardsTemplates2.TrendData import TrendData11
 iniData2 = [
 {
@@ -88,6 +88,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "Association",
         "metadata": {
+            "x":"Shopping Satisfaction",
+            "y":"Personalized Recommendation Frequency",
           "detail": AssociationData["data"],
           "tagData": AssociationData["tagData"],
         },
@@ -162,19 +164,19 @@ iniData2 = [
               "tagData": DifferenceData["tagData"],
             },
           },
-          { "type": "text", "value": "from " },
-          {
-            "type": "entity",
-            "value": "2011-01-01",
-            "metadata": { "entityType": "filter_time", "selections": ["2011-01-01"], "paramIndex": 0 },
-          },
-          { "type": "text", "value": " to " },
-          {
-            "type": "entity",
-            "value": "2011-12-31",
-            "metadata": { "entityType": "filter_time", "selections": ["2011-12-31"], "paramIndex": 1 },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+          # { "type": "text", "value": "from " },
+          # {
+          #   "type": "entity",
+          #   "value": "2011-01-01",
+          #   "metadata": { "entityType": "filter_time", "selections": ["2011-01-01"], "paramIndex": 0 },
+          # },
+          # { "type": "text", "value": " to " },
+          # {
+          #   "type": "entity",
+          #   "value": "2011-12-31",
+          #   "metadata": { "entityType": "filter_time", "selections": ["2011-12-31"], "paramIndex": 1 },
+          # },
+          # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
 
@@ -182,6 +184,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "TemporalDifference",
         "metadata": {
+            "x":"Gender",
+            "y":"Shopping Satisfaction",
           "detail": DifferenceData["data"],
           "tagData": DifferenceData["tagData"],
         },
@@ -190,7 +194,7 @@ iniData2 = [
         "type": "configuration",
         "chartType": "TemporalDifference",
         "metadata": {
-          "timeSelection": ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
+          # "timeSelection": ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
         },
       },
     ],
@@ -261,7 +265,7 @@ iniData2 = [
             "value": "3",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["3", "4", "5"],
+              "selections": ["3", "4","5"],
               "interactionType": "multiHighlight",
               "backEndType": "topK",
             },
@@ -444,6 +448,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "Categorization",
         "metadata": {
+            "x":"Shopping Satisfaction",
+            "y":"Browsing Frequency",
           "detail": Category11["data"],
         },
       },
@@ -604,14 +610,16 @@ iniData2 = [
         "type": "plot",
         "chartType": "Proportion",
         "metadata": {
-          "detail": ProportionData["data"],
+             "x":"Shopping Satisfaction",
+            "y":"Browsing Frequency",
+          "detail": ProportionData11["data"],
         },
       },
       {
         "type": "configuration",
-        "chartType": "gender",
+        "chartType": "Proportion",
         "metadata": {
-          "drillDownGroup": "Country",
+          "drillDownGroup": "gender",
         },
       },
     ],
@@ -716,6 +724,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "TemporalTrend",
         "metadata": {
+             "x":"Date",
+            "y":"Purchase of Frequency",
           "detail": TrendData11["data"]+TrendData11["predictData"] ,
           "tagData": TrendData11["tagData"] ,
         },

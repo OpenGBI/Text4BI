@@ -11,6 +11,8 @@ interface BarChartProps {
   hoverOrNot: boolean | undefined
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
   drillDownGroup: string
+  xAxis: string
+  yAxis: string
 }
 
 const Categorization: React.FC<BarChartProps> = ({
@@ -20,11 +22,14 @@ const Categorization: React.FC<BarChartProps> = ({
   hoverOrNot,
   interactionType,
   drillDownGroup,
+  xAxis,
+  yAxis,
 }) => {
   const containerRef = React.useRef<Chart | null>(null)
   const CategorizationRef = React.useRef(null)
   const [testState, setTestState] = React.useState(0)
   const interactiveRef = React.useRef<Chart | null>(null)
+  console.log("debug-processedData", data)
   const processedData = data.slice(0, 7)
   // console.log("CategorizationData!!!!!!!!!!!", data)
   React.useEffect(() => {
@@ -42,20 +47,20 @@ const Categorization: React.FC<BarChartProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: "Sales" },
-        y: { title: drillDownGroup || "City" },
+        x: { title: drillDownGroup },
+        y: { title: yAxis },
       },
     })
-    chart.scale("category", {
-      formatter: (text: string) => {
-        const words = text.split(/\s+/) // 切分单词
-        if (words.length > 3) {
-          // 如果超过三个单词，则截断并添加省略号
-          return `${words.slice(0, 3).join(" ")}...`
-        }
-        return text // 如果三个单词或更少，原样返回
-      },
-    })
+    // chart.scale("category", {
+    //   formatter: (text: string) => {
+    //     const words = text.split(/\s+/) // 切分单词
+    //     if (words.length > 3) {
+    //       // 如果超过三个单词，则截断并添加省略号
+    //       return `${words.slice(0, 3).join(" ")}...`
+    //     }
+    //     return text // 如果三个单词或更少，原样返回
+    //   },
+    // })
     // chart.coordinate({ transform: [{ type: "transpose" }] })
     chart.data(processedData)
     // console.log('CategorizationCategorizationCategorization', data)

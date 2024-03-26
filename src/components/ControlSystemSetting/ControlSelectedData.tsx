@@ -8,6 +8,7 @@ import { iniData } from "../../utils/iniData1"
 
 const ControlSelectedData: React.FC = () => {
   const [selectedDataset, setSelectedDataset] = useState<Card[]>(iniData)
+  const [selectedDatasetId, setSelectedDatasetId] = useState<string>("Data1")
   const dispatch = useDispatch()
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
 
@@ -29,6 +30,7 @@ const ControlSelectedData: React.FC = () => {
       .then((response) => response.json())
       .then((jsonData) => {
         setSelectedDataset(jsonData)
+        setSelectedDatasetId(value)
       })
       .catch((error) => {
         console.error("Error posting data:", error)
@@ -51,9 +53,11 @@ const ControlSelectedData: React.FC = () => {
     dispatch(
       ChangeSystemSetting({
         ...systemSetting,
+        datasetId: selectedDatasetId,
         dataset: selectedDataset,
         selectedCards: allCardsId,
         allCards: allCardsId,
+        resetDataset: systemSetting.resetDataset + 1,
       }),
     )
   }, [selectedDataset]) // 仅当selectedDataset发生变化时运行此effect

@@ -10,11 +10,16 @@ interface AssociationProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string
+  xAxis: string
+  yAxis: string
 }
 
 // const Association: React.FC<AssociationProps> = ({ data, tagData }) => {
 const Association = forwardRef(
-  ({ data, tagData, message, hoverOrNot, interactionType }: AssociationProps, ref) => {
+  (
+    { data, tagData, message, hoverOrNot, interactionType, xAxis, yAxis }: AssociationProps,
+    ref,
+  ) => {
     const containerRef = React.useRef(null)
     const chartRef = useRef<Chart | null>(null)
     const interactiveRef = React.useRef<Chart | null>(null)
@@ -34,8 +39,8 @@ const Association = forwardRef(
         height: 500,
         tooltip: false,
         axis: {
-          x: { title: "Sales" },
-          y: { title: "Profit" },
+          x: { title: xAxis },
+          y: { title: yAxis },
         },
       })
       // console.log('散点图datadatadatadata', data)

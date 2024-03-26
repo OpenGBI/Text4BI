@@ -28,6 +28,8 @@ export type Metadata = {
   backEndType?: string // 标识后端交互类型
 }
 export type Metadata4BigGraph = {
+  x: string
+  y: string
   detail?: cateAndValue[] | Point[]
   tagData?: cateAndValue[] | Point[] | number[]
 }
@@ -120,11 +122,13 @@ export type absoluteIconType = {
 }
 
 export type systemStateType = {
+  datasetId: string
   dataset: Card[]
   selectedCards: string[]
   allCards: string[]
   generateKey: string
   setShowExportButton: boolean
+  resetDataset: number
 }
 export type GlobalSettingStateType = {
   showBigGraph: boolean

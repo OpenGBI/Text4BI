@@ -53,7 +53,8 @@ const SelectorTime: React.FC<typeSelectorTimeProps> = ({
   const backgroundColorValue = entityStyles.filter_cate.backgroundColor
   const textContourValue = entityStyles.filter_cate.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
   const backComm = (curParams: Metadata4Configuration, curChartType: string) => {
-    fetch("http://localhost:5000/".concat(curChartType), {
+    const curSelectedData = systemStateSetting.datasetId
+    fetch("http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

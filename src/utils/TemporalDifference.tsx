@@ -10,6 +10,8 @@ interface DifferenceProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
+  xAxis: string
+  yAxis: string
 }
 
 const Difference: React.FC<DifferenceProps> = ({
@@ -18,6 +20,8 @@ const Difference: React.FC<DifferenceProps> = ({
   message,
   hoverOrNot,
   interactionType,
+  xAxis,
+  yAxis,
 }) => {
   const containerRef = React.useRef(null)
   const interactiveRef = React.useRef<Chart | null>(null)
@@ -46,8 +50,8 @@ const Difference: React.FC<DifferenceProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: "Year" },
-        y: { title: "Profit" },
+        x: { title: xAxis },
+        y: { title: yAxis },
       },
     })
     // chart

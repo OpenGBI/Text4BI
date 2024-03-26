@@ -102,6 +102,7 @@ const BigChart: React.FC<BigChartProps> = ({
   //   }
   // }, [chartRef.current]) // 没有解决！！！！！！！！！！！！！
 
+  console.log("BigChartData.x", BigChartData.x, BigChartData.y)
   switch (ChartType) {
     case "Categorization": {
       return (
@@ -113,6 +114,8 @@ const BigChart: React.FC<BigChartProps> = ({
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
           drillDownGroup={drillDownGroup}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     }
@@ -136,6 +139,8 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     case "Distribution":
@@ -155,6 +160,8 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     case "TemporalPeriodicity": {
@@ -165,6 +172,8 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     }
@@ -177,6 +186,8 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     case "TemporalTrend":
@@ -188,6 +199,8 @@ const BigChart: React.FC<BigChartProps> = ({
           message={highlightMessage?.message}
           hoverOrNot={highlightMessage?.hoverOrNot}
           interactionType={highlightMessage?.interactionType}
+          xAxis={BigChartData.x}
+          yAxis={BigChartData.y}
         />
       )
     default:

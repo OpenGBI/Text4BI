@@ -10,6 +10,8 @@ interface TemporalTrendProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string // 专门给29 outliers之类留的，标明它需要高亮离群点
+  xAxis: string
+  yAxis: string
 }
 // AAAA={
 //   date: 'Jan 10 2000',
@@ -23,6 +25,8 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
   message,
   hoverOrNot,
   interactionType,
+  xAxis,
+  yAxis,
 }) => {
   const containerRef = React.useRef(null)
 
@@ -43,8 +47,8 @@ const TemporalTrend: React.FC<TemporalTrendProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: "Date" },
-        y: { title: "Sales" },
+        x: { title: xAxis },
+        y: { title: yAxis },
       },
     })
 

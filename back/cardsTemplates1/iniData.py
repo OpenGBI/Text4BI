@@ -101,6 +101,8 @@ iniData = [
         "type": "configuration",
         "chartType": "TemporalDifference",
         "metadata": {
+            "x": "Year",
+          "y": "Profit",
           "timeSelection": ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
         },
       },
@@ -333,6 +335,8 @@ iniData = [
         "type": "plot",
         "chartType": "Categorization",
         "metadata": {
+             "x": "City",
+          "y": "Sales",
           "detail": CategoryData["data"],
         },
       },
@@ -476,6 +480,8 @@ iniData = [
         "type": "plot",
         "chartType": "Proportion",
         "metadata": {
+            "x": "Year",
+          "y": "Profit",
           "detail": ProportionData["data"],
         },
       },
@@ -589,6 +595,8 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalTrend",
         "metadata": {
+            "x": "Year",
+          "y": "Profit",
           "detail": TrendData["data"]+ TrendData["predictData"] ,
           "tagData": TrendData["tagData"] ,
         },
@@ -747,6 +755,8 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalAnomaly",
         "metadata": {
+             "x": "Date",
+          "y": "Sales",
           "detail": AnomalyData["data"],
         },
       },
@@ -904,6 +914,8 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalPeriodicity",
         "metadata": {
+            "x": "Date",
+          "y": "Sales",
           "detail": PeriodicityData["data"],
           "tagData": PeriodicityData["tagData"],
         },
@@ -1001,6 +1013,8 @@ iniData = [
         "type": "plot",
         "chartType": "Association",
         "metadata": {
+            "x": "Sales",
+          "y": "Profit",
           "detail": AssociationData["data"],
           "tagData": AssociationData["tagData"],
         },
@@ -1205,6 +1219,8 @@ iniData = [
         "type": "plot",
         "chartType": "Distribution",
         "metadata": {
+            "x": "Sales",
+          "y": "Profit",
           "detail": DistributionData["data"],
         },
       },

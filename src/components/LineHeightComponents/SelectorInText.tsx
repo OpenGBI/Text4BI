@@ -35,6 +35,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
   params4BackEnd,
   paramsFuncs4BackEnd,
 }) => {
+  // const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
   const width = `${Math.max(30, fontSizeNumber * 10)}px` // 根据fontsize计算width
@@ -147,7 +148,12 @@ const SelectorInText: React.FC<SelectorProps> = ({
   }, [fontsize])
 
   const backComm = (curParams: Metadata4Configuration, curChartType: string) => {
-    fetch("http://localhost:5000/".concat(curChartType), {
+    const curSelectedData = systemStateSetting.datasetId
+    console.log(
+      "debug-backComm",
+      "http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType),
+    )
+    fetch("http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,6 +189,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
 
   const handleChange = (value: string) => {
     let curParams
+    // console.log("debug-handleChange", backEndType)
     if (backEndType === "drillDownGroup") {
       curParams = { ...params4BackEnd, drillDownGroup: value }
       paramsFuncs4BackEnd.setDrillDownGroup(value)

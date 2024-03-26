@@ -10,6 +10,8 @@ interface TemporalAnomalyProps {
   message: string | number | undefined
   hoverOrNot: boolean | undefined
   interactionType?: string
+  xAxis: string
+  yAxis: string
 }
 // AAAA = {
 //   category:数据类别，这n个可以一样
@@ -25,6 +27,8 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
   message,
   hoverOrNot,
   interactionType,
+  xAxis,
+  yAxis,
 }) => {
   const containerRef = React.useRef(null)
   const interactiveRef = React.useRef<Chart | null>(null)
@@ -161,8 +165,8 @@ const TemporalAnomaly: React.FC<TemporalAnomalyProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: "Date" },
-        y: { title: "Sales" },
+        x: { title: xAxis },
+        y: { title: yAxis },
       },
     })
 

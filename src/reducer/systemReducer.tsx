@@ -3,11 +3,13 @@ import { SystemActionType } from "../actions/systemAction"
 import { iniData } from "../utils/iniData1"
 
 const iniSystemState: systemStateType = {
+  datasetId: "Data1",
   dataset: iniData,
   selectedCards: ["Card1", "Card2", "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"],
   allCards: ["Card1", "Card2", "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"],
   generateKey: "0",
   setShowExportButton: true,
+  resetDataset: 0,
 }
 export const SET_DATASET = "SET_DATASET"
 

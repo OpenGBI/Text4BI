@@ -13,7 +13,7 @@ import { getNarrativeHtml } from "../utils/TextExporter"
 import { AppState, store } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
-import { Card, sentence, highLightMessage, ConfigurationSentence } from "../types"
+import { Card, sentence, highLightMessage, ConfigurationSentence, systemStateType } from "../types"
 import { ReactComponent as ShareSvg } from "../utils/icons/share.svg"
 
 const CARD_DRAG_TYPE = "CARD"
@@ -32,6 +32,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   cardRef,
 }) => {
   const [trigger, setTrigger] = useState(false)
+  const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
   // 给数据筛选留的若干state
   const [timeSelection, setTimeSelection] = useState([""]) // Difference需要四个时刻来确定
   const [drillDownSelect, setDrillDownSelect] = useState("")
@@ -49,8 +50,13 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     setTimeSegmentationCondition,
     setTopK,
   }
+  // console.log("systemSetting.resetDataset", systemSetting.resetDataset) /
+  useEffect(() => {
+    setFlag(0)
+  }, [systemSetting.resetDataset])
   // let flag = 0
   useEffect(() => {
+    console.log("flagflagflagflagflagflagflagflag", flag)
     // 从paragraph中找到类型为'configuration'的对象，对当前状态进行初始化
     if (flag === 0) {
       setFlag(1)
@@ -78,7 +84,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         }
       }
     }
-  }, [paragraph])
+  }, [flag, paragraph])
   useEffect(() => {
     // 重新设置了Params4BackEnd
 

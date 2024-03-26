@@ -93,6 +93,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "TemporalDifference",
         metadata: {
+          x: "Year",
+          y: "Profit",
           detail: DifferenceData.data,
           tagData: DifferenceData.tagData,
         },
@@ -355,6 +357,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "Categorization",
         metadata: {
+          x: "City",
+          y: "Sales",
           detail: Category11.data,
         },
       },
@@ -506,6 +510,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "Proportion",
         metadata: {
+          x: "Year",
+          y: "Profit",
           detail: ProportionData.data,
         },
       },
@@ -635,6 +641,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "TemporalTrend",
         metadata: {
+          x: "Date",
+          y: "Sales",
           detail: [...TrendData11.data, ...TrendData11.predictData] as cateAndValue[],
           tagData: TrendData11.tagData as cateAndValue[],
         },
@@ -808,6 +816,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "TemporalAnomaly",
         metadata: {
+          x: "Date",
+          y: "Sales",
           detail: AnomalyData.data,
         },
       },
@@ -965,6 +975,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "TemporalPeriodicity",
         metadata: {
+          x: "Date",
+          y: "Sales",
           detail: PeriodicityData.data,
           tagData: PeriodicityData.tagData,
         },
@@ -1061,6 +1073,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "Association",
         metadata: {
+          x: "Sales",
+          y: "Profit",
           detail: AssociationData.data,
           tagData: AssociationData.tagData,
         },
@@ -1271,6 +1285,8 @@ export const iniData: Card[] = [
         type: "plot",
         chartType: "Distribution",
         metadata: {
+          x: "Sales",
+          y: "Profit",
           detail: DistributionData.data,
         },
       },

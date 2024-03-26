@@ -31,6 +31,7 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
       width: 600,
     })
     chart.coordinate({ type: "theta" })
+    const curSum = data.reduce((total, d) => total + d.value, 0)
     chart
       .interval()
       .transform({ type: "stackY" })
@@ -44,14 +45,15 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
         offset: (t) => t * 0.8 + 0.1,
       })
       .label({
-        text: "category",
+        text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
+          d.value > curSum * 0.05 ? d.category : "",
         radius: 0.8,
         fontSize: 10,
         fontWeight: "bold",
       })
       .label({
         text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
-          i < data.length - 3 ? d.value : "",
+          d.value > curSum * 0.05 ? d.value : "",
         radius: 0.8,
         fontSize: 9,
         dy: 12,

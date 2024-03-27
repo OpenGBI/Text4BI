@@ -248,6 +248,7 @@ import { Button, message, Upload, UploadProps } from "antd"
 const props: UploadProps = {
   name: "file",
   action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+  // action: "http://127.0.0.1:5000",
   headers: {
     authorization: "authorization-text",
   },

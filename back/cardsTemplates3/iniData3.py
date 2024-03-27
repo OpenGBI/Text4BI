@@ -13,10 +13,10 @@ iniData3 = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Association" },
-          { "type": "text", "value": " Association between " },
+          { "type": "text", "value": " Association Between " },
           {
             "type": "entity",
-            "value": "unemployment",
+            "value": "Unemployment",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
@@ -112,7 +112,7 @@ iniData3 = [
           { "type": "text", "value": " Distribution of " },
           {
             "type": "entity",
-            "value": "shopping mall 1",
+            "value": "Shopping Mall 1",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -318,13 +318,13 @@ iniData3 = [
           { "type": "text", "value": " Difference of " },
           {
             "type": "entity",
-            "value": "shopping mall 1",
+            "value": "Shopping Mall 1",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "year",
+            "value": "Year",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -418,13 +418,13 @@ iniData3 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "shopping mall 5 sales",
+            "value": "Shopping Mall 5 Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "temperature",
+            "value": "Temperature",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -681,13 +681,13 @@ iniData3 = [
           { "type": "text", "value": " Proportion of " },
           {
             "type": "entity",
-            "value": "store",
+            "value": "Store",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "shopping mall ",
+            "value": "Shopping Mall ",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -870,7 +870,7 @@ iniData3 = [
           { "type": "text", "value": " Trend of " },
           {
             "type": "entity",
-            "value": "shopping mall 1",
+            "value": "Shopping Mall 1",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],

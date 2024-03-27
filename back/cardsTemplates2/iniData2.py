@@ -13,10 +13,10 @@ iniData2 = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Difference" },
-          { "type": "text", "value": " Difference of total " },
+          { "type": "text", "value": " Difference of Total " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "Shopping Satisfaction",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -115,13 +115,13 @@ iniData2 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "Shopping Satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "browsing frequency",
+            "value": "Purchase Frequency",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -378,13 +378,13 @@ iniData2 = [
           { "type": "text", "value": " Proportion of " },
           {
             "type": "entity",
-            "value": "good shopping satisfaction",
+            "value": "Good Shopping Satisfaction",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "gender",
+            "value": "Gender",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -539,7 +539,7 @@ iniData2 = [
           { "type": "text", "value": " Trend of " },
           {
             "type": "entity",
-            "value": "purchase frequency",
+            "value": "Purchase Frequency",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -652,16 +652,16 @@ iniData2 = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Association" },
-          { "type": "text", "value": " Association between " },
+          { "type": "text", "value": " Association Between " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "Shopping Satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
           {
             "type": "entity",
-            "value": "personalized recommendation frequency",
+            "value": "Personalized Recommendation Frequency",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],

@@ -1,0 +1,9 @@
+{
+  "data": [
+    { "category": "Cold", "value": 4725760.07 },
+    { "category": "Warm", "value": 2334360.78 },
+    { "category": "Mild", "value": 2145639.35 },
+    { "category": "Freezing", "value": 1017072.98 },
+    { "category": "Hot", "value": 239926.15 }
+  ]
+}

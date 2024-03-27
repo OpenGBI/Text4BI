@@ -1,22 +1,118 @@
 
-from cardsTemplates2.AssociationData import AssociationData
-from cardsTemplates2.CategoryData import Category11
-from cardsTemplates2.DifferenceData import DifferenceData
-from cardsTemplates2.ProportionData import ProportionData11
-from cardsTemplates2.TrendData import TrendData11
-iniData2 = [
-
-  {
+from cardsTemplates3.AssociationData import AssociationData
+from cardsTemplates3.CategoryData import Category11
+from cardsTemplates3.DifferenceData import DifferenceData
+from cardsTemplates3.ProportionData import ProportionData11
+from cardsTemplates3.TrendData import TrendData11
+from cardsTemplates3.DistributionData import DistributionData
+iniData3 = [
+{
     "CardName": "Card1",
     "paragraph": [
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardTitle", "value": "Difference" },
-          { "type": "text", "value": " Difference of total " },
+          { "type": "CardTitle", "value": "Association" },
+          { "type": "text", "value": " Association between " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "unemployment",
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
+          },
+          { "type": "text", "value": " and " },
+          {
+            "type": "entity",
+            "value": "CPI",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+        ],
+      },
+      {
+        "type": "normal",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+
+          { "type": "text", "value": "According to the " },
+          {
+            "type": "entity",
+            "value": "Pearson correlation analysis",
+            "metadata": {
+              "entityType": "algorithm",
+              "origin":
+                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient is equal to 1" +
+                ", it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
+            },
+          },
+          { "type": "text", "value": ", the coefficient between " },
+          {
+            "type": "entity",
+            "value": "Unemployment",
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
+          },
+          { "type": "text", "value": " and " },
+          {
+            "type": "entity",
+            "value": "CPI",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+          { "type": "text", "value": " equals " },
+          {
+            "type": "entity",
+            "value": "-0.3",
+            "metadata": {
+              "entityType": "metric_value",
+              "insightType": "Association",
+              "detail": AssociationData["data"],
+              "tagData": AssociationData["tagData"],
+              "interactionType": "Association Regression",
+            },
+          },
+          { "type": "text", "value": ", indicating a " },
+          {
+            "type": "entity",
+            "value": "negative",
+            "metadata": { "entityType": "binary_value_negative", "assessment": "negative" },
+          },
+          { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
+          {
+            "type": "entity",
+            "value": "significant",
+            "metadata": {
+              "entityType": "binary_value_positive",
+              "assessment": "significant",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "plot",
+        "chartType": "Association",
+        "metadata": {
+            "x":"Unemployment",
+            "y":"CPI",
+          "detail": AssociationData["data"],
+          "tagData": AssociationData["tagData"],
+        },
+      },
+      {
+        "type": "configuration",
+        "chartType": "Association",
+        "metadata": {},
+      },
+    ],
+  },
+  {
+    "CardName": "Card2",
+    "paragraph": [
+      {
+        "type": "topic",
+        "phrases": [
+          { "type": "CardTitle", "value": "Distribution" },
+          { "type": "text", "value": " Distribution of " },
+          {
+            "type": "entity",
+            "value": "markdown1",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -28,40 +124,247 @@ iniData2 = [
           # { "type": "text", "value": "From " },
           # {
           #   "type": "entity",
-          #   "value": "2012.01.01",
-          #   "metadata": { "entityType": "filter_time", "selections": ["2012-01-01"], "paramIndex": 2 },
+          #   "value": "January 01, 2011",
+          #   "metadata": {
+          #     "entityType": "filter_time",
+          #     "selections": ["2011-01-01"],
+          #     "paramIndex": 0,
+          #   },
           # },
           # { "type": "text", "value": " to " },
           # {
           #   "type": "entity",
-          #   "value": "2012.12.31",
-          #   "metadata": { "entityType": "filter_time", "selections": ["2012-12-31"], "paramIndex": 3 },
+          #   "value": "December 31, 2014",
+          #   "metadata": {
+          #     "entityType": "filter_time",
+          #     "selections": ["2014-12-31"],
+          #     "paramIndex": 1,
+          #   },
           # },
-          { "type": "text", "value": "At a Shopping_Satisfaction " },
           {
-            "type": "entity",
-            "value": "Shopping_Satisfaction ",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+            "type": "text",
+            "value": "The distribution of ",
           },
-          { "type": "text", "value": "of " },
           {
             "type": "entity",
-            "value": "5",
+            "value": " MarkDown1 ",
+            "metadata": { "entityType": "metric_names" },
+          },
+          {
+            "type": "text",
+            "value": "is ",
+          },
+          
+          {
+            "type": "entity",
+            "value": " left-skewed ",
             "metadata": {
-              "entityType": "metric_value",
+              "entityType": "binary_value_positive",
+              "insightType": "Distribution",
+              "detail": DistributionData["data"],
+              "assessment":"left-skewed"
             },
           },
-          { "type": "text", "value": ", women rate " },
+          {
+            "type": "text",
+            "value": "Most data points lie in the range of ",
+          },
           {
             "type": "entity",
-            "value": "94% ",
+            "value": "104790",
+            "metadata": { "entityType": "metric_value", "origin": 104790 },
+          },
+          {
+            "type": "text",
+            "value": " - ",
+          },
+          {
+            "type": "entity",
+            "value": "336814",
+            "metadata": { "entityType": "metric_value", "origin": 336814 },
+          },
+          {
+            "type": "text",
+            "value": ", ",
+          },
+          {
+            "type": "entity",
+            "value": "4",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 4,
+              "interactionType": "distribution Outliers",
+              "assessment": "anomaly"
+            },
+          },
+          { "type": "text", "value": " outliers have been identified, with " },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": "Min = " },
+          {
+            "type": "entity",
+            "value": "5142.08",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 5142.08,
+              "interactionType": "distribution Min",
+            },
+          },
+          { "type": "text", "value": " , Max = " },
+          {
+            "type": "entity",
+            "value": "2198599.96",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 2198599.96,
+              "interactionType": "distribution Max",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": "Q1 = " },
+          {
+            "type": "entity",
+            "value": "104790.53",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 104790.53,
+              "interactionType": "distribution Q1",
+            },
+          },
+          { "type": "text", "value": " , Q2 (Median) = " },
+          {
+            "type": "entity",
+            "value": "209749.72",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 209749.72,
+              "interactionType": "distribution Median",
+            },
+          },
+          { "type": "text", "value": " , Q3 = " },
+          {
+            "type": "entity",
+            "value": "336814.32",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 336814.32,
+              "interactionType": "distribution Q3",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      # {
+      #   "type": "bullet",
+      #   "phrases": [
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+      #     { "type": "text", "value": "Mean = " },
+      #     {
+      #       "type": "entity",
+      #       "value": "8840.91",
+      #       "metadata": { "entityType": "metric_value", "origin": 8840.91 },
+      #     },
+      #     { "type": "text", "value": " , Standard deviation = " },
+          
+      #     {
+      #       "type": "entity",
+      #       "value": "6567.82",
+      #       "metadata": {
+      #         "entityType": "insight",
+      #         "insightType": "Distribution",
+      #         "detail": DistributionData["data"],
+      #       },
+      #     },
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+      #   ],
+      # },
+
+      {
+        "type": "plot",
+        "chartType": "Distribution",
+        "metadata": {
+            "x": "Sales",
+          "y": "Profit",
+          "detail": DistributionData["data"],
+        },
+      },
+      {
+        "type": "configuration",
+        "chartType": "Distribution",
+        "metadata": {
+          "timeSelection": ["2011-01-01", "2014-12-31"],
+        },
+      },
+    ],
+  },
+  {
+    "CardName": "Card3",
+    "paragraph": [
+      {
+        "type": "topic",
+        "phrases": [
+          { "type": "CardTitle", "value": "Difference" },
+          { "type": "text", "value": " Difference of " },
+          {
+            "type": "entity",
+            "value": "markdown1",
+            "metadata": { "entityType": "metric_names" },
+          },
+          { "type": "text", "value": " by " },
+          {
+            "type": "entity",
+            "value": "year",
+            "metadata": { "entityType": "metric_names" },
+          },
+        ],
+      },
+      {
+        "type": "normal",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": "From " },
+          {
+            "type": "entity",
+            "value": "2012.01.01",
+            "metadata": { "entityType": "filter_time", "selections": ["2012-01-01"], "paramIndex": 2 },
+          },
+          { "type": "text", "value": "to " },
+          {
+            "type": "entity",
+            "value": "2012.12.31",
+            "metadata": { "entityType": "filter_time", "selections": ["2012-12-31"], "paramIndex": 3 },
+          },
+          { "type": "text", "value": ", total " },
+          {
+            "type": "entity",
+            "value": "profit ",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+          {
+            "type": "entity",
+            "value": "increased ",
+            "metadata": { "entityType": "binary_value_positive", "assessment": "increase" },
+          },
+          { "type": "text", "value": "by " },
+          {
+            "type": "entity",
+            "value": "121.83% ",
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
-          { "type": "text", "value": " more than men " },
-
           {
             "type": "entity",
-            "value": "(34 → 66) ",
+            "value": "(1418042 → 1727563.46) ",
             "metadata": {
               "entityType": "insight",
               "insightType": "TemporalDifference",
@@ -69,19 +372,19 @@ iniData2 = [
               "tagData": DifferenceData["tagData"],
             },
           },
-          # { "type": "text", "value": "from " },
-          # {
-          #   "type": "entity",
-          #   "value": "2011-01-01",
-          #   "metadata": { "entityType": "filter_time", "selections": ["2011-01-01"], "paramIndex": 0 },
-          # },
-          # { "type": "text", "value": " to " },
-          # {
-          #   "type": "entity",
-          #   "value": "2011-12-31",
-          #   "metadata": { "entityType": "filter_time", "selections": ["2011-12-31"], "paramIndex": 1 },
-          # },
-          # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+          { "type": "text", "value": "from " },
+          {
+            "type": "entity",
+            "value": "2011-01-01",
+            "metadata": { "entityType": "filter_time", "selections": ["2011-01-01"], "paramIndex": 0 },
+          },
+          { "type": "text", "value": "to " },
+          {
+            "type": "entity",
+            "value": "2011-12-31",
+            "metadata": { "entityType": "filter_time", "selections": ["2011-12-31"], "paramIndex": 1 },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
 
@@ -89,8 +392,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "TemporalDifference",
         "metadata": {
-            "x":"Gender",
-            "y":"Shopping Satisfaction",
+            "x":"Year",
+            "y":"MarkDown1",
           "detail": DifferenceData["data"],
           "tagData": DifferenceData["tagData"],
         },
@@ -105,7 +408,7 @@ iniData2 = [
     ],
   },
   {
-    "CardName": "Card2",
+    "CardName": "Card4",
     "paragraph": [
       {
         "type": "topic",
@@ -115,13 +418,13 @@ iniData2 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "markdown5 sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "browsing frequency",
+            "value": "temperature",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -134,16 +437,16 @@ iniData2 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "Shopping Satisfaction",
+            "value": "MarkDown5 Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "Browsing Frequency",
+            "value": "Temperature",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["Purchase Frequency", "Browsing Frequency"],
+              "selections": ["Temperature", "CPI"],
               "interactionType": "x-axis",
               "backEndType": "drillDownGroup",
             },
@@ -151,8 +454,8 @@ iniData2 = [
           { "type": "text", "value": ", there are " },
           {
             "type": "entity",
-            "value": "4 ",
-            "metadata": { "entityType": "metric_value", "origin": 4 },
+            "value": "5 ",
+            "metadata": { "entityType": "metric_value", "origin": 5 },
           },
           {
             "type": "entity",
@@ -186,7 +489,7 @@ iniData2 = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
           {
             "type": "entity",
-            "value": "Few times a week",
+            "value": "Cold",
             "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
@@ -200,13 +503,13 @@ iniData2 = [
           # },
           {
             "type": "entity",
-            "value": "249",
+            "value": "4725760.07",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": Category11["data"],
               "tagData": 0, # 标记第几个数据高亮
-              "origin": 249,
+              "origin": 4725760.07,
               "interactionType": "ByValue",
             },
           },
@@ -220,7 +523,7 @@ iniData2 = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
           {
             "type": "entity",
-            "value": "Few times a month",
+            "value": "Warm",
             "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
@@ -234,13 +537,13 @@ iniData2 = [
           # },
           {
             "type": "entity",
-            "value": "199",
+            "value": "2334360.78",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": Category11["data"],
               "tagData": 1, # 标记第几个数据高亮
-              "origin": 199,
+              "origin": 2334360.78,
               "interactionType": "ByValue",
             },
           },
@@ -254,7 +557,7 @@ iniData2 = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
           {
             "type": "entity",
-            "value": "Multiple times a day",
+            "value": "Mild",
             "metadata": { "entityType": "metric_names", "interactionType": "ByValue" },
           },
           {
@@ -268,13 +571,13 @@ iniData2 = [
           # },
           {
             "type": "entity",
-            "value": "77",
+            "value": "2145639.35",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "Categorization",
               "detail": Category11["data"],
               "tagData": 2, # 标记第几个数据高亮
-              "origin": 77,
+              "origin": 2145639.35,
               "interactionType": "ByValue",
             },
           },
@@ -369,7 +672,7 @@ iniData2 = [
     ],
   },
   {
-    "CardName": "Card3",
+    "CardName": "Card5",
     "paragraph": [
       {
         "type": "topic",
@@ -378,13 +681,13 @@ iniData2 = [
           { "type": "text", "value": " Proportion of " },
           {
             "type": "entity",
-            "value": "good shopping satisfaction",
+            "value": "store",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "gender",
+            "value": "markdown",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -412,35 +715,35 @@ iniData2 = [
           },
           {
             "type": "entity",
-            "value": "good shopping",
+            "value": "Store",
             "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
-            "value": " satisfaction by ",
+            "value": " by ",
           },
           {
             "type": "entity",
-            "value": "gender",
+            "value": "MarkDown1",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["gender", "product", "improvement areas"],
+              "selections": ["MarkDown1", "MarkDown2", "MarkDown3", "MarkDown4"],
               "backEndType": "drillDownGroup",
             },
           },
           {
             "type": "text",
-            "value": ", the specific proportions of good shopping ",
+            "value": ", the specific proportions are as follows:",
           },
           # {
           #   "type": "entity",
           #   "value": "sales",
           #   "metadata": { "entityType": "metric_names" },
           # },
-          {
-            "type": "text",
-            "value": "volume are as follows:",
-          },
+          # {
+          #   "type": "text",
+          #   "value": "volume are as follows:",
+          # },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
@@ -451,7 +754,7 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "Female",
+            "value": "Store13",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -461,12 +764,12 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "58.7%",
+            "value": "4.16%",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "Proportion",
-              "origin": 0.587,
-              "detail": [0.587, 1 - 0.587],
+              "origin": 0.0416,
+              "detail": [0.0416, 1 - 0.0416],
             },
           },
 
@@ -480,7 +783,7 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "Male",
+            "value": "Store13",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -490,12 +793,12 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "19.5%",
+            "value": "4.16%",
             "metadata": {
               "entityType": "metric_value",
               "insightType": "Proportion",
-              "origin": 0.195,
-              "detail": [0.195, 1 - 0.195],
+              "origin": 0.0416,
+              "detail": [0.0416, 1 - 0.0416],
             },
           },
           # {
@@ -508,6 +811,34 @@ iniData2 = [
           #     "detail": [0.0732, 1 - 0.0732],
           #   },
           # },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+
+          {
+            "type": "entity",
+            "value": "Store13",
+            "metadata": { "entityType": "metric_names" },
+          },
+          {
+            "type": "text",
+            "value": " takes the second position, with a proportion of ",
+          },
+
+          {
+            "type": "entity",
+            "value": "4.09%",
+            "metadata": {
+              "entityType": "metric_value",
+              "insightType": "Proportion",
+              "origin": 0.0409,
+              "detail": [0.0409, 1 - 0.0409],
+            },
+          },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
@@ -530,7 +861,7 @@ iniData2 = [
     ],
   },
   {
-    "CardName": "Card4",
+    "CardName": "Card6",
     "paragraph": [
       {
         "type": "topic",
@@ -539,7 +870,7 @@ iniData2 = [
           { "type": "text", "value": " Trend of " },
           {
             "type": "entity",
-            "value": "purchase frequency",
+            "value": "markdown1",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -555,7 +886,7 @@ iniData2 = [
             "value": "7 days",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["7 days", "30 days", "365 days"],
+              "selections": ["365 days", "30 days","7 days" ],
               "backEndType": "timeSegmentationCondition",
             },
           },
@@ -563,19 +894,19 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "increased",
+            "value": "decreasing",
             "metadata": {
-              "entityType": "binary_value_positive",
+              "entityType": "binary_value_negative",
               "insightType": "TemporalityTrend",
               "detail": TrendData11["data"],
               "tagData": TrendData11["predictData"] ,
-              "assessment": "increase",
+              "assessment": "decrease",
             },
           },
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "Purchase Frequency.",
+            "value": "MarkDown1.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -609,16 +940,16 @@ iniData2 = [
           { "type": "text", "value": " With a predicted value of " },
           {
             "type": "entity",
-            "value": "54 ",
-            "metadata": { "entityType": "metric_value", "origin": 54, "interactionType": "ByValue" },
+            "value": "375988 ",
+            "metadata": { "entityType": "metric_value", "origin": 375988, "interactionType": "ByValue" },
           },
           { "type": "text", "value": "until " },
           {
             "type": "entity",
-            "value": "June 17, 2023",
+            "value": "June 30, 2013",
             "metadata": {
               "entityType": "filter_time",
-              "selections": ["2023-06-17"],
+              "selections": ["2013-06-30"],
               "paramIndex": 0,
             },
           },
@@ -630,7 +961,7 @@ iniData2 = [
         "chartType": "TemporalTrend",
         "metadata": {
              "x":"Date",
-            "y":"Purchase of Frequency",
+            "y":"Sales",
           "detail": TrendData11["data"]+TrendData11["predictData"] ,
           "tagData": TrendData11["tagData"] ,
         },
@@ -642,102 +973,6 @@ iniData2 = [
           "timeSelection": ["2023-06-17"],
           "timeSegmentationCondition": "7 days",
         },
-      },
-    ],
-  },
-  {
-    "CardName": "Card5",
-    "paragraph": [
-      {
-        "type": "topic",
-        "phrases": [
-          { "type": "CardTitle", "value": "Association" },
-          { "type": "text", "value": " Association between " },
-          {
-            "type": "entity",
-            "value": "shopping satisfaction",
-            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
-          },
-          { "type": "text", "value": " and " },
-          {
-            "type": "entity",
-            "value": "personalized recommendation frequency",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-        ],
-      },
-      {
-        "type": "normal",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-
-          { "type": "text", "value": "According to the " },
-          {
-            "type": "entity",
-            "value": "Pearson correlation analysis",
-            "metadata": {
-              "entityType": "algorithm",
-              "origin":
-                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient is equal to 1" +
-                ", it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
-            },
-          },
-          { "type": "text", "value": ", the coefficient between " },
-          {
-            "type": "entity",
-            "value": "Shopping Satisfaction",
-            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
-          },
-          { "type": "text", "value": " and " },
-          {
-            "type": "entity",
-            "value": "Personalized Recommendation Frequency",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-          { "type": "text", "value": " equals " },
-          {
-            "type": "entity",
-            "value": "0.98",
-            "metadata": {
-              "entityType": "metric_value",
-              "insightType": "Association",
-              "detail": AssociationData["data"],
-              "tagData": AssociationData["tagData"],
-              "interactionType": "Association Regression",
-            },
-          },
-          { "type": "text", "value": ", indicating a " },
-          {
-            "type": "entity",
-            "value": "positive",
-            "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
-          },
-          { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
-          {
-            "type": "entity",
-            "value": "significant",
-            "metadata": {
-              "entityType": "binary_value_positive",
-              "assessment": "significant",
-            },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "plot",
-        "chartType": "Association",
-        "metadata": {
-            "x":"Shopping Satisfaction",
-            "y":"Personalized Recommendation Frequency",
-          "detail": AssociationData["data"],
-          "tagData": AssociationData["tagData"],
-        },
-      },
-      {
-        "type": "configuration",
-        "chartType": "Association",
-        "metadata": {},
       },
     ],
   },

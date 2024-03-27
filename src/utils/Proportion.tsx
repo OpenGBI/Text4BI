@@ -46,14 +46,14 @@ const Proportion: React.FC<PieChartProps> = ({ data, handleCurBigChart, message,
       })
       .label({
         text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
-          d.value > curSum * 0.05 ? d.category : "",
+          d.value > curSum * 0.03 ? d.category : "",
         radius: 0.8,
         fontSize: 10,
         fontWeight: "bold",
       })
       .label({
         text: (d: cateAndValue, i: number, curData: cateAndValue[]) =>
-          d.value > curSum * 0.05 ? d.value : "",
+          d.value > curSum * 0.03 ? d.value : "",
         radius: 0.8,
         fontSize: 9,
         dy: 12,

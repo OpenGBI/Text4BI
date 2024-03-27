@@ -15,6 +15,11 @@ from funcs.changeData import change_datasets
 
 from funcs2.Categorization import changeCategorization2
 from funcs2.Proportion import changeProportion2
+
+from funcs3.Categorization import changeCategorization3
+from funcs3.Difference import changeDifference3
+from funcs3.Proportion import changeProportion3
+from funcs3.TemporalTrend import changeTemporalTrend3
 # from github import Github # 导入GitHub库
 
 app = Flask(__name__)
@@ -244,6 +249,58 @@ def get_Proportion_data2():
     print("get data")
     return jsonify(res)
 
+
+
+@app.route('/Data3/Categorization', methods=['POST'])
+def get_categorization_data3():
+    data = request.json  
+    drillDownGroup = data.get('drillDownGroup')
+    chartType=data.get("chartType")
+    topK=data.get("topK")
+    print(drillDownGroup)
+    res = changeCategorization3(drillDownGroup,topK)
+    print("get data")
+    return jsonify(res)
+
+@app.route('/Data3/Proportion', methods=['POST'])
+def get_Proportion_data3():
+    data = request.json  
+    drillDownGroup = data.get('drillDownGroup')
+    chartType=data.get("chartType")
+    topK=data.get("topK")
+    print(drillDownGroup)
+    res = changeProportion3(drillDownGroup)
+    print("get data")
+    return jsonify(res)
+
+
+@app.route('/Data3/Difference', methods=['POST'])
+def get_Difference_data3():
+    data = request.json  
+    timeSelection = data.get('timeSelection')
+    print(timeSelection)
+    # get_distribution_data(start_time,end_time)
+    # with open('./cardsTemplates/Cards2.json', 'r') as file:
+    #     # 加载JSON数据
+    #     data = json.load(file)
+    res = changeDifference3(timeSelection)
+    print("get data")
+    return jsonify(res)
+@app.route('/Data3/TemporalTrend', methods=['POST'])
+def get_TemporalTrend_data3():
+    data = request.json  
+    timeSegmentationCondition = data.get('timeSegmentationCondition')
+    timeSelection = data.get('timeSelection')
+    chartType=data.get("chartType")
+    print(timeSegmentationCondition)
+    print(timeSelection)
+    # get_distribution_data(start_time,end_time)
+    # with open('./cardsTemplates/Cards2.json', 'r') as file:
+    #     # 加载JSON数据
+    #     data = json.load(file)
+    res = changeTemporalTrend3(timeSegmentationCondition,timeSelection)
+    print("get data")
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run(debug=True)

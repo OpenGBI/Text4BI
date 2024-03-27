@@ -2,7 +2,7 @@ import os
 print(os.getcwd())
 import pandas as pd
 import matplotlib.pyplot as plt
-from cardsTemplates1.iniData import iniData
+from cardsTemplates3.iniData3 import iniData3
 import json
 from datetime import datetime
 
@@ -13,15 +13,15 @@ with open(r'./Datasets/differenceData.json', 'r') as file:
 def parse_date(date_str):
     return datetime.strptime(date_str, "%Y-%m-%d")
 def changeDifference3(timeSelection):
-    data['Date'] = pd.to_datetime(data['Date'])
+    # data['Date'] = pd.to_datetime(data['Date'])
 
 # 定义时间段
     time11 = parse_date(timeSelection[0])
     time12 = parse_date(timeSelection[1])
     time21 = parse_date(timeSelection[2])
     time22 = parse_date(timeSelection[3])
-    filtered_df_time1 = data[(data['Date'] >= time11) & (data['Date'] <= time12)]
-    filtered_df_time2 = data[(data['Date'] >= time21) & (data['Date'] <= time22)]
+    # filtered_df_time1 = data[(data['Date'] >= time11) & (data['Date'] <= time12)]
+    # filtered_df_time2 = data[(data['Date'] >= time21) & (data['Date'] <= time22)]
     sales_sum_time1 = 0
     sales_sum_time2 = 0
     for item in data:
@@ -40,7 +40,7 @@ def changeDifference3(timeSelection):
 
 
     target=0
-    for item in iniData:
+    for item in iniData3:
         if item["paragraph"][-1]["chartType"] == "TemporalDifference":
             target=item
             break
@@ -86,7 +86,7 @@ def changeDifference3(timeSelection):
                 #     phrase["metadata"]["assessment"]="negative"
             elif entity_type is not None and entity_type.startswith("binary_value")and(count==1):
                 
-                phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
+                phrase["value"]=str(round((data_export[1]["value"]/(data_export[0]["value"]+0.000001)-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"
                     phrase["metadata"]["entityType"]="binary_value_positive"
@@ -99,5 +99,5 @@ def changeDifference3(timeSelection):
                 phrase["value"]="("+str(round(data_export[0]["value"],2))+" → "+str(round(data_export[1]["value"],2))+")"
                 phrase["metadata"]["detail"]=data_export
     print(data_export)
-    return iniData
+    return iniData3
 

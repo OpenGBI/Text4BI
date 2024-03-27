@@ -71,7 +71,7 @@ def changeDifference(timeSelection):
                 #     phrase["metadata"]["assessment"]="negative"
             elif entity_type is not None and entity_type.startswith("binary_value")and(count==1):
                 
-                phrase["value"]=str(round((data_export[1]["value"]/data_export[0]["value"]-1)*100,2))+"%"
+                phrase["value"]=str(round((data_export[1]["value"]/(0.0000000001+data_export[0]["value"])-1)*100,2))+"%"
                 if data_export[1]["value"]>data_export[0]["value"]:
                     phrase["metadata"]["assessment"]="positive"
                     phrase["metadata"]["entityType"]="binary_value_positive"

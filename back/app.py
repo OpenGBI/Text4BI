@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
-
+import os
+from werkzeug.utils import secure_filename
 from cardsTemplates1.iniData import iniData
 from funcs.Proportion import changeProportion
 from funcs.Distribution import changeDistribution
@@ -27,7 +28,8 @@ CORS(app)  # 允许跨域请求
 # # 配置GitHub OAuth Token
 # github_token = '你的GitHub Token'
 # g = Github(github_token)
-
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/hello')
 def hello_world():
     return jsonify({'message': 'Hello, from Flask!'})
@@ -45,6 +47,7 @@ def hello_world():
 #         data = json.load(file)
 #     print("get data")
 #     return jsonify(data)
+
 @app.route('/Data1/Categorization', methods=['POST'])
 def get_categorization_data():
     data = request.json  
@@ -274,7 +277,7 @@ def get_Proportion_data3():
     return jsonify(res)
 
 
-@app.route('/Data3/Difference', methods=['POST'])
+@app.route('/Data3/TemporalDifference', methods=['POST'])
 def get_Difference_data3():
     data = request.json  
     timeSelection = data.get('timeSelection')
@@ -301,6 +304,24 @@ def get_TemporalTrend_data3():
     res = changeTemporalTrend3(timeSegmentationCondition,timeSelection)
     print("get data")
     return jsonify(res)
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return 'No file part', 400
+    
+    file = request.files['file']
+    if file.filename == '':
+        return 'No selected file', 400
+    
+    if file:
+        # 使用 secure_filename 确保一个安全的文件名
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return 'File uploaded successfully', 200
+    
+    return 'File upload failed', 400
 
 if __name__ == '__main__':
     app.run(debug=True)

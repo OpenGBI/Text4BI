@@ -46,7 +46,7 @@ iniData3 = [
           { "type": "text", "value": ", the coefficient between " },
           {
             "type": "entity",
-            "value": "Unemployment",
+            "value": "unemployment",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
@@ -112,7 +112,7 @@ iniData3 = [
           { "type": "text", "value": " Distribution of " },
           {
             "type": "entity",
-            "value": "Shopping Mall 1",
+            "value": "Sales of Shopping Mall 1",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -147,7 +147,7 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": " shopping mall 1 ",
+            "value": " sales of shopping mall 1 ",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -318,7 +318,7 @@ iniData3 = [
           { "type": "text", "value": " Difference of " },
           {
             "type": "entity",
-            "value": "Shopping Mall 1",
+            "value": "Sales of Shopping Mall 1",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
@@ -418,7 +418,7 @@ iniData3 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "Shopping Mall 5 Sales",
+            "value": "Sales of Shopping Mall",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -437,7 +437,7 @@ iniData3 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "Sales of shopping mall 5 ",
+            "value": "sales of shopping mall 5 ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -681,7 +681,7 @@ iniData3 = [
           { "type": "text", "value": " Proportion of " },
           {
             "type": "entity",
-            "value": "Store",
+            "value": "Sales of Store",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
@@ -715,7 +715,7 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": "Store",
+            "value": "sales of store",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -870,7 +870,7 @@ iniData3 = [
           { "type": "text", "value": " Trend of " },
           {
             "type": "entity",
-            "value": "Shopping Mall 1",
+            "value": "Sales of Shopping Mall 1",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -906,7 +906,7 @@ iniData3 = [
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "shopping mall 1.",
+            "value": "sales of shopping mall 1.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },

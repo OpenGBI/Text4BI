@@ -37,10 +37,10 @@ iniData2 = [
           #   "value": "2012.12.31",
           #   "metadata": { "entityType": "filter_time", "selections": ["2012-12-31"], "paramIndex": 3 },
           # },
-          { "type": "text", "value": "At a Shopping_Satisfaction " },
+          { "type": "text", "value": "At a " },
           {
             "type": "entity",
-            "value": "Shopping_Satisfaction ",
+            "value": "shopping satisfaction ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": "of " },
@@ -134,7 +134,7 @@ iniData2 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "Shopping Satisfaction",
+            "value": "shopping satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -575,7 +575,7 @@ iniData2 = [
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "Purchase Frequency.",
+            "value": "purchase frequency.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -606,7 +606,7 @@ iniData2 = [
               "interactionType": "Temporal Trend Regression",
             },
           },
-          { "type": "text", "value": " With a predicted value of " },
+          { "type": "text", "value": " with a predicted value of " },
           {
             "type": "entity",
             "value": "54 ",
@@ -685,13 +685,13 @@ iniData2 = [
           { "type": "text", "value": ", the coefficient between " },
           {
             "type": "entity",
-            "value": "Shopping Satisfaction",
+            "value": "shopping satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
           {
             "type": "entity",
-            "value": "Personalized Recommendation Frequency",
+            "value": "personalized recommendation frequency",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " equals " },

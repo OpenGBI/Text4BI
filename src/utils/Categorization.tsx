@@ -29,7 +29,7 @@ const Categorization: React.FC<BarChartProps> = ({
   const CategorizationRef = React.useRef(null)
   const [testState, setTestState] = React.useState(0)
   const interactiveRef = React.useRef<Chart | null>(null)
-  console.log("debug-processedData", data)
+  // console.log("debug-processedData", data)
   const processedData = data.slice(0, 7)
   // console.log("CategorizationData!!!!!!!!!!!", data)
   React.useEffect(() => {

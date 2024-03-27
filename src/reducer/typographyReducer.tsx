@@ -13,6 +13,12 @@ const iniTypographySettingState: typographySettingStateType = {
   contour: false,
   color: "#4B91FF",
   backgroundColor: "white",
+  boldnessButtonClick: false,
+  underlineButtonClick: false,
+  italicsButtonClick: false,
+  contourButtonClick: false,
+  colorButtonClick: false,
+  backgroundColorButtonClick: false,
 }
 
 const TypographySettingReducer = (

@@ -12,25 +12,40 @@ const ControlBoldness: React.FC = () => {
   )
   const [isBoldnessOn, setIsBoldnessOn] = useState(true)
   // 需要更新二级boldness的显示值，当选择的实体类型改变时
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles, boldnessButtonClick } = useSelector((state: AppState) => state.typographySetting)
   useEffect(() => {
     setIsBoldnessOn(entityStyles[selectedEntityType].boldness)
   }, [selectedEntityType])
 
   const handleBoldnessChange = (value: boolean) => {
+    // console.log("检查value", value)
     setIsBoldnessOn(value)
+    // const newBoldness = !isBoldnessOn
+    const newClickState = !typographySetting.boldnessButtonClick
     entityStyles[selectedEntityType].boldness = value
     // setShowSecondaryOptions(value === 'temporality')
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         boldness: value,
+        boldnessButtonClick: newClickState,
         entityStyles: {
           ...entityStyles,
         },
       }),
     )
   }
+  // const handleButtonClick = () => {
+  //   // 切换 boldnessButtonClick 状态
+  //   const newBoldnessClickState = !typographySetting.boldnessButtonClick
+  //   console.log("检查newBoldnessClickState", newBoldnessClickState)
+  //   dispatch(
+  //     ChangeTypographySetting({
+  //       ...typographySetting,
+  //       boldnessButtonClick: newBoldnessClickState,
+  //     }),
+  //   )
+  // }
 
   return (
     <div className="control-panel">
@@ -43,14 +58,18 @@ const ControlBoldness: React.FC = () => {
             <Button
               className="custom-btn"
               type={isBoldnessOn ? "primary" : "default"}
-              onClick={() => handleBoldnessChange(true)}
+              onClick={() => {
+                handleBoldnessChange(true)
+              }}
             >
               On
             </Button>
             <Button
               className="custom-btn"
               type={!isBoldnessOn ? "primary" : "default"}
-              onClick={() => handleBoldnessChange(false)}
+              onClick={() => {
+                handleBoldnessChange(false)
+              }}
             >
               Off
             </Button>

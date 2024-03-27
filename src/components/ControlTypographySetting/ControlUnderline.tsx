@@ -20,11 +20,13 @@ const ControlUnderline: React.FC = () => {
   const handleUnderlineChange = (value: boolean) => {
     setIsUnderlineOn(value)
     // setShowSecondaryOptions(value === 'temporality')
+    const newClickState = !typographySetting.underlineButtonClick
     entityStyles[selectedEntityType].underline = value
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         underline: value,
+        underlineButtonClick: newClickState,
         entityStyles: {
           ...entityStyles,
         },

@@ -116,7 +116,7 @@ iniData3 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "Sales of Shopping Mall",
+            "value": "Sales of Shopping Mall 5",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -681,7 +681,7 @@ iniData3 = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Association" },
-          { "type": "text", "value": " Association Between " },
+          { "type": "text", "value": " Association between " },
           {
             "type": "entity",
             "value": "Unemployment",

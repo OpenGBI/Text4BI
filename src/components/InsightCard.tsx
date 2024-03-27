@@ -56,7 +56,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   }, [systemSetting.resetDataset])
   // let flag = 0
   useEffect(() => {
-    console.log("flagflagflagflagflagflagflagflag", flag)
+    // console.log("flagflagflagflagflagflagflagflag", flag)
     // 从paragraph中找到类型为'configuration'的对象，对当前状态进行初始化
     if (flag === 0) {
       setFlag(1)
@@ -107,8 +107,8 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 })
   const { setShowExportButton } = useSelector((state: AppState) => state.system)
   const [showButtons, setShowButtons] = useState(true)
-  console.log("检查开关111", setShowExportButton)
-  console.log("检查开关222", showButtons)
+  // console.log("检查开关111", setShowExportButton)
+  // console.log("检查开关222", showButtons)
   const buttonRef = useRef<HTMLElement>(null) // 用于引用按钮的位置
 
   // const navigate = useNavigate() // Initialize useHistory hook
@@ -129,7 +129,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     // console.log("1检查key", key)
     // navigate("/export", { state: { key } }) // 将 key 作为路由状态传递
     // 创建新URL，将 key 作为查询参数或路径的一部分
-    const url = `${window.location.origin}/export?key=${encodeURIComponent(key)}`
+    const url = `${window.location.origin}/export?key=${encodeURIComponent(key)}&datasetId=${encodeURIComponent(systemSetting.datasetId)}`
     // 使用 window.open 在新标签页中打开URL
     window.open(url, "_blank")
     // exportSelectedCardsAsHtml() // 假设这是你的导出函数
@@ -204,6 +204,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const { boldness, underline, italics, contour, color, backgroundColor } = useSelector(
     (state: AppState) => state.typographySetting,
   )
+  // console.log("检查222", boldness)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -225,9 +226,9 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     // setTopK(newData)\
   }
 
-  console.log("!CardName || !paragraph || !id || !onDrop", CardName, paragraph, id, onDrop)
+  // console.log("!CardName || !paragraph || !id || !onDrop", CardName, paragraph, id, onDrop)
   if (!CardName || !paragraph || !id || !onDrop) {
-    console.log("No data found for the date", CardName, paragraph, id)
+    // console.log("No data found for the date", CardName, paragraph, id)
     throw new Error("No data found for the date")
   }
   const onCopySuccess = () => {

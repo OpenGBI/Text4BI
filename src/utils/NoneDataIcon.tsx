@@ -57,7 +57,7 @@ export const NoneDataIcon: React.FC<NoneDataIconProps> = ({
   }, [selectedSymbol2, semanticBindingEntityType, curMetadata.entityType])
   // console.log("debug NoneData", entityIcon, selectedSymbol2)
   let svgContent
-  console.log("debug-entityIcon", entityIcon, curMetadata.entityType)
+  // console.log("debug-entityIcon", entityIcon, curMetadata.entityType)
   if (type === "IconPadding") {
     if (!curMetadata.entityType) return null
     // if (semanticsAbsolutePosition === curMetadata.entityType) {
@@ -72,7 +72,7 @@ export const NoneDataIcon: React.FC<NoneDataIconProps> = ({
     }
   } else {
     // console.log("debug-entityIcon", entityIcon, curMetadata.entityType)
-    console.log("debug-entityIcon1", entityIcon, curMetadata.entityType)
+    // console.log("debug-entityIcon1", entityIcon, curMetadata.entityType)
     if (!curMetadata.entityType) return null
     if (!entityIcon[curMetadata.entityType] && !curMetadata.entityType.startsWith("filter")) {
       return null
@@ -96,7 +96,7 @@ export const NoneDataIcon: React.FC<NoneDataIconProps> = ({
     } else if (curMetadata.entityType === "algorithm") {
       svgContent = entityIcon[curMetadata.entityType][methodSymbol]
     } else {
-      console.log("debug-entityIcon1", entityIcon, curMetadata.entityType)
+      // console.log("debug-entityIcon1", entityIcon, curMetadata.entityType)
       svgContent = entityIcon.filter[filterSymbol]
     }
   }

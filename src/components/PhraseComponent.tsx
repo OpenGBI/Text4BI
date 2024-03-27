@@ -133,7 +133,15 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   paramsFuncs4BackEnd,
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
-  const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
+  const {
+    selectedEntityType,
+    boldnessButtonClick,
+    underlineButtonClick,
+    italicsButtonClick,
+    contourButtonClick,
+    colorButtonClick,
+    backgroundColorButtonClick,
+  } = useSelector((state: AppState) => state.typographySetting)
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -292,6 +300,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 针对 boldness 的 useEffect
   useEffect(() => {
     const newFontWeight = boldness ? "bold" : "normal"
+    // console.log("检查boldness", newFontWeight)
     if (currentStyles[selectedEntityType]?.fontWeight !== newFontWeight) {
       setCurrentStyles((prevStyles) => ({
         ...prevStyles,
@@ -301,7 +310,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [boldness])
+  }, [boldnessButtonClick])
 
   // 针对 underline 的 useEffect
   useEffect(() => {
@@ -315,7 +324,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [underline])
+  }, [underlineButtonClick])
 
   // 针对 italics 的 useEffect
   useEffect(() => {
@@ -329,7 +338,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [italics])
+  }, [italicsButtonClick])
 
   // 针对 contour 的 useEffect
   useEffect(() => {
@@ -343,7 +352,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [contour])
+  }, [contourButtonClick])
 
   // 针对 color 的 useEffect
   useEffect(() => {
@@ -356,7 +365,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [color])
+  }, [colorButtonClick])
 
   // 针对 backgroundColor 的 useEffect
   useEffect(() => {
@@ -369,7 +378,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [backgroundColor])
+  }, [backgroundColorButtonClick])
 
   const renderWord = (curMetadata: Metadata) => {
     // 确保 entityType 不是 undefined

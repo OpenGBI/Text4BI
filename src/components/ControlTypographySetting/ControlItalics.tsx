@@ -13,7 +13,7 @@ const ControlItalics: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
 
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles, italicsButtonClick } = useSelector((state: AppState) => state.typographySetting)
   useEffect(() => {
     setIsItalicsOn(entityStyles[selectedEntityType].italics)
   }, [selectedEntityType])
@@ -21,11 +21,13 @@ const ControlItalics: React.FC = () => {
   const handleItalicsChange = (value: boolean) => {
     setIsItalicsOn(value)
     // setShowSecondaryOptions(value === 'temporality')
+    const newClickState = !typographySetting.italicsButtonClick
     entityStyles[selectedEntityType].italics = value
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         italics: value,
+        italicsButtonClick: newClickState,
         entityStyles: {
           ...entityStyles,
         },

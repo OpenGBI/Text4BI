@@ -135,6 +135,7 @@ function MainApp() {
             <Layout>
               <Content style={contentMiddleStyle}>
                 <InsightCards cardRefs={cardRefs} cardsExchange={setCardsIDs} />
+                <Container />
               </Content>
               <Sider width={140} style={rightSiderStyle}>
                 <Content>

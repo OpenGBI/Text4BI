@@ -112,7 +112,7 @@ iniData3 = [
           { "type": "text", "value": " Distribution of " },
           {
             "type": "entity",
-            "value": "markdown1",
+            "value": "shopping mall 1",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -147,7 +147,7 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": " MarkDown1 ",
+            "value": " shopping mall 1 ",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -318,7 +318,7 @@ iniData3 = [
           { "type": "text", "value": " Difference of " },
           {
             "type": "entity",
-            "value": "markdown1",
+            "value": "shopping mall 1",
             "metadata": { "entityType": "metric_names" },
           },
           { "type": "text", "value": " by " },
@@ -393,7 +393,7 @@ iniData3 = [
         "chartType": "TemporalDifference",
         "metadata": {
             "x":"Year",
-            "y":"MarkDown1",
+            "y":"Profit",
           "detail": DifferenceData["data"],
           "tagData": DifferenceData["tagData"],
         },
@@ -402,7 +402,7 @@ iniData3 = [
         "type": "configuration",
         "chartType": "TemporalDifference",
         "metadata": {
-          # "timeSelection": ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
+          "timeSelection": ["2011-01-01", "2011-12-31", "2012-01-01", "2012-12-31"],
         },
       },
     ],
@@ -418,7 +418,7 @@ iniData3 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "markdown5 sales",
+            "value": "shopping mall 5 sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -437,7 +437,7 @@ iniData3 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "MarkDown5 Sales",
+            "value": "Sales of shopping mall 5 ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -687,7 +687,7 @@ iniData3 = [
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "markdown",
+            "value": "shopping mall ",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -724,10 +724,10 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": "MarkDown1",
+            "value": "shopping mall 1",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["MarkDown1", "MarkDown2", "MarkDown3", "MarkDown4"],
+              "selections": ["shopping mall 1", "shopping mall 2", "shopping mall 3", "shopping mall 4"],
               "backEndType": "drillDownGroup",
             },
           },
@@ -783,12 +783,12 @@ iniData3 = [
 
           {
             "type": "entity",
-            "value": "Store13",
+            "value": "Store14",
             "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
-            "value": " takes the second position, with a proportion of ",
+            "value": " ranks second, with a proportion of ",
           },
 
           {
@@ -821,12 +821,12 @@ iniData3 = [
 
           {
             "type": "entity",
-            "value": "Store13",
+            "value": "Store27",
             "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
-            "value": " takes the second position, with a proportion of ",
+            "value": " ranks third, with a proportion of ",
           },
 
           {
@@ -870,7 +870,7 @@ iniData3 = [
           { "type": "text", "value": " Trend of " },
           {
             "type": "entity",
-            "value": "markdown1",
+            "value": "shopping mall 1",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -906,7 +906,7 @@ iniData3 = [
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "MarkDown1.",
+            "value": "shopping mall 1.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },

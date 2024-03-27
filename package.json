@@ -66,6 +66,7 @@
   "author": "zhangyixing.zyx <zhangyixing.zyx@antgroup.com>",
   "license": "MIT",
   "homepage": ".",
+  "proxy": "https://run.mocky.io",
   "devDependencies": {
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",

@@ -23,8 +23,8 @@ const ImportIcon: React.FC<ImportIconProps> = ({ IconSpecies, iconType }) => {
   const [svgContent, setSvgContent] = useState(IconN)
   useEffect(() => {
     if (iconType === "symbol1") {
-      console.log("ImportIcon", absoluteIcon, semanticsAbsolutePosition, semanticBindingEntityType)
-      console.log("ImportIcon", entityIcon[semanticsAbsolutePosition])
+      // console.log("ImportIcon", absoluteIcon, semanticsAbsolutePosition, semanticBindingEntityType)
+      // console.log("ImportIcon", entityIcon[semanticsAbsolutePosition])
       setSvgContent(absoluteIcon[semanticsAbsolutePosition].e)
     } else {
       setSvgContent(

@@ -711,14 +711,14 @@ export const iniData: Card[] = [
               detail: AnomalyData.data,
             },
           },
-          { type: "text", value: ". 2 seasons are identified, and the average period is " },
-          {
-            type: "entity",
-            value: "365 ",
-            metadata: { entityType: "metric_value", origin: 365 },
-          },
-          { type: "text", value: "days. " },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+          // { type: "text", value: ". 2 seasons are identified, and the average period is " },
+          // {
+          //   type: "entity",
+          //   value: "365 ",
+          //   metadata: { entityType: "metric_value", origin: 365 },
+          // },
+          // { type: "text", value: "days. " },
+          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 

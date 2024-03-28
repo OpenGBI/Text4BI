@@ -104,7 +104,7 @@ const BigChart: React.FC<BigChartProps> = ({
   //   }
   // }, [chartRef.current]) // 没有解决！！！！！！！！！！！！！
 
-  console.log("BigChartData.x", BigChartData.x, BigChartData.y)
+  // console.log("BigChartData.x", BigChartData.x, BigChartData.y)
   switch (ChartType) {
     case "Categorization": {
       return (

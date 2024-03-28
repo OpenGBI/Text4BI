@@ -117,6 +117,8 @@ const ExportedCardsAsPage: React.FC = () => {
   // 解析查询参数以获取key值
   const queryParams = new URLSearchParams(location.search)
   const generatedKey = queryParams.get("key")
+  const data11 = queryParams.get("datasetId")
+  console.log("检查data", data11)
 
   let selectedCardIDs: string[] = []
   if (generatedKey) {

@@ -22,10 +22,12 @@ const ControlBackgroundColor = () => {
     // console.log('Selected HEX Color:', hexColor)
     setValue(hexColor)
     entityStyles[selectedEntityType].backgroundColor = String(hexColor)
+    const newClickState = !typographySetting.backgroundColorButtonClick
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         backgroundColor: String(hexColor),
+        backgroundColorButtonClick: newClickState,
         entityStyles: {
           ...entityStyles,
         },

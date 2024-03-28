@@ -22,10 +22,12 @@ const ControlContour: React.FC = () => {
     setIsContourOn(value)
     // console.log("After setIsContourOn, isContourOn:", value)
     entityStyles[selectedEntityType].contour = value
+    const newClickState = !typographySetting.contourButtonClick
     dispatch(
       ChangeTypographySetting({
         ...typographySetting,
         contour: value,
+        contourButtonClick: newClickState,
         entityStyles: {
           ...entityStyles,
         },

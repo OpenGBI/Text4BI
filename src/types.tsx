@@ -172,6 +172,12 @@ export type typographySettingStateType = {
   contour: boolean
   color: string
   backgroundColor: string
+  boldnessButtonClick: boolean
+  underlineButtonClick: boolean
+  italicsButtonClick: boolean
+  contourButtonClick: boolean
+  colorButtonClick: boolean
+  backgroundColorButtonClick: boolean
 }
 export type wordScaleGraphicsSettingStateType = {
   showWordScaleChartsOn: boolean

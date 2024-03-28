@@ -347,7 +347,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [contour])
+  }, [selectedEntityType, contour])
 
   // 针对 color 的 useEffect
   useEffect(() => {

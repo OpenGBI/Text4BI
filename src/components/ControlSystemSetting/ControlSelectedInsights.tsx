@@ -25,11 +25,59 @@ interface DropdownMenuProps {
 const DropdownMenu: FC<DropdownMenuProps> = ({ menu }) => (
   <div style={{ overflowY: "auto" }}>{menu}</div>
 )
+const COLOR_PALETTE = [
+  "#fbb4ae",
+  "#b3cde3",
+  "#ccebc5",
+  "#decbe4",
+  "#fed9a6",
+  "#ffffcc",
+  "#e5d8bd",
+  "#fddaec",
+] // Pastel1 色板
+
+const options1 = [
+  { value: COLOR_PALETTE[1], label: "Difference of Total Profit by Year", cardid: "Card1" },
+  { value: COLOR_PALETTE[2], label: "Rank of Sales by City", cardid: "Card2" },
+  { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card3" },
+  { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card4" },
+  { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card5" },
+  { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card6" },
+  { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card7" },
+  { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card8" },
+]
+const options2 = [
+  { value: COLOR_PALETTE[1], label: "Difference of Shopping Satisfaction", cardid: "Card1" },
+  { value: COLOR_PALETTE[2], label: "Rank of Shopping Satisfaction by Browsing Frequency", cardid: "Card2" },
+  { value: COLOR_PALETTE[3], label: "Proportion of Good Shopping Satisfaction by Gender", cardid: "Card3" },
+  { value: COLOR_PALETTE[5], label: "Trend of Purchase Frequency", cardid: "Card4" },
+  { value: COLOR_PALETTE[4], label: "Association between Shopping Satisfaction and Personalized Recommendation Frequency", cardid: "Card5" },
+]
+const options3 = [
+  { value: COLOR_PALETTE[1], label: "Difference of Sales of Shopping Mall 1 by Year", cardid: "Card1" },
+  { value: COLOR_PALETTE[2], label: "Rank of Sales of Shopping Mall 5 by Temperature", cardid: "Card2" },
+  { value: COLOR_PALETTE[3], label: "Proportion of Sales of Store by Shopping Mall", cardid: "Card3" },
+  { value: COLOR_PALETTE[5], label: "Trend of Sales of Shopping Mall 1", cardid: "Card4" },
+  { value: COLOR_PALETTE[4], label: "Association between Unemployment and CPI", cardid: "Card5" },
+  { value: COLOR_PALETTE[0], label: "Distribution of Sales of Shopping Mall 1", cardid: "Card6" },
+]
 
 const ControlSelectedInsights: React.FC = () => {
   const dispatch = useDispatch()
   const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
+  const { datasetId } = systemSetting
+  const [currentOptions, setCurrentOptions] = useState(options1)
   const [selectedValues, setSelectedValues] = React.useState<string[]>([])
+  useEffect(() => {
+    // 每当 dataset 改变时，更新 options
+    if (datasetId === "Data2") {
+      setCurrentOptions(options2)
+    } else if (datasetId === "Data3") {
+      setCurrentOptions(options3) // data1 或其他情况，使用默认 options
+    } else {
+      setCurrentOptions(options1)
+    }
+  }, [datasetId])
 
   const [curSelectedCards, setSelectedCards] = useState([
     "Card1",
@@ -46,27 +94,6 @@ const ControlSelectedInsights: React.FC = () => {
   }, [systemSetting.allCards])
 
   const defaultValue = ["gold", "cyan"]
-  const COLOR_PALETTE = [
-    "#fbb4ae",
-    "#b3cde3",
-    "#ccebc5",
-    "#decbe4",
-    "#fed9a6",
-    "#ffffcc",
-    "#e5d8bd",
-    "#fddaec",
-  ] // Pastel1 色板
-
-  const options = [
-    { value: COLOR_PALETTE[1], label: "Difference of Total Profit by Year", cardid: "Card1" },
-    { value: COLOR_PALETTE[2], label: "Rank of Sales by City", cardid: "Card2" },
-    { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card3" },
-    { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card4" },
-    { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card5" },
-    { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card6" },
-    { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card7" },
-    { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card8" },
-  ]
   const formatOptionLabel = ({ label, value }: OptionType) => (
     // console.log("检查formatOptionLabel的参数", label, value)
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -97,11 +124,11 @@ const ControlSelectedInsights: React.FC = () => {
     // console.log("检查第一次的selectedItems", selectedItems)
     setSelectedValues(selectedItems)
     // 将对应的cardid存起来
-    const selectedIds = options
+    const selectedIds = currentOptions
       .filter((option) => selectedItems.includes(option.value)) // 先过滤出选中的项
       .map((option) => option.cardid) // 然后映射到它们的 cardid
     // console.log("检查第一次的selectedvalues", selectedValues)
-    console.log("检查selectedIds", selectedIds)
+    // console.log("检查selectedIds", selectedIds)
     setSelectedCards(selectedIds)
     dispatch(
       ChangeSystemSetting({
@@ -112,13 +139,13 @@ const ControlSelectedInsights: React.FC = () => {
   }
   // 在组件加载时，设置所有选项为选中状态
   useEffect(() => {
-    const allValues = options.map((option) => option.value)
+    const allValues = currentOptions.map((option) => option.value)
     setSelectedValues(allValues)
   }, [])
 
   // 使用useEffect更新默认选中的值，这会在组件首次渲染时运行
   useEffect(() => {
-    const defaultSelected = options.map((option) => option.value) // 假设你想默认选中所有选项
+    const defaultSelected = currentOptions.map((option) => option.value) // 假设你想默认选中所有选项
     setSelectedValues(defaultSelected)
     handleChange(defaultSelected)
   }, []) // 空数组保证这个effect只会运行一次
@@ -165,13 +192,13 @@ const ControlSelectedInsights: React.FC = () => {
         style={{ width: "100%" }} // 设置Select组件的宽度为100%
         value={selectedValues}
         onChange={handleChange}
-        defaultValue={options.map((option) => option.value)}
+        defaultValue={currentOptions.map((option) => option.value)}
         // dropdownMatchSelectWidth={false} // 确保下拉菜单的宽度不会改变
         // dropdownStyle={{ width: 300, maxHeight: "300px", overflowY: "auto" }} // 设置下拉菜单的固定宽度
         // 移除 options={options}
         dropdownRender={(menu) => <DropdownMenu menu={menu} />}
       >
-        {options.map((option) => (
+        {currentOptions.map((option) => (
           <Select.Option key={option.value} value={option.value}>
             {formatOptionLabel(option)}
           </Select.Option>

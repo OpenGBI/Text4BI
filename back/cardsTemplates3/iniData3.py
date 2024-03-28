@@ -6,310 +6,8 @@ from cardsTemplates3.ProportionData import ProportionData11
 from cardsTemplates3.TrendData import TrendData11
 from cardsTemplates3.DistributionData import DistributionData
 iniData3 = [
-{
+  {
     "CardName": "Card1",
-    "paragraph": [
-      {
-        "type": "topic",
-        "phrases": [
-          { "type": "CardTitle", "value": "Association" },
-          { "type": "text", "value": " Association Between " },
-          {
-            "type": "entity",
-            "value": "Unemployment",
-            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
-          },
-          { "type": "text", "value": " and " },
-          {
-            "type": "entity",
-            "value": "CPI",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-        ],
-      },
-      {
-        "type": "normal",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-
-          { "type": "text", "value": "According to the " },
-          {
-            "type": "entity",
-            "value": "Pearson correlation analysis",
-            "metadata": {
-              "entityType": "algorithm",
-              "origin":
-                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient is equal to 1" +
-                ", it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
-            },
-          },
-          { "type": "text", "value": ", the coefficient between " },
-          {
-            "type": "entity",
-            "value": "unemployment",
-            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
-          },
-          { "type": "text", "value": " and " },
-          {
-            "type": "entity",
-            "value": "CPI",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-          { "type": "text", "value": " equals " },
-          {
-            "type": "entity",
-            "value": "-0.3",
-            "metadata": {
-              "entityType": "metric_value",
-              "insightType": "Association",
-              "detail": AssociationData["data"],
-              "tagData": AssociationData["tagData"],
-              "interactionType": "Association Regression",
-            },
-          },
-          { "type": "text", "value": ", indicating a " },
-          {
-            "type": "entity",
-            "value": "negative",
-            "metadata": { "entityType": "binary_value_negative", "assessment": "negative" },
-          },
-          { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
-          {
-            "type": "entity",
-            "value": "significant",
-            "metadata": {
-              "entityType": "binary_value_positive",
-              "assessment": "significant",
-            },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "plot",
-        "chartType": "Association",
-        "metadata": {
-            "x":"Unemployment",
-            "y":"CPI",
-          "detail": AssociationData["data"],
-          "tagData": AssociationData["tagData"],
-        },
-      },
-      {
-        "type": "configuration",
-        "chartType": "Association",
-        "metadata": {},
-      },
-    ],
-  },
-  {
-    "CardName": "Card2",
-    "paragraph": [
-      {
-        "type": "topic",
-        "phrases": [
-          { "type": "CardTitle", "value": "Distribution" },
-          { "type": "text", "value": " Distribution of " },
-          {
-            "type": "entity",
-            "value": "Sales of Shopping Mall 1",
-            "metadata": { "entityType": "metric_names" },
-          },
-        ],
-      },
-      {
-        "type": "normal",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          # { "type": "text", "value": "From " },
-          # {
-          #   "type": "entity",
-          #   "value": "January 01, 2011",
-          #   "metadata": {
-          #     "entityType": "filter_time",
-          #     "selections": ["2011-01-01"],
-          #     "paramIndex": 0,
-          #   },
-          # },
-          # { "type": "text", "value": " to " },
-          # {
-          #   "type": "entity",
-          #   "value": "December 31, 2014",
-          #   "metadata": {
-          #     "entityType": "filter_time",
-          #     "selections": ["2014-12-31"],
-          #     "paramIndex": 1,
-          #   },
-          # },
-          {
-            "type": "text",
-            "value": "The distribution of ",
-          },
-          {
-            "type": "entity",
-            "value": " sales of shopping mall 1 ",
-            "metadata": { "entityType": "metric_names" },
-          },
-          {
-            "type": "text",
-            "value": "is ",
-          },
-          
-          {
-            "type": "entity",
-            "value": " left-skewed ",
-            "metadata": {
-              "entityType": "binary_value_positive",
-              "insightType": "Distribution",
-              "detail": DistributionData["data"],
-              "assessment":"left-skewed"
-            },
-          },
-          {
-            "type": "text",
-            "value": "Most data points lie in the range of ",
-          },
-          {
-            "type": "entity",
-            "value": "104790",
-            "metadata": { "entityType": "metric_value", "origin": 104790 },
-          },
-          {
-            "type": "text",
-            "value": " - ",
-          },
-          {
-            "type": "entity",
-            "value": "336814",
-            "metadata": { "entityType": "metric_value", "origin": 336814 },
-          },
-          {
-            "type": "text",
-            "value": ", ",
-          },
-          {
-            "type": "entity",
-            "value": "4",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 4,
-              "interactionType": "distribution Outliers",
-              "assessment": "anomaly"
-            },
-          },
-          { "type": "text", "value": " outliers have been identified, with " },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "bullet",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": "Min = " },
-          {
-            "type": "entity",
-            "value": "5142.08",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 5142.08,
-              "interactionType": "distribution Min",
-            },
-          },
-          { "type": "text", "value": " , Max = " },
-          {
-            "type": "entity",
-            "value": "2198599.96",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 2198599.96,
-              "interactionType": "distribution Max",
-            },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "bullet",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": "Q1 = " },
-          {
-            "type": "entity",
-            "value": "104790.53",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 104790.53,
-              "interactionType": "distribution Q1",
-            },
-          },
-          { "type": "text", "value": " , Q2 (Median) = " },
-          {
-            "type": "entity",
-            "value": "209749.72",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 209749.72,
-              "interactionType": "distribution Median",
-            },
-          },
-          { "type": "text", "value": " , Q3 = " },
-          {
-            "type": "entity",
-            "value": "336814.32",
-            "metadata": {
-              "entityType": "metric_value",
-              "origin": 336814.32,
-              "interactionType": "distribution Q3",
-            },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      # {
-      #   "type": "bullet",
-      #   "phrases": [
-      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-      #     { "type": "text", "value": "Mean = " },
-      #     {
-      #       "type": "entity",
-      #       "value": "8840.91",
-      #       "metadata": { "entityType": "metric_value", "origin": 8840.91 },
-      #     },
-      #     { "type": "text", "value": " , Standard deviation = " },
-          
-      #     {
-      #       "type": "entity",
-      #       "value": "6567.82",
-      #       "metadata": {
-      #         "entityType": "insight",
-      #         "insightType": "Distribution",
-      #         "detail": DistributionData["data"],
-      #       },
-      #     },
-      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-      #   ],
-      # },
-
-      {
-        "type": "plot",
-        "chartType": "Distribution",
-        "metadata": {
-            "x": "Sales",
-          "y": "Profit",
-          "detail": DistributionData["data"],
-        },
-      },
-      {
-        "type": "configuration",
-        "chartType": "Distribution",
-        "metadata": {
-          "timeSelection": ["2011-01-01", "2014-12-31"],
-        },
-      },
-    ],
-  },
-  {
-    "CardName": "Card3",
     "paragraph": [
       {
         "type": "topic",
@@ -408,7 +106,7 @@ iniData3 = [
     ],
   },
   {
-    "CardName": "Card4",
+    "CardName": "Card2",
     "paragraph": [
       {
         "type": "topic",
@@ -418,7 +116,7 @@ iniData3 = [
           { "type": "text", "value": " Rank of " },
           {
             "type": "entity",
-            "value": "Sales of Shopping Mall",
+            "value": "Sales of Shopping Mall 5",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -672,7 +370,7 @@ iniData3 = [
     ],
   },
   {
-    "CardName": "Card5",
+    "CardName": "Card3",
     "paragraph": [
       {
         "type": "topic",
@@ -861,7 +559,7 @@ iniData3 = [
     ],
   },
   {
-    "CardName": "Card6",
+    "CardName": "Card4",
     "paragraph": [
       {
         "type": "topic",
@@ -976,5 +674,306 @@ iniData3 = [
       },
     ],
   },
-  
+    {
+    "CardName": "Card5",
+    "paragraph": [
+      {
+        "type": "topic",
+        "phrases": [
+          { "type": "CardTitle", "value": "Association" },
+          { "type": "text", "value": " Association between " },
+          {
+            "type": "entity",
+            "value": "Unemployment",
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
+          },
+          { "type": "text", "value": " and " },
+          {
+            "type": "entity",
+            "value": "CPI",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+        ],
+      },
+      {
+        "type": "normal",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+
+          { "type": "text", "value": "According to the " },
+          {
+            "type": "entity",
+            "value": "Pearson correlation analysis",
+            "metadata": {
+              "entityType": "algorithm",
+              "origin":
+                "The Pearson correlation coefficient measures the strength and direction of the linear relationship between two variables. The coefficient's values range from -1 to 1. When the correlation coefficient is equal to 1" +
+                ", it indicates a perfect positive linear relationship between the two variables, meaning that an increase in one variable is always accompanied by an increase in the other, and vice versa.",
+            },
+          },
+          { "type": "text", "value": ", the coefficient between " },
+          {
+            "type": "entity",
+            "value": "unemployment",
+            "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
+          },
+          { "type": "text", "value": " and " },
+          {
+            "type": "entity",
+            "value": "CPI",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+          { "type": "text", "value": " equals " },
+          {
+            "type": "entity",
+            "value": "-0.3",
+            "metadata": {
+              "entityType": "metric_value",
+              "insightType": "Association",
+              "detail": AssociationData["data"],
+              "tagData": AssociationData["tagData"],
+              "interactionType": "Association Regression",
+            },
+          },
+          { "type": "text", "value": ", indicating a " },
+          {
+            "type": "entity",
+            "value": "negative",
+            "metadata": { "entityType": "binary_value_negative", "assessment": "negative" },
+          },
+          { "type": "text", "value": " relationship. Besides, the correlation is statistically " },
+          {
+            "type": "entity",
+            "value": "significant",
+            "metadata": {
+              "entityType": "binary_value_positive",
+              "assessment": "significant",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "plot",
+        "chartType": "Association",
+        "metadata": {
+            "x":"Unemployment",
+            "y":"CPI",
+          "detail": AssociationData["data"],
+          "tagData": AssociationData["tagData"],
+        },
+      },
+      {
+        "type": "configuration",
+        "chartType": "Association",
+        "metadata": {},
+      },
+    ],
+  },
+  {
+    "CardName": "Card6",
+    "paragraph": [
+      {
+        "type": "topic",
+        "phrases": [
+          { "type": "CardTitle", "value": "Distribution" },
+          { "type": "text", "value": " Distribution of " },
+          {
+            "type": "entity",
+            "value": "Sales of Shopping Mall 1",
+            "metadata": { "entityType": "metric_names" },
+          },
+        ],
+      },
+      {
+        "type": "normal",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          # { "type": "text", "value": "From " },
+          # {
+          #   "type": "entity",
+          #   "value": "January 01, 2011",
+          #   "metadata": {
+          #     "entityType": "filter_time",
+          #     "selections": ["2011-01-01"],
+          #     "paramIndex": 0,
+          #   },
+          # },
+          # { "type": "text", "value": " to " },
+          # {
+          #   "type": "entity",
+          #   "value": "December 31, 2014",
+          #   "metadata": {
+          #     "entityType": "filter_time",
+          #     "selections": ["2014-12-31"],
+          #     "paramIndex": 1,
+          #   },
+          # },
+          {
+            "type": "text",
+            "value": "The distribution of ",
+          },
+          {
+            "type": "entity",
+            "value": " sales of shopping mall 1 ",
+            "metadata": { "entityType": "metric_names" },
+          },
+          {
+            "type": "text",
+            "value": "is ",
+          },
+          
+          {
+            "type": "entity",
+            "value": " left-skewed ",
+            "metadata": {
+              "entityType": "binary_value_positive",
+              "insightType": "Distribution",
+              "detail": DistributionData["data"],
+              "assessment":"left-skewed"
+            },
+          },
+          {
+            "type": "text",
+            "value": "Most data points lie in the range of ",
+          },
+          {
+            "type": "entity",
+            "value": "104790",
+            "metadata": { "entityType": "metric_value", "origin": 104790 },
+          },
+          {
+            "type": "text",
+            "value": " - ",
+          },
+          {
+            "type": "entity",
+            "value": "336814",
+            "metadata": { "entityType": "metric_value", "origin": 336814 },
+          },
+          {
+            "type": "text",
+            "value": ", ",
+          },
+          {
+            "type": "entity",
+            "value": "4",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 4,
+              "interactionType": "distribution Outliers",
+              "assessment": "anomaly"
+            },
+          },
+          { "type": "text", "value": " outliers have been identified, with " },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": "Min = " },
+          {
+            "type": "entity",
+            "value": "5142.08",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 5142.08,
+              "interactionType": "distribution Min",
+            },
+          },
+          { "type": "text", "value": " , Max = " },
+          {
+            "type": "entity",
+            "value": "2198599.96",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 2198599.96,
+              "interactionType": "distribution Max",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": "Q1 = " },
+          {
+            "type": "entity",
+            "value": "104790.53",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 104790.53,
+              "interactionType": "distribution Q1",
+            },
+          },
+          { "type": "text", "value": " , Q2 (Median) = " },
+          {
+            "type": "entity",
+            "value": "209749.72",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 209749.72,
+              "interactionType": "distribution Median",
+            },
+          },
+          { "type": "text", "value": " , Q3 = " },
+          {
+            "type": "entity",
+            "value": "336814.32",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": 336814.32,
+              "interactionType": "distribution Q3",
+            },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      # {
+      #   "type": "bullet",
+      #   "phrases": [
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+      #     { "type": "text", "value": "Mean = " },
+      #     {
+      #       "type": "entity",
+      #       "value": "8840.91",
+      #       "metadata": { "entityType": "metric_value", "origin": 8840.91 },
+      #     },
+      #     { "type": "text", "value": " , Standard deviation = " },
+          
+      #     {
+      #       "type": "entity",
+      #       "value": "6567.82",
+      #       "metadata": {
+      #         "entityType": "insight",
+      #         "insightType": "Distribution",
+      #         "detail": DistributionData["data"],
+      #       },
+      #     },
+      #     { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+      #   ],
+      # },
+
+      {
+        "type": "plot",
+        "chartType": "Distribution",
+        "metadata": {
+            "x": "Sales",
+          "y": "Profit",
+          "detail": DistributionData["data"],
+        },
+      },
+      {
+        "type": "configuration",
+        "chartType": "Distribution",
+        "metadata": {
+          "timeSelection": ["2011-01-01", "2014-12-31"],
+        },
+      },
+    ],
+  },  
  ]

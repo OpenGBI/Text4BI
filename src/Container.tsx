@@ -240,43 +240,34 @@
 import React, { useEffect, useRef } from "react"
 import { Chart, ELEMENT_CLASS_NAME, COMPONENT_CLASS_NAME } from "@antv/g2"
 import _ from "lodash"
-
 import { UploadOutlined } from "@ant-design/icons"
 // import type {  } from "antd"
-import { Button, message, Upload, UploadProps } from "antd"
+import { Button, message, Upload, UploadProps, Switch } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { GlobalSettingStateType } from "./types"
+import { AppState } from "./store"
+import { ChangeGlobalSetting } from "./actions/GlobalSettingAction"
 
-const props: UploadProps = {
-  name: "file",
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  // action: "http://127.0.0.1:5000",
-  headers: {
-    authorization: "authorization-text",
-  },
-  onChange(info) {
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList)
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`)
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`)
-    }
-  },
-  progress: {
-    strokeColor: {
-      "0%": "#108ee9",
-      "100%": "#87d068",
-    },
-    strokeWidth: 3,
-    format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
-  },
+const Container: React.FC = () => {
+  const globalSetting: GlobalSettingStateType = useSelector(
+    (state: AppState) => state.globalSetting,
+  )
+  const dispatch = useDispatch()
+  const reset = () => {
+    dispatch(
+      ChangeGlobalSetting({
+        ...globalSetting,
+        // showBigGraph: false,
+        textPosition: "vertical",
+        showSparkLine: false,
+        fontsize: "14px",
+        lineHeight: 2,
+        // bulletPoint: "•",
+      }),
+    )
+  }
+  return <Switch defaultChecked onChange={reset} />
 }
-
-const Container: React.FC = () => (
-  <Upload {...props}>
-    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-  </Upload>
-)
 
 export default Container
 // export default Container

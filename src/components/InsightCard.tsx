@@ -13,7 +13,14 @@ import { getNarrativeHtml } from "../utils/TextExporter"
 import { AppState, store } from "../store"
 import PhraseComponent from "./PhraseComponent"
 import BigChart from "./BigChart"
-import { Card, sentence, highLightMessage, ConfigurationSentence, systemStateType } from "../types"
+import {
+  Card,
+  sentence,
+  highLightMessage,
+  ConfigurationSentence,
+  systemStateType,
+  GlobalSettingStateType,
+} from "../types"
 import { ReactComponent as ShareSvg } from "../utils/icons/share.svg"
 
 const CARD_DRAG_TYPE = "CARD"
@@ -185,6 +192,33 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   // 给大图交互留的 new
   const [highlightMessage, setHighlightMessage] = React.useState<highLightMessage | null>(null)
 
+  const [highlightMessageB2S, setHighlightMessageB2S] = React.useState<highLightMessage>({
+    message: "",
+    hoverOrNot: false,
+  })
+
+  // const globalSetting: GlobalSettingStateType = useSelector(
+  //   (state: AppState) => state.globalSetting,
+  // )
+  // useEffect(() => {
+  //   if (globalSetting.interaction === false) {
+  //     setHighlightMessage({ message: "", hoverOrNot: false })
+  //     setHighlightMessageB2S({ message: "", hoverOrNot: false })
+  //   }
+  //   if (globalSetting.linking === false) {
+  //     setHighlightMessage({ message: "", hoverOrNot: false })
+  //   }
+  //   if (globalSetting.detailsOnDemand === false) {
+  //     setHighlightMessageB2S({ message: "", hoverOrNot: false })
+  //   }
+  // }, [
+  //   globalSetting.interaction,
+  //   globalSetting.linking,
+  //   globalSetting.detailsOnDemand,
+  //   highlightMessageB2S,
+  //   highlightMessage,
+  // ])
+
   const ref = useRef<HTMLDivElement>(null)
 
   const [cardInsightType, setCardInsightType] = useState<string>("")
@@ -225,9 +259,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     // setTopK(newData)\
   }
 
-  console.log("!CardName || !paragraph || !id || !onDrop", CardName, paragraph, id, onDrop)
   if (!CardName || !paragraph || !id || !onDrop) {
-    console.log("No data found for the date", CardName, paragraph, id)
     throw new Error("No data found for the date")
   }
   const onCopySuccess = () => {
@@ -573,6 +605,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           chartType={chartType}
           params4BackEnd={params4BackEnd}
           paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+          highlightMessageB2S={highlightMessageB2S as highLightMessage}
         />
       ))
     }
@@ -600,6 +633,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           chartType={chartType}
           params4BackEnd={params4BackEnd}
           paramsFuncs4BackEnd={paramsFuncs4BackEnd}
+          highlightMessageB2S={highlightMessageB2S as highLightMessage}
         />
       ))
     }
@@ -666,6 +700,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
                     handleCurBigChart={handleCurBigChart}
                     highlightMessage={highlightMessage}
                     drillDownGroup={drillDownGroup}
+                    setHighlightMessageB2S={setHighlightMessageB2S}
                   />
                 )
               }
@@ -721,6 +756,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
                   handleCurBigChart={handleCurBigChart}
                   highlightMessage={highlightMessage}
                   drillDownGroup={drillDownGroup}
+                  setHighlightMessageB2S={setHighlightMessageB2S}
                 />
               )
             }

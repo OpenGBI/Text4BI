@@ -207,7 +207,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
       backComm(curParams, chartType)
     }
   }
-
+  console.log("debug-selections", selections, defaultSelection)
   return (
     <ConfigProvider
       theme={{

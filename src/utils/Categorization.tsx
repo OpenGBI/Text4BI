@@ -47,7 +47,7 @@ const Categorization: React.FC<BarChartProps> = ({
       height: 400,
       width: 600,
       axis: {
-        x: { title: drillDownGroup },
+        x: { title: drillDownGroup || xAxis },
         y: { title: yAxis },
       },
     })

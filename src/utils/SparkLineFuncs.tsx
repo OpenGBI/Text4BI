@@ -2540,6 +2540,7 @@ export const renderTemporalityDifference1 = (
   tagData: number[],
   curMetadata: Metadata,
   value: string | number | undefined,
+  highlightMessageB2S: highLightMessage,
   setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
@@ -2678,6 +2679,7 @@ export const renderTemporalityDifference1 = (
       .attr("width", barWidth)
       .attr("height", (d) => height - yScale(d))
       .attr("fill", "#4474cc")
+      // .attr("opacity",(d)=>d.toFixed(2)===highlightMessageB2S.message?)
       .on("mouseenter", (event, d) => {
         handleHoverThrottled(d)
         svgD3
@@ -2707,6 +2709,18 @@ export const renderTemporalityDifference1 = (
       .attr("stroke-width", 1.5)
       .attr("d", line)
       .attr("marker-end", "url(#arrow)") // 应用箭头
+    svgD3
+      .selectAll(".bar")
+      .transition()
+      .duration(150)
+      .style("opacity", (d) => {
+        // 如果message为空字符串，所有柱子透明度设为1
+        if (highlightMessageB2S.message === "") {
+          return "1"
+        }
+        // 如果message不为空，并且柱子的数据等于messageValue，透明度设为1，否则为0.6
+        return d === highlightMessageB2S.message ? "1" : "0.6"
+      })
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2772,6 +2786,18 @@ export const renderTemporalityDifference1 = (
       .attr("stroke-width", 1.5)
       .attr("d", line)
     // .attr("marker-end", "url(#arrow)") // 应用箭头
+    svgD3
+      .selectAll(".bar")
+      .transition()
+      .duration(150)
+      .style("opacity", (d) => {
+        // 如果message为空字符串，所有柱子透明度设为1
+        if (highlightMessageB2S.message === "") {
+          return "1"
+        }
+        // 如果message不为空，并且柱子的数据等于messageValue，透明度设为1，否则为0.6
+        return d === highlightMessageB2S.message ? "1" : "0.6"
+      })
   }
 }
 export const renderTemporalityDifference2 = (
@@ -2781,6 +2807,7 @@ export const renderTemporalityDifference2 = (
   tagData: number[],
   curMetadata: Metadata,
   value: string | number | undefined,
+  highlightMessageB2S: highLightMessage,
   setHighlightMessage?: (message: highLightMessage) => void,
   wordElement?: HTMLSpanElement,
   sparkLineElement?: HTMLSpanElement,
@@ -2920,6 +2947,7 @@ export const renderTemporalityDifference2 = (
     // 在最大值位置的上方绘制一个红色柱子，表示最大值和最小值的差
     svgD3
       .append("rect")
+      .attr("class", "little")
       .attr("x", xScale(maxValueIndex))
       .attr("y", (d) => yScale(Math.max(...data)))
       .attr("width", barWidth)
@@ -2947,6 +2975,25 @@ export const renderTemporalityDifference2 = (
       .attr("y2", yScale(minValue))
       .style("stroke", "steelblue")
       .style("stroke-dasharray", "3, 3") // 设置为虚线
+    if (highlightMessageB2S.message === "") {
+      svgD3.selectAll(".little").transition().duration(150).attr("opacity", "1")
+      svgD3.selectAll(".minBar").transition().duration(150).attr("opacity", "1")
+    }
+    if (highlightMessageB2S.message === d3.min(data)) {
+      svgD3
+        .selectAll(".minBar")
+        .transition()
+        .duration(150)
+        .attr("opacity", (d) => (d === minValueIndex ? "1" : "0.6"))
+    }
+    if (highlightMessageB2S.message === d3.max(data)) {
+      svgD3
+        .selectAll(".minBar")
+        .transition()
+        .duration(150)
+        .attr("opacity", (d) => (d === maxValueIndex ? "1" : "0.6"))
+      svgD3.selectAll(".little").transition().duration(150).attr("opacity", "1")
+    }
   }
   // 左右放小图
   if (sparkLineElement) {
@@ -2987,6 +3034,7 @@ export const renderTemporalityDifference2 = (
     // 在最大值位置的上方绘制一个红色柱子，表示最大值和最小值的差
     svgD3
       .append("rect")
+      .attr("class", "little")
       .attr("x", xScale(maxValueIndex))
       .attr("y", (d) => yScale(Math.max(...data)))
       .attr("width", barWidth)
@@ -3014,6 +3062,26 @@ export const renderTemporalityDifference2 = (
       .attr("y2", yScale(minValue))
       .style("stroke", "steelblue")
       .style("stroke-dasharray", "3, 3") // 设置为虚线
+    if (highlightMessageB2S.message === "") {
+      svgD3.selectAll(".little").transition().duration(150).attr("opacity", "1")
+      svgD3.selectAll(".minBar").transition().duration(150).attr("opacity", "1")
+    }
+    if (highlightMessageB2S.message === d3.min(data)) {
+      svgD3.selectAll(".little").transition().duration(150).attr("opacity", "0.6")
+      svgD3
+        .selectAll(".minBar")
+        .transition()
+        .duration(150)
+        .attr("opacity", (d) => (d === minValueIndex ? "1" : "0.6"))
+    }
+    if (highlightMessageB2S.message === d3.max(data)) {
+      svgD3
+        .selectAll(".minBar")
+        .transition()
+        .duration(150)
+        .attr("opacity", (d) => (d === maxValueIndex ? "1" : "0.6"))
+      svgD3.selectAll(".little").transition().duration(150).attr("opacity", "1")
+    }
   }
 }
 // export const renderTemporalityDifference2 = (

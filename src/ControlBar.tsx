@@ -49,14 +49,19 @@ const ControlBar: React.FC = () => (
       Design Panel
     </div>
     <div style={{ height: "95%", overflow: "auto" }}>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
+      <Collapse
+        defaultActiveKey={["1"]}
+        style={{ backgroundColor: "#fff" }}
+        expandIconPosition="end"
+      >
         <Panel
-          header={(
+          header={
             <span className="panel-header">
-              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} />{" "}
+              {/* Icon added */}
               Global Design
             </span>
-          )}
+          }
           key="1"
           style={{ backgroundColor: "#fff" }}
         >
@@ -75,19 +80,24 @@ const ControlBar: React.FC = () => (
           <Row className="control-row">
             <ControlBulletPoint />
           </Row>
-          <Row className="control-row">
+          {/* <Row className="control-row">
             <ControlInteraction />
-          </Row>
+          </Row> */}
         </Panel>
       </Collapse>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
+      <Collapse
+        defaultActiveKey={["1"]}
+        style={{ backgroundColor: "#fff" }}
+        expandIconPosition="end"
+      >
         <Panel
-          header={(
+          header={
             <span className="panel-header">
-              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} />{" "}
+              {/* Icon added */}
               Typography
             </span>
-          )}
+          }
           key="1"
           style={{ backgroundColor: "#fff" }}
         >
@@ -122,14 +132,19 @@ const ControlBar: React.FC = () => (
           </Row>
         </Panel>
       </Collapse>
-      <Collapse defaultActiveKey={["1"]} style={{ backgroundColor: "#fff" }} expandIconPosition="end">
+      <Collapse
+        defaultActiveKey={["1"]}
+        style={{ backgroundColor: "#fff" }}
+        expandIconPosition="end"
+      >
         <Panel
-          header={(
+          header={
             <span className="panel-header">
-              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} /> {/* Icon added */}
+              <SettingsSvg className="panel-icon" style={{ alignItems: "center" }} />{" "}
+              {/* Icon added */}
               Word Scale Graphics
             </span>
-          )}
+          }
           key="1"
           style={{ backgroundColor: "#fff" }}
         >

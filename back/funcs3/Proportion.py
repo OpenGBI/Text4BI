@@ -32,7 +32,7 @@ def changeProportion3(drillDownGroup):
             target=item
             break
     #修改题目
-    target["paragraph"][0]["phrases"][-1]["value"]=" ".join(target["paragraph"][0]["phrases"][-1]["value"].split(" ")[:-1])+" "+drillDownGroup
+    target["paragraph"][0]["phrases"][-1]["value"]=drillDownGroup
     # print(target["paragraph"][0]["phrases"][-1]["value"].split(" ")[:-1].join(" "))
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=data_export

@@ -98,6 +98,7 @@ interface PhraseComponentProps extends Phrase {
   chartType: string
   params4BackEnd: Metadata4Configuration
   paramsFuncs4BackEnd: setParamFunc4FilterType
+  highlightMessageB2S: highLightMessage
   // param4Filter: param4FilterType
   // setParamFuncs: setParamFunc4FilterType
   // React.MutableRefObject<Chart | null> ref
@@ -131,9 +132,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   chartType,
   params4BackEnd,
   paramsFuncs4BackEnd,
+  highlightMessageB2S,
 }) => {
   const { showSparkLine } = useSelector((state: AppState) => state.globalSetting)
   const { selectedEntityType } = useSelector((state: AppState) => state.typographySetting)
+  console.log("debug-selectedEntityType", selectedEntityType)
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -193,7 +196,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     //     metadata.assessment === "left-skewed"
     //       ? "#13A8A8"
     //       : "#FA541C",
-    // },
+    // },binary_value_positive
     binary_value_positive: {
       fontWeight: "bold",
       color: "#13A8A8",
@@ -204,7 +207,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     },
     metric_names: { fontWeight: "bold" },
     // dim_cate: { fontWeight: "bold" },
-    algorithm: { textDecoration: "underline dashed" },
+    filter_cate: { textDecoration: "underline dashed" },
     // ... 其他实体类型
   }
   // const [currentTopK, setCurrentTopK] = useState("-1")
@@ -292,6 +295,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 针对 boldness 的 useEffect
   useEffect(() => {
     const newFontWeight = boldness ? "bold" : "normal"
+    console.log("debug")
     if (currentStyles[selectedEntityType]?.fontWeight !== newFontWeight) {
       setCurrentStyles((prevStyles) => ({
         ...prevStyles,
@@ -301,7 +305,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [boldness])
+  }, [selectedEntityType, boldness])
 
   // 针对 underline 的 useEffect
   useEffect(() => {
@@ -315,7 +319,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [underline])
+  }, [selectedEntityType, underline])
 
   // 针对 italics 的 useEffect
   useEffect(() => {
@@ -329,7 +333,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [italics])
+  }, [selectedEntityType, italics])
 
   // 针对 contour 的 useEffect
   useEffect(() => {
@@ -356,7 +360,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [color])
+  }, [selectedEntityType, color])
 
   // 针对 backgroundColor 的 useEffect
   useEffect(() => {
@@ -369,7 +373,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [backgroundColor])
+  }, [selectedEntityType, backgroundColor])
 
   const renderWord = (curMetadata: Metadata) => {
     // 确保 entityType 不是 undefined
@@ -422,6 +426,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           </span>
         </Tooltip>
       )
+    }
+
+    if (curMetadata.entityType === "binary_value_positive") {
+      console.log("debug-setCurrentStyles", currentStyles)
     }
 
     return (
@@ -716,6 +724,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.tagData as number[],
           curMetadata,
           value,
+          highlightMessageB2S,
           setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
@@ -733,6 +742,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           curMetadata.tagData as number[],
           curMetadata,
           value,
+          highlightMessageB2S,
           setHighlightMessage,
           curWordSpan,
           curSparkLineSpan,
@@ -908,6 +918,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     differenceTypeOn1,
     anomalyTypeOn1,
     seasonalityTypeOn1,
+    highlightMessageB2S,
   ]) // 确保 showSparkLine 在依赖项中
   //
   // 这是绘制nonedataIcon的useeffect 把给nonedataIcon留的span对应的ref送到rendernonedataIcon中，在rendernonedataIcon函数中操纵画icon，每次依赖项发生变化时，就重绘icon
@@ -1230,8 +1241,8 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           fontSize: fontsize,
           lineHeight,
           position: "relative",
-          fontWeight: "bold",
-          backgroundColor: bgColor, // 使用存储的颜色
+          // fontWeight: "bold",
+          backgroundColor: "#FFF", // 使用存储的颜色. zyx 标题颜色修改了 3-28
           padding: "5px",
           borderRadius: "5px",
         }}

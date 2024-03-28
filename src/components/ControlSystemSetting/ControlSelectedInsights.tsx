@@ -51,15 +51,15 @@ const options2 = [
   { value: COLOR_PALETTE[2], label: "Rank of Shopping Satisfaction by Browsing Frequency", cardid: "Card2" },
   { value: COLOR_PALETTE[3], label: "Proportion of Good Shopping Satisfaction by Gender", cardid: "Card3" },
   { value: COLOR_PALETTE[5], label: "Trend of Purchase Frequency", cardid: "Card4" },
-  { value: COLOR_PALETTE[4], label: "Association between Shopping Satisfaction and Personalized Recommendation Frequency", cardid: "Card7" },
+  { value: COLOR_PALETTE[4], label: "Association between Shopping Satisfaction and Personalized Recommendation Frequency", cardid: "Card5" },
 ]
 const options3 = [
   { value: COLOR_PALETTE[1], label: "Difference of Sales of Shopping Mall 1 by Year", cardid: "Card1" },
   { value: COLOR_PALETTE[2], label: "Rank of Sales of Shopping Mall 5 by Temperature", cardid: "Card2" },
   { value: COLOR_PALETTE[3], label: "Proportion of Sales of Store by Shopping Mall", cardid: "Card3" },
   { value: COLOR_PALETTE[5], label: "Trend of Sales of Shopping Mall 1", cardid: "Card4" },
-  { value: COLOR_PALETTE[4], label: "Association between Unemployment and CPI", cardid: "Card7" },
-  { value: COLOR_PALETTE[0], label: "Distribution of Sales of Shopping Mall 1", cardid: "Card8" },
+  { value: COLOR_PALETTE[4], label: "Association between Unemployment and CPI", cardid: "Card5" },
+  { value: COLOR_PALETTE[0], label: "Distribution of Sales of Shopping Mall 1", cardid: "Card6" },
 ]
 
 const ControlSelectedInsights: React.FC = () => {

@@ -769,7 +769,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 10,
             right: 60,
-            display: showButtons && setShowExportButton ? "block" : "none",
+            display: "none",
           }}
         >
           <CopyOutlined
@@ -788,7 +788,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 9,
             right: 30,
-            display: showButtons && setShowExportButton ? "block" : "none",
+            display: "none",
           }}
         />
       </Tooltip>

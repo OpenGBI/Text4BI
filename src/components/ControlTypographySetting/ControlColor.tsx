@@ -13,7 +13,9 @@ const ControlColor = () => {
     (state: AppState) => state.typographySetting,
   )
 
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   useEffect(() => {
     setValue(entityStyles[selectedEntityType].color)
   }, [selectedEntityType])
@@ -30,6 +32,7 @@ const ControlColor = () => {
         ...typographySetting,
         color: String(hexColor),
         colorButtonClick: newClickState,
+        newEntitySelect: "color",
         entityStyles: {
           ...entityStyles,
         },

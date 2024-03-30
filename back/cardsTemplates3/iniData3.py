@@ -635,7 +635,7 @@ iniData3 = [
               "interactionType": "Temporal Trend Regression",
             },
           },
-          { "type": "text", "value": " With a predicted value of " },
+          { "type": "text", "value": " with a predicted value of " },
           {
             "type": "entity",
             "value": "375988 ",
@@ -835,7 +835,7 @@ iniData3 = [
           },
           {
             "type": "text",
-            "value": "Most data points lie in the range of ",
+            "value": ". Most data points lie in the range of ",
           },
           {
             "type": "entity",
@@ -853,7 +853,7 @@ iniData3 = [
           },
           {
             "type": "text",
-            "value": ", ",
+            "value": ". ",
           },
           {
             "type": "entity",

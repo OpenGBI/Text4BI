@@ -12,7 +12,9 @@ const ControlContour: React.FC = () => {
     (state: AppState) => state.typographySetting,
   )
 
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   useEffect(() => {
     setIsContourOn(entityStyles[selectedEntityType].contour)
   }, [selectedEntityType])
@@ -28,6 +30,7 @@ const ControlContour: React.FC = () => {
         ...typographySetting,
         contour: value,
         contourButtonClick: newClickState,
+        newEntitySelect: "contour",
         entityStyles: {
           ...entityStyles,
         },

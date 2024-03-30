@@ -575,7 +575,7 @@ export const iniData: Card[] = [
 
           {
             type: "entity",
-            value: "increased",
+            value: "increasing",
             metadata: {
               entityType: "binary_value_positive",
               insightType: "TemporalityTrend",
@@ -618,7 +618,7 @@ export const iniData: Card[] = [
               interactionType: "Temporal Trend Regression",
             },
           },
-          { type: "text", value: " With a predicted value of " },
+          { type: "text", value: " with a predicted value of " },
           {
             type: "entity",
             value: "11219.24 ",
@@ -676,7 +676,7 @@ export const iniData: Card[] = [
         type: "normal",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "According to the " },
+          { type: "text", value: "According to " },
           {
             type: "entity",
             value: "Confidence interval method ",
@@ -711,7 +711,7 @@ export const iniData: Card[] = [
               detail: AnomalyData.data,
             },
           },
-          // { type: "text", value: ". 2 seasons are identified, and the average period is " },
+          { type: "text", value: ".  Here are three of them: " },
           // {
           //   type: "entity",
           //   value: "365 ",
@@ -735,13 +735,13 @@ export const iniData: Card[] = [
           { type: "text", value: " = " },
           {
             type: "entity",
-            value: "14453.23 ",
+            value: "24402.4 ",
             metadata: { entityType: "metric_value", origin: 14453.23, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "6235.21",
+            value: "15841.02",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
@@ -765,13 +765,13 @@ export const iniData: Card[] = [
           { type: "text", value: " = " },
           {
             type: "entity",
-            value: "17289.69 ",
+            value: "17181.19 ",
             metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "4995.34.",
+            value: "12185.85",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
@@ -795,13 +795,13 @@ export const iniData: Card[] = [
           { type: "text", value: " = " },
           {
             type: "entity",
-            value: "17289.69 ",
+            value: "19275.09 ",
             metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "6732.64",
+            value: "11949.59",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
@@ -891,7 +891,7 @@ export const iniData: Card[] = [
               tagData: PeriodicityData.tagData,
             },
           },
-          { type: "text", value: " are identified, and the average period is " },
+          { type: "text", value: " are identified, with an average cycle length of " },
           {
             type: "entity",
             value: "365 ",
@@ -1172,7 +1172,7 @@ export const iniData: Card[] = [
           },
           {
             type: "text",
-            value: ", ",
+            value: ". ",
           },
           {
             type: "entity",

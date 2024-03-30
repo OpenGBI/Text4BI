@@ -43,7 +43,7 @@ iniData2 = [
             "value": "shopping satisfaction ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
-          { "type": "text", "value": "of " },
+          { "type": "text", "value": "level of " },
           {
             "type": "entity",
             "value": "5",
@@ -51,13 +51,13 @@ iniData2 = [
               "entityType": "metric_value",
             },
           },
-          { "type": "text", "value": ", women rate " },
+          { "type": "text", "value": ", the proportion of women giving the highest rating is " },
           {
             "type": "entity",
             "value": "94% ",
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
-          { "type": "text", "value": " more than men " },
+          { "type": "text", "value": " higher than that of men " },
 
           {
             "type": "entity",
@@ -412,12 +412,12 @@ iniData2 = [
           },
           {
             "type": "entity",
-            "value": "good shopping",
+            "value": "good shopping satisfaction",
             "metadata": { "entityType": "metric_names" },
           },
           {
             "type": "text",
-            "value": " satisfaction by ",
+            "value": " by ",
           },
           {
             "type": "entity",
@@ -430,17 +430,13 @@ iniData2 = [
           },
           {
             "type": "text",
-            "value": ", the specific proportions of good shopping ",
+            "value": ", the proportions are as follows:",
           },
           # {
           #   "type": "entity",
           #   "value": "sales",
           #   "metadata": { "entityType": "metric_names" },
           # },
-          {
-            "type": "text",
-            "value": "volume are as follows:",
-          },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },

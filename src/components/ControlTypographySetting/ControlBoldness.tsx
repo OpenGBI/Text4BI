@@ -12,7 +12,9 @@ const ControlBoldness: React.FC = () => {
   )
   const [isBoldnessOn, setIsBoldnessOn] = useState(true)
   // 需要更新二级boldness的显示值，当选择的实体类型改变时
-  const { selectedEntityType, entityStyles, boldnessButtonClick } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles, boldnessButtonClick } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   useEffect(() => {
     setIsBoldnessOn(entityStyles[selectedEntityType].boldness)
   }, [selectedEntityType])
@@ -29,6 +31,7 @@ const ControlBoldness: React.FC = () => {
         ...typographySetting,
         boldness: value,
         boldnessButtonClick: newClickState,
+        newEntitySelect: "boldness",
         entityStyles: {
           ...entityStyles,
         },

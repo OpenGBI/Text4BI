@@ -53,11 +53,11 @@ def changeTemporalTrend(timeSegmentationCondition,timeSelection):
                 phrase["metadata"]["detail"]=new_data["data"]
                 phrase["metadata"]["tagData"]=new_data["predictData"]
                 if new_data["data"][0]["value"]<new_data["data"][-1]["value"]:
-                    phrase["value"]="increased "
+                    phrase["value"]="increasing "
                     phrase["metadata"]["entityType"]= "binary_value_positive"
                     phrase["metadata"]["assessment"]="increase"
                 else:
-                    phrase["value"]="decreased "
+                    phrase["value"]="decreasing "
                     phrase["metadata"]["entityType"]= "binary_value_negative"
                     phrase["metadata"]["assessment"]="decrease"
                 break

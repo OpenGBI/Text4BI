@@ -26,6 +26,7 @@ const ControlSelectedEntityType: React.FC = () => {
       ChangeTypographySetting({
         ...typographySetting,
         selectedEntityType: value,
+        newEntitySelect: "null",
       }),
     )
   }

@@ -12,7 +12,9 @@ const ControlUnderline: React.FC = () => {
   const typographySetting: typographySettingStateType = useSelector(
     (state: AppState) => state.typographySetting,
   )
-  const { selectedEntityType, entityStyles } = useSelector((state: AppState) => state.typographySetting)
+  const { selectedEntityType, entityStyles } = useSelector(
+    (state: AppState) => state.typographySetting,
+  )
   useEffect(() => {
     setIsUnderlineOn(entityStyles[selectedEntityType].underline)
   }, [selectedEntityType])
@@ -27,6 +29,7 @@ const ControlUnderline: React.FC = () => {
         ...typographySetting,
         underline: value,
         underlineButtonClick: newClickState,
+        newEntitySelect: "underline",
         entityStyles: {
           ...entityStyles,
         },

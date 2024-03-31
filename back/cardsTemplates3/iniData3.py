@@ -641,7 +641,7 @@ iniData3 = [
             "value": "375988 ",
             "metadata": { "entityType": "metric_value", "origin": 375988, "interactionType": "ByValue" },
           },
-          { "type": "text", "value": "until " },
+          { "type": "text", "value": " until " },
           {
             "type": "entity",
             "value": "June 30, 2013",

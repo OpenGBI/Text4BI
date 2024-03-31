@@ -36,7 +36,7 @@ const Association = forwardRef(
       const chart = new Chart({
         container: containerRef.current,
         autoFit: true,
-        height: 500,
+        height: 400,
         tooltip: false,
         axis: {
           x: { title: xAxis },

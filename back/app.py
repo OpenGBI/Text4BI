@@ -50,7 +50,7 @@ def hello_world():
 
 @app.route('/Data1/Categorization', methods=['POST'])
 def get_categorization_data():
-    data = request.json  
+    data = request.json
     drillDownGroup = data.get('drillDownGroup')
     chartType=data.get("chartType")
     topK=data.get("topK")

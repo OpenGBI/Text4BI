@@ -35,6 +35,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
   params4BackEnd,
   paramsFuncs4BackEnd,
 }) => {
+  // console.log("debug-SelectorInText", params4BackEnd)
   // const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
   const { fontsize } = useSelector((state: AppState) => state.globalSetting)
   const fontSizeNumber = Math.max(5, Math.min(parseInt(fontsize, 10), 25))
@@ -45,6 +46,10 @@ const SelectorInText: React.FC<SelectorProps> = ({
   const [curTopK, setCurTopK] = useState("3")
   const dispatch = useDispatch()
   const systemStateSetting: systemStateType = useSelector((state: AppState) => state.system)
+  // console.log("数据集", systemStateSetting.datasetId)
+  // console.log("下拉框", params4BackEnd.drillDownGroup)
+  // console.log("数据集", systemStateSetting.resetDataset)
+  // console.log("选项", defaultSelection)
   // const curTopKRef = useRef<string>(curTopK)
   // useEffect(() => {
   //   if (params4BackEnd.topK) {
@@ -63,7 +68,11 @@ const SelectorInText: React.FC<SelectorProps> = ({
   const colorValue = entityStyles.filter_cate.color
   const backgroundColorValue = entityStyles.filter_cate.backgroundColor
   const textContourValue = entityStyles.filter_cate.contour ? "1px solid black" : "none" // 举例: 黑色轮廓
-
+  const [selectedValue, setSelectedValue] = useState(defaultSelection)
+  // 监听defaultSelection的变化，当变化时更新selectedValue
+  useEffect(() => {
+    setSelectedValue(defaultSelection)
+  }, [defaultSelection])
   const handleHover = () => {
     const highlightMessage: highLightMessage = { hoverOrNot: true, message: "" }
     if (curTopK) {
@@ -148,11 +157,12 @@ const SelectorInText: React.FC<SelectorProps> = ({
   }, [fontsize])
 
   const backComm = (curParams: Metadata4Configuration, curChartType: string) => {
+    // console.log("debug-11", curParams)
     const curSelectedData = systemStateSetting.datasetId
-    console.log(
-      "debug-backComm",
-      "http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType),
-    )
+    // console.log(
+    //   "debug-backComm",
+    //   "http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType),
+    // )
     fetch("http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType), {
       method: "POST",
       headers: {
@@ -176,7 +186,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
           curParams.timeSegmentationCondition as string,
         )
         paramsFuncs4BackEnd.setTopK(curParams.topK as string)
-
+        // console.log("debug-data", data)
         dispatch(
           ChangeSystemSetting({
             ...systemStateSetting,
@@ -188,8 +198,9 @@ const SelectorInText: React.FC<SelectorProps> = ({
   }
 
   const handleChange = (value: string) => {
+    setSelectedValue(value)
     let curParams
-    // console.log("debug-handleChange", backEndType)
+    console.log("debug-handleChange", backEndType)
     if (backEndType === "drillDownGroup") {
       curParams = { ...params4BackEnd, drillDownGroup: value }
       paramsFuncs4BackEnd.setDrillDownGroup(value)
@@ -206,6 +217,7 @@ const SelectorInText: React.FC<SelectorProps> = ({
     if (curParams) {
       backComm(curParams, chartType)
     }
+    // console.log("当前值", curParams)
   }
   // console.log("debug-selections", selections, defaultSelection)
   return (
@@ -220,38 +232,35 @@ const SelectorInText: React.FC<SelectorProps> = ({
     >
       <Space direction="vertical">
         <span onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-          <Select
-            defaultValue={defaultSelection}
-            className={styles.customDropdown}
-            style={{
-              width,
-              height,
-              // fontWeight: entityStyles[selectedEntityType].boldness ? "bold" : "normal",
-              // color: entityStyles[selectedEntityType].color,
-              // fontSize: fontsize,
-              padding: `0 ${paddingSize}`, // 应用计算后的padding
-            }}
-            // dropdownClassName={styles.customDropdown} // 使用模块化CSS类
-            onChange={handleChange}
-          >
-            {selections.map((selection: string) => (
-              <Select.Option
-                key={selection}
-                value={selection}
-                style={{
-                  fontSize: fontsize,
-                  fontWeight: fontWeightValue,
-                  fontStyle: fontStyleValue,
-                  textDecoration: textDecorationValue,
-                  textShadow: textContourValue,
-                  color: colorValue,
-                  backgroundColor: backgroundColorValue,
-                }}
-              >
-                {selection}
-              </Select.Option>
-            ))}
-          </Select>
+        <Select
+          key={defaultSelection} // 添加key属性
+          value={selectedValue}
+          className={styles.customDropdown}
+          style={{
+            width,
+            height,
+            padding: `0 ${paddingSize}`,
+          }}
+          onChange={handleChange}
+        >
+          {selections.map((selection) => (
+            <Select.Option
+              key={selection}
+              value={selection}
+              style={{
+                fontSize: fontsize,
+                fontWeight: fontWeightValue,
+                fontStyle: fontStyleValue,
+                textDecoration: textDecorationValue,
+                textShadow: textContourValue,
+                color: colorValue,
+                backgroundColor: backgroundColorValue,
+              }}
+            >
+              {selection}
+            </Select.Option>
+          ))}
+        </Select>
         </span>
       </Space>
     </ConfigProvider>

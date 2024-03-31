@@ -48,7 +48,10 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const [topK, setTopK] = useState("-1")
   const [chartType, setChartType] = useState("")
   const [params4BackEnd, setParams4BackEnd] = useState({}) // 这样，在InsightCard中修改params4BackEnd才能传下去
-  const [flag, setFlag] = useState(0)
+  const [flag1, setFlag1] = useState(0)
+  const [flag2, setFlag2] = useState(0)
+  // console.log("111", systemSetting.resetDataset)
+  // console.log("222", drillDownGroup)
   // let params4BackEnd = {} // 把参数打包起来
   const paramsFuncs4BackEnd = {
     setTimeSelection,
@@ -57,17 +60,16 @@ export const InsightCard: React.FC<InsightCardProps> = ({
     setTimeSegmentationCondition,
     setTopK,
   }
-  // console.log("systemSetting.resetDataset", systemSetting.resetDataset) /
+  // console.log("systemSetting.resetDataset", systemSetting.resetDataset)
+  // console.log("检查初始化的参数1", params4BackEnd)
   useEffect(() => {
-    setFlag(0)
+    setFlag1(0)
   }, [systemSetting.resetDataset])
-  // let flag = 0
+  // let flag1 = 0
   useEffect(() => {
-    // console.log("flagflagflagflagflagflagflagflag", flag)
+    // console.log("flagflagflagflagflagflagflagflag", flag1)
     // 从paragraph中找到类型为'configuration'的对象，对当前状态进行初始化
-    if (flag === 0) {
-      setFlag(1)
-
+    if (flag1 === 0) {
       const configuration = paragraph.find((p) => p.type === "configuration")
 
       if (configuration && "metadata" in configuration) {
@@ -89,12 +91,15 @@ export const InsightCard: React.FC<InsightCardProps> = ({
         if ("topK" in configuration.metadata) {
           setTopK(configuration.metadata.topK as string)
         }
+        // console.log("检查初始化的参数2", drillDownGroup)
       }
+      // console.log("检查3", drillDownGroup)
+      setFlag1(1)
     }
-  }, [flag, paragraph])
+  }, [flag1, paragraph])
   useEffect(() => {
     // 重新设置了Params4BackEnd
-
+    // console.log("检查4", drillDownGroup)
     // 这个 useEffect 会在 timeSelection 等状态更新后运行
     setParams4BackEnd({
       timeSelection,
@@ -103,6 +108,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       timeSegmentationCondition,
       topK,
     })
+    // setFlag2(1)
     // 假设你需要在这里将 params4BackEnd 发送给后端
   }, [timeSelection, drillDownSelect, drillDownGroup, timeSegmentationCondition, topK])
   //

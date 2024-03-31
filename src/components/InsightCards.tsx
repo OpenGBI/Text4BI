@@ -158,7 +158,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
     })
     .filter((card) => allCards.includes(card.id))
   // console.log("debug-selectedCards", selectedCards)
-  // console.log("Cards", Cards)
+  // console.log("检查Cards", Cards)
   // 这个函数返回当前应用的状态
   const getAppState = () => {
     // 从store获取当前状态

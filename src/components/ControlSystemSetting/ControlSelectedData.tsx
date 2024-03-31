@@ -45,6 +45,39 @@ const ControlSelectedData: React.FC = () => {
     //     selectedCards: selectedCardsId,
     //   }),
     // )
+    // const curSelectedData = systemSetting.datasetId
+    // fetch("http://localhost:5000/".concat(curSelectedData).concat("/").concat(curChartType), {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     chartType,
+    //     timeSelection: curParams.timeSelection,
+    //     drillDownSelect: curParams.drillDownSelect,
+    //     drillDownGroup: curParams.drillDownGroup,
+    //     timeSegmentationCondition: curParams.timeSegmentationCondition,
+    //     topK: curParams.topK,
+    //   }), // 将name参数转换为JSON字符串
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     paramsFuncs4BackEnd.setTimeSelection(curParams.timeSelection as string[])
+    //     paramsFuncs4BackEnd.setDrillDownSelect(curParams.drillDownSelect as string)
+    //     paramsFuncs4BackEnd.setDrillDownGroup(curParams.drillDownGroup as string)
+    //     paramsFuncs4BackEnd.setTimeSegmentationCondition(
+    //       curParams.timeSegmentationCondition as string,
+    //     )
+    //     paramsFuncs4BackEnd.setTopK(curParams.topK as string)
+
+    //     dispatch(
+    //       ChangeSystemSetting({
+    //         ...systemSetting,
+    //         dataset: data,
+    //       }),
+    //     )
+    //   })
+    //   .catch((error) => console.error("Error:", error))
   }
   useEffect(() => {
     // console.log('selectedDataset', selectedDataset)

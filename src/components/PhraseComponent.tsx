@@ -18,6 +18,7 @@ import {
   GlobalSettingStateType,
   entityIconType,
   Metadata4Configuration,
+  systemStateType,
 } from "../types"
 import {
   renderAssociation1,
@@ -182,6 +183,9 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     backgroundColorButtonClick,
     contourButtonClick,
   } = useSelector((state: AppState) => state.typographySetting)
+  const systemSetting: systemStateType = useSelector((state: AppState) => state.system)
+  // console.log("111", systemSetting.resetDataset)
+  // console.log("222", paramsFuncs4BackEnd)
   const shouldShowSparkLine = showSparkLine && showWordScaleChartsOn
   // console.log("检查shouldShowSparkLine", shouldShowSparkLine)
   const distributionTypeOn1 = distributionType === "a"

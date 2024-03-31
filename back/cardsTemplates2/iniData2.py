@@ -147,7 +147,7 @@ iniData2 = [
           { "type": "text", "value": " by " },
           {
             "type": "entity",
-            "value": "Browsing Frequency",
+            "value": "Purchase Frequency",
             "metadata": {
               "entityType": "filter_cate",
               "selections": ["Purchase Frequency", "Browsing Frequency"],

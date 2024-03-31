@@ -13,12 +13,13 @@ def changeProportion2(drillDownGroup):
     # grouped_by_country['Proportion'] = (grouped_by_country['Sales'] / total_sales).round(4)
     # data_export = [{"category": row[drillDownGroup], "value": row.Proportion} for _, row in grouped_by_country.iterrows()][:10]
 
-
-    if(drillDownGroup=="gender"):
+    data_export = None
+    print(drillDownGroup)
+    if(drillDownGroup=="Gender"):
         data_export=ProportionData11["data"]
-    if(drillDownGroup=="product"):
+    if(drillDownGroup=="Product"):
         data_export=ProportionData22["data"]
-    if(drillDownGroup=="improvement areas"):
+    if(drillDownGroup=="Improvement Areas"):
         data_export=ProportionData33["data"]
 
     # 组合最终的JSON对象

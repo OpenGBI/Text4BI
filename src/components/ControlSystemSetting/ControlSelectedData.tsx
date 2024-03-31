@@ -65,12 +65,12 @@ const ControlSelectedData: React.FC = () => {
     <Space wrap>
       <Select
         defaultValue="Data1"
-        style={{ width: 120 }}
+        style={{ width: 220 }}
         onChange={handleChangeDataset}
         options={[
-          { value: "Data1", label: "Data1" },
-          { value: "Data2", label: "Data2" },
-          { value: "Data3", label: "Data3" },
+          { value: "Data1", label: "Product Sales" },
+          { value: "Data2", label: "Shopping Experience" },
+          { value: "Data3", label: "Offline Store Performance" },
         ]}
       />
     </Space>

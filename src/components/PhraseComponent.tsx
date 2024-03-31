@@ -142,7 +142,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   const { selectedEntityType, newEntitySelect } = useSelector(
     (state: AppState) => state.typographySetting,
   )
-  console.log("debug-selectedEntityType", selectedEntityType)
+  // console.log("debug-selectedEntityType", selectedEntityType)
   const { entityIcon, absoluteIcon } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
@@ -174,6 +174,14 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     graphicsAnomaly,
     isSemanticDrivenIconsOn,
   } = useSelector((state: AppState) => state.wordScaleGraphicsSetting)
+  const {
+    boldnessButtonClick,
+    italicsButtonClick,
+    underlineButtonClick,
+    colorButtonClick,
+    backgroundColorButtonClick,
+    contourButtonClick,
+  } = useSelector((state: AppState) => state.typographySetting)
   const shouldShowSparkLine = showSparkLine && showWordScaleChartsOn
   // console.log("检查shouldShowSparkLine", shouldShowSparkLine)
   const distributionTypeOn1 = distributionType === "a"
@@ -220,7 +228,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     Association: 4,
     "Temporal Trend": 5,
     "Temporal Anomaly": 6,
-    "Temporal Periodicity": 7,
+    "Temporal Seasonality": 7,
   }
   const sparkLineRef = useRef<HTMLSpanElement | null>(null)
   // const noneDataIconRef = useRef<HTMLSpanElement | null>(null)
@@ -290,7 +298,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
   // 针对 boldness 的 useEffect
   useEffect(() => {
     const newFontWeight = boldness ? "bold" : "normal"
-    console.log("debugboldness", newFontWeight)
+    // console.log("debugboldness", newFontWeight)
     if (
       currentStyles[selectedEntityType]?.fontWeight !== newFontWeight &&
       newEntitySelect === "boldness"
@@ -303,11 +311,11 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, boldness])
+  }, [selectedEntityType, boldnessButtonClick])
 
   // 针对 underline 的 useEffect
   useEffect(() => {
-    const newTextDecoration = underline ? "underline dashed" : "none"
+    const newTextDecoration = underline ? "underline" : "none"
     if (
       currentStyles[selectedEntityType]?.textDecoration !== newTextDecoration &&
       newEntitySelect === "underline"
@@ -320,7 +328,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, underline])
+  }, [selectedEntityType, underlineButtonClick])
 
   // 针对 italics 的 useEffect
   useEffect(() => {
@@ -337,7 +345,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, italics])
+  }, [selectedEntityType, italicsButtonClick])
 
   // 针对 contour 的 useEffect
   useEffect(() => {
@@ -351,7 +359,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, contour])
+  }, [selectedEntityType, contourButtonClick])
 
   // 针对 color 的 useEffect
   useEffect(() => {
@@ -364,7 +372,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, color])
+  }, [selectedEntityType, colorButtonClick])
 
   // 针对 backgroundColor 的 useEffect
   useEffect(() => {
@@ -380,10 +388,10 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
         },
       }))
     }
-  }, [selectedEntityType, backgroundColor])
+  }, [selectedEntityType, backgroundColorButtonClick])
   // 针对 underline 的 useEffect
   // useEffect(() => {
-  //   const newUnderline = underline ? "underline dashed" : "none"
+  //   const newUnderline = underline ? "underline" : "none"
   //   if (
   //     currentStyles[selectedEntityType]?.underline !== newUnderline &&
   //     newEntitySelect === "underline"
@@ -452,7 +460,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
     }
 
     if (curMetadata.entityType === "binary_value_positive") {
-      console.log("debug-setCurrentStyles", currentStyles)
+      // console.log("debug-setCurrentStyles", currentStyles)
     }
 
     return (

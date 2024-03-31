@@ -49,7 +49,7 @@ export const iniData: Card[] = [
           { type: "text", value: ", total " },
           {
             type: "entity",
-            value: "profit ",
+            value: "Profit ",
             metadata: { entityType: "metric_names", interactionType: "y-axis" },
           },
           {
@@ -63,17 +63,18 @@ export const iniData: Card[] = [
             value: "23.49% ",
             metadata: { entityType: "binary_value_positive", assessment: "positive" },
           },
+          { type: "text", value: " (" },
           {
             type: "entity",
-            value: "(248940.81 → 307415) ",
+            value: "248940.81 → 307415",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "TemporalDifference",
               detail: DifferenceData.data,
               tagData: DifferenceData.tagData,
             },
           },
-          { type: "text", value: "from " },
+          { type: "text", value: ") from " },
           {
             type: "entity",
             value: "2011-01-01",
@@ -138,7 +139,7 @@ export const iniData: Card[] = [
           { type: "text", value: "When looking at " },
           {
             type: "entity",
-            value: "sales",
+            value: "Sales",
             metadata: { entityType: "metric_names", interactionType: "y-axis" },
           },
           { type: "text", value: " by " },
@@ -429,7 +430,7 @@ export const iniData: Card[] = [
           },
           {
             type: "entity",
-            value: "sales",
+            value: "Sales",
             metadata: { entityType: "metric_names" },
           },
           {
@@ -723,7 +724,6 @@ export const iniData: Card[] = [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
-
       {
         type: "bullet",
         phrases: [
@@ -740,7 +740,7 @@ export const iniData: Card[] = [
             value: "24402.4 ",
             metadata: { entityType: "metric_value", origin: 14453.23, interactionType: "ByValue" },
           },
-          { type: "text", value: "exceeding the baseline " },
+          { type: "text", value: ", exceeding the baseline " },
           {
             type: "entity",
             value: "15841.02.",
@@ -770,7 +770,7 @@ export const iniData: Card[] = [
             value: "17181.19 ",
             metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
-          { type: "text", value: "exceeding the baseline " },
+          { type: "text", value: ", exceeding the baseline " },
           {
             type: "entity",
             value: "12185.85.",
@@ -800,7 +800,7 @@ export const iniData: Card[] = [
             value: "19275.09 ",
             metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
-          { type: "text", value: "exceeding the baseline " },
+          { type: "text", value: ", exceeding the baseline " },
           {
             type: "entity",
             value: "11949.59.",
@@ -838,8 +838,8 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "Temporal Periodicity" },
-          { type: "text", value: " Periodicity of " },
+          { type: "CardTitle", value: "Temporal Seasonality" },
+          { type: "text", value: " Seasonality of " },
           {
             type: "entity",
             value: "Sales",

@@ -42,7 +42,7 @@ const options1 = [
   { value: COLOR_PALETTE[3], label: "Proportion of Sales by Country", cardid: "Card3" },
   { value: COLOR_PALETTE[5], label: "Trend of Sales", cardid: "Card4" },
   { value: COLOR_PALETTE[6], label: "Anomaly Detection of Sales", cardid: "Card5" },
-  { value: COLOR_PALETTE[7], label: "Periodicity of Sales", cardid: "Card6" },
+  { value: COLOR_PALETTE[7], label: "Seasonality of Sales", cardid: "Card6" },
   { value: COLOR_PALETTE[4], label: "Association between Sales and Profit", cardid: "Card7" },
   { value: COLOR_PALETTE[0], label: "Distribution of Sales", cardid: "Card8" },
 ]
@@ -180,7 +180,7 @@ const ControlSelectedInsights: React.FC = () => {
   }
 
   return (
-    <Space style={{ width: "85%" }} direction="vertical">
+    <Space style={{ width: "85%", height: "100%" }} direction="vertical">
       {" "}
       {/* 设置外部容器的固定宽度 */}
       <Select

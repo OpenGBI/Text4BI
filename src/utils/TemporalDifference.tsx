@@ -30,7 +30,7 @@ const Difference: React.FC<DifferenceProps> = ({
   const interactiveRef = React.useRef<Chart | null>(null)
 
   const handleHover = (messageB2S: number) => {
-    console.log("啊啊啊啊啊啊啊,handlehover")
+    // console.log("啊啊啊啊啊啊啊,handlehover")
     const highlightMessage: highLightMessage = {
       hoverOrNot: true,
       message: parseFloat(messageB2S.toFixed(2)),
@@ -175,13 +175,13 @@ const Difference: React.FC<DifferenceProps> = ({
       })
   }, [iniData])
   React.useEffect(() => {
-    console.log("debug-data-value", interactionType, message)
+    // console.log("debug-data-value", interactionType, message)
 
     if (message === undefined) {
       return
     }
     if (interactionType === "ByValue") {
-      console.log("debug-data-value", message)
+      // console.log("debug-data-value", message)
       d3.select(containerRef.current).selectAll(".bar").style("opacity", 0.3)
 
       // 然后找到与message相等的点，将其透明度设置为1

@@ -103,7 +103,7 @@ function MainApp() {
         {/* 将Header放在外层Layout中，并调整样式 */}
         <Header
           className="header"
-          style={{ background: "#fff", padding: "0", lineHeight: "inherit", height: "50px" }}
+          style={{ background: "#fff", padding: "0", lineHeight: "inherit", height: "60px" }}
         >
           {/* h1的外边距设置为0，并对齐到左边 */}
           <h1
@@ -112,7 +112,8 @@ function MainApp() {
               color: "#035c94",
               textAlign: "left",
               paddingLeft: "14px",
-              paddingTop: "10px",
+              paddingTop: "15px",
+              fontFamily: "\"Montserrat\", sans-serif", // 这里增加了font-family属性
             }}
           >
             Text4BI Prototype System
@@ -138,7 +139,7 @@ function MainApp() {
                 {/* <Container /> */}
               </Content>
               <Sider width={140} style={rightSiderStyle}>
-                <Content>
+                <Content style={{ paddingTop: "10px", paddingLeft: "-10px" }}>
                   <Navigation navigationClick={navigationClick} CardsIDs={CardsIDs} />
                 </Content>
               </Sider>

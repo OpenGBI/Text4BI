@@ -19,13 +19,13 @@ const ImportBar: React.FC = () => (
       <Col span={4} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
         Select Data
       </Col>
-      <Col span={5} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Col span={7} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <ControlSelectedData />
       </Col>
-      <Col span={4} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
+      <Col span={3} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
         Select Insights
       </Col>
-      <Col span={11} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Col span={10} style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "6px" }}>
         <ControlSelectedInsights />
       </Col>
     </Row>

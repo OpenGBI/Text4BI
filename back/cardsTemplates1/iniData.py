@@ -49,7 +49,7 @@ iniData = [
           { "type": "text", "value": ", total " },
           {
             "type": "entity",
-            "value": "profit ",
+            "value": "Profit ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           {
@@ -63,17 +63,18 @@ iniData = [
             "value": "23.49% ",
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
+          { "type": "text", "value": " (" },
           {
             "type": "entity",
-            "value": "(248940.81 → 307415) ",
+            "value": "248940.81 → 307415",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalDifference",
               "detail": DifferenceData["data"],
               "tagData": DifferenceData["tagData"],
             },
           },
-          { "type": "text", "value": "from " },
+          { "type": "text", "value": ") from " },
           {
             "type": "entity",
             "value": "2011-01-01",
@@ -138,7 +139,7 @@ iniData = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -407,7 +408,7 @@ iniData = [
           },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -505,7 +506,7 @@ iniData = [
           { "type": "text", "value": "Trend of " },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -595,8 +596,8 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalTrend",
         "metadata": {
-            "x": "Year",
-          "y": "Profit",
+            "x": "Date",
+          "y": "Sales",
           "detail": TrendData["data"]+ TrendData["predictData"] ,
           "tagData": TrendData["tagData"] ,
         },
@@ -678,7 +679,6 @@ iniData = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
-
       {
         "type": "bullet",
         "phrases": [
@@ -778,8 +778,8 @@ iniData = [
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardTitle", "value": "Temporal Periodicity" },
-          { "type": "text", "value": " Periodicity of " },
+          { "type": "CardTitle", "value": "Temporal Seasonality" },
+          { "type": "text", "value": " Seasonality of " },
           {
             "type": "entity",
             "value": "Sales",

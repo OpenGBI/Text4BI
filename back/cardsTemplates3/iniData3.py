@@ -46,7 +46,7 @@ iniData3 = [
           { "type": "text", "value": ", total " },
           {
             "type": "entity",
-            "value": "profit ",
+            "value": "Sales of Shopping Mall 1 ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           {
@@ -60,17 +60,18 @@ iniData3 = [
             "value": "121.83% ",
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
+          { "type": "text", "value": " (" },          
           {
             "type": "entity",
-            "value": "(1418042 → 1727563.46) ",
+            "value": "1418042 → 1727563.46",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalDifference",
               "detail": DifferenceData["data"],
               "tagData": DifferenceData["tagData"],
             },
           },
-          { "type": "text", "value": "from " },
+          { "type": "text", "value": ") from " },
           {
             "type": "entity",
             "value": "2011-01-01",
@@ -85,13 +86,12 @@ iniData3 = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
-
       {
         "type": "plot",
         "chartType": "TemporalDifference",
         "metadata": {
             "x":"Year",
-            "y":"Profit",
+            "y":"Sales of Shopping Mall 1",
           "detail": DifferenceData["data"],
           "tagData": DifferenceData["tagData"],
         },
@@ -135,7 +135,7 @@ iniData3 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "sales of shopping mall 5 ",
+            "value": "Sales of Shopping Mall 5 ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -354,8 +354,8 @@ iniData3 = [
         "type": "plot",
         "chartType": "Categorization",
         "metadata": {
-            "x":"Shopping Satisfaction",
-            "y":"Browsing Frequency",
+            "x":"Temperature",
+            "y":"Sales of Shopping Mall 5",
           "detail": Category11["data"],
         },
       },
@@ -363,7 +363,7 @@ iniData3 = [
         "type": "configuration",
         "chartType": "Categorization",
         "metadata": {
-          "drillDownGroup": "Purchase Frequency",
+          "drillDownGroup": "Temperature",
           "topK": "3",
         },
       },
@@ -413,7 +413,7 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": "sales of store",
+            "value": "Sales of Store",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -422,10 +422,10 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": "shopping mall 1",
+            "value": "Shopping Mall 1",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["shopping mall 1", "shopping mall 2", "shopping mall 3", "shopping mall 4"],
+              "selections": ["Shopping Mall 1", "Shopping Mall 2", "Shopping Mall 3", "Shopping Mall 4"],
               "backEndType": "drillDownGroup",
             },
           },
@@ -604,7 +604,7 @@ iniData3 = [
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "sales of shopping mall 1.",
+            "value": "Sales of Shopping Mall 1.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -714,7 +714,7 @@ iniData3 = [
           { "type": "text", "value": ", the coefficient between " },
           {
             "type": "entity",
-            "value": "unemployment",
+            "value": "Unemployment",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
@@ -815,7 +815,7 @@ iniData3 = [
           },
           {
             "type": "entity",
-            "value": " sales of shopping mall 1 ",
+            "value": " Sales of Shopping Mall 1 ",
             "metadata": { "entityType": "metric_names" },
           },
           {

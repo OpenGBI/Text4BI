@@ -669,7 +669,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             marginTop: "12px", // 可根据需要调整上边距
             marginBottom: "12px", // 可根据需要调整下边距
             marginLeft: "12px", // 可根据需要调整左边距
-            marginRight: "20px", // 可根据需要调整右边距
+            marginRight: "12px", // 可根据需要调整右边距
           }}
         >
           <div style={{ flex: 1 }}>
@@ -728,7 +728,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             marginTop: "12px", // 可根据需要调整上边距
             marginBottom: "12px", // 可根据需要调整下边距
             marginLeft: "12px", // 可根据需要调整左边距
-            marginRight: "20px", // 可根据需要调整右边距
+            marginRight: "12px", // 可根据需要调整右边距
           }}
         >
           {/* 渲染文本 */}
@@ -807,7 +807,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 10,
             right: 60,
-            display: "none",
+            display: showButtons && setShowExportButton ? "block" : "none",
           }}
         >
           <CopyOutlined
@@ -826,7 +826,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
             position: "absolute",
             top: 9,
             right: 30,
-            display: "none",
+            display: showButtons && setShowExportButton ? "block" : "none",
           }}
         />
       </Tooltip>

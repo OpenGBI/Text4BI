@@ -393,7 +393,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
           <div
             style={{
               position: "absolute",
-              top: 65,
+              top: 75,
               right: 200,
               display: showButtons ? "block" : "none",
             }}
@@ -405,7 +405,7 @@ const InsightCards: React.FC<InsightCardsProps> = ({ cardRefs, cardsExchange }) 
           </div>
         </Tooltip>
         <Tooltip title="Export This Card">
-          <div style={{ position: "absolute", top: 64, right: 170 }}>
+          <div style={{ position: "absolute", top: 73, right: 170 }}>
             <ShareSvg
               onClick={showModal}
               style={{

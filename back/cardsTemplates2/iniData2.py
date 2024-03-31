@@ -13,10 +13,16 @@ iniData2 = [
         "type": "topic",
         "phrases": [
           { "type": "CardTitle", "value": "Difference" },
-          { "type": "text", "value": " Difference of Total " },
+          { "type": "text", "value": " Difference of " },
           {
             "type": "entity",
             "value": "Shopping Satisfaction",
+            "metadata": { "entityType": "metric_names" },
+          },
+          { "type": "text", "value": " by" },
+          {
+            "type": "entity",
+            "value": "Gender",
             "metadata": { "entityType": "metric_names" },
           },
         ],
@@ -40,7 +46,7 @@ iniData2 = [
           { "type": "text", "value": "At a " },
           {
             "type": "entity",
-            "value": "shopping satisfaction ",
+            "value": "Shopping Satisfaction ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": "level of " },
@@ -58,12 +64,12 @@ iniData2 = [
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
           { "type": "text", "value": " higher than that of men " },
-
+          { "type": "text", "value": "(" },
           {
             "type": "entity",
-            "value": "(34 → 66) ",
+            "value": "34 → 66",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalDifference",
               "detail": DifferenceData["data"],
               "tagData": DifferenceData["tagData"],
@@ -82,6 +88,7 @@ iniData2 = [
           #   "metadata": { "entityType": "filter_time", "selections": ["2011-12-31"], "paramIndex": 1 },
           # },
           # { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+          { "type": "text", "value": ")" },
         ],
       },
 
@@ -134,7 +141,7 @@ iniData2 = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "Shopping Satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -353,8 +360,8 @@ iniData2 = [
         "type": "plot",
         "chartType": "Categorization",
         "metadata": {
-            "x":"Shopping Satisfaction",
-            "y":"Browsing Frequency",
+            "x":"Browsing Frequency",
+            "y":"Shopping Satisfaction",
           "detail": Category11["data"],
         },
       },
@@ -362,7 +369,7 @@ iniData2 = [
         "type": "configuration",
         "chartType": "Categorization",
         "metadata": {
-          "drillDownGroup": "Purchase Frequency",
+          "drillDownGroup": "Browsing Frequency",
           "topK": "3",
         },
       },
@@ -412,7 +419,7 @@ iniData2 = [
           },
           {
             "type": "entity",
-            "value": "good shopping satisfaction",
+            "value": "Good Shopping Satisfaction",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -421,10 +428,10 @@ iniData2 = [
           },
           {
             "type": "entity",
-            "value": "gender",
+            "value": "Gender",
             "metadata": {
               "entityType": "filter_cate",
-              "selections": ["gender", "product", "improvement areas"],
+              "selections": ["Gender", "Product", "Improvement Areas"],
               "backEndType": "drillDownGroup",
             },
           },
@@ -520,7 +527,7 @@ iniData2 = [
         "type": "configuration",
         "chartType": "Proportion",
         "metadata": {
-          "drillDownGroup": "gender",
+          "drillDownGroup": "Gender",
         },
       },
     ],
@@ -571,7 +578,7 @@ iniData2 = [
           { "type": "text", "value": " trend in " },
           {
             "type": "entity",
-            "value": "purchase frequency.",
+            "value": "Purchase Frequency.",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -681,13 +688,13 @@ iniData2 = [
           { "type": "text", "value": ", the coefficient between " },
           {
             "type": "entity",
-            "value": "shopping satisfaction",
+            "value": "Shopping Satisfaction",
             "metadata": { "entityType": "metric_names", "interactionType": "x-axis" },
           },
           { "type": "text", "value": " and " },
           {
             "type": "entity",
-            "value": "personalized recommendation frequency",
+            "value": "Personalized Recommendation Frequency",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " equals " },

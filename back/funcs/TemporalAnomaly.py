@@ -64,7 +64,7 @@ def changeTemporalAnomaly(timeSegmentationCondition):
             continue
         topics[i]['show']="yes"
         # print(topics[i])
-        topics[i]["phrases"][1]["value"]=abnormal_data[i]["date"]
+        topics[i]["phrases"][1]["value"]=abnormal_data[i]["date"]+", "
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'metric_value':
                 phrase["value"]=str(round(abnormal_data[i]["value"],2))
@@ -72,7 +72,7 @@ def changeTemporalAnomaly(timeSegmentationCondition):
                 break
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
-                phrase["value"]=str(round(abnormal_data[i]["value"]-abnormal_data[i]["predict"],2))
+                phrase["value"]=str(round(abnormal_data[i]["value"]-abnormal_data[i]["predict"],2))+"."
                 phrase["metadata"]["origin"]=round(abnormal_data[i]["value"]-abnormal_data[i]["predict"],2)
                 break
     # print("****************************************************target2****************************************************")

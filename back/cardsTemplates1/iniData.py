@@ -698,7 +698,7 @@ iniData = [
           { "type": "text", "value": " exceeding the baseline " },
           {
             "type": "entity",
-            "value": "15841.02",
+            "value": "15841.02.",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6235.21, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -723,7 +723,7 @@ iniData = [
           { "type": "text", "value": " exceeding the baseline " },
           {
             "type": "entity",
-            "value": "12185.85",
+            "value": "12185.85.",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 4995.34, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -748,7 +748,7 @@ iniData = [
           { "type": "text", "value": " exceeding the baseline " },
           {
             "type": "entity",
-            "value": "11949.59",
+            "value": "11949.59.",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },

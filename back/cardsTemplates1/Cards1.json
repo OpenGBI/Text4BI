@@ -31878,11 +31878,11 @@
         "phrases": [
           {
             "type": "CardTitle",
-            "value": "Temporal Periodicity"
+            "value": "Temporal Seasonality"
           },
           {
             "type": "text",
-            "value": " Periodicity of "
+            "value": " Seasonality of "
           },
           {
             "type": "entity",
@@ -35203,7 +35203,7 @@
           },
           {
             "type": "entity",
-            "value": "profit ",
+            "value": "Profit ",
             "metadata": {
               "entityType": "metric_names"
             }

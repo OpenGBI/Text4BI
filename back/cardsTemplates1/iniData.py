@@ -49,7 +49,7 @@ iniData = [
           { "type": "text", "value": ", total " },
           {
             "type": "entity",
-            "value": "profit ",
+            "value": "Profit ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           {
@@ -63,17 +63,18 @@ iniData = [
             "value": "23.49% ",
             "metadata": { "entityType": "binary_value_positive", "assessment": "positive" },
           },
+          { "type": "text", "value": " (" },
           {
             "type": "entity",
-            "value": "(248940.81 → 307415) ",
+            "value": "248940.81 → 307415",
             "metadata": {
-              "entityType": "insight",
+              "entityType": "metric_value",
               "insightType": "TemporalDifference",
               "detail": DifferenceData["data"],
               "tagData": DifferenceData["tagData"],
             },
           },
-          { "type": "text", "value": "from " },
+          { "type": "text", "value": ") from " },
           {
             "type": "entity",
             "value": "2011-01-01",
@@ -138,7 +139,7 @@ iniData = [
           { "type": "text", "value": "When looking at " },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           { "type": "text", "value": " by " },
@@ -407,7 +408,7 @@ iniData = [
           },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names" },
           },
           {
@@ -505,7 +506,7 @@ iniData = [
           { "type": "text", "value": "Trend of " },
           {
             "type": "entity",
-            "value": "sales",
+            "value": "Sales",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
         ],
@@ -578,7 +579,7 @@ iniData = [
             "value": "11219.24 ",
             "metadata": { "entityType": "metric_value", "origin": 11219.24, "interactionType": "ByValue" },
           },
-          { "type": "text", "value": "until " },
+          { "type": "text", "value": " until " },
           {
             "type": "entity",
             "value": "January 10, 2012",
@@ -595,8 +596,8 @@ iniData = [
         "type": "plot",
         "chartType": "TemporalTrend",
         "metadata": {
-            "x": "Year",
-          "y": "Profit",
+            "x": "Date",
+          "y": "Sales",
           "detail": TrendData["data"]+ TrendData["predictData"] ,
           "tagData": TrendData["tagData"] ,
         },
@@ -630,7 +631,7 @@ iniData = [
         "type": "normal",
         "phrases": [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": "According to the " },
+          { "type": "text", "value": "According to " },
           {
             "type": "entity",
             "value": "Confidence interval method ",
@@ -665,38 +666,16 @@ iniData = [
               "detail": AnomalyData["data"],
             },
           },
-          { "type": "text", "value": " 2 seasons are identified, and the average period is " },
-          {
-            "type": "entity",
-            "value": "365 ",
-            "metadata": { "entityType": "metric_value", "origin": 365 },
-          },
-          { "type": "text", "value": "days. " },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "bullet",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": " 2011-10-06, " },
-          {
-            "type": "entity",
-            "value": "Sales",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-          { "type": "text", "value": " = " },
-          {
-            "type": "entity",
-            "value": "17289.69 ",
-            "metadata": { "entityType": "metric_value", "origin": 17289.69, "interactionType": "ByValue" },
-          },
-          { "type": "text", "value": "exceeding the baseline " },
-          {
-            "type": "entity",
-            "value": "6732.64",
-            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
-          },
+          { "type": "text", "value": ".  Here are " },
+          { "type": "text", "value": "3" },
+          { "type": "text", "value": " of them: " },
+          # { "type": "text", "value": " 2 seasons are identified, and the average period is " },
+          # {
+          #   "type": "entity",
+          #   "value": "365 ",
+          #   "metadata": { "entityType": "metric_value", "origin": 365 },
+          # },
+          # { "type": "text", "value": "days. " },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
@@ -713,13 +692,13 @@ iniData = [
           { "type": "text", "value": " = " },
           {
             "type": "entity",
-            "value": "14453.23 ",
+            "value": "24402.4 ",
             "metadata": { "entityType": "metric_value", "origin": 14453.23, "interactionType": "ByValue" },
           },
-          { "type": "text", "value": "exceeding the baseline " },
+          { "type": "text", "value": " exceeding the baseline " },
           {
             "type": "entity",
-            "value": "6235.21",
+            "value": "15841.02",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6235.21, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
@@ -738,14 +717,39 @@ iniData = [
           { "type": "text", "value": " = " },
           {
             "type": "entity",
-            "value": "17289.69 ",
+            "value": "17181.19 ",
             "metadata": { "entityType": "metric_value", "origin": 17289.69, "interactionType": "ByValue" },
           },
-          { "type": "text", "value": "exceeding the baseline " },
+          { "type": "text", "value": " exceeding the baseline " },
           {
             "type": "entity",
-            "value": "4995.34.",
+            "value": "12185.85",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 4995.34, "interactionType": "ByValue" },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": " 2011-10-06, " },
+          {
+            "type": "entity",
+            "value": "Sales",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+          { "type": "text", "value": " = " },
+          {
+            "type": "entity",
+            "value": "19275.09 ",
+            "metadata": { "entityType": "metric_value", "origin": 17289.69, "interactionType": "ByValue" },
+          },
+          { "type": "text", "value": " exceeding the baseline " },
+          {
+            "type": "entity",
+            "value": "11949.59",
+            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
@@ -774,8 +778,8 @@ iniData = [
       {
         "type": "topic",
         "phrases": [
-          { "type": "CardTitle", "value": "Temporal Periodicity" },
-          { "type": "text", "value": " Periodicity of " },
+          { "type": "CardTitle", "value": "Temporal Seasonality" },
+          { "type": "text", "value": " Seasonality of " },
           {
             "type": "entity",
             "value": "Sales",
@@ -838,7 +842,7 @@ iniData = [
               "tagData": PeriodicityData["tagData"],
             },
           },
-          { "type": "text", "value": " are identified, and the average period is " },
+          { "type": "text", "value": " are identified, with an average cycle length of " },
           {
             "type": "entity",
             "value": "365 ",
@@ -1091,7 +1095,7 @@ iniData = [
           },
           {
             "type": "text",
-            "value": "Most data points lie in the range of ",
+            "value": ". Most data points lie in the range of ",
           },
           {
             "type": "entity",
@@ -1109,7 +1113,7 @@ iniData = [
           },
           {
             "type": "text",
-            "value": ", ",
+            "value": ". ",
           },
           {
             "type": "entity",

@@ -68,9 +68,9 @@ const ControlSelectedData: React.FC = () => {
         style={{ width: 220 }}
         onChange={handleChangeDataset}
         options={[
-          { value: "Data1", label: "Product sales" },
-          { value: "Data2", label: "Shopping experience" },
-          { value: "Data3", label: "Offline store performance" },
+          { value: "Data1", label: "Product Sales" },
+          { value: "Data2", label: "Shopping Experience" },
+          { value: "Data3", label: "Offline Store Performance" },
         ]}
       />
     </Space>

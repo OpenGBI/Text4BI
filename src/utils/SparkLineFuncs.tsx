@@ -2795,6 +2795,7 @@ export const renderTemporalityDifference1 = (
         if (highlightMessageB2S.message === "") {
           return "1"
         }
+
         // 如果message不为空，并且柱子的数据等于messageValue，透明度设为1，否则为0.6
         return d === highlightMessageB2S.message ? "1" : "0.6"
       })
@@ -3017,7 +3018,7 @@ export const renderTemporalityDifference2 = (
       .attr("height", (d) => height - yScale(minValue))
       .attr("fill", "#4474cc")
       .on("mouseenter", (event, d) => {
-        handleHoverThrottled(data[maxValueIndex])
+        handleHoverThrottled(data[d])
         svgD3
           .selectAll("rect")
           .transition()

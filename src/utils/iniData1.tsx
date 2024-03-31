@@ -49,7 +49,7 @@ export const iniData: Card[] = [
           { type: "text", value: ", total " },
           {
             type: "entity",
-            value: "profit ",
+            value: "Profit ",
             metadata: { entityType: "metric_names", interactionType: "y-axis" },
           },
           {
@@ -63,17 +63,18 @@ export const iniData: Card[] = [
             value: "23.49% ",
             metadata: { entityType: "binary_value_positive", assessment: "positive" },
           },
+          { type: "text", value: " (" },
           {
             type: "entity",
-            value: "(248940.81 → 307415) ",
+            value: "248940.81 → 307415",
             metadata: {
-              entityType: "insight",
+              entityType: "metric_value",
               insightType: "TemporalDifference",
               detail: DifferenceData.data,
               tagData: DifferenceData.tagData,
             },
           },
-          { type: "text", value: "from " },
+          { type: "text", value: ") from " },
           {
             type: "entity",
             value: "2011-01-01",
@@ -138,7 +139,7 @@ export const iniData: Card[] = [
           { type: "text", value: "When looking at " },
           {
             type: "entity",
-            value: "sales",
+            value: "Sales",
             metadata: { entityType: "metric_names", interactionType: "y-axis" },
           },
           { type: "text", value: " by " },
@@ -429,7 +430,7 @@ export const iniData: Card[] = [
           },
           {
             type: "entity",
-            value: "sales",
+            value: "Sales",
             metadata: { entityType: "metric_names" },
           },
           {
@@ -676,7 +677,7 @@ export const iniData: Card[] = [
         type: "normal",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: "According to the " },
+          { type: "text", value: "According to " },
           {
             type: "entity",
             value: "Confidence interval method ",
@@ -711,14 +712,46 @@ export const iniData: Card[] = [
               detail: AnomalyData.data,
             },
           },
-          // { type: "text", value: ". 2 seasons are identified, and the average period is " },
+          { type: "text", value: ".  Here are " },
+          { type: "text", value: "3" },
+          { type: "text", value: " of them: " },
           // {
           //   type: "entity",
           //   value: "365 ",
           //   metadata: { entityType: "metric_value", origin: 365 },
           // },
           // { type: "text", value: "days. " },
-          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: " 2011-11-11, " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_names", interactionType: "y-axis" },
+          },
+          { type: "text", value: " = " },
+          {
+            type: "entity",
+            value: "24402.4 ",
+            metadata: { entityType: "metric_value", origin: 14453.23, interactionType: "ByValue" },
+          },
+          { type: "text", value: ", exceeding the baseline " },
+          {
+            type: "entity",
+            value: "15841.02",
+            metadata: {
+              entityType: "binary_value_positive",
+              assessment: "positive",
+              origin: 6235.21,
+              interactionType: "ByValue",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
       {
@@ -734,77 +767,47 @@ export const iniData: Card[] = [
           { type: "text", value: " = " },
           {
             type: "entity",
-            value: "17289.69 ",
+            value: "17181.19 ",
             metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
           },
-          { type: "text", value: "exceeding the baseline " },
+          { type: "text", value: ", exceeding the baseline " },
           {
             type: "entity",
-            value: "6732.64",
-            metadata: {
-              entityType: "binary_value_positive",
-              assessment: "positive",
-              origin: 6732.64,
-              interactionType: "ByValue",
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-14, " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_names", interactionType: "y-axis" },
-          },
-          { type: "text", value: " = " },
-          {
-            type: "entity",
-            value: "14453.23 ",
-            metadata: { entityType: "metric_value", origin: 14453.23, interactionType: "ByValue" },
-          },
-          { type: "text", value: "exceeding the baseline " },
-          {
-            type: "entity",
-            value: "6235.21",
-            metadata: {
-              entityType: "binary_value_positive",
-              assessment: "positive",
-              origin: 6235.21,
-              interactionType: "ByValue",
-            },
-          },
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
-        ],
-      },
-      {
-        type: "bullet",
-        phrases: [
-          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-27, " },
-          {
-            type: "entity",
-            value: "Sales",
-            metadata: { entityType: "metric_names", interactionType: "y-axis" },
-          },
-          { type: "text", value: " = " },
-          {
-            type: "entity",
-            value: "17289.69 ",
-            metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
-          },
-          { type: "text", value: "exceeding the baseline " },
-          {
-            type: "entity",
-            value: "4995.34.",
+            value: "12185.85",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
               origin: 4995.34,
+              interactionType: "ByValue",
+            },
+          },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+        ],
+      },
+      {
+        type: "bullet",
+        phrases: [
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
+          { type: "text", value: " 2011-11-03, " },
+          {
+            type: "entity",
+            value: "Sales",
+            metadata: { entityType: "metric_names", interactionType: "y-axis" },
+          },
+          { type: "text", value: " = " },
+          {
+            type: "entity",
+            value: "19275.09 ",
+            metadata: { entityType: "metric_value", origin: 17289.69, interactionType: "ByValue" },
+          },
+          { type: "text", value: ", exceeding the baseline " },
+          {
+            type: "entity",
+            value: "11949.59",
+            metadata: {
+              entityType: "binary_value_positive",
+              assessment: "positive",
+              origin: 6732.64,
               interactionType: "ByValue",
             },
           },
@@ -835,8 +838,8 @@ export const iniData: Card[] = [
       {
         type: "topic",
         phrases: [
-          { type: "CardTitle", value: "Temporal Periodicity" },
-          { type: "text", value: " Periodicity of " },
+          { type: "CardTitle", value: "Temporal Seasonality" },
+          { type: "text", value: " Seasonality of " },
           {
             type: "entity",
             value: "Sales",
@@ -890,7 +893,7 @@ export const iniData: Card[] = [
               tagData: PeriodicityData.tagData,
             },
           },
-          { type: "text", value: " are identified, and the average period is " },
+          { type: "text", value: " are identified, with an average cycle length of " },
           {
             type: "entity",
             value: "365 ",
@@ -1171,7 +1174,7 @@ export const iniData: Card[] = [
           },
           {
             type: "text",
-            value: ", ",
+            value: ". ",
           },
           {
             type: "entity",

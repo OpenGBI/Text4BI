@@ -19,6 +19,7 @@ const iniTypographySettingState: typographySettingStateType = {
   contourButtonClick: false,
   colorButtonClick: false,
   backgroundColorButtonClick: false,
+  newEntitySelect: "null",
 }
 
 const TypographySettingReducer = (

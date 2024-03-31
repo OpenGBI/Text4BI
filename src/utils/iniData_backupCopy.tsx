@@ -259,7 +259,7 @@
 //           { type: "text", value: ", total " },
 //           {
 //             type: "entity",
-//             value: "profit ",
+//             value: "Profit ",
 //             metadata: { entityType: "metric_name", interactionType: "y-axis" },
 //           },
 //           {
@@ -1050,8 +1050,8 @@
 //       {
 //         type: "topic",
 //         phrases: [
-//           { type: "CardTitle", value: "Temporal Periodicity" },
-//           { type: "text", value: " Periodicity of " },
+//           { type: "CardTitle", value: "Temporal Seasonality" },
+//           { type: "text", value: " Seasonality of " },
 //           {
 //             type: "entity",
 //             value: "Sales",

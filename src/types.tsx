@@ -178,6 +178,7 @@ export type typographySettingStateType = {
   contourButtonClick: boolean
   colorButtonClick: boolean
   backgroundColorButtonClick: boolean
+  newEntitySelect: string // 标识当前设置的是什么属性，临投稿打补丁
 }
 export type wordScaleGraphicsSettingStateType = {
   showWordScaleChartsOn: boolean

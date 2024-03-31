@@ -33,9 +33,10 @@ def changeTemporalAnomaly(timeSegmentationCondition):
             target=item
             break
     print("****************************************************target1****************************************************")
-    print(abnormal_data)
+    print(sorted(abnormal_data, key=lambda x: x['value'] - x['predict'], reverse=True))
     print("****************************************************target1****************************************************")
     # print(target["paragraph"][0]["phrases"][-1]["value"].split(" ")[:-1].join(" "))
+    abnormal_data = sorted(abnormal_data, key=lambda x: x['value'] - x['predict'], reverse=True)
     #修改大图数据
     target["paragraph"][-2]["metadata"]["detail"]=new_data["data"]
     #修改bullet point
@@ -55,6 +56,7 @@ def changeTemporalAnomaly(timeSegmentationCondition):
                 phrase["metadata"]["origin"]=timeSeg
                 phrase["value"]=str(timeSeg)+" "
                 break
+        topics[0]['phrases'][-3]["value"]=str(min(len(abnormal_data),3))
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'bullet']
     for i in range(0,len(topics)):
         if(i>=len(abnormal_data)):
@@ -70,12 +72,12 @@ def changeTemporalAnomaly(timeSegmentationCondition):
                 break
         for phrase in topics[i]['phrases']:
             if phrase.get('metadata', {}).get('entityType') == 'binary_value_positive':
-                phrase["value"]=str(round(abnormal_data[i]["predict"],2))
-                phrase["metadata"]["origin"]=round(abnormal_data[i]["predict"],2)
+                phrase["value"]=str(round(abnormal_data[i]["value"]-abnormal_data[i]["predict"],2))
+                phrase["metadata"]["origin"]=round(abnormal_data[i]["value"]-abnormal_data[i]["predict"],2)
                 break
-    print("****************************************************target2****************************************************")
-    print(target)
-    print("****************************************************target2****************************************************")
+    # print("****************************************************target2****************************************************")
+    # print(target)
+    # print("****************************************************target2****************************************************")
 
     
     # for item in data:

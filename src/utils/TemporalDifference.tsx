@@ -30,6 +30,7 @@ const Difference: React.FC<DifferenceProps> = ({
   const interactiveRef = React.useRef<Chart | null>(null)
 
   const handleHover = (messageB2S: number) => {
+    // console.log("啊啊啊啊啊啊啊,handlehover")
     const highlightMessage: highLightMessage = {
       hoverOrNot: true,
       message: parseFloat(messageB2S.toFixed(2)),
@@ -54,7 +55,17 @@ const Difference: React.FC<DifferenceProps> = ({
     const margin = { top: 20, right: 30, bottom: 40, left: 90 }
     const width = 600 - margin.left - margin.right
     const height = 400 - margin.top - margin.bottom
-
+    const tooltip = d3
+      .select(container)
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0)
+      .style("position", "absolute")
+      .style("padding", "10px")
+      .style("background", "white")
+      .style("border", "1px solid #ddd")
+      .style("border-radius", "5px")
+      .style("pointer-events", "none")
     const svg = d3
       .select(container)
       .append("svg")
@@ -80,7 +91,8 @@ const Difference: React.FC<DifferenceProps> = ({
       .attr("y", margin.bottom - 10)
       .attr("fill", "black")
       .attr("text-anchor", "middle")
-      .text("Year")
+      // .text("Year")
+      .text(xAxis)
       .style("font-size", "13px") // 增加字号
 
     const y = d3
@@ -98,7 +110,8 @@ const Difference: React.FC<DifferenceProps> = ({
       .attr("x", -height / 2)
       .attr("fill", "black")
       .attr("text-anchor", "middle")
-      .text("Profit")
+      // .text("Profit")
+      .text(yAxis)
       .style("font-size", "12px") // 增加字号
 
     svg
@@ -115,6 +128,8 @@ const Difference: React.FC<DifferenceProps> = ({
       .attr("data-value", (d) => d.value.toFixed(2))
       .on("mouseenter", (event, d) => {
         handleHoverThrottled(parseFloat(d.value.toFixed(2)))
+        tooltip.transition().duration(20).style("opacity", 0.9)
+
         svg
           .selectAll("rect")
           .transition()
@@ -123,23 +138,55 @@ const Difference: React.FC<DifferenceProps> = ({
             return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
           })
       })
+      .on("mousemove", (event, d) => {
+        // handleHoverThrottled(parseFloat(d.value.toFixed(2)))
+        tooltip.transition().duration(20).style("opacity", 0.9)
+        // svg.on("mousemove", (eventNew) => {
+        //   console.log(eventNew.pageX)
+        //   tooltip
+        //     .html(
+        //       // eslint-disable-next-line no-underscore-dangle
+        //       `Category: ${eventNew.target.__data__.category}<br/>Value: ${eventNew.target.__data__.value}`,
+        //     )
+        //     .style("left", `${event.pageX + 10}px`)
+        //     .style("top", `${event.pageY - 28}px`)
+        // })
+        const curD = d3.select(event.currentTarget).datum() as (typeof iniData)[number]
+        svg.on("mousemove", (eventNew) => {
+          const [xx, yy] = d3.pointer(event, container)
+
+          tooltip
+            .html(`Category: ${curD.category}<br/>Value: ${curD.value}`)
+            .style("left", `${xx + 10}px`)
+            .style("top", `${yy + 10}px`)
+        })
+        // svg
+        //   .selectAll("rect")
+        //   .transition()
+        //   .duration(150)
+        //   .style("opacity", function () {
+        //     return this === event.currentTarget ? "1" : "0.618" // 对当前rect保持不变，其他的设置透明度为0.618
+        //   })
+      })
       .on("mouseleave", (event, d) => {
         handleLeave()
+        tooltip.transition().duration(500).style("opacity", 0)
         svg.selectAll("rect").transition().duration(150).style("opacity", "1")
       })
   }, [iniData])
   React.useEffect(() => {
-    console.log("debug-data-value", interactionType, message)
+    // console.log("debug-data-value", interactionType, message)
 
     if (message === undefined) {
       return
     }
     if (interactionType === "ByValue") {
-      console.log("debug-data-value", message)
-      d3.selectAll(".bar").style("opacity", 0.3)
+      // console.log("debug-data-value", message)
+      d3.select(containerRef.current).selectAll(".bar").style("opacity", 0.3)
 
       // 然后找到与message相等的点，将其透明度设置为1
-      d3.selectAll(".bar")
+      d3.select(containerRef.current)
+        .selectAll(".bar")
         .filter(function () {
           return +d3.select(this).attr("data-value") === message
         })
@@ -173,7 +220,7 @@ const Difference: React.FC<DifferenceProps> = ({
     }
     if (!hoverOrNot) {
       // noHighlightElement(interactiveRef.current)
-      d3.select(containerRef.current).selectAll("*").style("opacity", 1)
+      d3.select(containerRef.current).selectAll("*:not(.tooltip)").style("opacity", 1)
     }
   }, [hoverOrNot])
   return <div ref={containerRef} style={{ height: 400, width: 600 }} />

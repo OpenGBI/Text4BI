@@ -251,7 +251,7 @@ data = [
           { "type": "text", "value": ", total " },
           {
             "type": "entity",
-            "value": "profit ",
+            "value": "Profit ",
             "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
           },
           {

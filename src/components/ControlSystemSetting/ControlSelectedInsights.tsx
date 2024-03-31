@@ -180,7 +180,7 @@ const ControlSelectedInsights: React.FC = () => {
   }
 
   return (
-    <Space style={{ width: "85%" }} direction="vertical">
+    <Space style={{ width: "85%", height: "100%" }} direction="vertical">
       {" "}
       {/* 设置外部容器的固定宽度 */}
       <Select

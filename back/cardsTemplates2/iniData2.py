@@ -563,7 +563,7 @@ iniData2 = [
 
           {
             "type": "entity",
-            "value": "increased",
+            "value": "increasing",
             "metadata": {
               "entityType": "binary_value_positive",
               "insightType": "TemporalityTrend",

@@ -30562,7 +30562,7 @@
           },
           {
             "type": "entity",
-            "value": "increased",
+            "value": "increasing",
             "metadata": {
               "entityType": "insight",
               "insightType": "TemporalityTrend",

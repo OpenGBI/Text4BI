@@ -16,16 +16,16 @@ const ImportBar: React.FC = () => (
       style={{ width: "80%", paddingTop: "10px" }}
       align="middle" // 设置Row的align属性为middle来垂直居中子元素
     >
-      <Col span={4} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
+      <Col span={3} className="control-label" style={{ color: "#050404", textAlign: "center", paddingLeft: "10px" }}>
         Select Data
       </Col>
-      <Col span={5} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Col span={8} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <ControlSelectedData />
       </Col>
-      <Col span={4} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
+      <Col span={3} className="control-label" style={{ color: "#050404", textAlign: "center" }}>
         Select Insights
       </Col>
-      <Col span={11} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Col span={10} style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "6px" }}>
         <ControlSelectedInsights />
       </Col>
     </Row>

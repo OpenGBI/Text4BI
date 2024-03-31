@@ -1242,7 +1242,7 @@ const PhraseComponent: React.FC<PhraseComponentProps> = ({
           lineHeight,
           position: "relative",
           // fontWeight: "bold",
-          backgroundColor: "#FFF", // 使用存储的颜色. zyx 标题颜色修改了 3-28
+          backgroundColor: bgColor, // 使用存储的颜色. zyx 标题颜色修改了 3-28
           padding: "5px",
           borderRadius: "5px",
         }}

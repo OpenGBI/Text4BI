@@ -529,7 +529,7 @@ iniData = [
           
           {
             "type": "entity",
-            "value": "increased",
+            "value": "increasing",
             "metadata": {
               "entityType": "binary_value_positive",
               "insightType": "TemporalityTrend",
@@ -572,7 +572,7 @@ iniData = [
               "interactionType": "Temporal Trend Regression",
             },
           },
-          { "type": "text", "value": ". With a predicted value of " },
+          { "type": "text", "value": " with a predicted value of " },
           {
             "type": "entity",
             "value": "11219.24 ",
@@ -675,7 +675,31 @@ iniData = [
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],
       },
-
+      {
+        "type": "bullet",
+        "phrases": [
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
+          { "type": "text", "value": " 2011-10-06, " },
+          {
+            "type": "entity",
+            "value": "Sales",
+            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
+          },
+          { "type": "text", "value": " = " },
+          {
+            "type": "entity",
+            "value": "17289.69 ",
+            "metadata": { "entityType": "metric_value", "origin": 17289.69, "interactionType": "ByValue" },
+          },
+          { "type": "text", "value": "exceeding the baseline " },
+          {
+            "type": "entity",
+            "value": "6732.64",
+            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
+          },
+          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
+        ],
+      },
       {
         "type": "bullet",
         "phrases": [
@@ -722,31 +746,6 @@ iniData = [
             "type": "entity",
             "value": "4995.34.",
             "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 4995.34, "interactionType": "ByValue" },
-          },
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
-        ],
-      },
-      {
-        "type": "bullet",
-        "phrases": [
-          { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceStart" } },
-          { "type": "text", "value": " 2011-10-06, " },
-          {
-            "type": "entity",
-            "value": "Sales",
-            "metadata": { "entityType": "metric_names", "interactionType": "y-axis" },
-          },
-          { "type": "text", "value": " = " },
-          {
-            "type": "entity",
-            "value": "17289.69 ",
-            "metadata": { "entityType": "metric_value", "origin": 17289.69, "interactionType": "ByValue" },
-          },
-          { "type": "text", "value": "exceeding the baseline " },
-          {
-            "type": "entity",
-            "value": "6732.64",
-            "metadata": { "entityType": "binary_value_positive","assessment": "positive", "origin": 6732.64, "interactionType": "ByValue" },
           },
           { "type": "IconPadding", "value": "", "metadata": { "entityType": "sentenceEnd" } },
         ],

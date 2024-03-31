@@ -728,7 +728,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-11-11 " },
+          { type: "text", value: " 2011-11-11, " },
           {
             type: "entity",
             value: "Sales",
@@ -743,7 +743,7 @@ export const iniData: Card[] = [
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "15841.02",
+            value: "15841.02.",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
@@ -758,7 +758,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-06 " },
+          { type: "text", value: " 2011-10-06, " },
           {
             type: "entity",
             value: "Sales",
@@ -773,7 +773,7 @@ export const iniData: Card[] = [
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "12185.85",
+            value: "12185.85.",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",
@@ -788,7 +788,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-11-03 " },
+          { type: "text", value: " 2011-11-03, " },
           {
             type: "entity",
             value: "Sales",
@@ -803,7 +803,7 @@ export const iniData: Card[] = [
           { type: "text", value: "exceeding the baseline " },
           {
             type: "entity",
-            value: "11949.59",
+            value: "11949.59.",
             metadata: {
               entityType: "binary_value_positive",
               assessment: "positive",

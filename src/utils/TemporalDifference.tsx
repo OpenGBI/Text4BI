@@ -91,7 +91,8 @@ const Difference: React.FC<DifferenceProps> = ({
       .attr("y", margin.bottom - 10)
       .attr("fill", "black")
       .attr("text-anchor", "middle")
-      .text("Year")
+      // .text("Year")
+      .text(xAxis)
       .style("font-size", "13px") // 增加字号
 
     const y = d3
@@ -109,7 +110,8 @@ const Difference: React.FC<DifferenceProps> = ({
       .attr("x", -height / 2)
       .attr("fill", "black")
       .attr("text-anchor", "middle")
-      .text("Profit")
+      // .text("Profit")
+      .text(yAxis)
       .style("font-size", "12px") // 增加字号
 
     svg

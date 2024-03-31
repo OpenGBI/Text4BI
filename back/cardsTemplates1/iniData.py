@@ -665,7 +665,9 @@ iniData = [
               "detail": AnomalyData["data"],
             },
           },
-          { "type": "text", "value": ".  Here are three of them: " },
+          { "type": "text", "value": ".  Here are " },
+          { "type": "text", "value": "3" },
+          { "type": "text", "value": " of them: " },
           # { "type": "text", "value": " 2 seasons are identified, and the average period is " },
           # {
           #   "type": "entity",

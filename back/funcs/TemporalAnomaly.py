@@ -56,6 +56,7 @@ def changeTemporalAnomaly(timeSegmentationCondition):
                 phrase["metadata"]["origin"]=timeSeg
                 phrase["value"]=str(timeSeg)+" "
                 break
+        topics[0]['phrases'][-3]["value"]=str(min(len(abnormal_data),3))
     topics = [paragraph for paragraph in target['paragraph'] if paragraph['type'] == 'bullet']
     for i in range(0,len(topics)):
         if(i>=len(abnormal_data)):

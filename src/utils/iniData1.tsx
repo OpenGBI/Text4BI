@@ -711,14 +711,16 @@ export const iniData: Card[] = [
               detail: AnomalyData.data,
             },
           },
-          { type: "text", value: ".  Here are three of them: " },
+          { type: "text", value: ".  Here are " },
+          { type: "text", value: "3" },
+          { type: "text", value: " of them: " },
           // {
           //   type: "entity",
           //   value: "365 ",
           //   metadata: { entityType: "metric_value", origin: 365 },
           // },
           // { type: "text", value: "days. " },
-          // { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
+          { type: "IconPadding", value: "", metadata: { entityType: "sentenceEnd" } },
         ],
       },
 
@@ -726,7 +728,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-14, " },
+          { type: "text", value: " 2011-11-11 " },
           {
             type: "entity",
             value: "Sales",
@@ -756,7 +758,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-27, " },
+          { type: "text", value: " 2011-10-06 " },
           {
             type: "entity",
             value: "Sales",
@@ -786,7 +788,7 @@ export const iniData: Card[] = [
         type: "bullet",
         phrases: [
           { type: "IconPadding", value: "", metadata: { entityType: "sentenceStart" } },
-          { type: "text", value: " 2011-10-06, " },
+          { type: "text", value: " 2011-11-03 " },
           {
             type: "entity",
             value: "Sales",

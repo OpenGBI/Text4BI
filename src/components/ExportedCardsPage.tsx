@@ -130,9 +130,10 @@ const ExportedCardsAsPage: React.FC = () => {
     console.log("Key is null or not provided")
   }
   // console.log("Selected Card IDs:", selectedCardIDs)
-
+  console.log("isMountedisMountedisMounted", generatedKey)
   useEffect(() => {
     let isMounted = true // 添加一个标志，检查组件是否挂载
+    console.log("isMountedisMountedisMounted", "isMountedisMountedisMounted")
     fetch("http://localhost:5000/getChangedSettings", {
       method: "GET", // 指定请求方法为GET
       headers: {
@@ -162,10 +163,16 @@ const ExportedCardsAsPage: React.FC = () => {
                 break
               case "typographySettingState":
                 Object.entries(settings as TypographySettingState).forEach(([key, value]) => {
+                  console.log("typographySettingState", {
+                    ...typographySetting,
+                    [key]: value,
+                    color: "6CFF4B",
+                  })
                   dispatch(
                     ChangeTypographySetting({
                       ...typographySetting,
                       [key]: value,
+                      color: "6CFF4B",
                     }),
                   )
                 })

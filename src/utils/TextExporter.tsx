@@ -90,6 +90,7 @@ async function svgToPngUrl(
   }
 
   const pngUrl = canvas?.toDataURL()
+  // const imageHtml = `<img src="${pngUrl}" width="${20}" height="${20}"/>`
   return pngUrl
 }
 async function svgToImageHtml(

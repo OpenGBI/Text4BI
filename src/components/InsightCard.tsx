@@ -240,7 +240,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   const { boldness, underline, italics, contour, color, backgroundColor } = useSelector(
     (state: AppState) => state.typographySetting,
   )
-  // console.log("检查222", boldness)
+  console.log("检查222", color)
   const { sparkLinePosition, aspectRatio } = useSelector(
     (state: AppState) => state.wordScaleGraphicsSetting,
   )
